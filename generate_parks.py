@@ -98,9 +98,9 @@ if __name__ == '__main__':
     conn = psycopg2.connect("dbname='bostongreenmap' user='django' host='localhost' password='django'")
     cursor = conn.cursor()
 
-    # generate_park(cursor)
-    # generate_amenity(cursor)
-    # generate_facility(cursor)
+    generate_park(cursor)
+    generate_amenity(cursor)
+    generate_facility(cursor)
 
     unshit_parks_topo(cursor)
 
