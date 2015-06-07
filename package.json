@@ -1,5 +1,43 @@
 {
+  "name": "react-seed",
+  "version": "0.0.1",
+  "description": "A starter project for React",
+  "main": "index.js",
+  "homepage": "https://github.com/fizerkhan/react-seed",
+  "author": "Fizer Khan",
+  "license": "MIT",
   "devDependencies": {
-    "topojson": "^1.6.19"
+    "autoprefixer-core": "^5.1.7",
+    "browserify": "^9.0.3",
+    "envify": "~1.2.1",
+    "gulp": "~3.8.1",
+    "gulp-clean": "~0.3.0",
+    "gulp-concat": "~2.1.7",
+    "gulp-connect": "~2.0.5",
+    "gulp-gh-pages": "^0.5.0",
+    "gulp-imagemin": "~0.1.4",
+    "gulp-postcss": "^4.0.3",
+    "gulp-print": "^1.1.0",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "^1.5.0",
+    "gulp-util": "^3.0.4",
+    "gulp-wait": "0.0.2",
+    "gulp-watch": "~0.6.5",
+    "keymirror": "^0.1.1",
+    "object-assign": "^2.0.0",
+    "reactify": "^1.0.0",
+    "stringify": "^3.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.4.0"
+  },
+  "dependencies": {
+    "flux": "^2.0.1",
+    "leaflet": "^0.7.3",
+    "moment": "^2.9.0",
+    "protobufjs": "^3.8.2",
+    "react": "~0.13.0",
+    "react-leaflet": "^0.6.1",
+    "superagent": "^0.21.0"
   }
 }
