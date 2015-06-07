@@ -6,7 +6,7 @@ import psycopg2
 def less_shitty_geometry(cursor, geometry, crs):
     geometry['crs'] = crs
     cursor.execute('SELECT ST_AsGeoJSON(ST_Transform(ST_GeomFromGeoJson(%s), 4326));', (json.dumps(geometry), ))
-    return cursor.fetchone()[0]
+    return json.loads(cursor.fetchone()[0])
 
 
 def main(cursor):
