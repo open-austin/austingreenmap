@@ -1,4 +1,5 @@
 import json
+from collections import defaultdict
 
 import psycopg2
 
@@ -9,7 +10,7 @@ def less_shitty_geometry(cursor, geometry, crs):
     return json.loads(cursor.fetchone()[0])
 
 
-def main(cursor):
+def generate_park(cursor):
     with open('./raw/city_of_austin_parks.json', 'r') as fh:
         data = fh.read()
     data = json.loads(data)
@@ -26,11 +27,38 @@ def main(cursor):
             fh.write(json.dumps(feature))
 
 
+def generate_amenity(cursor):
+    with open('./raw/pard_amenity_points.json', 'r') as fh:
+        data = fh.read()
+    data = json.loads(data)
+
+    crs = data['crs']
+    amenity_by_park = defaultdict(list)
+
+    for feature in data['features']:
+        geometry = less_shitty_geometry(cursor, feature['geometry'], crs)
+        feature['geometry'] = geometry
+        park_id = feature['properties']['PARK_ID']
+
+        amenity_by_park[park_id].append(feature)
+
+    for park_id, features in amenity_by_park.items():
+        feature_collection = {
+            'type': 'FeatureCollection',
+            'features': features
+        }
+        with open('data/amenity/park_{}.geojson'.format(park_id), 'w+') as fh:
+            fh.write(json.dumps(feature_collection))
+
+
 if __name__ == '__main__':
+    # FIXME: really we only use this so we can transform the SRID/CRS from 2277 to 4326
+    # Should get rid of the postgis dependency, I'm sure there is good standalone stuff
     conn = psycopg2.connect("dbname='bostongreenmap' user='django' host='localhost' password='django'")
     cursor = conn.cursor()
 
-    main(cursor)
+    # generate_park(cursor)
+    generate_amenity(cursor)
 
     cursor.close()
     conn.close()
