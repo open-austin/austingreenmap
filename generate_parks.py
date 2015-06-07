@@ -75,6 +75,23 @@ def generate_facility(cursor):
             fh.write(json.dumps(feature_collection))
 
 
+def unshit_parks_topo(cursor):
+    with open('./raw/city_of_austin_parks.json', 'r') as fh:
+        data = fh.read()
+    data = json.loads(data)
+
+    crs = data['crs']
+
+    for feature in data['features']:
+        geometry = less_shitty_geometry(cursor, feature['geometry'], crs)
+
+        park_id = feature['properties']['PARK_ID']
+        feature['geometry'] = geometry
+
+    with open('data/city_of_austin_parks.geojson'.format(park_id), 'w+') as fh:
+        fh.write(json.dumps(data))
+
+
 if __name__ == '__main__':
     # FIXME: really we only use this so we can transform the SRID/CRS from 2277 to 4326
     # Should get rid of the postgis dependency, I'm sure there is good standalone stuff
@@ -83,7 +100,9 @@ if __name__ == '__main__':
 
     # generate_park(cursor)
     # generate_amenity(cursor)
-    generate_facility(cursor)
+    # generate_facility(cursor)
+
+    unshit_parks_topo(cursor)
 
     cursor.close()
     conn.close()
