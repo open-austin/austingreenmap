@@ -6,6 +6,7 @@ var watch = require('gulp-watch');
 var gprint = require('gulp-print');
 var clean = require('gulp-clean');
 var gprint = require('gulp-print');
+var symlink = require('gulp-symlink');
 
 var connect = require('gulp-connect');
 var wait = require('gulp-wait');
@@ -92,6 +93,11 @@ gulp.task('copy-html', function(){
         .pipe(gprint());
 });
 
+gulp.task('copy-data', function() {
+    return gulp.src('data')
+      .pipe(symlink('build/data'));
+});
+
 gulp.task('watch', function() {
     gulp.watch('client/scss/**/*.scss', [ 'styles' ]);
     gulp.watch('client/*.html', [ 'copy-html' ]);
@@ -106,6 +112,6 @@ gulp.task('webserver', function() {
     });
 });
 
-gulp.task('build', ['clean', 'styles', 'browserify', 'copy-html']);
+gulp.task('build', ['clean', 'styles', 'browserify', 'copy-html', 'copy-data']);
 gulp.task('default', ['build', 'webserver', 'watch']);
 gulp.task('frontend', ['clean', 'copy-html', 'styles', 'webserver', 'watch']);

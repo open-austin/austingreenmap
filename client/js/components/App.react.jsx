@@ -1,32 +1,39 @@
+import $ from 'jquery';
 import React from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
-class App extends React.Component {
+
+function getParksJson() {
+    return $.getJSON("/data/parks.json");
+}
+
+function getFeatureGeoJson(parkID, featureType) {
+    return $.getJSON(`/data/${featureType}/park_${parkID}.geojson`);
+}
+
+export default class App extends React.Component {
+
     constructor(props) {
         super(props);
-
-        this.state = {};
+        this.state = {park: null,
+                      parkList: []};
+        getParksJson().then((data) => this.setState({parkList: data}));
     }
 
     render() {
-        var map = (
-            <div id='map-wrapper'>
-                <Map id='map' center={[30.267153, -97.743061]} zoom={13}>
-                    <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
-                    <Marker position={[30.267153, -97.743061]}>
-                        <Popup>
-                            <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
-                        </Popup>
-                    </Marker>
-                </Map>
-            </div>
-        );
-
-        return <div>{map}</div>;
+        var parkList = this.state.parkList.map((park) => {
+            return <li>{park.name}</li>;
+        });
+        return <ul>{parkList}</ul>;
     }
+    // getFeature(pID, "park")
+        // .then((data) => this.setState({park: data}) );
+    // getFeature(pID, "amenity")
+        // .then((data) => this.setState({amenity: data}) );
+    // getFeature(pID, "facility")
+        // .then((data) => this.setState({facility: data}) );
+    // getFeature(pID, "trail")
+        // .then((data) => this.setState({trail: data}) );
 }
 
-module.exports = App;
+// [{"address": "7515 Step Down Cv., Austin, Texas 78731", "name": "Barrow Nature Preserve", "center": [-97.7688127885669, 30.3715875145322], "park_id": 112, "acres": 7.03700011},
