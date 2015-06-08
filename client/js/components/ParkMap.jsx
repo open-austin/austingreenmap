@@ -6,25 +6,17 @@ class Park extends React.Component {
     }
 
     render () {
-        return <div>hi</div>;
+        var map = (
+            <div id='map-wrapper'>
+                <Map id='map' center={[30.267153, -97.743061]} zoom={13}>
+                    <TileLayer
+                        url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                        attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                        id='drmaples.ipbindf8' />
+                </Map>
+            </div>
+        );
+
+        return <div>{map}</div>;
     }
 }
-
-
-
-function getParks() {
-    return $.getJSON("/data/city_of_austin_parks.geojson");
-}
-
-function getFeature(parkID, featureType) {
-    return $.getJSON(`/data/${featureType}/park_${parkID}.geojson`);
-}
-
-    // getFeature(pID, "park")
-        // .then((data) => this.setState({park: data}) );
-    // getFeature(pID, "amenity")
-        // .then((data) => this.setState({amenity: data}) );
-    // getFeature(pID, "facility")
-        // .then((data) => this.setState({facility: data}) );
-    // getFeature(pID, "trail")
-        // .then((data) => this.setState({trail: data}) );
