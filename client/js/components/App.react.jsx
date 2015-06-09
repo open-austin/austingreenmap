@@ -51,17 +51,20 @@ export default class App extends React.Component {
     }
 
     render() {
-        var s = this.state;
-        //FIXME: Ain't got no CSS
-        return (
-            <div>
-            <ParkMap parkID={s.parkID} park={s.park}
-                     facility={s.facility} amenity={s.amenity}
-                     trail={s.trail} center={s.center} />;
-                <ParkList parks={s.parkList}
-                          onSelectPark={this.selectPark.bind(this)} />
-            </div>
-        )
+        var content;
+        if (this.state.park) {
+            content = (
+                <ParkMap parkID={this.state.parkID} park={this.state.park}
+                    facility={this.state.facility} amenity={this.state.amenity}
+                    trail={this.state.trail} center={this.state.center} />
+            );
+        } else {
+            content = (
+                <ParkList parks={this.state.parkList}
+                    onSelectPark={this.selectPark.bind(this)} />
+            );
+        }
+        return <div>{content}</div>;
     }
 }
 
