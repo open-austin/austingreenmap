@@ -9,7 +9,6 @@ export default class ParkMap extends React.Component {
 
     render () {
         var center = this.props.center;
-        var p = this.props
         var makeElem = (p) => {
             return this.props[p] ? <GeoJson data={this.props[p]} /> : null;
         };
