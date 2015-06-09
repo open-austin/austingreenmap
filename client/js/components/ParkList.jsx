@@ -7,20 +7,15 @@ export default class ParkList extends React.Component {
         super(props);
     }
 
-    // FIXME: How do we figure out which was clicked? Searching by name is
-    // horrible
-    handle(ev) {
-        console.log(this.props.parks);
-        var names = this.props.parks.map((x) => x.name);
-        var idx = names.indexOf(ev.target.innerHTML);
-        this.props.onSelectPark(this.props.parks[idx].park_id);
+    selectPark(park_id) {
+        this.props.onSelectPark(park_id);
     }
 
     render() {
         var parkList = this.props.parks.map((park) => {
-            var pID = park.park_id;
+            var park_id = park.park_id;
             return (
-                <li onClick={this.handle.bind(this)} key={pID}>
+                <li onClick={() => this.selectPark(park_id)} key={park_id}>
                     {park.name}
                 </li>
             );
