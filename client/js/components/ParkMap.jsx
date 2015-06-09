@@ -10,10 +10,9 @@ export default class ParkMap extends React.Component {
     render () {
         var center = this.props.center;
         var p = this.props
-        var park = p.park ? <GeoJson data={p.park} /> : null;
-        var amenity = p.amenity ? <GeoJson data={p.amenity} /> : null;
-        var facility = p.facility ? <GeoJson data={p.facility} /> : null;
-        var trail = p.trail ? <GeoJson data={p.trail} /> : null;
+        var makeElem = (p) => {
+            return this.props[p] ? <GeoJson data={this.props[p]} /> : null;
+        };
         // FIXME: Seems like this doesn't render markers / shapes sometimes
         var map = (
             <div id='map-wrapper'>
@@ -22,10 +21,10 @@ export default class ParkMap extends React.Component {
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    {park}
-                    {amenity}
-                    {facility}
-                    {trail}
+                    {makeElem("park")}
+                    {makeElem("amenity")}
+                    {makeElem("facility")}
+                    {makeElem("trail")}
                 </Map>
             </div>
         );
