@@ -7,15 +7,15 @@ export default class ParkList extends React.Component {
         super(props);
     }
 
-    selectPark(park_id) {
-        this.props.onSelectPark(park_id);
+    selectPark(parkID) {
+        this.props.onSelectPark(parkID);
     }
 
     render() {
         var parkList = this.props.parks.map((park) => {
-            var park_id = park.park_id;
+            var parkID = park.parkID;
             return (
-                <li onClick={() => this.selectPark(park_id)} key={park_id}>
+                <li onClick={() => this.selectPark(parkID)} key={parkID}>
                     {park.name}
                 </li>
             );
