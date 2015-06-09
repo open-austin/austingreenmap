@@ -113,6 +113,7 @@ def generate_parks_list(cursor):
         geometry['crs'] = crs
         cursor.execute('SELECT ST_AsGeoJSON(ST_Centroid(ST_Transform(ST_GeomFromGeoJson(%s), 4326)));', (json.dumps(geometry), ))
         center = json.loads(cursor.fetchone()[0])['coordinates']
+        center = [center[1], center[0]]
 
         properties = feature['properties']
         park = {
