@@ -1,47 +1,34 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
-var imagemin = require('gulp-imagemin');
-var sass = require('gulp-sass');
-var watch = require('gulp-watch');
-var gprint = require('gulp-print');
-var clean = require('gulp-clean');
-var gprint = require('gulp-print');
-var symlink = require('gulp-symlink');
-
 var connect = require('gulp-connect');
-var wait = require('gulp-wait');
 
+var gprint = require('gulp-print');
 var gutil = require('gulp-util');
-var sourcemaps = require('gulp-sourcemaps');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var watchify = require('watchify');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var stringify = require('stringify');
-var babelify = require('babelify');
 
-
-var ROOT = __dirname + '/build';
-
-var reactifyES6 = function(file) {
-  return babelify(file, {
-    optional: [
-      'es7.objectRestSpread',
-      'es7.classProperties'
-    ]
-  });
-};
-
-// https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md
-// http://christianalfoni.github.io/javascript/2014/08/15/react-js-workflow.html
 gulp.task('browserify', function() {
+    // https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md
+    // http://christianalfoni.github.io/javascript/2014/08/15/react-js-workflow.html
+
+    var watchify = require('watchify');
+    var browserify = require('browserify');
+    var babelify = require('babelify');
+    var stringify = require('stringify');
+    var source = require('vinyl-source-stream');
+
+    var transformES6 = function(file) {
+      return babelify(file, {
+        optional: [
+          'es7.objectRestSpread',
+          'es7.classProperties'
+        ]
+      });
+    };
+
     var watcher = watchify(browserify({
         entries: ['./client/js/main.js'],
         debug: true,
         extension: ['.jsx'],
         transform: [
-            reactifyES6,
+            transformES6,
             stringify({
                 extensions: ['.svg'],
                 minify: true,
@@ -54,26 +41,39 @@ gulp.task('browserify', function() {
 
     watcher.on('log', gutil.log);
 
-    return watcher.on('update', function() {
-            var updateStart = Date.now();
-            watcher.bundle()
-                .pipe(source('main.js'))
-                .pipe(gulp.dest('./build/js/'))
-                .pipe(gprint())
-                .pipe(connect.reload());
-        })
+    function logBabelError(err) {
+        // format error https://github.com/zertosh/errorify/issues/4
+        var message = [err.message, err.codeFrame].join('\n\n');
+        console.log(message);
+    }
+
+
+    watcher.on('update', function() {
+        watcher.bundle()
+            .on('error', logBabelError)
+            .pipe(source('main.js'))
+            .pipe(gulp.dest('./build/js/'))
+            .pipe(gprint())
+            .pipe(connect.reload());
+    });
+
+    return watcher
         .bundle()
+        .on('error', logBabelError)
         .pipe(source('main.js'))
         .pipe(gulp.dest('./build/js/'))
         .pipe(gprint());
 });
 
 gulp.task('clean', function () {
+    var gclean = require('gulp-clean');
+
     return gulp.src('build/', {read: false})
-        .pipe(clean());
+        .pipe(gclean());
 });
 
 gulp.task('styles', function () {
+    var sass = require('gulp-sass');
     var postcss = require('gulp-postcss');
     var sourcemaps = require('gulp-sourcemaps');
     var autoprefixer = require('autoprefixer-core');
@@ -94,6 +94,8 @@ gulp.task('copy-html', function(){
 });
 
 gulp.task('copy-data', function() {
+    var symlink = require('gulp-symlink');
+
     return gulp.src('data')
       .pipe(symlink('build/data'));
 });

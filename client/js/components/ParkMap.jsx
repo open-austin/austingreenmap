@@ -8,22 +8,22 @@ export default class ParkMap extends React.Component {
     }
 
     render () {
-        var center = this.props.center;
-        var makeElem = (p) => {
-            return this.props[p] ? <GeoJson data={this.props[p]} /> : null;
-        };
-        // FIXME: Seems like this doesn't render markers / shapes sometimes
+        var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} /> : null;
+        var amenityLayer = this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} /> : null;
+        var facilityLayer = this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} /> : null;
+        var trailLayer = this.props.trailGeo ? <GeoJson data={this.props.trailGeo} /> : null;
+
         var map = (
             <div id='map-wrapper'>
-                <Map id='map' center={center} zoom={15}>
+                <Map id='map' center={this.props.center} zoom={15}>
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    {makeElem("park")}
-                    {makeElem("amenity")}
-                    {makeElem("facility")}
-                    {makeElem("trail")}
+                    {parkLayer}
+                    {amenityLayer}
+                    {facilityLayer}
+                    {trailLayer}
                 </Map>
             </div>
         );
@@ -31,3 +31,11 @@ export default class ParkMap extends React.Component {
         return <div>{map}</div>;
     }
 }
+
+ParkMap.propTypes = {
+    center:  React.PropTypes.array.isRequired,
+    parkGeo: React.PropTypes.object,
+    amenityGeo: React.PropTypes.object,
+    facilityGeo: React.PropTypes.object,
+    trailGeo: React.PropTypes.object,
+};
