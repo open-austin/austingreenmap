@@ -7,6 +7,10 @@ export default class ParkMap extends React.Component {
         super(props);
     }
 
+    logMap() {
+        console.log(this.refs.map.leafletElement);
+    }
+
     render () {
         var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} /> : null;
         var amenityLayer = this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} /> : null;
@@ -15,7 +19,10 @@ export default class ParkMap extends React.Component {
 
         var map = (
             <div id='map-wrapper'>
-                <Map id='map' center={this.props.center} zoom={15}>
+                <button type="button" onClick={() => this.logMap()}>
+                    Show map in console
+                </button>
+                <Map id='map' center={this.props.center} zoom={15} ref="map">
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
