@@ -11,9 +11,9 @@ export default function ajax(options) {
     options.json = true;
 
     request(options, function(err, res, body) {
-        if (err) {
-            console.error(err);
-            return deferred.reject(err);
+        if (err || res.statusCode !== 200) {
+            console.error(res.statusCode, err);
+            return deferred.reject(new Error(err));
         }
 
         return deferred.resolve(body);
