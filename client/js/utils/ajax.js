@@ -1,23 +1,16 @@
-import request from 'request';
+import _ajax from 'component-ajax';
 import when from 'when';
 
-
-// FIXME: replace with XMLHTTPRequest
 
 export default function ajax(options) {
     var deferred = when.defer();
 
-    options.baseUrl = location.href;
-    options.json = true;
+    options.json = 'true';
 
-    request(options, function(err, res, body) {
-        if (err || res.statusCode !== 200) {
-            console.error(res.statusCode, err);
-            return deferred.reject(new Error(err));
-        }
+    options.success = (data, status, xhr) => deferred.resolve(data);
+    options.error = (xhr, status, error) => deferred.reject(error);
 
-        return deferred.resolve(body);
-    });
+    _ajax(options);
 
     return deferred.promise;
 }
