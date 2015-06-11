@@ -8,7 +8,7 @@ var _cache = {};
 var api = {
 
     getAllParks() {
-        var url = '/data/parks.json';
+        var url = 'data/parks.json';
 
         if (_cache[url]) {
             return when.resolve(_cache[url]);
@@ -21,7 +21,7 @@ var api = {
     },
 
     getFeatureGeoJson(parkID, featureType) {
-        var url = `/data/${featureType}/park_${parkID}.geojson`;
+        var url = `data/${featureType}/park_${parkID}.geojson`;
 
         if (_cache[url]) {
             return when.resolve(_cache[url]);
