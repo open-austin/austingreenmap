@@ -437,7 +437,7 @@ var _cache = {};
 var api = {
 
     getAllParks: function getAllParks() {
-        var url = '/data/parks.json';
+        var url = 'data/parks.json';
 
         if (_cache[url]) {
             return _when2['default'].resolve(_cache[url]);
@@ -453,7 +453,7 @@ var api = {
     },
 
     getFeatureGeoJson: function getFeatureGeoJson(parkID, featureType) {
-        var url = '/data/' + featureType + '/park_' + parkID + '.geojson';
+        var url = 'data/' + featureType + '/park_' + parkID + '.geojson';
 
         if (_cache[url]) {
             return _when2['default'].resolve(_cache[url]);
