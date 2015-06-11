@@ -1,71 +1,63 @@
-import $ from 'jquery';
 import React from 'react';
-import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
+
+import api from '../utils/api';
 import ParkMap from './ParkMap.jsx';
 import ParkList from './ParkList.jsx';
 
-
-function getParksJson() {
-    return $.getJSON("/data/parks.json");
-}
-
-function getFeatureGeoJson(parkID, featureType) {
-    return $.getJSON(`/data/${featureType}/park_${parkID}.geojson`);
-}
 
 export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {park: null,
-                      parkList: [],
-                      parkByID: {}};
-        getParksJson().then((data) => {
-            var parkByID = {}
-            data.forEach((current, index) => {
-                // NOTE: Coordinates are lng lat here
-                current.center.reverse();
-                parkByID[current.park_id] = current;
-            });
-            this.setState({parkList: data, parkByID: parkByID});
-        });
+        this.state = {
+            allParks: [],
+            park: null,
+            parkGeo: null,
+            amentityGeo: null,
+            facilityGeo: null,
+            trailGeo: null,
+        };
+
+        api.getAllParks()
+            .then((parks) => this.setState({allParks: parks}));
     }
 
-    selectPark(parkID) {
-        return $.when(
-            getFeatureGeoJson(parkID, "park"),
-            getFeatureGeoJson(parkID, "amenity"),
-            getFeatureGeoJson(parkID, "facility"),
-            getFeatureGeoJson(parkID, "trail")).done(
-            (park, amenity, facility, trail) => {
-                this.setState({
-                    parkID: parkID,
-                    park: park,
-                    trail: trail,
-                    facility: facility,
-                    amenity: amenity,
-                    center: this.state.parkByID[parkID].center
-                });
-            }
-        );
+    selectPark(park) {
+        this.setState({park: park});
+
+        api.getFeatureGeoJson(park.park_id, 'park')
+            .tap((data) => this.setState({parkGeo: data}));
+
+        api.getFeatureGeoJson(park.park_id, 'amenity')
+            .tap((data) => this.setState({amenityGeo: data}));
+
+        api.getFeatureGeoJson(park.park_id, 'facility')
+            .tap((data) => this.setState({facilityGeo: data}));
+
+        api.getFeatureGeoJson(park.park_id, 'trail')
+            .tap((data) => this.setState({trailGeo: data}));
     }
 
     render() {
         var content;
+
         if (this.state.park) {
             content = (
-                <ParkMap parkID={this.state.parkID} park={this.state.park}
-                    facility={this.state.facility} amenity={this.state.amenity}
-                    trail={this.state.trail} center={this.state.center} />
+                <ParkMap
+                    center={this.state.park.center}
+                    parkGeo={this.state.parkGeo}
+                    facilityGeo={this.state.facilityGeo}
+                    amenityGeo={this.state.amenityGeo}
+                    trailGeo={this.state.trailGeo} />
             );
-        } else {
+        }
+        else {
             content = (
-                <ParkList parks={this.state.parkList}
-                    onSelectPark={this.selectPark.bind(this)} />
+                <ParkList
+                    parks={this.state.allParks}
+                    onSelectPark={(park) => this.selectPark(park)} />
             );
         }
         return <div>{content}</div>;
     }
 }
-
-// [{"address": "7515 Step Down Cv., Austin, Texas 78731", "name": "Barrow Nature Preserve", "center": [-97.7688127885669, 30.3715875145322], "park_id": 112, "acres": 7.03700011},
