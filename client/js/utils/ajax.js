@@ -2,10 +2,12 @@ import request from 'request';
 import when from 'when';
 
 
+// FIXME: replace with XMLHTTPRequest
+
 export default function ajax(options) {
     var deferred = when.defer();
 
-    options.baseUrl = location.origin || location.protocol + "//" + location.host;
+    options.baseUrl = location.href;
     options.json = true;
 
     request(options, function(err, res, body) {

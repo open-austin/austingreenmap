@@ -4,24 +4,31 @@ var connect = require('gulp-connect');
 var gprint = require('gulp-print');
 var gutil = require('gulp-util');
 
-gulp.task('browserify', function() {
+function logBabelError(err) {
+    // format error https://github.com/zertosh/errorify/issues/4
+    var message = [err.message, err.codeFrame].join('\n\n');
+    console.log(message);
+}
+
+function transformES6(file) {
+    var babelify = require('babelify');
+
+    return babelify(file, {
+        optional: [
+            'es7.objectRestSpread',
+            'es7.classProperties'
+        ]
+    });
+}
+
+gulp.task('watch-js', function() {
     // https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md
     // http://christianalfoni.github.io/javascript/2014/08/15/react-js-workflow.html
 
     var watchify = require('watchify');
     var browserify = require('browserify');
-    var babelify = require('babelify');
     var stringify = require('stringify');
     var source = require('vinyl-source-stream');
-
-    var transformES6 = function(file) {
-      return babelify(file, {
-        optional: [
-          'es7.objectRestSpread',
-          'es7.classProperties'
-        ]
-      });
-    };
 
     var watcher = watchify(browserify({
         entries: ['./client/js/main.js'],
@@ -41,13 +48,6 @@ gulp.task('browserify', function() {
 
     watcher.on('log', gutil.log);
 
-    function logBabelError(err) {
-        // format error https://github.com/zertosh/errorify/issues/4
-        var message = [err.message, err.codeFrame].join('\n\n');
-        console.log(message);
-    }
-
-
     watcher.on('update', function() {
         watcher.bundle()
             .on('error', logBabelError)
@@ -58,6 +58,33 @@ gulp.task('browserify', function() {
     });
 
     return watcher
+        .bundle()
+        .on('error', logBabelError)
+        .pipe(source('main.js'))
+        .pipe(gulp.dest('./build/js/'))
+        .pipe(gprint());
+});
+
+gulp.task('build-js', function() {
+    var browserify = require('browserify');
+    var stringify = require('stringify');
+    var source = require('vinyl-source-stream');
+
+    return browserify({
+            entries: ['./client/js/main.js'],
+            debug: false,
+            extension: ['.jsx'],
+            transform: [
+                transformES6,
+                stringify({
+                    extensions: ['.svg'],
+                    minify: true,
+                }
+            )],
+            cache: {},
+            packageCache: {},
+            fullPaths: true,
+        })
         .bundle()
         .on('error', logBabelError)
         .pipe(source('main.js'))
@@ -114,6 +141,17 @@ gulp.task('webserver', function() {
     });
 });
 
-gulp.task('build', ['clean', 'styles', 'browserify', 'copy-html', 'copy-data']);
-gulp.task('default', ['build', 'webserver', 'watch']);
+gulp.task('deploy-gh-pages', function() {
+    var ghPages = require('gulp-gh-pages');
+
+    return gulp.src('./build/**/**/*.*')
+        .pipe(
+            ghPages({
+                message: 'Deploy to gh-pages :deciduous_tree: ' + new Date(),
+            })
+        );
+    });
+
+gulp.task('build', ['styles', 'build-js', 'copy-html', 'copy-data']);
+gulp.task('default', ['clean', 'styles', 'copy-html', 'copy-data', 'webserver', 'watch', 'watch-js']);
 gulp.task('frontend', ['clean', 'copy-html', 'styles', 'webserver', 'watch']);
