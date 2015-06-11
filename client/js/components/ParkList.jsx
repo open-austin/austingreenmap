@@ -23,12 +23,12 @@ export default class ParkList extends React.Component {
             <div>
                 <div className='row'>
                     <select>
-                        <option disabled selected>Neighborhood</option>
+                        <option defaultValue>Neighborhood</option>
                         <option>Downtown</option>
                         <option>Hyde Park</option>
                     </select>
                     <select>
-                        <option disabled selected>Activity</option>
+                        <option defaultValue>Activity</option>
                         <option>BBQ Pit</option>
                         <option>Restroom</option>
                     </select>

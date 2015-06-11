@@ -20,10 +20,30 @@ function onEachAmenity(feature, layer) {
     }
 }
 
+function boundsForFeature(geoJson) {
+    var extent = turf.extent(geoJson);
+    return [
+        [extent[1], extent[0]],
+        [extent[3], extent[2]],
+    ];
+}
+
 
 export default class ParkMap extends React.Component {
-    constructor(props) {
-        super(props);
+
+    fitBounds() {
+        if (this.props.parkGeo) {
+            var bounds = boundsForFeature(this.props.parkGeo);
+            this.refs.map.getLeafletElement().fitBounds(bounds);
+        }
+    }
+
+    componentDidMount() {
+        this.fitBounds();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        this.fitBounds();
     }
 
     render () {
@@ -32,16 +52,6 @@ export default class ParkMap extends React.Component {
         var facilityLayer = this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} /> : null;
         var trailLayer = this.props.trailGeo ? <GeoJson data={this.props.trailGeo} /> : null;
 
-        window.g = this.props.parkGeo;
-
-        var bounds;
-        if (this.props.parkGeo) {
-            var extent = turf.extent(this.props.parkGeo);
-            bounds = [
-                [extent[0], extent[1]],
-                [extent[2], extent[3]],
-            ];
-        }
         return (
             <div>
                 <div className='row'>
@@ -49,9 +59,9 @@ export default class ParkMap extends React.Component {
                 </div>
                 <Map
                     id='map'
+                    ref='map'
                     center={this.props.center}
-                    zoom={15}
-                    maxBounds={bounds} >
+                    zoom={15} >
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
