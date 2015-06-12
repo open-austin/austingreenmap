@@ -44,6 +44,7 @@ export default class App extends React.Component {
         if (this.state.park) {
             content = (
                 <ParkMap
+                    name={this.state.park.name}
                     center={this.state.park.center}
                     parkGeo={this.state.parkGeo}
                     facilityGeo={this.state.facilityGeo}
@@ -58,6 +59,6 @@ export default class App extends React.Component {
                     onSelectPark={(park) => this.selectPark(park)} />
             );
         }
-        return <div>{content}</div>;
+        return <div className='container'>{content}</div>;
     }
 }
