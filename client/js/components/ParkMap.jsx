@@ -6,18 +6,14 @@ window.turf = turf;
 
 
 function onEachFacility(feature, layer) {
-    if (feature.properties && feature.properties) {
-        layer.bindPopup(feature.properties.FACILITY_NAME);
-    }
+    layer.bindPopup(feature.properties.FACILITY_NAME);
 }
 
 function onEachAmenity(feature, layer) {
-    if (feature.properties && feature.properties) {
-        layer.bindPopup(`
-            ${feature.properties.AMENITY_NAME} <br />
-            <i>${feature.properties.DESCRIPTION}</i>
-        `);
-    }
+    layer.bindPopup(`
+        ${feature.properties.AMENITY_NAME} <br />
+        <i>${feature.properties.DESCRIPTION}</i>
+    `);
 }
 
 function boundsForFeature(geoJson) {
@@ -57,11 +53,7 @@ export default class ParkMap extends React.Component {
                 <div className='row'>
                     <h3>{this.props.name}</h3>
                 </div>
-                <Map
-                    id='map'
-                    ref='map'
-                    center={this.props.center}
-                    zoom={15} >
+                <Map id='map' ref='map' center={this.props.center} zoom={15}>
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
