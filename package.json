@@ -1,5 +1,43 @@
 {
+  "name": "austingreenmap",
+  "version": "0.0.1",
+  "description": "Mapping Austin parks",
+  "main": "index.js",
+  "homepage": "https://github.com/openaustin/",
+  "author": "Open Austin",
+  "license": "MIT",
   "devDependencies": {
-    "topojson": "^1.6.19"
+    "autoprefixer-core": "^5.1.7",
+    "babelify": "^6.1.2",
+    "browserify": "^9.0.3",
+    "envify": "~1.2.1",
+    "gulp": "~3.9.0",
+    "gulp-clean": "~0.3.0",
+    "gulp-concat": "~2.1.7",
+    "gulp-connect": "~2.0.5",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp-postcss": "^4.0.3",
+    "gulp-print": "^1.1.0",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "^1.5.0",
+    "gulp-symlink": "^2.1.0",
+    "gulp-util": "^3.0.4",
+    "gulp-wait": "0.0.2",
+    "gulp-watch": "~0.6.5",
+    "reactify": "^1.0.0",
+    "stringify": "^3.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.4.0"
+  },
+  "dependencies": {
+    "component-ajax": "0.0.2",
+    "flux": "^2.0.1",
+    "leaflet": "^0.7.3",
+    "moment": "^2.9.0",
+    "protobufjs": "^3.8.2",
+    "react": "~0.13.0",
+    "react-leaflet": "^0.6.1",
+    "turf": "^2.0.2",
+    "when": "^3.7.3"
   }
 }

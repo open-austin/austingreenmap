@@ -2,3 +2,5 @@
 .env
 *.pyc
 node_modules
+build
+.publish
