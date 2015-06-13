@@ -185,6 +185,7 @@ if __name__ == '__main__':
     cursor = conn.cursor()
 
     # FIXME: Convert PARK_ID to number
+    # FIXME: Convert "<Null>" to None
 
     generate_park(cursor)
     generate_amenity(cursor)

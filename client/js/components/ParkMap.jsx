@@ -54,7 +54,7 @@ export default class ParkMap extends React.Component {
                     <h3>{this.props.name}</h3>
                 </div>
                 <div className='row'>
-                    <Map id='map' ref='map' center={this.props.center} zoom={15}>
+                    <Map id='map' ref='map' center={this.props.center} minZoom={10}>
                         <TileLayer
                             url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                             attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'

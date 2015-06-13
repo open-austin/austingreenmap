@@ -1,45 +1,43 @@
+import _ from 'lodash';
 import React from 'react';
+
+import ParkFeatureListItem from './ParkFeatureListItem.jsx';
 
 
 export default class ParkFeatureList extends React.Component {
-
-    render () {
-
+    render() {
         var amenityList = 'No amenities';
 
-        if (this.props.amentityGeo) {
-            amenityList = this.props.amentityGeo.features.map((feature) => {
-                var addressURL = `http://maps.google.com/?q=${feature.properties.ADDRESS}`;
-                return (
-                    <div className='row' key={feature.properties.AMENITY_ID}>
-                        <div className='name six columns'>
-                            {feature.properties.AMENITY_NAME}
-                        </div>
-                        <div className='address six columns'>
-                            <a href={addressURL} target="_blank">{feature.properties.ADDRESS}</a>
-                        </div>
-                        <i>{feature.properties.DESCRIPTION}</i>
-                    </div>
-                );
+        if (this.props.amenityGeo) {
+            var sortedAmenity = _.sortBy(this.props.amenityGeo.features, 'properties.AMENITY_TYPE');
+
+            amenityList = sortedAmenity.map((feature) => {
+                return <ParkFeatureListItem
+                    id={feature.id}
+                    name={feature.properties.AMENITY_NAME}
+                    type={feature.properties.AMENITY_TYPE}
+                    description={feature.properties.DESCRIPTION}
+                    indoorOutdoor={feature.properties.INDOOR_OUTDOOR}
+                    status={feature.properties.STATUS}
+                    reservations={feature.properties.RESERVATIONS}
+                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS} />;
             });
         }
 
         var facilityList = 'No facilities';
-
         if (this.props.facilityGeo) {
-            amenityList = this.props.facilityGeo.features.map((feature) => {
-                var addressURL = `http://maps.google.com/?q=${feature.properties.ADDRESS}`;
-                return (
-                    <div className='row' key={feature.properties.FACILITY_ID}>
-                        <div className='name six columns'>
-                            {feature.properties.FACILITY_NAME}
-                        </div>
-                        <div className='address six columns'>
-                            <a href={addressURL} target="_blank">{feature.properties.ADDRESS}</a>
-                        </div>
-                        <i>{feature.properties.DESCRIPTION}</i>
-                    </div>
-                );
+            var sortedFacility = _.sortBy(this.props.facilityGeo.features, 'properties.FACILITY_TYPE');
+
+            facilityList = sortedFacility.map((feature) => {
+                return <ParkFeatureListItem
+                    id={feature.id}
+                    name={feature.properties.FACILITY_NAME}
+                    type={feature.properties.FACILITY_TYPE}
+                    description={feature.properties.DESCRIPTION}
+                    indoorOutdoor={feature.properties.INDOOR_OUTDOOR}
+                    status={feature.properties.STATUS}
+                    reservations={feature.properties.RESERVATIONS}
+                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS} />;
             });
         }
 

@@ -13,7 +13,7 @@ export default class App extends React.Component {
             allParks: [],
             park: null,
             parkGeo: null,
-            amentityGeo: null,
+            amenityGeo: null,
             facilityGeo: null,
             trailGeo: null,
         };
