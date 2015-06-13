@@ -2,7 +2,7 @@ import React from 'react';
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import turf from 'turf';
 
-window.turf = turf;
+import ParkFeatureList from './ParkFeatureList.jsx';
 
 
 function onEachFacility(feature, layer) {
@@ -53,16 +53,19 @@ export default class ParkMap extends React.Component {
                 <div className='row'>
                     <h3>{this.props.name}</h3>
                 </div>
-                <Map id='map' ref='map' center={this.props.center} zoom={15}>
-                    <TileLayer
-                        url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                        attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                        id='drmaples.ipbindf8' />
-                    {parkLayer}
-                    {amenityLayer}
-                    {facilityLayer}
-                    {trailLayer}
-                </Map>
+                <div className='row'>
+                    <Map id='map' ref='map' center={this.props.center} zoom={15}>
+                        <TileLayer
+                            url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                            attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                            id='drmaples.ipbindf8' />
+                        {parkLayer}
+                        {amenityLayer}
+                        {facilityLayer}
+                        {trailLayer}
+                    </Map>
+                </div>
+                <ParkFeatureList amenityGeo={this.props.amenityGeo} facilityGeo={this.props.facilityGeo} />
             </div>
         );
     }

@@ -16,7 +16,7 @@ var api = {
 
         return ajax({url: url})
             .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(err));
+            .catch((err) => console.error(url, err));
     },
 
     getFeatureGeoJson(parkID, featureType) {
@@ -28,7 +28,7 @@ var api = {
 
         return ajax({url: url, dataType: 'json'})
             .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(err));
+            .catch((err) => console.error(url, err));
     },
 
     getLookup(lookupType) {
@@ -40,8 +40,9 @@ var api = {
 
         return ajax({url: url, dataType: 'json'})
             .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(err));
-    }
+            .catch((err) => console.error(url, err));
+    },
+
 };
 
 export default api;

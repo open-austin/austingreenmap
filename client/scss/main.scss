@@ -2,6 +2,22 @@
 @import "skeleton";
 @import "leaflet";
 
+body {
+    padding: 50px 0;
+}
+
 #map {
     height: 500px;
+    margin-bottom: 30px;
+}
+
+.container {
+}
+
+.address {
+    text-align: right;
+}
+
+.name {
+    font-weight: 600;
 }
