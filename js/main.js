@@ -150,11 +150,32 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utilsApi = require('../utils/api');
+
+var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
 var ParkList = (function (_React$Component) {
     function ParkList(props) {
+        var _this = this;
+
         _classCallCheck(this, ParkList);
 
         _get(Object.getPrototypeOf(ParkList.prototype), 'constructor', this).call(this, props);
+
+        this.state = {
+            amenity: null,
+            facility: null,
+            amenityLookup: {},
+            facilityLookup: {}
+        };
+
+        _utilsApi2['default'].getLookup('amenity').then(function (data) {
+            return _this.setState({ amenityLookup: data });
+        });
+
+        _utilsApi2['default'].getLookup('facility').then(function (data) {
+            return _this.setState({ facilityLookup: data });
+        });
     }
 
     _inherits(ParkList, _React$Component);
@@ -167,13 +188,22 @@ var ParkList = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this = this;
+            var _this2 = this;
 
             var parkList = this.props.parks.map(function (park) {
+                // FIXME: Convert park ids to numbers when we generate the data
+                if (!!_this2.state.amenity && _this2.state.amenityLookup[_this2.state.amenity].map(Number).indexOf(park.park_id) === -1) {
+                    return;
+                }
+
+                if (!!_this2.state.facility && _this2.state.facilityLookup[_this2.state.facility].map(Number).indexOf(park.park_id) === -1) {
+                    return;
+                }
+
                 return _react2['default'].createElement(
                     'div',
                     { className: 'row', onClick: function () {
-                            return _this.selectPark(park);
+                            return _this2.selectPark(park);
                         }, key: park.park_id },
                     _react2['default'].createElement(
                         'div',
@@ -187,6 +217,22 @@ var ParkList = (function (_React$Component) {
                     )
                 );
             });
+
+            var amenityOptions = Object.keys(this.state.amenityLookup).sort().map(function (k) {
+                return _react2['default'].createElement(
+                    'option',
+                    { key: k },
+                    k
+                );
+            });
+            var facilityOptions = Object.keys(this.state.facilityLookup).sort().map(function (k) {
+                return _react2['default'].createElement(
+                    'option',
+                    { key: k },
+                    k
+                );
+            });
+
             return _react2['default'].createElement(
                 'div',
                 null,
@@ -205,31 +251,23 @@ var ParkList = (function (_React$Component) {
                             'option',
                             null,
                             'Downtown'
-                        ),
-                        _react2['default'].createElement(
-                            'option',
-                            null,
-                            'Hyde Park'
                         )
                     ),
                     _react2['default'].createElement(
                         'select',
-                        null,
-                        _react2['default'].createElement(
-                            'option',
-                            { defaultValue: true },
-                            'Activity'
-                        ),
-                        _react2['default'].createElement(
-                            'option',
-                            null,
-                            'BBQ Pit'
-                        ),
-                        _react2['default'].createElement(
-                            'option',
-                            null,
-                            'Restroom'
-                        )
+                        { value: this.state.amenity, onChange: function (e) {
+                                return _this2.setState({ amenity: e.target.value });
+                            } },
+                        _react2['default'].createElement('option', { defaultValue: true }),
+                        amenityOptions
+                    ),
+                    _react2['default'].createElement(
+                        'select',
+                        { value: this.state.facility, onChange: function (e) {
+                                return _this2.setState({ facility: e.target.value });
+                            } },
+                        _react2['default'].createElement('option', { defaultValue: true }),
+                        facilityOptions
                     ),
                     _react2['default'].createElement('input', { type: 'text', placeholder: 'Name' })
                 ),
@@ -249,7 +287,7 @@ ParkList.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -277,15 +315,11 @@ var _turf2 = _interopRequireDefault(_turf);
 window.turf = _turf2['default'];
 
 function onEachFacility(feature, layer) {
-    if (feature.properties && feature.properties) {
-        layer.bindPopup(feature.properties.FACILITY_NAME);
-    }
+    layer.bindPopup(feature.properties.FACILITY_NAME);
 }
 
 function onEachAmenity(feature, layer) {
-    if (feature.properties && feature.properties) {
-        layer.bindPopup('\n            ' + feature.properties.AMENITY_NAME + ' <br />\n            <i>' + feature.properties.DESCRIPTION + '</i>\n        ');
-    }
+    layer.bindPopup('\n        ' + feature.properties.AMENITY_NAME + ' <br />\n        <i>' + feature.properties.DESCRIPTION + '</i>\n    ');
 }
 
 function boundsForFeature(geoJson) {
@@ -344,11 +378,7 @@ var ParkMap = (function (_React$Component) {
                 ),
                 _react2['default'].createElement(
                     _reactLeaflet.Map,
-                    {
-                        id: 'map',
-                        ref: 'map',
-                        center: this.props.center,
-                        zoom: 15 },
+                    { id: 'map', ref: 'map', center: this.props.center, zoom: 15 },
                     _react2['default'].createElement(_reactLeaflet.TileLayer, {
                         url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
@@ -443,9 +473,7 @@ var api = {
             return _when2['default'].resolve(_cache[url]);
         }
 
-        return (0, _ajax2['default'])({ url: url }).tap(function (data) {
-            return console.log(data);
-        }).tap(function (body) {
+        return (0, _ajax2['default'])({ url: url }).tap(function (body) {
             return _cache[url] = body;
         })['catch'](function (err) {
             return console.error(err);
@@ -454,6 +482,20 @@ var api = {
 
     getFeatureGeoJson: function getFeatureGeoJson(parkID, featureType) {
         var url = 'data/' + featureType + '/park_' + parkID + '.geojson';
+
+        if (_cache[url]) {
+            return _when2['default'].resolve(_cache[url]);
+        }
+
+        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
+            return _cache[url] = body;
+        })['catch'](function (err) {
+            return console.error(err);
+        });
+    },
+
+    getLookup: function getLookup(lookupType) {
+        var url = 'data/' + lookupType + '_lookup.json';
 
         if (_cache[url]) {
             return _when2['default'].resolve(_cache[url]);
