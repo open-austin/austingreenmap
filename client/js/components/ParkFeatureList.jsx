@@ -13,6 +13,7 @@ export default class ParkFeatureList extends React.Component {
 
             amenityList = sortedAmenity.map((feature) => {
                 return <ParkFeatureListItem
+                    showFeatureInMap={this.props.showFeatureInMap}
                     id={feature.id}
                     name={feature.properties.AMENITY_NAME}
                     type={feature.properties.AMENITY_TYPE}
@@ -30,6 +31,7 @@ export default class ParkFeatureList extends React.Component {
 
             facilityList = sortedFacility.map((feature) => {
                 return <ParkFeatureListItem
+                    showFeatureInMap={this.props.showFeatureInMap}
                     id={feature.id}
                     name={feature.properties.FACILITY_NAME}
                     type={feature.properties.FACILITY_TYPE}
@@ -55,4 +57,5 @@ export default class ParkFeatureList extends React.Component {
 ParkFeatureList.propTypes = {
     amenityGeo: React.PropTypes.object,
     facilityGeo: React.PropTypes.object,
+    showFeatureInMap: React.PropTypes.func.isRequired,
 };

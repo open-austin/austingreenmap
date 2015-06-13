@@ -4,7 +4,7 @@ import React from 'react';
 export default class ParkFeatureListItem extends React.Component {
     render() {
         return (
-            <div className='row' key={this.props.id}>
+            <div className='row' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
                 <div className='two columns'>
                     {this.props.type}
                 </div>
@@ -30,4 +30,5 @@ ParkFeatureListItem.propTypes = {
     status: React.PropTypes.string,
     reservations: React.PropTypes.string,
     accessibilityStatus: React.PropTypes.string,
+    showFeatureInMap: React.PropTypes.func.isRequired,
 };

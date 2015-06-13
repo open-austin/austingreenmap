@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React from 'react';
-import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import turf from 'turf';
+import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import ParkFeatureList from './ParkFeatureList.jsx';
 
@@ -42,6 +43,15 @@ export default class ParkMap extends React.Component {
         this.fitBounds();
     }
 
+    showFeatureInMap(featureID) {
+        var matchingLayer = _.find(this.refs.map.leafletElement._layers, (layer) => layer.feature && layer.feature.id === featureID);
+        if (!matchingLayer) {
+            console.error('No layer for', featureID);
+            return;
+        }
+        matchingLayer.openPopup();
+    }
+
     render () {
         var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} /> : null;
         var amenityLayer = this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} /> : null;
@@ -65,7 +75,10 @@ export default class ParkMap extends React.Component {
                         {trailLayer}
                     </Map>
                 </div>
-                <ParkFeatureList amenityGeo={this.props.amenityGeo} facilityGeo={this.props.facilityGeo} />
+                <ParkFeatureList
+                    amenityGeo={this.props.amenityGeo}
+                    facilityGeo={this.props.facilityGeo}
+                    showFeatureInMap={this.showFeatureInMap.bind(this)} />
             </div>
         );
     }
