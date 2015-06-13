@@ -146,19 +146,50 @@ def unshit_parks_topo(cursor):
         fh.write(json.dumps(data))
 
 
+def generate_facility_lookup():
+    with open('./raw/pard_facility_points.json', 'r') as fh:
+        data = fh.read()
+    data = json.loads(data)
+
+    lookup = defaultdict(list)
+
+    for feature in data['features']:
+        lookup[feature['properties']['FACILITY_TYPE']].append(feature['properties']['PARK_ID'])
+
+    with open('data/facility_lookup.json', 'w+') as fh:
+        fh.write(json.dumps(lookup))
+
+
+def generate_amenity_lookup():
+    with open('./raw/pard_amenity_points.json', 'r') as fh:
+        data = fh.read()
+    data = json.loads(data)
+
+    lookup = defaultdict(list)
+
+    for feature in data['features']:
+        lookup[feature['properties']['AMENITY_TYPE']].append(feature['properties']['PARK_ID'])
+
+    with open('data/amenity_lookup.json', 'w+') as fh:
+        fh.write(json.dumps(lookup))
+
+
 if __name__ == '__main__':
     # FIXME: really we only use this so we can transform the SRID/CRS from 2277 to 4326
     # Should get rid of the postgis dependency, I'm sure there is good standalone stuff
     conn = psycopg2.connect("dbname='bostongreenmap' user='django' host='localhost' password='django'")
     cursor = conn.cursor()
 
-    # generate_park(cursor)
-    # generate_amenity(cursor)
-    # generate_facility(cursor)
-    # generate_trails(cursor)
+    generate_park(cursor)
+    generate_amenity(cursor)
+    generate_facility(cursor)
+    generate_trails(cursor)
     generate_parks_list(cursor)
 
-    # unshit_parks_topo(cursor)
+    unshit_parks_topo(cursor)
+
+    generate_facility_lookup()
+    generate_amenity_lookup()
 
     cursor.close()
     conn.close()
