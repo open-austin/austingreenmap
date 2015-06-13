@@ -1264,3 +1264,6 @@ body {
 
 .name {
   font-weight: 600; }
+
+.right {
+  text-align: right; }
