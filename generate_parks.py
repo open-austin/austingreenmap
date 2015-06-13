@@ -154,7 +154,9 @@ def generate_facility_lookup():
     lookup = defaultdict(list)
 
     for feature in data['features']:
-        lookup[feature['properties']['FACILITY_TYPE']].append(feature['properties']['PARK_ID'])
+        key = feature['properties']['FACILITY_TYPE']
+        if key.strip():
+            lookup[key].append(feature['properties']['PARK_ID'])
 
     with open('data/facility_lookup.json', 'w+') as fh:
         fh.write(json.dumps(lookup))
@@ -168,7 +170,9 @@ def generate_amenity_lookup():
     lookup = defaultdict(list)
 
     for feature in data['features']:
-        lookup[feature['properties']['AMENITY_TYPE']].append(feature['properties']['PARK_ID'])
+        key = feature['properties']['AMENITY_TYPE']
+        if key.strip():
+            lookup[key].append(feature['properties']['PARK_ID'])
 
     with open('data/amenity_lookup.json', 'w+') as fh:
         fh.write(json.dumps(lookup))
@@ -179,6 +183,8 @@ if __name__ == '__main__':
     # Should get rid of the postgis dependency, I'm sure there is good standalone stuff
     conn = psycopg2.connect("dbname='bostongreenmap' user='django' host='localhost' password='django'")
     cursor = conn.cursor()
+
+    # FIXME: Convert PARK_ID to number
 
     generate_park(cursor)
     generate_amenity(cursor)
