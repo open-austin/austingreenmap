@@ -1252,5 +1252,15 @@ there.
   background: #fff;
   border: 1px solid #666; }
 
+body {
+  padding: 50px 0; }
+
 #map {
-  height: 500px; }
+  height: 500px;
+  margin-bottom: 30px; }
+
+.address {
+  text-align: right; }
+
+.name {
+  font-weight: 600; }

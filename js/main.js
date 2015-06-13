@@ -129,7 +129,133 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./ParkList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx":[function(require,module,exports){
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./ParkList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var ParkFeatureList = (function (_React$Component) {
+    function ParkFeatureList() {
+        _classCallCheck(this, ParkFeatureList);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(ParkFeatureList, _React$Component);
+
+    _createClass(ParkFeatureList, [{
+        key: 'render',
+        value: function render() {
+
+            var amenityList = 'No amenities';
+
+            if (this.props.amentityGeo) {
+                amenityList = this.props.amentityGeo.features.map(function (feature) {
+                    var addressURL = 'http://maps.google.com/?q=' + feature.properties.ADDRESS;
+                    return _react2['default'].createElement(
+                        'div',
+                        { className: 'row', key: feature.properties.AMENITY_ID },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'name six columns' },
+                            feature.properties.AMENITY_NAME
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'address six columns' },
+                            _react2['default'].createElement(
+                                'a',
+                                { href: addressURL, target: '_blank' },
+                                feature.properties.ADDRESS
+                            )
+                        ),
+                        _react2['default'].createElement(
+                            'i',
+                            null,
+                            feature.properties.DESCRIPTION
+                        )
+                    );
+                });
+            }
+
+            var facilityList = 'No facilities';
+
+            if (this.props.facilityGeo) {
+                amenityList = this.props.facilityGeo.features.map(function (feature) {
+                    var addressURL = 'http://maps.google.com/?q=' + feature.properties.ADDRESS;
+                    return _react2['default'].createElement(
+                        'div',
+                        { className: 'row', key: feature.properties.FACILITY_ID },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'name six columns' },
+                            feature.properties.FACILITY_NAME
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'address six columns' },
+                            _react2['default'].createElement(
+                                'a',
+                                { href: addressURL, target: '_blank' },
+                                feature.properties.ADDRESS
+                            )
+                        ),
+                        _react2['default'].createElement(
+                            'i',
+                            null,
+                            feature.properties.DESCRIPTION
+                        )
+                    );
+                });
+            }
+
+            return _react2['default'].createElement(
+                'div',
+                null,
+                _react2['default'].createElement(
+                    'h4',
+                    null,
+                    'Amenities'
+                ),
+                amenityList,
+                _react2['default'].createElement(
+                    'h4',
+                    null,
+                    'Facilities'
+                ),
+                facilityList
+            );
+        }
+    }]);
+
+    return ParkFeatureList;
+})(_react2['default'].Component);
+
+exports['default'] = ParkFeatureList;
+
+ParkFeatureList.propTypes = {
+    amenityGeo: _react2['default'].PropTypes.object,
+    facilityGeo: _react2['default'].PropTypes.object
+};
+module.exports = exports['default'];
+
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -312,7 +438,9 @@ var _turf = require('turf');
 
 var _turf2 = _interopRequireDefault(_turf);
 
-window.turf = _turf2['default'];
+var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
+
+var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
 
 function onEachFacility(feature, layer) {
     layer.bindPopup(feature.properties.FACILITY_NAME);
@@ -377,17 +505,22 @@ var ParkMap = (function (_React$Component) {
                     )
                 ),
                 _react2['default'].createElement(
-                    _reactLeaflet.Map,
-                    { id: 'map', ref: 'map', center: this.props.center, zoom: 15 },
-                    _react2['default'].createElement(_reactLeaflet.TileLayer, {
-                        url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
-                        id: 'drmaples.ipbindf8' }),
-                    parkLayer,
-                    amenityLayer,
-                    facilityLayer,
-                    trailLayer
-                )
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        _reactLeaflet.Map,
+                        { id: 'map', ref: 'map', center: this.props.center, zoom: 15 },
+                        _react2['default'].createElement(_reactLeaflet.TileLayer, {
+                            url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+                            attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
+                            id: 'drmaples.ipbindf8' }),
+                        parkLayer,
+                        amenityLayer,
+                        facilityLayer,
+                        trailLayer
+                    )
+                ),
+                _react2['default'].createElement(_ParkFeatureListJsx2['default'], { amenityGeo: this.props.amenityGeo, facilityGeo: this.props.facilityGeo })
             );
         }
     }]);
@@ -407,7 +540,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -434,7 +567,7 @@ function ajax(options) {
         return deferred.resolve(data);
     };
     options.error = function (xhr, status, error) {
-        return deferred.reject(error);
+        return deferred.reject(xhr.status);
     };
 
     (0, _componentAjax2['default'])(options);
@@ -476,7 +609,7 @@ var api = {
         return (0, _ajax2['default'])({ url: url }).tap(function (body) {
             return _cache[url] = body;
         })['catch'](function (err) {
-            return console.error(err);
+            return console.error(url, err);
         });
     },
 
@@ -490,7 +623,7 @@ var api = {
         return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
             return _cache[url] = body;
         })['catch'](function (err) {
-            return console.error(err);
+            return console.error(url, err);
         });
     },
 
@@ -504,9 +637,10 @@ var api = {
         return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
             return _cache[url] = body;
         })['catch'](function (err) {
-            return console.error(err);
+            return console.error(url, err);
         });
     }
+
 };
 
 exports['default'] = api;
