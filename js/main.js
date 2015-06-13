@@ -588,6 +588,93 @@ var ParkMap = (function (_React$Component) {
             var facilityLayer = this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility }) : null;
             var trailLayer = this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo }) : null;
 
+            var parkSummary = !this.props.parkGeo ? null : _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'six columns' },
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.PARK_NAME,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.ADDRESS,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.COUNCIL_DISTRICT_AREAS,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Park status: ',
+                        this.props.parkGeo.properties.PARK_STATUS,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Acres: ',
+                        this.props.parkGeo.properties.PARK_ACRES,
+                        ' '
+                    )
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'six columns' },
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Unit ID: ',
+                        this.props.parkGeo.properties.UNIT_ID,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Land owner: ',
+                        this.props.parkGeo.properties.LAND_OWNER,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Management priority: ',
+                        this.props.parkGeo.properties.MANAGEMENT_PRIORITY,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Acquisition source: ',
+                        this.props.parkGeo.properties.ACQUISITION_SOURCE,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Park type: ',
+                        this.props.parkGeo.properties.PARK_TYPE,
+                        ' '
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Development status: ',
+                        this.props.parkGeo.properties.DEVELOPMENT_STATUS,
+                        ' '
+                    )
+                )
+            );
+
             return _react2['default'].createElement(
                 'div',
                 null,
@@ -616,6 +703,7 @@ var ParkMap = (function (_React$Component) {
                         trailLayer
                     )
                 ),
+                parkSummary,
                 _react2['default'].createElement(_ParkFeatureListJsx2['default'], {
                     amenityGeo: this.props.amenityGeo,
                     facilityGeo: this.props.facilityGeo,
