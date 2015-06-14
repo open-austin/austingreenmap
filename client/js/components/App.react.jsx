@@ -4,7 +4,8 @@ import turf from 'turf';
 import api from '../utils/api';
 import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
-import ParkList from './ParkList.jsx';
+import ParksList from './ParksList.jsx';
+import ParksMap from './ParksMap.jsx';
 import Navigation from './Navigation.jsx';
 
 
@@ -14,7 +15,8 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            allParks: [],
+            allParks: null,
+            allParksTopo: null,
             park: null,
             parkGeo: null,
             amenityGeo: null,
@@ -24,7 +26,10 @@ export default class App extends React.Component {
         };
 
         api.getAllParks()
-            .then((parks) => this.setState({allParks: parks}));
+            .then((data) => this.setState({allParks: data}));
+
+        api.getAllParksTopo()
+            .then((data) => this.setState({allParksTopo: data}));
 
         utils.getUserLocation()
             .tap((latLng) => this.setUserLocation(latLng))
@@ -77,11 +82,16 @@ export default class App extends React.Component {
                     trailGeo={this.state.trailGeo} />
             );
         }
-        else {
+        else if (this.state.allParks && this.state.allParksTopo) {
             content = (
-                <ParkList
-                    parks={this.state.allParks}
-                    onSelectPark={(park) => this.selectPark(park)} />
+                <div>
+                    <ParksMap
+                        parksTopo={this.state.allParksTopo}
+                        onSelectPark={(park) => this.selectPark(park)} />
+                    <ParksList
+                        parks={this.state.allParks}
+                        onSelectPark={(park) => this.selectPark(park)} />
+                </div>
             );
         }
         return (

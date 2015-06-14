@@ -4,7 +4,7 @@ import React from 'react';
 import api from '../utils/api';
 
 
-export default class ParkList extends React.Component {
+export default class ParksList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -80,7 +80,7 @@ export default class ParkList extends React.Component {
     }
 }
 
-ParkList.propTypes = {
+ParksList.propTypes = {
     parks:  React.PropTypes.array.isRequired,
     onSelectPark:  React.PropTypes.func.isRequired,
 };

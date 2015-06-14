@@ -32,13 +32,13 @@
   "dependencies": {
     "component-ajax": "0.0.2",
     "flux": "^2.0.1",
-    "geolib": "^2.0.17",
     "leaflet": "^0.7.3",
     "lodash": "^3.9.3",
     "moment": "^2.9.0",
     "protobufjs": "^3.8.2",
     "react": "~0.13.0",
     "react-leaflet": "^0.6.1",
+    "topojson": "^1.6.19",
     "turf": "^2.0.2",
     "when": "^3.7.3"
   }

@@ -43,6 +43,18 @@ var api = {
             .catch((err) => console.error(url, err));
     },
 
+    getAllParksTopo() {
+        var url = `data/city_of_austin_parks.topo.json`;
+
+        if (_cache[url]) {
+            return when.resolve(_cache[url]);
+        }
+
+        return ajax({url: url, dataType: 'json'})
+            .tap((body) => _cache[url] = body)
+            .catch((err) => console.error(url, err));
+    }
+
 };
 
 export default api;
