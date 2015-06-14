@@ -30,8 +30,8 @@ body {
 }
 
 a, .u-clickable {
+    cursor: pointer;
     &:hover {
-        cursor: pointer;
         color: $green;
     }
 }

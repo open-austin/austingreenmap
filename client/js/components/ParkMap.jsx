@@ -49,6 +49,9 @@ export default class ParkMap extends React.Component {
             console.error('No layer for', featureID);
             return;
         }
+        var mapNode = React.findDOMNode(this.refs.map);
+        window.scrollTo(0, mapNode.parentNode.offsetTop + mapNode.offsetTop);
+
         matchingLayer.openPopup();
     }
 
