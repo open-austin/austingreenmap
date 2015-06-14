@@ -47,6 +47,10 @@ var _ParkListJsx = require('./ParkList.jsx');
 
 var _ParkListJsx2 = _interopRequireDefault(_ParkListJsx);
 
+var _NavigationJsx = require('./Navigation.jsx');
+
+var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
+
 var App = (function (_React$Component) {
     function App(props) {
         var _this = this;
@@ -117,8 +121,13 @@ var App = (function (_React$Component) {
             }
             return _react2['default'].createElement(
                 'div',
-                { className: 'container' },
-                content
+                null,
+                _react2['default'].createElement(_NavigationJsx2['default'], null),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'container' },
+                    content
+                )
             );
         }
     }]);
@@ -129,7 +138,62 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./ParkList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var ParkMap = (function (_React$Component) {
+  function ParkMap() {
+    _classCallCheck(this, ParkMap);
+
+    if (_React$Component != null) {
+      _React$Component.apply(this, arguments);
+    }
+  }
+
+  _inherits(ParkMap, _React$Component);
+
+  _createClass(ParkMap, [{
+    key: 'render',
+
+    // TODO: props for current location
+    value: function render() {
+
+      return _react2['default'].createElement(
+        'div',
+        null,
+        _react2['default'].createElement(
+          'a',
+          { className: 'button', href: '/' },
+          'Home'
+        )
+      );
+    }
+  }]);
+
+  return ParkMap;
+})(_react2['default'].Component);
+
+exports['default'] = ParkMap;
+;
+module.exports = exports['default'];
+
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -277,7 +341,7 @@ var ParkFeatureListItem = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'row', key: this.props.id, onClick: function () {
+                { className: 'row u-clickable', key: this.props.id, onClick: function () {
                         return _this.props.showFeatureInMap(_this.props.id);
                     } },
                 _react2['default'].createElement(
@@ -408,7 +472,7 @@ var ParkList = (function (_React$Component) {
 
                 return _react2['default'].createElement(
                     'div',
-                    { className: 'row', onClick: function () {
+                    { className: 'row u-clickable', onClick: function () {
                             return _this2.selectPark(park);
                         }, key: park.park_id },
                     _react2['default'].createElement(
@@ -476,6 +540,28 @@ var ParkList = (function (_React$Component) {
                         facilityOptions
                     ),
                     _react2['default'].createElement('input', { type: 'text', placeholder: 'Name' })
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'ten columns' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Park Name'
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'two columns' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Park ID'
+                        )
+                    )
                 ),
                 parkList
             );

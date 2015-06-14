@@ -1267,3 +1267,7 @@ body {
 
 .right {
   text-align: right; }
+
+a:hover, .u-clickable:hover {
+  cursor: pointer;
+  color: #389e46; }
