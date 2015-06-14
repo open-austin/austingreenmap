@@ -2,6 +2,16 @@
 @import "skeleton";
 @import "leaflet";
 
+$green: #389e46;
+
 #map {
     height: 500px;
+}
+
+
+.clickable {
+  &:hover {
+    cursor: pointer;
+    color: $green;
+  }
 }

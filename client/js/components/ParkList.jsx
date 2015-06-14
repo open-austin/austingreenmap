@@ -13,7 +13,7 @@ export default class ParkList extends React.Component {
     render() {
         var parkList = this.props.parks.map((park) => {
             return (
-                <div className='row' onClick={() => this.selectPark(park)} key={park.park_id}>
+                <div className='row clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
                     <div className='name ten columns'>{park.name}</div>
                     <div className='id two columns'>{park.park_id}</div>
                 </div>
