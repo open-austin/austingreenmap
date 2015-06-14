@@ -32,6 +32,7 @@
   "dependencies": {
     "component-ajax": "0.0.2",
     "flux": "^2.0.1",
+    "geolib": "^2.0.17",
     "leaflet": "^0.7.3",
     "lodash": "^3.9.3",
     "moment": "^2.9.0",

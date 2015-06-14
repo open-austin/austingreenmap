@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 
 import api from '../utils/api';
@@ -26,7 +27,9 @@ export default class ParkList extends React.Component {
     }
 
     render() {
-        var parkList = this.props.parks.map((park) => {
+        var sortedParks = _.sortByAll(this.props.parks, 'distance', 'name');
+
+        var parkList = sortedParks.map((park) => {
             // FIXME: Convert park ids to numbers when we generate the data
             if (!!this.state.amenity && this.state.amenityLookup[this.state.amenity].map(Number).indexOf(park.park_id) === -1) {
                 return;
@@ -38,8 +41,8 @@ export default class ParkList extends React.Component {
 
             return (
                 <div className='row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
-                    <div className='name ten columns'>{park.name}</div>
-                    <div className='id two columns'>{park.park_id}</div>
+                    <div className='name eleven columns'>{park.name}</div>
+                    <div className='id one column right'>{park.distance ? Math.round(park.distance * 100) / 100 : null}</div>
                 </div>
             );
         });
@@ -68,8 +71,8 @@ export default class ParkList extends React.Component {
                     <input type='text' placeholder='Name' />
                 </div>
                 <div className='row'>
-                    <div className='ten columns'><h6>Park Name</h6></div>
-                    <div className='two columns'><h6>Park ID</h6></div>
+                    <div className='ten columns'><h6>Name</h6></div>
+                    <div className='two columns right'><h6>Distance (mi)</h6></div>
                 </div>
                 {parkList}
             </div>

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import turf from 'turf';
+import turf from 'turf';  // FIXME: replace with turf-extent
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import ParkFeatureList from './ParkFeatureList.jsx';
