@@ -8,8 +8,8 @@ $green: #389e46;
     height: 500px;
 }
 
-
-.clickable {
+a,
+.u-clickable {
   &:hover {
     cursor: pointer;
     color: $green;
