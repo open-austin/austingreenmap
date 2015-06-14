@@ -1,6 +1,6 @@
 # :deciduous_tree: Austin Green Map
 
-An easy to browse gallery of the parks in Austin. Started at [ATX Hack For Change 2015](atxhackforchange.org). Inspired by https://github.com/codeforboston/bostongreenmap.
+An easy to browse gallery of the parks in Austin. Started at [ATX Hack For Change 2015](http://atxhackforchange.org). Inspired by https://github.com/codeforboston/bostongreenmap.
 
 **Development in progress.**
 
