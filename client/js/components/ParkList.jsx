@@ -37,7 +37,7 @@ export default class ParkList extends React.Component {
             }
 
             return (
-                <div className='row' onClick={() => this.selectPark(park)} key={park.park_id}>
+                <div className='row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
                     <div className='name ten columns'>{park.name}</div>
                     <div className='id two columns'>{park.park_id}</div>
                 </div>
@@ -67,7 +67,10 @@ export default class ParkList extends React.Component {
 
                     <input type='text' placeholder='Name' />
                 </div>
-
+                <div className='row'>
+                    <div className='ten columns'><h6>Park Name</h6></div>
+                    <div className='two columns'><h6>Park ID</h6></div>
+                </div>
                 {parkList}
             </div>
         );
