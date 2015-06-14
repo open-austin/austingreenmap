@@ -35,17 +35,29 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _turf = require('turf');
+
+var _turf2 = _interopRequireDefault(_turf);
+
 var _utilsApi = require('../utils/api');
 
 var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
 
 var _ParkMapJsx = require('./ParkMap.jsx');
 
 var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
 
-var _ParkListJsx = require('./ParkList.jsx');
+var _ParksListJsx = require('./ParksList.jsx');
 
-var _ParkListJsx2 = _interopRequireDefault(_ParkListJsx);
+var _ParksListJsx2 = _interopRequireDefault(_ParksListJsx);
+
+var _ParksMapJsx = require('./ParksMap.jsx');
+
+var _ParksMapJsx2 = _interopRequireDefault(_ParksMapJsx);
 
 var _NavigationJsx = require('./Navigation.jsx');
 
@@ -58,17 +70,30 @@ var App = (function (_React$Component) {
         _classCallCheck(this, App);
 
         _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
+
         this.state = {
-            allParks: [],
+            allParks: null,
+            allParksTopo: null,
             park: null,
             parkGeo: null,
             amenityGeo: null,
             facilityGeo: null,
-            trailGeo: null
+            trailGeo: null,
+            userLocation: null
         };
 
-        _utilsApi2['default'].getAllParks().then(function (parks) {
-            return _this.setState({ allParks: parks });
+        _utilsApi2['default'].getAllParks().then(function (data) {
+            return _this.setState({ allParks: data });
+        });
+
+        _utilsApi2['default'].getAllParksTopo().then(function (data) {
+            return _this.setState({ allParksTopo: data });
+        });
+
+        _utils2['default'].getUserLocation().tap(function (latLng) {
+            return _this.setUserLocation(latLng);
+        })['catch'](function (err) {
+            return console.error(err);
         });
     }
 
@@ -98,6 +123,23 @@ var App = (function (_React$Component) {
             });
         }
     }, {
+        key: 'setUserLocation',
+        value: function setUserLocation(userLocation) {
+            var parksWithDistance = this.state.allParks.map(function (park) {
+                var toPoint = _turf2['default'].point([userLocation[1], userLocation[0]]);
+                var fromPoint = _turf2['default'].point([park.center[1], park.center[0]]);
+
+                park.distance = _turf2['default'].distance(toPoint, fromPoint, 'miles');
+
+                return park;
+            });
+
+            this.setState({
+                allParks: parksWithDistance,
+                userLocation: userLocation
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this3 = this;
@@ -112,12 +154,21 @@ var App = (function (_React$Component) {
                     facilityGeo: this.state.facilityGeo,
                     amenityGeo: this.state.amenityGeo,
                     trailGeo: this.state.trailGeo });
-            } else {
-                content = _react2['default'].createElement(_ParkListJsx2['default'], {
-                    parks: this.state.allParks,
-                    onSelectPark: function (park) {
-                        return _this3.selectPark(park);
-                    } });
+            } else if (this.state.allParks && this.state.allParksTopo) {
+                content = _react2['default'].createElement(
+                    'div',
+                    null,
+                    _react2['default'].createElement(_ParksMapJsx2['default'], {
+                        parksTopo: this.state.allParksTopo,
+                        onSelectPark: function (park) {
+                            return _this3.selectPark(park);
+                        } }),
+                    _react2['default'].createElement(_ParksListJsx2['default'], {
+                        parks: this.state.allParks,
+                        onSelectPark: function (park) {
+                            return _this3.selectPark(park);
+                        } })
+                );
             }
             return _react2['default'].createElement(
                 'div',
@@ -138,7 +189,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -399,187 +450,7 @@ ParkFeatureListItem.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkList.jsx":[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsApi = require('../utils/api');
-
-var _utilsApi2 = _interopRequireDefault(_utilsApi);
-
-var ParkList = (function (_React$Component) {
-    function ParkList(props) {
-        var _this = this;
-
-        _classCallCheck(this, ParkList);
-
-        _get(Object.getPrototypeOf(ParkList.prototype), 'constructor', this).call(this, props);
-
-        this.state = {
-            amenity: null,
-            facility: null,
-            amenityLookup: {},
-            facilityLookup: {}
-        };
-
-        _utilsApi2['default'].getLookup('amenity').then(function (data) {
-            return _this.setState({ amenityLookup: data });
-        });
-
-        _utilsApi2['default'].getLookup('facility').then(function (data) {
-            return _this.setState({ facilityLookup: data });
-        });
-    }
-
-    _inherits(ParkList, _React$Component);
-
-    _createClass(ParkList, [{
-        key: 'selectPark',
-        value: function selectPark(park) {
-            this.props.onSelectPark(park);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var parkList = this.props.parks.map(function (park) {
-                // FIXME: Convert park ids to numbers when we generate the data
-                if (!!_this2.state.amenity && _this2.state.amenityLookup[_this2.state.amenity].map(Number).indexOf(park.park_id) === -1) {
-                    return;
-                }
-
-                if (!!_this2.state.facility && _this2.state.facilityLookup[_this2.state.facility].map(Number).indexOf(park.park_id) === -1) {
-                    return;
-                }
-
-                return _react2['default'].createElement(
-                    'div',
-                    { className: 'row u-clickable', onClick: function () {
-                            return _this2.selectPark(park);
-                        }, key: park.park_id },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'name ten columns' },
-                        park.name
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'id two columns' },
-                        park.park_id
-                    )
-                );
-            });
-
-            var amenityOptions = Object.keys(this.state.amenityLookup).sort().map(function (k) {
-                return _react2['default'].createElement(
-                    'option',
-                    { key: k },
-                    k
-                );
-            });
-            var facilityOptions = Object.keys(this.state.facilityLookup).sort().map(function (k) {
-                return _react2['default'].createElement(
-                    'option',
-                    { key: k },
-                    k
-                );
-            });
-
-            return _react2['default'].createElement(
-                'div',
-                null,
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'select',
-                        null,
-                        _react2['default'].createElement(
-                            'option',
-                            { defaultValue: true },
-                            'Neighborhood'
-                        ),
-                        _react2['default'].createElement(
-                            'option',
-                            null,
-                            'Downtown'
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'select',
-                        { value: this.state.amenity, onChange: function (e) {
-                                return _this2.setState({ amenity: e.target.value });
-                            } },
-                        _react2['default'].createElement('option', { defaultValue: true }),
-                        amenityOptions
-                    ),
-                    _react2['default'].createElement(
-                        'select',
-                        { value: this.state.facility, onChange: function (e) {
-                                return _this2.setState({ facility: e.target.value });
-                            } },
-                        _react2['default'].createElement('option', { defaultValue: true }),
-                        facilityOptions
-                    ),
-                    _react2['default'].createElement('input', { type: 'text', placeholder: 'Name' })
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'ten columns' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Park Name'
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'two columns' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Park ID'
-                        )
-                    )
-                ),
-                parkList
-            );
-        }
-    }]);
-
-    return ParkList;
-})(_react2['default'].Component);
-
-exports['default'] = ParkList;
-
-ParkList.propTypes = {
-    parks: _react2['default'].PropTypes.array.isRequired,
-    onSelectPark: _react2['default'].PropTypes.func.isRequired
-};
-module.exports = exports['default'];
-
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -605,6 +476,8 @@ var _react2 = _interopRequireDefault(_react);
 var _turf = require('turf');
 
 var _turf2 = _interopRequireDefault(_turf);
+
+// FIXME: replace with turf-extent
 
 var _reactLeaflet = require('react-leaflet');
 
@@ -664,6 +537,9 @@ var ParkMap = (function (_React$Component) {
                 console.error('No layer for', featureID);
                 return;
             }
+            var mapNode = _react2['default'].findDOMNode(this.refs.map);
+            window.scrollTo(0, mapNode.parentNode.offsetTop + mapNode.offsetTop);
+
             matchingLayer.openPopup();
         }
     }, {
@@ -813,7 +689,271 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utilsApi = require('../utils/api');
+
+var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
+var ParksList = (function (_React$Component) {
+    function ParksList(props) {
+        var _this = this;
+
+        _classCallCheck(this, ParksList);
+
+        _get(Object.getPrototypeOf(ParksList.prototype), 'constructor', this).call(this, props);
+
+        this.state = {
+            amenity: null,
+            facility: null,
+            amenityLookup: {},
+            facilityLookup: {}
+        };
+
+        _utilsApi2['default'].getLookup('amenity').then(function (data) {
+            return _this.setState({ amenityLookup: data });
+        });
+
+        _utilsApi2['default'].getLookup('facility').then(function (data) {
+            return _this.setState({ facilityLookup: data });
+        });
+    }
+
+    _inherits(ParksList, _React$Component);
+
+    _createClass(ParksList, [{
+        key: 'selectPark',
+        value: function selectPark(park) {
+            this.props.onSelectPark(park);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
+
+            var parkList = sortedParks.map(function (park) {
+                // FIXME: Convert park ids to numbers when we generate the data
+                if (!!_this2.state.amenity && _this2.state.amenityLookup[_this2.state.amenity].map(Number).indexOf(park.park_id) === -1) {
+                    return;
+                }
+
+                if (!!_this2.state.facility && _this2.state.facilityLookup[_this2.state.facility].map(Number).indexOf(park.park_id) === -1) {
+                    return;
+                }
+
+                return _react2['default'].createElement(
+                    'div',
+                    { className: 'row u-clickable', onClick: function () {
+                            return _this2.selectPark(park);
+                        }, key: park.park_id },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'name eleven columns' },
+                        park.name
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'id one column right' },
+                        park.distance ? Math.round(park.distance * 100) / 100 : null
+                    )
+                );
+            });
+
+            var amenityOptions = Object.keys(this.state.amenityLookup).sort().map(function (k) {
+                return _react2['default'].createElement(
+                    'option',
+                    { key: k },
+                    k
+                );
+            });
+            var facilityOptions = Object.keys(this.state.facilityLookup).sort().map(function (k) {
+                return _react2['default'].createElement(
+                    'option',
+                    { key: k },
+                    k
+                );
+            });
+
+            return _react2['default'].createElement(
+                'div',
+                null,
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        'select',
+                        null,
+                        _react2['default'].createElement(
+                            'option',
+                            { defaultValue: true },
+                            'Neighborhood'
+                        ),
+                        _react2['default'].createElement(
+                            'option',
+                            null,
+                            'Downtown'
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'select',
+                        { value: this.state.amenity, onChange: function (e) {
+                                return _this2.setState({ amenity: e.target.value });
+                            } },
+                        _react2['default'].createElement('option', { defaultValue: true }),
+                        amenityOptions
+                    ),
+                    _react2['default'].createElement(
+                        'select',
+                        { value: this.state.facility, onChange: function (e) {
+                                return _this2.setState({ facility: e.target.value });
+                            } },
+                        _react2['default'].createElement('option', { defaultValue: true }),
+                        facilityOptions
+                    ),
+                    _react2['default'].createElement('input', { type: 'text', placeholder: 'Name' })
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'ten columns' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Name'
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'two columns right' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Distance (mi)'
+                        )
+                    )
+                ),
+                parkList
+            );
+        }
+    }]);
+
+    return ParksList;
+})(_react2['default'].Component);
+
+exports['default'] = ParksList;
+
+ParksList.propTypes = {
+    parks: _react2['default'].PropTypes.array.isRequired,
+    onSelectPark: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _topojson = require('topojson');
+
+var _topojson2 = _interopRequireDefault(_topojson);
+
+var _turf = require('turf');
+
+var _turf2 = _interopRequireDefault(_turf);
+
+// FIXME: replace with turf-extent
+
+var _reactLeaflet = require('react-leaflet');
+
+var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
+
+var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
+
+var ParksMap = (function (_React$Component) {
+    function ParksMap() {
+        _classCallCheck(this, ParksMap);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(ParksMap, _React$Component);
+
+    _createClass(ParksMap, [{
+        key: 'render',
+        value: function render() {
+            var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
+
+            return _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                    _reactLeaflet.Map,
+                    { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
+                    _react2['default'].createElement(_reactLeaflet.TileLayer, {
+                        url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
+                        id: 'drmaples.ipbindf8' }),
+                    _react2['default'].createElement(_reactLeaflet.GeoJson, { data: parksGeo })
+                )
+            );
+        }
+    }]);
+
+    return ParksMap;
+})(_react2['default'].Component);
+
+exports['default'] = ParksMap;
+
+ParksMap.propTypes = {
+    parksTopo: _react2['default'].PropTypes.object.isRequired,
+    onSelectPark: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -912,6 +1052,20 @@ var api = {
         })['catch'](function (err) {
             return console.error(url, err);
         });
+    },
+
+    getAllParksTopo: function getAllParksTopo() {
+        var url = 'data/city_of_austin_parks.topo.json';
+
+        if (_cache[url]) {
+            return _when2['default'].resolve(_cache[url]);
+        }
+
+        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
+            return _cache[url] = body;
+        })['catch'](function (err) {
+            return console.error(url, err);
+        });
     }
 
 };
@@ -919,7 +1073,43 @@ var api = {
 exports['default'] = api;
 module.exports = exports['default'];
 
-},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _when = require('when');
+
+var _when2 = _interopRequireDefault(_when);
+
+var utils = {
+
+    getUserLocation: function getUserLocation() {
+        var deferred = _when2['default'].defer();
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+            return deferred.resolve([position.coords.latitude, position.coords.longitude]);
+        }, function (err) {
+            return deferred.reject(err);
+        }, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        });
+
+        return deferred.promise;
+    }
+
+};
+
+exports['default'] = utils;
+module.exports = exports['default'];
+
+},{"when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -48389,7 +48579,543 @@ module.exports = warning;
 },{"./emptyFunction":"/Users/luqmaan/dev/austingreenmap/node_modules/react/lib/emptyFunction.js","_process":"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js":[function(require,module,exports){
 module.exports = require('./lib/React');
 
-},{"./lib/React":"/Users/luqmaan/dev/austingreenmap/node_modules/react/lib/React.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js":[function(require,module,exports){
+},{"./lib/React":"/Users/luqmaan/dev/austingreenmap/node_modules/react/lib/React.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js":[function(require,module,exports){
+!function() {
+  var topojson = {
+    version: "1.6.19",
+    mesh: function(topology) { return object(topology, meshArcs.apply(this, arguments)); },
+    meshArcs: meshArcs,
+    merge: function(topology) { return object(topology, mergeArcs.apply(this, arguments)); },
+    mergeArcs: mergeArcs,
+    feature: featureOrCollection,
+    neighbors: neighbors,
+    presimplify: presimplify
+  };
+
+  function stitchArcs(topology, arcs) {
+    var stitchedArcs = {},
+        fragmentByStart = {},
+        fragmentByEnd = {},
+        fragments = [],
+        emptyIndex = -1;
+
+    // Stitch empty arcs first, since they may be subsumed by other arcs.
+    arcs.forEach(function(i, j) {
+      var arc = topology.arcs[i < 0 ? ~i : i], t;
+      if (arc.length < 3 && !arc[1][0] && !arc[1][1]) {
+        t = arcs[++emptyIndex], arcs[emptyIndex] = i, arcs[j] = t;
+      }
+    });
+
+    arcs.forEach(function(i) {
+      var e = ends(i),
+          start = e[0],
+          end = e[1],
+          f, g;
+
+      if (f = fragmentByEnd[start]) {
+        delete fragmentByEnd[f.end];
+        f.push(i);
+        f.end = end;
+        if (g = fragmentByStart[end]) {
+          delete fragmentByStart[g.start];
+          var fg = g === f ? f : f.concat(g);
+          fragmentByStart[fg.start = f.start] = fragmentByEnd[fg.end = g.end] = fg;
+        } else {
+          fragmentByStart[f.start] = fragmentByEnd[f.end] = f;
+        }
+      } else if (f = fragmentByStart[end]) {
+        delete fragmentByStart[f.start];
+        f.unshift(i);
+        f.start = start;
+        if (g = fragmentByEnd[start]) {
+          delete fragmentByEnd[g.end];
+          var gf = g === f ? f : g.concat(f);
+          fragmentByStart[gf.start = g.start] = fragmentByEnd[gf.end = f.end] = gf;
+        } else {
+          fragmentByStart[f.start] = fragmentByEnd[f.end] = f;
+        }
+      } else {
+        f = [i];
+        fragmentByStart[f.start = start] = fragmentByEnd[f.end = end] = f;
+      }
+    });
+
+    function ends(i) {
+      var arc = topology.arcs[i < 0 ? ~i : i], p0 = arc[0], p1;
+      if (topology.transform) p1 = [0, 0], arc.forEach(function(dp) { p1[0] += dp[0], p1[1] += dp[1]; });
+      else p1 = arc[arc.length - 1];
+      return i < 0 ? [p1, p0] : [p0, p1];
+    }
+
+    function flush(fragmentByEnd, fragmentByStart) {
+      for (var k in fragmentByEnd) {
+        var f = fragmentByEnd[k];
+        delete fragmentByStart[f.start];
+        delete f.start;
+        delete f.end;
+        f.forEach(function(i) { stitchedArcs[i < 0 ? ~i : i] = 1; });
+        fragments.push(f);
+      }
+    }
+
+    flush(fragmentByEnd, fragmentByStart);
+    flush(fragmentByStart, fragmentByEnd);
+    arcs.forEach(function(i) { if (!stitchedArcs[i < 0 ? ~i : i]) fragments.push([i]); });
+
+    return fragments;
+  }
+
+  function meshArcs(topology, o, filter) {
+    var arcs = [];
+
+    if (arguments.length > 1) {
+      var geomsByArc = [],
+          geom;
+
+      function arc(i) {
+        var j = i < 0 ? ~i : i;
+        (geomsByArc[j] || (geomsByArc[j] = [])).push({i: i, g: geom});
+      }
+
+      function line(arcs) {
+        arcs.forEach(arc);
+      }
+
+      function polygon(arcs) {
+        arcs.forEach(line);
+      }
+
+      function geometry(o) {
+        if (o.type === "GeometryCollection") o.geometries.forEach(geometry);
+        else if (o.type in geometryType) geom = o, geometryType[o.type](o.arcs);
+      }
+
+      var geometryType = {
+        LineString: line,
+        MultiLineString: polygon,
+        Polygon: polygon,
+        MultiPolygon: function(arcs) { arcs.forEach(polygon); }
+      };
+
+      geometry(o);
+
+      geomsByArc.forEach(arguments.length < 3
+          ? function(geoms) { arcs.push(geoms[0].i); }
+          : function(geoms) { if (filter(geoms[0].g, geoms[geoms.length - 1].g)) arcs.push(geoms[0].i); });
+    } else {
+      for (var i = 0, n = topology.arcs.length; i < n; ++i) arcs.push(i);
+    }
+
+    return {type: "MultiLineString", arcs: stitchArcs(topology, arcs)};
+  }
+
+  function mergeArcs(topology, objects) {
+    var polygonsByArc = {},
+        polygons = [],
+        components = [];
+
+    objects.forEach(function(o) {
+      if (o.type === "Polygon") register(o.arcs);
+      else if (o.type === "MultiPolygon") o.arcs.forEach(register);
+    });
+
+    function register(polygon) {
+      polygon.forEach(function(ring) {
+        ring.forEach(function(arc) {
+          (polygonsByArc[arc = arc < 0 ? ~arc : arc] || (polygonsByArc[arc] = [])).push(polygon);
+        });
+      });
+      polygons.push(polygon);
+    }
+
+    function exterior(ring) {
+      return cartesianRingArea(object(topology, {type: "Polygon", arcs: [ring]}).coordinates[0]) > 0; // TODO allow spherical?
+    }
+
+    polygons.forEach(function(polygon) {
+      if (!polygon._) {
+        var component = [],
+            neighbors = [polygon];
+        polygon._ = 1;
+        components.push(component);
+        while (polygon = neighbors.pop()) {
+          component.push(polygon);
+          polygon.forEach(function(ring) {
+            ring.forEach(function(arc) {
+              polygonsByArc[arc < 0 ? ~arc : arc].forEach(function(polygon) {
+                if (!polygon._) {
+                  polygon._ = 1;
+                  neighbors.push(polygon);
+                }
+              });
+            });
+          });
+        }
+      }
+    });
+
+    polygons.forEach(function(polygon) {
+      delete polygon._;
+    });
+
+    return {
+      type: "MultiPolygon",
+      arcs: components.map(function(polygons) {
+        var arcs = [];
+
+        // Extract the exterior (unique) arcs.
+        polygons.forEach(function(polygon) {
+          polygon.forEach(function(ring) {
+            ring.forEach(function(arc) {
+              if (polygonsByArc[arc < 0 ? ~arc : arc].length < 2) {
+                arcs.push(arc);
+              }
+            });
+          });
+        });
+
+        // Stitch the arcs into one or more rings.
+        arcs = stitchArcs(topology, arcs);
+
+        // If more than one ring is returned,
+        // at most one of these rings can be the exterior;
+        // this exterior ring has the same winding order
+        // as any exterior ring in the original polygons.
+        if ((n = arcs.length) > 1) {
+          var sgn = exterior(polygons[0][0]);
+          for (var i = 0, t; i < n; ++i) {
+            if (sgn === exterior(arcs[i])) {
+              t = arcs[0], arcs[0] = arcs[i], arcs[i] = t;
+              break;
+            }
+          }
+        }
+
+        return arcs;
+      })
+    };
+  }
+
+  function featureOrCollection(topology, o) {
+    return o.type === "GeometryCollection" ? {
+      type: "FeatureCollection",
+      features: o.geometries.map(function(o) { return feature(topology, o); })
+    } : feature(topology, o);
+  }
+
+  function feature(topology, o) {
+    var f = {
+      type: "Feature",
+      id: o.id,
+      properties: o.properties || {},
+      geometry: object(topology, o)
+    };
+    if (o.id == null) delete f.id;
+    return f;
+  }
+
+  function object(topology, o) {
+    var absolute = transformAbsolute(topology.transform),
+        arcs = topology.arcs;
+
+    function arc(i, points) {
+      if (points.length) points.pop();
+      for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length, p; k < n; ++k) {
+        points.push(p = a[k].slice());
+        absolute(p, k);
+      }
+      if (i < 0) reverse(points, n);
+    }
+
+    function point(p) {
+      p = p.slice();
+      absolute(p, 0);
+      return p;
+    }
+
+    function line(arcs) {
+      var points = [];
+      for (var i = 0, n = arcs.length; i < n; ++i) arc(arcs[i], points);
+      if (points.length < 2) points.push(points[0].slice());
+      return points;
+    }
+
+    function ring(arcs) {
+      var points = line(arcs);
+      while (points.length < 4) points.push(points[0].slice());
+      return points;
+    }
+
+    function polygon(arcs) {
+      return arcs.map(ring);
+    }
+
+    function geometry(o) {
+      var t = o.type;
+      return t === "GeometryCollection" ? {type: t, geometries: o.geometries.map(geometry)}
+          : t in geometryType ? {type: t, coordinates: geometryType[t](o)}
+          : null;
+    }
+
+    var geometryType = {
+      Point: function(o) { return point(o.coordinates); },
+      MultiPoint: function(o) { return o.coordinates.map(point); },
+      LineString: function(o) { return line(o.arcs); },
+      MultiLineString: function(o) { return o.arcs.map(line); },
+      Polygon: function(o) { return polygon(o.arcs); },
+      MultiPolygon: function(o) { return o.arcs.map(polygon); }
+    };
+
+    return geometry(o);
+  }
+
+  function reverse(array, n) {
+    var t, j = array.length, i = j - n; while (i < --j) t = array[i], array[i++] = array[j], array[j] = t;
+  }
+
+  function bisect(a, x) {
+    var lo = 0, hi = a.length;
+    while (lo < hi) {
+      var mid = lo + hi >>> 1;
+      if (a[mid] < x) lo = mid + 1;
+      else hi = mid;
+    }
+    return lo;
+  }
+
+  function neighbors(objects) {
+    var indexesByArc = {}, // arc index -> array of object indexes
+        neighbors = objects.map(function() { return []; });
+
+    function line(arcs, i) {
+      arcs.forEach(function(a) {
+        if (a < 0) a = ~a;
+        var o = indexesByArc[a];
+        if (o) o.push(i);
+        else indexesByArc[a] = [i];
+      });
+    }
+
+    function polygon(arcs, i) {
+      arcs.forEach(function(arc) { line(arc, i); });
+    }
+
+    function geometry(o, i) {
+      if (o.type === "GeometryCollection") o.geometries.forEach(function(o) { geometry(o, i); });
+      else if (o.type in geometryType) geometryType[o.type](o.arcs, i);
+    }
+
+    var geometryType = {
+      LineString: line,
+      MultiLineString: polygon,
+      Polygon: polygon,
+      MultiPolygon: function(arcs, i) { arcs.forEach(function(arc) { polygon(arc, i); }); }
+    };
+
+    objects.forEach(geometry);
+
+    for (var i in indexesByArc) {
+      for (var indexes = indexesByArc[i], m = indexes.length, j = 0; j < m; ++j) {
+        for (var k = j + 1; k < m; ++k) {
+          var ij = indexes[j], ik = indexes[k], n;
+          if ((n = neighbors[ij])[i = bisect(n, ik)] !== ik) n.splice(i, 0, ik);
+          if ((n = neighbors[ik])[i = bisect(n, ij)] !== ij) n.splice(i, 0, ij);
+        }
+      }
+    }
+
+    return neighbors;
+  }
+
+  function presimplify(topology, triangleArea) {
+    var absolute = transformAbsolute(topology.transform),
+        relative = transformRelative(topology.transform),
+        heap = minAreaHeap();
+
+    if (!triangleArea) triangleArea = cartesianTriangleArea;
+
+    topology.arcs.forEach(function(arc) {
+      var triangles = [],
+          maxArea = 0,
+          triangle;
+
+      // To store each point’s effective area, we create a new array rather than
+      // extending the passed-in point to workaround a Chrome/V8 bug (getting
+      // stuck in smi mode). For midpoints, the initial effective area of
+      // Infinity will be computed in the next step.
+      for (var i = 0, n = arc.length, p; i < n; ++i) {
+        p = arc[i];
+        absolute(arc[i] = [p[0], p[1], Infinity], i);
+      }
+
+      for (var i = 1, n = arc.length - 1; i < n; ++i) {
+        triangle = arc.slice(i - 1, i + 2);
+        triangle[1][2] = triangleArea(triangle);
+        triangles.push(triangle);
+        heap.push(triangle);
+      }
+
+      for (var i = 0, n = triangles.length; i < n; ++i) {
+        triangle = triangles[i];
+        triangle.previous = triangles[i - 1];
+        triangle.next = triangles[i + 1];
+      }
+
+      while (triangle = heap.pop()) {
+        var previous = triangle.previous,
+            next = triangle.next;
+
+        // If the area of the current point is less than that of the previous point
+        // to be eliminated, use the latter's area instead. This ensures that the
+        // current point cannot be eliminated without eliminating previously-
+        // eliminated points.
+        if (triangle[1][2] < maxArea) triangle[1][2] = maxArea;
+        else maxArea = triangle[1][2];
+
+        if (previous) {
+          previous.next = next;
+          previous[2] = triangle[2];
+          update(previous);
+        }
+
+        if (next) {
+          next.previous = previous;
+          next[0] = triangle[0];
+          update(next);
+        }
+      }
+
+      arc.forEach(relative);
+    });
+
+    function update(triangle) {
+      heap.remove(triangle);
+      triangle[1][2] = triangleArea(triangle);
+      heap.push(triangle);
+    }
+
+    return topology;
+  };
+
+  function cartesianRingArea(ring) {
+    var i = -1,
+        n = ring.length,
+        a,
+        b = ring[n - 1],
+        area = 0;
+
+    while (++i < n) {
+      a = b;
+      b = ring[i];
+      area += a[0] * b[1] - a[1] * b[0];
+    }
+
+    return area * .5;
+  }
+
+  function cartesianTriangleArea(triangle) {
+    var a = triangle[0], b = triangle[1], c = triangle[2];
+    return Math.abs((a[0] - c[0]) * (b[1] - a[1]) - (a[0] - b[0]) * (c[1] - a[1]));
+  }
+
+  function compareArea(a, b) {
+    return a[1][2] - b[1][2];
+  }
+
+  function minAreaHeap() {
+    var heap = {},
+        array = [],
+        size = 0;
+
+    heap.push = function(object) {
+      up(array[object._ = size] = object, size++);
+      return size;
+    };
+
+    heap.pop = function() {
+      if (size <= 0) return;
+      var removed = array[0], object;
+      if (--size > 0) object = array[size], down(array[object._ = 0] = object, 0);
+      return removed;
+    };
+
+    heap.remove = function(removed) {
+      var i = removed._, object;
+      if (array[i] !== removed) return; // invalid request
+      if (i !== --size) object = array[size], (compareArea(object, removed) < 0 ? up : down)(array[object._ = i] = object, i);
+      return i;
+    };
+
+    function up(object, i) {
+      while (i > 0) {
+        var j = ((i + 1) >> 1) - 1,
+            parent = array[j];
+        if (compareArea(object, parent) >= 0) break;
+        array[parent._ = i] = parent;
+        array[object._ = i = j] = object;
+      }
+    }
+
+    function down(object, i) {
+      while (true) {
+        var r = (i + 1) << 1,
+            l = r - 1,
+            j = i,
+            child = array[j];
+        if (l < size && compareArea(array[l], child) < 0) child = array[j = l];
+        if (r < size && compareArea(array[r], child) < 0) child = array[j = r];
+        if (j === i) break;
+        array[child._ = i] = child;
+        array[object._ = i = j] = object;
+      }
+    }
+
+    return heap;
+  }
+
+  function transformAbsolute(transform) {
+    if (!transform) return noop;
+    var x0,
+        y0,
+        kx = transform.scale[0],
+        ky = transform.scale[1],
+        dx = transform.translate[0],
+        dy = transform.translate[1];
+    return function(point, i) {
+      if (!i) x0 = y0 = 0;
+      point[0] = (x0 += point[0]) * kx + dx;
+      point[1] = (y0 += point[1]) * ky + dy;
+    };
+  }
+
+  function transformRelative(transform) {
+    if (!transform) return noop;
+    var x0,
+        y0,
+        kx = transform.scale[0],
+        ky = transform.scale[1],
+        dx = transform.translate[0],
+        dy = transform.translate[1];
+    return function(point, i) {
+      if (!i) x0 = y0 = 0;
+      var x1 = (point[0] - dx) / kx | 0,
+          y1 = (point[1] - dy) / ky | 0;
+      point[0] = x1 - x0;
+      point[1] = y1 - y0;
+      x0 = x1;
+      y0 = y1;
+    };
+  }
+
+  function noop() {}
+
+  if (typeof define === "function" && define.amd) define(topojson);
+  else if (typeof module === "object" && module.exports) module.exports = topojson;
+  else this.topojson = topojson;
+}();
+
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js":[function(require,module,exports){
 /**
  * Turf is a modular GIS engine written in JavaScript. It performs geospatial
  * processing tasks with GeoJSON data and can be run on a server or in a browser.
