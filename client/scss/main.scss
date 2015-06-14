@@ -2,6 +2,36 @@
 @import "skeleton";
 @import "leaflet";
 
+$green: #389e46;
+
+
+body {
+    padding: 50px 0;
+}
+
 #map {
     height: 500px;
+    margin-bottom: 30px;
+}
+
+.container {
+}
+
+.address {
+    text-align: right;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.right {
+    text-align: right;
+}
+
+a, .u-clickable {
+    &:hover {
+        cursor: pointer;
+        color: $green;
+    }
 }

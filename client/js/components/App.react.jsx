@@ -3,6 +3,7 @@ import React from 'react';
 import api from '../utils/api';
 import ParkMap from './ParkMap.jsx';
 import ParkList from './ParkList.jsx';
+import Navigation from './Navigation.jsx';
 
 
 export default class App extends React.Component {
@@ -13,7 +14,7 @@ export default class App extends React.Component {
             allParks: [],
             park: null,
             parkGeo: null,
-            amentityGeo: null,
+            amenityGeo: null,
             facilityGeo: null,
             trailGeo: null,
         };
@@ -59,6 +60,11 @@ export default class App extends React.Component {
                     onSelectPark={(park) => this.selectPark(park)} />
             );
         }
-        return <div className='container'>{content}</div>;
+        return (
+            <div>
+              <Navigation />
+              <div className='container'>{content}</div>
+            </div>
+          );
     }
 }

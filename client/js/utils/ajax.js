@@ -8,7 +8,7 @@ export default function ajax(options) {
     options.json = 'true';
 
     options.success = (data, status, xhr) => deferred.resolve(data);
-    options.error = (xhr, status, error) => deferred.reject(error);
+    options.error = (xhr, status, error) => deferred.reject(xhr.status);
 
     _ajax(options);
 
