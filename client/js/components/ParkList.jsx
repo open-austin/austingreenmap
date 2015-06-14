@@ -34,6 +34,10 @@ export default class ParkList extends React.Component {
                     </select>
                     <input type='text' placeholder='Name' />
                 </div>
+                <div className='row'>
+                    <div className='ten columns'><h6>Park Name</h6></div>
+                    <div className='two columns'><h6>Park ID</h6></div>
+                </div>
                 {parkList}
             </div>
         );
