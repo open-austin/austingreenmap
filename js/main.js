@@ -31,6 +31,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -100,6 +104,14 @@ var App = (function (_React$Component) {
     _inherits(App, _React$Component);
 
     _createClass(App, [{
+        key: 'selectParkWithId',
+        value: function selectParkWithId(parkId) {
+            var park = _lodash2['default'].find(this.state.allParks, function (park) {
+                return park.park_id === parkId;
+            });
+            this.selectPark(park);
+        }
+    }, {
         key: 'selectPark',
         value: function selectPark(park) {
             var _this2 = this;
@@ -160,8 +172,8 @@ var App = (function (_React$Component) {
                     null,
                     _react2['default'].createElement(_ParksMapJsx2['default'], {
                         parksTopo: this.state.allParksTopo,
-                        onSelectPark: function (park) {
-                            return _this3.selectPark(park);
+                        onSelectPark: function (parkId) {
+                            return _this3.selectParkWithId(parkId);
                         } }),
                     _react2['default'].createElement(_ParksListJsx2['default'], {
                         parks: this.state.allParks,
@@ -173,10 +185,10 @@ var App = (function (_React$Component) {
             return _react2['default'].createElement(
                 'div',
                 null,
-                _react2['default'].createElement(_NavigationJsx2['default'], null),
                 _react2['default'].createElement(
                     'div',
                     { className: 'container' },
+                    _react2['default'].createElement(_NavigationJsx2['default'], null),
                     content
                 )
             );
@@ -189,11 +201,11 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+    value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -208,40 +220,36 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var ParkMap = (function (_React$Component) {
-  function ParkMap() {
-    _classCallCheck(this, ParkMap);
+var Navigation = (function (_React$Component) {
+    function Navigation() {
+        _classCallCheck(this, Navigation);
 
-    if (_React$Component != null) {
-      _React$Component.apply(this, arguments);
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
     }
-  }
 
-  _inherits(ParkMap, _React$Component);
+    _inherits(Navigation, _React$Component);
 
-  _createClass(ParkMap, [{
-    key: 'render',
+    _createClass(Navigation, [{
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement(
+                'div',
+                { className: 'row nav' },
+                _react2['default'].createElement(
+                    'a',
+                    { className: 'logo', href: '/' },
+                    _react2['default'].createElement('img', { src: 'images/deciduous_tree.png' })
+                )
+            );
+        }
+    }]);
 
-    // TODO: props for current location
-    value: function render() {
-
-      return _react2['default'].createElement(
-        'div',
-        null,
-        _react2['default'].createElement(
-          'a',
-          { className: 'button', href: '/' },
-          'Home'
-        )
-      );
-    }
-  }]);
-
-  return ParkMap;
+    return Navigation;
 })(_react2['default'].Component);
 
-exports['default'] = ParkMap;
-;
+exports['default'] = Navigation;
 module.exports = exports['default'];
 
 },{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
@@ -493,6 +501,26 @@ function onEachAmenity(feature, layer) {
     layer.bindPopup('\n        ' + feature.properties.AMENITY_NAME + ' <br />\n        <i>' + feature.properties.DESCRIPTION + '</i>\n    ');
 }
 
+function onEachPark(feature, layer) {
+    layer.setStyle({
+        color: 'rgb(56,158,70)',
+        opacity: 1,
+        weight: 1,
+        fillColor: 'rgb(86,221,84)',
+        fillOpacity: 0.5
+    });
+}
+
+function onEachTrail(feature, layer) {
+    layer.setStyle({
+        color: 'rgb(165,105,9)',
+        opacity: 1,
+        weight: 4,
+        fillColor: 'rgb(218,193,145)',
+        fillOpacity: 0.5
+    });
+}
+
 function boundsForFeature(geoJson) {
     var extent = _turf2['default'].extent(geoJson);
     return [[extent[1], extent[0]], [extent[3], extent[2]]];
@@ -545,10 +573,10 @@ var ParkMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var parkLayer = this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo }) : null;
+            var parkLayer = this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null;
             var amenityLayer = this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity }) : null;
             var facilityLayer = this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility }) : null;
-            var trailLayer = this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo }) : null;
+            var trailLayer = this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null;
 
             var parkSummary = !this.props.parkGeo ? null : _react2['default'].createElement(
                 'div',
@@ -756,16 +784,20 @@ var ParksList = (function (_React$Component) {
 
             var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
 
-            var parkList = sortedParks.map(function (park) {
+            var visibleParks = sortedParks.filter(function (park) {
                 // FIXME: Convert park ids to numbers when we generate the data
                 if (!!_this2.state.amenity && _this2.state.amenityLookup[_this2.state.amenity].map(Number).indexOf(park.park_id) === -1) {
-                    return;
+                    return false;
                 }
 
                 if (!!_this2.state.facility && _this2.state.facilityLookup[_this2.state.facility].map(Number).indexOf(park.park_id) === -1) {
-                    return;
+                    return false;
                 }
 
+                return true;
+            });
+
+            var parkList = visibleParks.map(function (park) {
                 return _react2['default'].createElement(
                     'div',
                     { className: 'row u-clickable', onClick: function () {
@@ -922,6 +954,23 @@ var ParksMap = (function (_React$Component) {
     _inherits(ParksMap, _React$Component);
 
     _createClass(ParksMap, [{
+        key: 'onEachFeature',
+        value: function onEachFeature(feature, layer) {
+            var _this = this;
+
+            layer.setStyle({
+                color: 'rgb(56,158,70)',
+                opacity: 1,
+                weight: 1,
+                fillColor: 'rgb(86,221,84)',
+                fillOpacity: 0.5
+            });
+
+            layer.on('click', function () {
+                _this.props.onSelectPark(feature.id);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
@@ -936,7 +985,7 @@ var ParksMap = (function (_React$Component) {
                         url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                         id: 'drmaples.ipbindf8' }),
-                    _react2['default'].createElement(_reactLeaflet.GeoJson, { data: parksGeo })
+                    _react2['default'].createElement(_reactLeaflet.GeoJson, { data: parksGeo, onEachFeature: this.onEachFeature.bind(this) })
                 )
             );
         }
