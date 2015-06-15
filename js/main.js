@@ -67,6 +67,10 @@ var _NavigationJsx = require('./Navigation.jsx');
 
 var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
 
+var _ParkFiltersJsx = require('./ParkFilters.jsx');
+
+var _ParkFiltersJsx2 = _interopRequireDefault(_ParkFiltersJsx);
+
 var App = (function (_React$Component) {
     function App(props) {
         var _this = this;
@@ -83,15 +87,33 @@ var App = (function (_React$Component) {
             amenityGeo: null,
             facilityGeo: null,
             trailGeo: null,
-            userLocation: null
+            userLocation: null,
+            visibleParks: null,
+            visibleParkIds: null,
+            amenityLookup: null,
+            facilityLookup: null
         };
 
         _utilsApi2['default'].getAllParks().then(function (data) {
-            return _this.setState({ allParks: data });
+            return _this.setState({
+                allParks: data,
+                visibleParks: data,
+                visibleParkIds: data.map(function (park) {
+                    return Number(park.park_id);
+                })
+            });
         });
 
         _utilsApi2['default'].getAllParksTopo().then(function (data) {
             return _this.setState({ allParksTopo: data });
+        });
+
+        _utilsApi2['default'].getLookup('amenity').then(function (data) {
+            return _this.setState({ amenityLookup: data });
+        });
+
+        _utilsApi2['default'].getLookup('facility').then(function (data) {
+            return _this.setState({ facilityLookup: data });
         });
 
         _utils2['default'].getUserLocation().tap(function (latLng) {
@@ -152,9 +174,29 @@ var App = (function (_React$Component) {
             });
         }
     }, {
+        key: 'applyFilters',
+        value: function applyFilters(filter) {
+            var _this3 = this;
+
+            var visibleParks = this.state.allParks.filter(function (park) {
+                // FIXME: Convert park ids to numbers when we generate the data
+                var matchingAmenity = !!_this3.state.amenityLookup && _this3.state.amenityLookup[filter] && _this3.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+                var matchingFacility = !!_this3.state.facilityLookup && _this3.state.facilityLookup[filter] && _this3.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+
+                return matchingAmenity || matchingFacility;
+            });
+
+            this.setState({
+                visibleParks: visibleParks,
+                visibleParkIds: visibleParks.map(function (park) {
+                    return Number(park.park_id);
+                })
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var content;
 
@@ -167,18 +209,29 @@ var App = (function (_React$Component) {
                     amenityGeo: this.state.amenityGeo,
                     trailGeo: this.state.trailGeo });
             } else if (this.state.allParks && this.state.allParksTopo) {
+                var parkFilters;
+                if (this.state.amenityLookup && this.state.facilityLookup) {
+                    parkFilters = _react2['default'].createElement(_ParkFiltersJsx2['default'], {
+                        amenityLookup: this.state.amenityLookup,
+                        facilityLookup: this.state.facilityLookup,
+                        setFilter: function (filter) {
+                            return _this4.applyFilters(filter);
+                        } });
+                }
                 content = _react2['default'].createElement(
                     'div',
                     null,
+                    parkFilters,
                     _react2['default'].createElement(_ParksMapJsx2['default'], {
+                        visibleParkIds: this.state.visibleParkIds,
                         parksTopo: this.state.allParksTopo,
                         onSelectPark: function (parkId) {
-                            return _this3.selectParkWithId(parkId);
+                            return _this4.selectParkWithId(parkId);
                         } }),
                     _react2['default'].createElement(_ParksListJsx2['default'], {
-                        parks: this.state.allParks,
+                        parks: this.state.visibleParks,
                         onSelectPark: function (park) {
-                            return _this3.selectPark(park);
+                            return _this4.selectPark(park);
                         } })
                 );
             }
@@ -201,7 +254,65 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactLeaflet = require("react-leaflet");
+
+var GeoJsonUpdatable = (function (_GeoJson) {
+    function GeoJsonUpdatable() {
+        _classCallCheck(this, GeoJsonUpdatable);
+
+        if (_GeoJson != null) {
+            _GeoJson.apply(this, arguments);
+        }
+    }
+
+    _inherits(GeoJsonUpdatable, _GeoJson);
+
+    _createClass(GeoJsonUpdatable, [{
+        key: "componentWillReceiveProps",
+        value: function componentWillReceiveProps(prevProps) {
+            if (prevProps.data !== this.props.data) {
+                this.leafletElement.clearLayers();
+            }
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate(prevProps) {
+            if (prevProps.data !== this.props.data) {
+                this.leafletElement.addData(this.props.data);
+            }
+        }
+    }]);
+
+    return GeoJsonUpdatable;
+})(_reactLeaflet.GeoJson);
+
+exports["default"] = GeoJsonUpdatable;
+
+GeoJsonUpdatable.propTypes = {
+    data: _react2["default"].PropTypes.object.isRequired
+};
+module.exports = exports["default"];
+
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -239,7 +350,9 @@ var Navigation = (function (_React$Component) {
                 { className: 'row nav' },
                 _react2['default'].createElement(
                     'a',
-                    { className: 'logo', href: '/' },
+                    { className: 'logo', onClick: function () {
+                            return window.location.reload();
+                        } },
                     _react2['default'].createElement('img', { src: 'images/deciduous_tree.png' })
                 )
             );
@@ -458,7 +571,86 @@ ParkFeatureListItem.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utilsApi = require('../utils/api');
+
+var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
+var ParkFilters = (function (_React$Component) {
+    function ParkFilters(props) {
+        _classCallCheck(this, ParkFilters);
+
+        _get(Object.getPrototypeOf(ParkFilters.prototype), 'constructor', this).call(this, props);
+    }
+
+    _inherits(ParkFilters, _React$Component);
+
+    _createClass(ParkFilters, [{
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            var options = Object.keys(this.props.amenityLookup).concat(Object.keys(this.props.facilityLookup)).sort().map(function (k) {
+                return _react2['default'].createElement(
+                    'option',
+                    { key: k },
+                    k
+                );
+            });
+
+            return _react2['default'].createElement(
+                'div',
+                { className: 'filters row' },
+                'Find parks with',
+                _react2['default'].createElement(
+                    'select',
+                    { onChange: function (e) {
+                            return _this.props.setFilter(e.target.value);
+                        } },
+                    _react2['default'].createElement('option', { defaultValue: true }),
+                    options
+                )
+            );
+        }
+    }]);
+
+    return ParkFilters;
+})(_react2['default'].Component);
+
+exports['default'] = ParkFilters;
+
+ParkFilters.propTypes = {
+    amenityLookup: _react2['default'].PropTypes.object.isRequired,
+    facilityLookup: _react2['default'].PropTypes.object.isRequired,
+    setFilter: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -784,20 +976,7 @@ var ParksList = (function (_React$Component) {
 
             var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
 
-            var visibleParks = sortedParks.filter(function (park) {
-                // FIXME: Convert park ids to numbers when we generate the data
-                if (!!_this2.state.amenity && _this2.state.amenityLookup[_this2.state.amenity].map(Number).indexOf(park.park_id) === -1) {
-                    return false;
-                }
-
-                if (!!_this2.state.facility && _this2.state.facilityLookup[_this2.state.facility].map(Number).indexOf(park.park_id) === -1) {
-                    return false;
-                }
-
-                return true;
-            });
-
-            var parkList = visibleParks.map(function (park) {
+            var parkList = sortedParks.map(function (park) {
                 return _react2['default'].createElement(
                     'div',
                     { className: 'row u-clickable', onClick: function () {
@@ -816,59 +995,9 @@ var ParksList = (function (_React$Component) {
                 );
             });
 
-            var amenityOptions = Object.keys(this.state.amenityLookup).sort().map(function (k) {
-                return _react2['default'].createElement(
-                    'option',
-                    { key: k },
-                    k
-                );
-            });
-            var facilityOptions = Object.keys(this.state.facilityLookup).sort().map(function (k) {
-                return _react2['default'].createElement(
-                    'option',
-                    { key: k },
-                    k
-                );
-            });
-
             return _react2['default'].createElement(
                 'div',
                 null,
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'select',
-                        null,
-                        _react2['default'].createElement(
-                            'option',
-                            { defaultValue: true },
-                            'Neighborhood'
-                        ),
-                        _react2['default'].createElement(
-                            'option',
-                            null,
-                            'Downtown'
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'select',
-                        { value: this.state.amenity, onChange: function (e) {
-                                return _this2.setState({ amenity: e.target.value });
-                            } },
-                        _react2['default'].createElement('option', { defaultValue: true }),
-                        amenityOptions
-                    ),
-                    _react2['default'].createElement(
-                        'select',
-                        { value: this.state.facility, onChange: function (e) {
-                                return _this2.setState({ facility: e.target.value });
-                            } },
-                        _react2['default'].createElement('option', { defaultValue: true }),
-                        facilityOptions
-                    ),
-                    _react2['default'].createElement('input', { type: 'text', placeholder: 'Name' })
-                ),
                 _react2['default'].createElement(
                     'div',
                     { className: 'row' },
@@ -938,6 +1067,10 @@ var _turf2 = _interopRequireDefault(_turf);
 
 var _reactLeaflet = require('react-leaflet');
 
+var _GeoJsonUpdatableJsx = require('./GeoJsonUpdatable.jsx');
+
+var _GeoJsonUpdatableJsx2 = _interopRequireDefault(_GeoJsonUpdatableJsx);
+
 var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 
 var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
@@ -973,7 +1106,16 @@ var ParksMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
+
+            var visibleParksGeo = {
+                type: parksGeo.type,
+                features: parksGeo.features.filter(function (feature) {
+                    return _this2.props.visibleParkIds.indexOf(feature.id) !== -1;
+                })
+            };
 
             return _react2['default'].createElement(
                 'div',
@@ -985,7 +1127,7 @@ var ParksMap = (function (_React$Component) {
                         url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                         id: 'drmaples.ipbindf8' }),
-                    _react2['default'].createElement(_reactLeaflet.GeoJson, { data: parksGeo, onEachFeature: this.onEachFeature.bind(this) })
+                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: visibleParksGeo, onEachFeature: this.onEachFeature.bind(this) })
                 )
             );
         }
@@ -997,12 +1139,13 @@ var ParksMap = (function (_React$Component) {
 exports['default'] = ParksMap;
 
 ParksMap.propTypes = {
+    visibleParkIds: _react2['default'].PropTypes.array.isRequired,
     parksTopo: _react2['default'].PropTypes.object.isRequired,
     onSelectPark: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
-},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

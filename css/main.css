@@ -1262,6 +1262,11 @@ body {
 .nav {
   text-align: center; }
 
+.filters {
+  text-align: center; }
+  .filters select {
+    margin-left: 10px; }
+
 .logo {
   margin-bottom: 10px;
   display: block; }
