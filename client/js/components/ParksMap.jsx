@@ -3,11 +3,20 @@ import topojson from 'topojson';
 import turf from 'turf';  // FIXME: replace with turf-extent
 import { Map, TileLayer } from 'react-leaflet';
 
+import utils from '../utils';
 import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 
 
 export default class ParksMap extends React.Component {
+
+    componentDidMount() {
+        this.fitBounds();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        this.fitBounds();
+    }
 
     onEachFeature(feature, layer) {
         layer.setStyle({
@@ -23,7 +32,12 @@ export default class ParksMap extends React.Component {
         });
     }
 
-    render() {
+    fitBounds() {
+        var bounds = utils.boundsForFeature(this.getGeo());
+        this.refs.map.getLeafletElement().fitBounds(bounds);
+    }
+
+    getGeo() {
         var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
 
         var visibleParksGeo = {
@@ -33,6 +47,12 @@ export default class ParksMap extends React.Component {
             })
         };
 
+        return visibleParksGeo;
+    }
+
+    render() {
+        var geoData = this.getGeo();
+
         return (
             <div className='row'>
                 <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
@@ -40,7 +60,7 @@ export default class ParksMap extends React.Component {
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    <GeoJsonUpdatable data={visibleParksGeo} onEachFeature={this.onEachFeature.bind(this)} />
+                    <GeoJsonUpdatable data={geoData} onEachFeature={this.onEachFeature.bind(this)} />
                 </Map>
             </div>
         );

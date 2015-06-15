@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
-import turf from 'turf';  // FIXME: replace with turf-extent
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
+import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
 
 
@@ -37,20 +37,12 @@ function onEachTrail(feature, layer) {
     });
 }
 
-function boundsForFeature(geoJson) {
-    var extent = turf.extent(geoJson);
-    return [
-        [extent[1], extent[0]],
-        [extent[3], extent[2]],
-    ];
-}
-
 
 export default class ParkMap extends React.Component {
 
     fitBounds() {
         if (this.props.parkGeo) {
-            var bounds = boundsForFeature(this.props.parkGeo);
+            var bounds = utils.boundsForFeature(this.props.parkGeo);
             this.refs.map.getLeafletElement().fitBounds(bounds);
         }
     }
