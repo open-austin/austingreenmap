@@ -29,16 +29,20 @@ export default class ParksList extends React.Component {
     render() {
         var sortedParks = _.sortByAll(this.props.parks, 'distance', 'name');
 
-        var parkList = sortedParks.map((park) => {
+        var visibleParks = sortedParks.filter((park) => {
             // FIXME: Convert park ids to numbers when we generate the data
             if (!!this.state.amenity && this.state.amenityLookup[this.state.amenity].map(Number).indexOf(park.park_id) === -1) {
-                return;
+                return false;
             }
 
             if (!!this.state.facility && this.state.facilityLookup[this.state.facility].map(Number).indexOf(park.park_id) === -1) {
-                return;
+                return false;
             }
 
+            return true;
+        });
+
+        var parkList = visibleParks.map((park) => {
             return (
                 <div className='row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
                     <div className='name eleven columns'>{park.name}</div>

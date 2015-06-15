@@ -7,6 +7,21 @@ import ParkFeatureList from './ParkFeatureList.jsx';
 
 
 export default class ParksMap extends React.Component {
+
+    onEachFeature(feature, layer) {
+        layer.setStyle({
+            color: 'rgb(56,158,70)',
+            opacity: 1,
+            weight: 1,
+            fillColor: 'rgb(86,221,84)',
+            fillOpacity: 0.5,
+        });
+
+        layer.on('click', () => {
+            this.props.onSelectPark(feature.id);
+        });
+    }
+
     render() {
         var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
 
@@ -17,7 +32,7 @@ export default class ParksMap extends React.Component {
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    <GeoJson data={parksGeo}/>
+                    <GeoJson data={parksGeo} onEachFeature={this.onEachFeature.bind(this)} />
                 </Map>
             </div>
         );

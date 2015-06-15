@@ -17,6 +17,26 @@ function onEachAmenity(feature, layer) {
     `);
 }
 
+function onEachPark(feature, layer) {
+    layer.setStyle({
+        color: 'rgb(56,158,70)',
+        opacity: 1,
+        weight: 1,
+        fillColor: 'rgb(86,221,84)',
+        fillOpacity: 0.5,
+    });
+}
+
+function onEachTrail(feature, layer) {
+    layer.setStyle({
+        color: 'rgb(165,105,9)',
+        opacity: 1,
+        weight: 4,
+        fillColor: 'rgb(218,193,145)',
+        fillOpacity: 0.5,
+    });
+}
+
 function boundsForFeature(geoJson) {
     var extent = turf.extent(geoJson);
     return [
@@ -56,10 +76,10 @@ export default class ParkMap extends React.Component {
     }
 
     render () {
-        var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} /> : null;
+        var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null;
         var amenityLayer = this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} /> : null;
         var facilityLayer = this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} /> : null;
-        var trailLayer = this.props.trailGeo ? <GeoJson data={this.props.trailGeo} /> : null;
+        var trailLayer = this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null;
 
         var parkSummary = !this.props.parkGeo ? null : (
             <div className='row'>

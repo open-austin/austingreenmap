@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import turf from 'turf';
 
@@ -34,6 +35,11 @@ export default class App extends React.Component {
         utils.getUserLocation()
             .tap((latLng) => this.setUserLocation(latLng))
             .catch((err) => console.error(err));
+    }
+
+    selectParkWithId(parkId) {
+        var park = _.find(this.state.allParks, (park) => park.park_id === parkId);
+        this.selectPark(park);
     }
 
     selectPark(park) {
@@ -87,7 +93,7 @@ export default class App extends React.Component {
                 <div>
                     <ParksMap
                         parksTopo={this.state.allParksTopo}
-                        onSelectPark={(park) => this.selectPark(park)} />
+                        onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
                     <ParksList
                         parks={this.state.allParks}
                         onSelectPark={(park) => this.selectPark(park)} />
@@ -96,8 +102,10 @@ export default class App extends React.Component {
         }
         return (
             <div>
-              <Navigation />
-              <div className='container'>{content}</div>
+              <div className='container'>
+                  <Navigation />
+                  {content}
+              </div>
             </div>
           );
     }
