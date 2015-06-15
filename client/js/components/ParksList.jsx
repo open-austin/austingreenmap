@@ -29,20 +29,7 @@ export default class ParksList extends React.Component {
     render() {
         var sortedParks = _.sortByAll(this.props.parks, 'distance', 'name');
 
-        var visibleParks = sortedParks.filter((park) => {
-            // FIXME: Convert park ids to numbers when we generate the data
-            if (!!this.state.amenity && this.state.amenityLookup[this.state.amenity].map(Number).indexOf(park.park_id) === -1) {
-                return false;
-            }
-
-            if (!!this.state.facility && this.state.facilityLookup[this.state.facility].map(Number).indexOf(park.park_id) === -1) {
-                return false;
-            }
-
-            return true;
-        });
-
-        var parkList = visibleParks.map((park) => {
+        var parkList = sortedParks.map((park) => {
             return (
                 <div className='row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
                     <div className='name eleven columns'>{park.name}</div>
@@ -51,29 +38,8 @@ export default class ParksList extends React.Component {
             );
         });
 
-        var amenityOptions = Object.keys(this.state.amenityLookup).sort().map((k) => <option key={k}>{k}</option>);
-        var facilityOptions = Object.keys(this.state.facilityLookup).sort().map((k) => <option key={k}>{k}</option>);
-
         return (
             <div>
-                <div className='row'>
-                    <select>
-                        <option defaultValue>Neighborhood</option>
-                        <option>Downtown</option>
-                    </select>
-
-                    <select value={this.state.amenity} onChange={(e) => this.setState({amenity: e.target.value})}>
-                        <option defaultValue></option>
-                        {amenityOptions}
-                    </select>
-
-                    <select value={this.state.facility} onChange={(e) => this.setState({facility: e.target.value})}>
-                        <option defaultValue></option>
-                        {facilityOptions}
-                    </select>
-
-                    <input type='text' placeholder='Name' />
-                </div>
                 <div className='row'>
                     <div className='ten columns'><h6>Name</h6></div>
                     <div className='two columns right'><h6>Distance (mi)</h6></div>

@@ -8,6 +8,7 @@ import ParkMap from './ParkMap.jsx';
 import ParksList from './ParksList.jsx';
 import ParksMap from './ParksMap.jsx';
 import Navigation from './Navigation.jsx';
+import ParkFilters from './ParkFilters.jsx';
 
 
 export default class App extends React.Component {
@@ -24,13 +25,27 @@ export default class App extends React.Component {
             facilityGeo: null,
             trailGeo: null,
             userLocation: null,
+            visibleParks: null,
+            visibleParkIds: null,
+            amenityLookup: null,
+            facilityLookup: null,
         };
 
         api.getAllParks()
-            .then((data) => this.setState({allParks: data}));
+            .then((data) => this.setState({
+                allParks: data,
+                visibleParks: data,
+                visibleParkIds: data.map((park) => Number(park.park_id))
+            }));
 
         api.getAllParksTopo()
             .then((data) => this.setState({allParksTopo: data}));
+
+        api.getLookup('amenity')
+            .then((data) => this.setState({amenityLookup: data}));
+
+        api.getLookup('facility')
+            .then((data) => this.setState({facilityLookup: data}));
 
         utils.getUserLocation()
             .tap((latLng) => this.setUserLocation(latLng))
@@ -74,6 +89,21 @@ export default class App extends React.Component {
         });
     }
 
+    applyFilters(filter) {
+        var visibleParks = this.state.allParks.filter((park) => {
+            // FIXME: Convert park ids to numbers when we generate the data
+            var matchingAmenity = !!this.state.amenityLookup && this.state.amenityLookup[filter] && this.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+            var matchingFacility = !!this.state.facilityLookup && this.state.facilityLookup[filter] && this.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+
+            return matchingAmenity || matchingFacility;
+        });
+
+        this.setState({
+            visibleParks: visibleParks,
+            visibleParkIds: visibleParks.map((park) => Number(park.park_id)),
+        });
+    }
+
     render() {
         var content;
 
@@ -89,13 +119,22 @@ export default class App extends React.Component {
             );
         }
         else if (this.state.allParks && this.state.allParksTopo) {
+            var parkFilters;
+            if (this.state.amenityLookup && this.state.facilityLookup) {
+                parkFilters = <ParkFilters
+                    amenityLookup={this.state.amenityLookup}
+                    facilityLookup={this.state.facilityLookup}
+                    setFilter={(filter) => this.applyFilters(filter)} />
+            }
             content = (
                 <div>
+                    {parkFilters}
                     <ParksMap
+                        visibleParkIds={this.state.visibleParkIds}
                         parksTopo={this.state.allParksTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
                     <ParksList
-                        parks={this.state.allParks}
+                        parks={this.state.visibleParks}
                         onSelectPark={(park) => this.selectPark(park)} />
                 </div>
             );
