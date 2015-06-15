@@ -673,13 +673,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _turf = require('turf');
-
-var _turf2 = _interopRequireDefault(_turf);
-
-// FIXME: replace with turf-extent
-
 var _reactLeaflet = require('react-leaflet');
+
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
 
 var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 
@@ -713,11 +711,6 @@ function onEachTrail(feature, layer) {
     });
 }
 
-function boundsForFeature(geoJson) {
-    var extent = _turf2['default'].extent(geoJson);
-    return [[extent[1], extent[0]], [extent[3], extent[2]]];
-}
-
 var ParkMap = (function (_React$Component) {
     function ParkMap() {
         _classCallCheck(this, ParkMap);
@@ -733,7 +726,7 @@ var ParkMap = (function (_React$Component) {
         key: 'fitBounds',
         value: function fitBounds() {
             if (this.props.parkGeo) {
-                var bounds = boundsForFeature(this.props.parkGeo);
+                var bounds = _utils2['default'].boundsForFeature(this.props.parkGeo);
                 this.refs.map.getLeafletElement().fitBounds(bounds);
             }
         }
@@ -909,7 +902,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1067,6 +1060,10 @@ var _turf2 = _interopRequireDefault(_turf);
 
 var _reactLeaflet = require('react-leaflet');
 
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
 var _GeoJsonUpdatableJsx = require('./GeoJsonUpdatable.jsx');
 
 var _GeoJsonUpdatableJsx2 = _interopRequireDefault(_GeoJsonUpdatableJsx);
@@ -1087,6 +1084,16 @@ var ParksMap = (function (_React$Component) {
     _inherits(ParksMap, _React$Component);
 
     _createClass(ParksMap, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.fitBounds();
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            this.fitBounds();
+        }
+    }, {
         key: 'onEachFeature',
         value: function onEachFeature(feature, layer) {
             var _this = this;
@@ -1104,8 +1111,14 @@ var ParksMap = (function (_React$Component) {
             });
         }
     }, {
-        key: 'render',
-        value: function render() {
+        key: 'fitBounds',
+        value: function fitBounds() {
+            var bounds = _utils2['default'].boundsForFeature(this.getGeo());
+            this.refs.map.getLeafletElement().fitBounds(bounds);
+        }
+    }, {
+        key: 'getGeo',
+        value: function getGeo() {
             var _this2 = this;
 
             var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
@@ -1117,6 +1130,13 @@ var ParksMap = (function (_React$Component) {
                 })
             };
 
+            return visibleParksGeo;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var geoData = this.getGeo();
+
             return _react2['default'].createElement(
                 'div',
                 { className: 'row' },
@@ -1127,7 +1147,7 @@ var ParksMap = (function (_React$Component) {
                         url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                         id: 'drmaples.ipbindf8' }),
-                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: visibleParksGeo, onEachFeature: this.onEachFeature.bind(this) })
+                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: geoData, onEachFeature: this.onEachFeature.bind(this) })
                 )
             );
         }
@@ -1145,7 +1165,7 @@ ParksMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1274,6 +1294,12 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+var _turf = require('turf');
+
+var _turf2 = _interopRequireDefault(_turf);
+
+// FIXME: replace with turf-extent
+
 var _when = require('when');
 
 var _when2 = _interopRequireDefault(_when);
@@ -1289,11 +1315,16 @@ var utils = {
             return deferred.reject(err);
         }, {
             enableHighAccuracy: true,
-            timeout: 5000,
+            timeout: 15000,
             maximumAge: 0
         });
 
         return deferred.promise;
+    },
+
+    boundsForFeature: function boundsForFeature(geoJson) {
+        var extent = _turf2['default'].extent(geoJson);
+        return [[extent[1], extent[0]], [extent[3], extent[2]]];
     }
 
 };
@@ -1301,7 +1332,7 @@ var utils = {
 exports['default'] = utils;
 module.exports = exports['default'];
 
-},{"when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
