@@ -37,10 +37,10 @@ export default class ParkList extends React.Component {
             }
 
             return (
-                <div className='row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
+                <a className='row' onClick={() => this.selectPark(park)} key={park.park_id}>
                     <div className='name ten columns'>{park.name}</div>
                     <div className='id two columns'>{park.park_id}</div>
-                </div>
+                </a>
             );
         });
 
