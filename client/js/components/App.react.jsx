@@ -6,7 +6,7 @@ import api from '../utils/api';
 import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
 import ParksList from './ParksList.jsx';
-import ParksMap from './ParksMap.jsx';
+import AllParksMap from './AllParksMap.jsx';
 import Navigation from './Navigation.jsx';
 import ParkFilters from './ParkFilters.jsx';
 
@@ -129,7 +129,7 @@ export default class App extends React.Component {
             content = (
                 <div>
                     {parkFilters}
-                    <ParksMap
+                    <AllParksMap
                         visibleParkIds={this.state.visibleParkIds}
                         parksTopo={this.state.allParksTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
@@ -140,12 +140,10 @@ export default class App extends React.Component {
             );
         }
         return (
-            <div>
-              <div className='container'>
-                  <Navigation />
-                  {content}
-              </div>
-            </div>
+          <div className='container'>
+              <Navigation />
+              {content}
+          </div>
           );
     }
 }

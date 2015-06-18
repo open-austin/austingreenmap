@@ -68,11 +68,6 @@ export default class ParkMap extends React.Component {
     }
 
     render () {
-        var parkLayer = this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null;
-        var amenityLayer = this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} /> : null;
-        var facilityLayer = this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} /> : null;
-        var trailLayer = this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null;
-
         var parkSummary = !this.props.parkGeo ? null : (
             <div className='row'>
                 <div className='six columns'>
@@ -91,7 +86,7 @@ export default class ParkMap extends React.Component {
                     <div>Development status: {this.props.parkGeo.properties.DEVELOPMENT_STATUS} </div>
                 </div>
             </div>
-        )
+        );
 
         return (
             <div>
@@ -104,10 +99,10 @@ export default class ParkMap extends React.Component {
                             url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                             attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                             id='drmaples.ipbindf8' />
-                        {parkLayer}
-                        {amenityLayer}
-                        {facilityLayer}
-                        {trailLayer}
+                        {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
+                        {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} /> : null}
+                        {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} /> : null}
+                        {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                     </Map>
                 </div>
                 {parkSummary}

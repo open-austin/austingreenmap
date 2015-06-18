@@ -5,23 +5,6 @@ import api from '../utils/api';
 
 
 export default class ParksList extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            amenity: null,
-            facility: null,
-            amenityLookup: {},
-            facilityLookup: {},
-        };
-
-        api.getLookup('amenity')
-            .then((data) => this.setState({amenityLookup: data}));
-
-        api.getLookup('facility')
-            .then((data) => this.setState({facilityLookup: data}));
-    }
-
     selectPark(park) {
         this.props.onSelectPark(park);
     }

@@ -8,7 +8,7 @@ import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 
 
-export default class ParksMap extends React.Component {
+export default class AllParksMap extends React.Component {
 
     componentDidMount() {
         this.fitBounds();
