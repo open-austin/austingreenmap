@@ -67,7 +67,7 @@ export default class AllParksMap extends React.Component {
     }
 }
 
-ParksMap.propTypes = {
+AllParksMap.propTypes = {
     visibleParkIds: React.PropTypes.array.isRequired,
     parksTopo: React.PropTypes.object.isRequired,
     onSelectPark:  React.PropTypes.func.isRequired,
