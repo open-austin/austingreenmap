@@ -38,6 +38,7 @@
     "protobufjs": "^3.8.2",
     "react": "~0.13.0",
     "react-leaflet": "^0.6.1",
+    "topojson": "^1.6.19",
     "turf": "^2.0.2",
     "when": "^3.7.3"
   }

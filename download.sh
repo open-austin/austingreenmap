@@ -23,4 +23,4 @@ curl $pard_trails_nrpa | jq '' - > raw/pard_trails_nrpa.json
 
 python generate_parks.py
 
-topojson --out data/city_of_austin_parks.topo.json -- data/city_of_austin_parks.geojson
+topojson --id-property PARK_ID --out data/city_of_austin_parks.topo.json -- data/city_of_austin_parks.geojson

@@ -6,7 +6,7 @@ $green: #389e46;
 
 
 body {
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
 #map {
@@ -14,7 +14,23 @@ body {
     margin-bottom: 30px;
 }
 
-.container {
+.nav {
+    text-align: center;
+}
+
+.filters {
+    text-align: center;
+    select {
+        margin-left: 10px;
+    }
+}
+
+.logo {
+    margin-bottom: 10px;
+    display: block;
+    img {
+        height: 30px;
+    }
 }
 
 .address {
@@ -30,8 +46,8 @@ body {
 }
 
 a, .u-clickable {
+    cursor: pointer;
     &:hover {
-        cursor: pointer;
         color: $green;
     }
 }

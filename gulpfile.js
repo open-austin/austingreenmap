@@ -124,7 +124,14 @@ gulp.task('copy-data', function() {
     var symlink = require('gulp-symlink');
 
     return gulp.src('data')
-      .pipe(symlink('build/data'));
+        .pipe(symlink('build/data'));
+});
+
+gulp.task('copy-images', function() {
+    var symlink = require('gulp-symlink');
+
+    return gulp.src('client/images')
+        .pipe(symlink('build/images'));
 });
 
 gulp.task('watch', function() {
@@ -152,6 +159,6 @@ gulp.task('deploy-gh-pages', function() {
         );
     });
 
-gulp.task('build', ['styles', 'build-js', 'copy-html', 'copy-data']);
-gulp.task('default', ['clean', 'styles', 'copy-html', 'copy-data', 'webserver', 'watch', 'watch-js']);
+gulp.task('build', ['styles', 'build-js', 'copy-html', 'copy-data', 'copy-images']);
+gulp.task('default', ['clean', 'styles', 'copy-html', 'copy-data', 'copy-images', 'webserver', 'watch', 'watch-js']);
 gulp.task('frontend', ['clean', 'copy-html', 'styles', 'webserver', 'watch']);
