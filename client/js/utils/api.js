@@ -53,7 +53,19 @@ var api = {
         return ajax({url: url, dataType: 'json'})
             .tap((body) => _cache[url] = body)
             .catch((err) => console.error(url, err));
-    }
+    },
+
+    getAllTrailsTopo() {
+        var url = `data/pard_trails_nrpa.topo.json`;
+
+        if (_cache[url]) {
+            return when.resolve(_cache[url]);
+        }
+
+        return ajax({url: url, dataType: 'json'})
+            .tap((body) => _cache[url] = body)
+            .catch((err) => console.error(url, err));
+    },
 
 };
 

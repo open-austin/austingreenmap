@@ -19,6 +19,7 @@ export default class App extends React.Component {
         this.state = {
             allParks: null,
             allParksTopo: null,
+            allTrailsTopo: null,
             park: null,
             parkGeo: null,
             amenityGeo: null,
@@ -40,6 +41,9 @@ export default class App extends React.Component {
 
         api.getAllParksTopo()
             .then((data) => this.setState({allParksTopo: data}));
+
+        api.getAllTrailsTopo()
+            .then((data) => this.setState({allTrailsTopo: data}));
 
         api.getLookup('amenity')
             .then((data) => this.setState({amenityLookup: data}));
@@ -118,7 +122,7 @@ export default class App extends React.Component {
                     trailGeo={this.state.trailGeo} />
             );
         }
-        else if (this.state.allParks && this.state.allParksTopo) {
+        else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
             var parkFilters;
             if (this.state.amenityLookup && this.state.facilityLookup) {
                 parkFilters = <ParkFilters
@@ -132,6 +136,7 @@ export default class App extends React.Component {
                     <AllParksMap
                         visibleParkIds={this.state.visibleParkIds}
                         parksTopo={this.state.allParksTopo}
+                        trailsTopo={this.state.allTrailsTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
                     <ParksList
                         parks={this.state.visibleParks}
