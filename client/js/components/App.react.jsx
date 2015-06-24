@@ -134,6 +134,7 @@ export default class App extends React.Component {
                 <div>
                     {parkFilters}
                     <AllParksMap
+                        userLocation={this.state.userLocation}
                         visibleParkIds={this.state.visibleParkIds}
                         parksTopo={this.state.allParksTopo}
                         trailsTopo={this.state.allTrailsTopo}

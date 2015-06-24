@@ -1,7 +1,7 @@
 import React from 'react';
 import topojson from 'topojson';
 import turf from 'turf';  // FIXME: replace with turf-extent
-import { Map, TileLayer } from 'react-leaflet';
+import { Map, TileLayer, CircleMarker } from 'react-leaflet';
 
 import utils from '../utils';
 import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
@@ -10,30 +10,17 @@ import ParkFeatureList from './ParkFeatureList.jsx';
 
 export default class AllParksMap extends React.Component {
 
-    componentDidMount() {
-        this.fitBounds();
-    }
-
     componentDidUpdate(prevProps, prevState) {
-        this.fitBounds();
-    }
-
-    onEachParkFeature(feature, layer) {
-        layer.setStyle({
-            color: 'rgb(56,158,70)',
-            opacity: 1,
-            weight: 1,
-            fillColor: 'rgb(86,221,84)',
-            fillOpacity: 0.5,
-        });
-
-        layer.on('click', () => {
-            this.props.onSelectPark(feature.id);
-        });
+        if (prevProps.userLocation !== this.props.userLocation) {
+            this.refs.map.getLeafletElement().setZoomAround(this.props.userLocation, 14).panTo(this.props.userLocation);
+        }
+        else {
+            this.fitBounds();
+        }
     }
 
     fitBounds() {
-        var bounds = utils.boundsForFeature(this.getGeo());
+        var bounds = utils.boundsForFeature(this.getParksGeo());
         this.refs.map.getLeafletElement().fitBounds(bounds);
     }
 
@@ -50,6 +37,20 @@ export default class AllParksMap extends React.Component {
         return visibleParksGeo;
     }
 
+    onEachParkFeature(feature, layer) {
+        layer.setStyle({
+            color: 'rgb(56,158,70)',
+            opacity: 1,
+            weight: 1,
+            fillColor: 'rgb(86,221,84)',
+            fillOpacity: 0.5,
+        });
+
+        layer.on('click', () => {
+            this.props.onSelectPark(feature.id);
+        });
+    }
+
     getTrailsGeo() {
         return topojson.feature(this.props.trailsTopo, this.props.trailsTopo.objects.pard_trails_nrpa);
     }
@@ -57,7 +58,7 @@ export default class AllParksMap extends React.Component {
     onEachTrailFeature(feature, layer) {
         layer.setStyle({
             color: 'rgb(165,105,9)',
-            opacity: 1,
+            opacity: 0.8,
             weight: 2,
             fillColor: 'rgb(218,193,145)',
             fillOpacity: 1,
@@ -65,6 +66,18 @@ export default class AllParksMap extends React.Component {
     }
 
     render() {
+        var userLocationMarker = !this.props.userLocation ? null : (
+            <CircleMarker
+                center={this.props.userLocation}
+                radius={8}
+                weight={1}
+                fillOpacity={1}
+                fillColor='rgb(0,172,238)'
+                strokeOpacity={1}
+                strokeColor='rgb(19,61,232)'
+                />
+        );
+
         return (
             <div className='row'>
                 <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
@@ -74,6 +87,7 @@ export default class AllParksMap extends React.Component {
                         id='drmaples.ipbindf8' />
                     <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                     <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
+                    {userLocationMarker}
                 </Map>
             </div>
         );
@@ -85,4 +99,5 @@ AllParksMap.propTypes = {
     parksTopo: React.PropTypes.object.isRequired,
     trailsTopo: React.PropTypes.object.isRequired,
     onSelectPark:  React.PropTypes.func.isRequired,
+    userLocation: React.PropTypes.array,
 };
