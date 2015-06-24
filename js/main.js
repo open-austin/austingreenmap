@@ -14,7 +14,159 @@ var _componentsAppReactJsx2 = _interopRequireDefault(_componentsAppReactJsx);
 window.React = _react2['default'];
 _react2['default'].render(_react2['default'].createElement(_componentsAppReactJsx2['default'], null), document.getElementById('app'));
 
-},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx":[function(require,module,exports){
+},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _topojson = require('topojson');
+
+var _topojson2 = _interopRequireDefault(_topojson);
+
+var _turf = require('turf');
+
+var _turf2 = _interopRequireDefault(_turf);
+
+// FIXME: replace with turf-extent
+
+var _reactLeaflet = require('react-leaflet');
+
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+var _GeoJsonUpdatableJsx = require('./GeoJsonUpdatable.jsx');
+
+var _GeoJsonUpdatableJsx2 = _interopRequireDefault(_GeoJsonUpdatableJsx);
+
+var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
+
+var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
+
+var AllParksMap = (function (_React$Component) {
+    function AllParksMap() {
+        _classCallCheck(this, AllParksMap);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(AllParksMap, _React$Component);
+
+    _createClass(AllParksMap, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.fitBounds();
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            this.fitBounds();
+        }
+    }, {
+        key: 'onEachParkFeature',
+        value: function onEachParkFeature(feature, layer) {
+            var _this = this;
+
+            layer.setStyle({
+                color: 'rgb(56,158,70)',
+                opacity: 1,
+                weight: 1,
+                fillColor: 'rgb(86,221,84)',
+                fillOpacity: 0.5
+            });
+
+            layer.on('click', function () {
+                _this.props.onSelectPark(feature.id);
+            });
+        }
+    }, {
+        key: 'fitBounds',
+        value: function fitBounds() {
+            var bounds = _utils2['default'].boundsForFeature(this.getGeo());
+            this.refs.map.getLeafletElement().fitBounds(bounds);
+        }
+    }, {
+        key: 'getParksGeo',
+        value: function getParksGeo() {
+            var _this2 = this;
+
+            var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
+
+            var visibleParksGeo = {
+                type: parksGeo.type,
+                features: parksGeo.features.filter(function (feature) {
+                    return _this2.props.visibleParkIds.indexOf(feature.id) !== -1;
+                })
+            };
+
+            return visibleParksGeo;
+        }
+    }, {
+        key: 'getTrailsGeo',
+        value: function getTrailsGeo() {
+            return _topojson2['default'].feature(this.props.trailsTopo, this.props.trailsTopo.objects.pard_trails_nrpa);
+        }
+    }, {
+        key: 'onEachTrailFeature',
+        value: function onEachTrailFeature(feature, layer) {
+            layer.setStyle({
+                color: 'rgb(165,105,9)',
+                opacity: 1,
+                weight: 2,
+                fillColor: 'rgb(218,193,145)',
+                fillOpacity: 1
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                    _reactLeaflet.Map,
+                    { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
+                    _react2['default'].createElement(_reactLeaflet.TileLayer, {
+                        url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
+                        id: 'drmaples.ipbindf8' }),
+                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getTrailsGeo(), onEachFeature: this.onEachTrailFeature.bind(this) }),
+                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) })
+                )
+            );
+        }
+    }]);
+
+    return AllParksMap;
+})(_react2['default'].Component);
+
+exports['default'] = AllParksMap;
+
+AllParksMap.propTypes = {
+    visibleParkIds: _react2['default'].PropTypes.array.isRequired,
+    parksTopo: _react2['default'].PropTypes.object.isRequired,
+    trailsTopo: _react2['default'].PropTypes.object.isRequired,
+    onSelectPark: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59,9 +211,9 @@ var _ParksListJsx = require('./ParksList.jsx');
 
 var _ParksListJsx2 = _interopRequireDefault(_ParksListJsx);
 
-var _ParksMapJsx = require('./ParksMap.jsx');
+var _AllParksMapJsx = require('./AllParksMap.jsx');
 
-var _ParksMapJsx2 = _interopRequireDefault(_ParksMapJsx);
+var _AllParksMapJsx2 = _interopRequireDefault(_AllParksMapJsx);
 
 var _NavigationJsx = require('./Navigation.jsx');
 
@@ -82,6 +234,7 @@ var App = (function (_React$Component) {
         this.state = {
             allParks: null,
             allParksTopo: null,
+            allTrailsTopo: null,
             park: null,
             parkGeo: null,
             amenityGeo: null,
@@ -106,6 +259,10 @@ var App = (function (_React$Component) {
 
         _utilsApi2['default'].getAllParksTopo().then(function (data) {
             return _this.setState({ allParksTopo: data });
+        });
+
+        _utilsApi2['default'].getAllTrailsTopo().then(function (data) {
+            return _this.setState({ allTrailsTopo: data });
         });
 
         _utilsApi2['default'].getLookup('amenity').then(function (data) {
@@ -208,7 +365,7 @@ var App = (function (_React$Component) {
                     facilityGeo: this.state.facilityGeo,
                     amenityGeo: this.state.amenityGeo,
                     trailGeo: this.state.trailGeo });
-            } else if (this.state.allParks && this.state.allParksTopo) {
+            } else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
                 var parkFilters;
                 if (this.state.amenityLookup && this.state.facilityLookup) {
                     parkFilters = _react2['default'].createElement(_ParkFiltersJsx2['default'], {
@@ -222,9 +379,10 @@ var App = (function (_React$Component) {
                     'div',
                     null,
                     parkFilters,
-                    _react2['default'].createElement(_ParksMapJsx2['default'], {
+                    _react2['default'].createElement(_AllParksMapJsx2['default'], {
                         visibleParkIds: this.state.visibleParkIds,
                         parksTopo: this.state.allParksTopo,
+                        trailsTopo: this.state.allTrailsTopo,
                         onSelectPark: function (parkId) {
                             return _this4.selectParkWithId(parkId);
                         } }),
@@ -237,13 +395,9 @@ var App = (function (_React$Component) {
             }
             return _react2['default'].createElement(
                 'div',
-                null,
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'container' },
-                    _react2['default'].createElement(_NavigationJsx2['default'], null),
-                    content
-                )
+                { className: 'container' },
+                _react2['default'].createElement(_NavigationJsx2['default'], null),
+                content
             );
         }
     }]);
@@ -254,7 +408,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","./ParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -758,11 +912,6 @@ var ParkMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var parkLayer = this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null;
-            var amenityLayer = this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity }) : null;
-            var facilityLayer = this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility }) : null;
-            var trailLayer = this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null;
-
             var parkSummary = !this.props.parkGeo ? null : _react2['default'].createElement(
                 'div',
                 { className: 'row' },
@@ -872,10 +1021,10 @@ var ParkMap = (function (_React$Component) {
                             url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                             attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                             id: 'drmaples.ipbindf8' }),
-                        parkLayer,
-                        amenityLayer,
-                        facilityLayer,
-                        trailLayer
+                        this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null,
+                        this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity }) : null,
+                        this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility }) : null,
+                        this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
                     )
                 ),
                 parkSummary,
@@ -911,8 +1060,6 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -932,27 +1079,12 @@ var _utilsApi = require('../utils/api');
 var _utilsApi2 = _interopRequireDefault(_utilsApi);
 
 var ParksList = (function (_React$Component) {
-    function ParksList(props) {
-        var _this = this;
-
+    function ParksList() {
         _classCallCheck(this, ParksList);
 
-        _get(Object.getPrototypeOf(ParksList.prototype), 'constructor', this).call(this, props);
-
-        this.state = {
-            amenity: null,
-            facility: null,
-            amenityLookup: {},
-            facilityLookup: {}
-        };
-
-        _utilsApi2['default'].getLookup('amenity').then(function (data) {
-            return _this.setState({ amenityLookup: data });
-        });
-
-        _utilsApi2['default'].getLookup('facility').then(function (data) {
-            return _this.setState({ facilityLookup: data });
-        });
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
     }
 
     _inherits(ParksList, _React$Component);
@@ -965,7 +1097,7 @@ var ParksList = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this = this;
 
             var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
 
@@ -973,7 +1105,7 @@ var ParksList = (function (_React$Component) {
                 return _react2['default'].createElement(
                     'div',
                     { className: 'row u-clickable', onClick: function () {
-                            return _this2.selectPark(park);
+                            return _this.selectPark(park);
                         }, key: park.park_id },
                     _react2['default'].createElement(
                         'div',
@@ -1029,143 +1161,7 @@ ParksList.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksMap.jsx":[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _topojson = require('topojson');
-
-var _topojson2 = _interopRequireDefault(_topojson);
-
-var _turf = require('turf');
-
-var _turf2 = _interopRequireDefault(_turf);
-
-// FIXME: replace with turf-extent
-
-var _reactLeaflet = require('react-leaflet');
-
-var _utils = require('../utils');
-
-var _utils2 = _interopRequireDefault(_utils);
-
-var _GeoJsonUpdatableJsx = require('./GeoJsonUpdatable.jsx');
-
-var _GeoJsonUpdatableJsx2 = _interopRequireDefault(_GeoJsonUpdatableJsx);
-
-var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
-
-var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
-
-var ParksMap = (function (_React$Component) {
-    function ParksMap() {
-        _classCallCheck(this, ParksMap);
-
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
-    }
-
-    _inherits(ParksMap, _React$Component);
-
-    _createClass(ParksMap, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.fitBounds();
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            this.fitBounds();
-        }
-    }, {
-        key: 'onEachFeature',
-        value: function onEachFeature(feature, layer) {
-            var _this = this;
-
-            layer.setStyle({
-                color: 'rgb(56,158,70)',
-                opacity: 1,
-                weight: 1,
-                fillColor: 'rgb(86,221,84)',
-                fillOpacity: 0.5
-            });
-
-            layer.on('click', function () {
-                _this.props.onSelectPark(feature.id);
-            });
-        }
-    }, {
-        key: 'fitBounds',
-        value: function fitBounds() {
-            var bounds = _utils2['default'].boundsForFeature(this.getGeo());
-            this.refs.map.getLeafletElement().fitBounds(bounds);
-        }
-    }, {
-        key: 'getGeo',
-        value: function getGeo() {
-            var _this2 = this;
-
-            var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
-
-            var visibleParksGeo = {
-                type: parksGeo.type,
-                features: parksGeo.features.filter(function (feature) {
-                    return _this2.props.visibleParkIds.indexOf(feature.id) !== -1;
-                })
-            };
-
-            return visibleParksGeo;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var geoData = this.getGeo();
-
-            return _react2['default'].createElement(
-                'div',
-                { className: 'row' },
-                _react2['default'].createElement(
-                    _reactLeaflet.Map,
-                    { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
-                    _react2['default'].createElement(_reactLeaflet.TileLayer, {
-                        url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
-                        id: 'drmaples.ipbindf8' }),
-                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: geoData, onEachFeature: this.onEachFeature.bind(this) })
-                )
-            );
-        }
-    }]);
-
-    return ParksMap;
-})(_react2['default'].Component);
-
-exports['default'] = ParksMap;
-
-ParksMap.propTypes = {
-    visibleParkIds: _react2['default'].PropTypes.array.isRequired,
-    parksTopo: _react2['default'].PropTypes.object.isRequired,
-    onSelectPark: _react2['default'].PropTypes.func.isRequired
-};
-module.exports = exports['default'];
-
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1268,6 +1264,20 @@ var api = {
 
     getAllParksTopo: function getAllParksTopo() {
         var url = 'data/city_of_austin_parks.topo.json';
+
+        if (_cache[url]) {
+            return _when2['default'].resolve(_cache[url]);
+        }
+
+        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
+            return _cache[url] = body;
+        })['catch'](function (err) {
+            return console.error(url, err);
+        });
+    },
+
+    getAllTrailsTopo: function getAllTrailsTopo() {
+        var url = 'data/pard_trails_nrpa.topo.json';
 
         if (_cache[url]) {
             return _when2['default'].resolve(_cache[url]);
