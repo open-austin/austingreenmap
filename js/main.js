@@ -69,19 +69,40 @@ var AllParksMap = (function (_React$Component) {
     _inherits(AllParksMap, _React$Component);
 
     _createClass(AllParksMap, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.fitBounds();
-        }
-    }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            this.fitBounds();
+            if (prevProps.userLocation !== this.props.userLocation) {
+                this.refs.map.getLeafletElement().setZoomAround(this.props.userLocation, 14).panTo(this.props.userLocation);
+            } else {
+                this.fitBounds();
+            }
+        }
+    }, {
+        key: 'fitBounds',
+        value: function fitBounds() {
+            var bounds = _utils2['default'].boundsForFeature(this.getParksGeo());
+            this.refs.map.getLeafletElement().fitBounds(bounds);
+        }
+    }, {
+        key: 'getParksGeo',
+        value: function getParksGeo() {
+            var _this = this;
+
+            var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
+
+            var visibleParksGeo = {
+                type: parksGeo.type,
+                features: parksGeo.features.filter(function (feature) {
+                    return _this.props.visibleParkIds.indexOf(feature.id) !== -1;
+                })
+            };
+
+            return visibleParksGeo;
         }
     }, {
         key: 'onEachParkFeature',
         value: function onEachParkFeature(feature, layer) {
-            var _this = this;
+            var _this2 = this;
 
             layer.setStyle({
                 color: 'rgb(56,158,70)',
@@ -92,30 +113,8 @@ var AllParksMap = (function (_React$Component) {
             });
 
             layer.on('click', function () {
-                _this.props.onSelectPark(feature.id);
+                _this2.props.onSelectPark(feature.id);
             });
-        }
-    }, {
-        key: 'fitBounds',
-        value: function fitBounds() {
-            var bounds = _utils2['default'].boundsForFeature(this.getGeo());
-            this.refs.map.getLeafletElement().fitBounds(bounds);
-        }
-    }, {
-        key: 'getParksGeo',
-        value: function getParksGeo() {
-            var _this2 = this;
-
-            var parksGeo = _topojson2['default'].feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
-
-            var visibleParksGeo = {
-                type: parksGeo.type,
-                features: parksGeo.features.filter(function (feature) {
-                    return _this2.props.visibleParkIds.indexOf(feature.id) !== -1;
-                })
-            };
-
-            return visibleParksGeo;
         }
     }, {
         key: 'getTrailsGeo',
@@ -127,7 +126,7 @@ var AllParksMap = (function (_React$Component) {
         value: function onEachTrailFeature(feature, layer) {
             layer.setStyle({
                 color: 'rgb(165,105,9)',
-                opacity: 1,
+                opacity: 0.8,
                 weight: 2,
                 fillColor: 'rgb(218,193,145)',
                 fillOpacity: 1
@@ -136,6 +135,16 @@ var AllParksMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var userLocationMarker = !this.props.userLocation ? null : _react2['default'].createElement(_reactLeaflet.CircleMarker, {
+                center: this.props.userLocation,
+                radius: 8,
+                weight: 3,
+                fillOpacity: 1,
+                fillColor: 'rgb(0,172,238)',
+                strokeOpacity: 1,
+                strokeColor: 'rgb(255,255,255)'
+            });
+
             return _react2['default'].createElement(
                 'div',
                 { className: 'row' },
@@ -146,8 +155,9 @@ var AllParksMap = (function (_React$Component) {
                         url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                         id: 'drmaples.ipbindf8' }),
+                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) }),
                     _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getTrailsGeo(), onEachFeature: this.onEachTrailFeature.bind(this) }),
-                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) })
+                    userLocationMarker
                 )
             );
         }
@@ -162,7 +172,8 @@ AllParksMap.propTypes = {
     visibleParkIds: _react2['default'].PropTypes.array.isRequired,
     parksTopo: _react2['default'].PropTypes.object.isRequired,
     trailsTopo: _react2['default'].PropTypes.object.isRequired,
-    onSelectPark: _react2['default'].PropTypes.func.isRequired
+    onSelectPark: _react2['default'].PropTypes.func.isRequired,
+    userLocation: _react2['default'].PropTypes.array
 };
 module.exports = exports['default'];
 
@@ -380,6 +391,7 @@ var App = (function (_React$Component) {
                     null,
                     parkFilters,
                     _react2['default'].createElement(_AllParksMapJsx2['default'], {
+                        userLocation: this.state.userLocation,
                         visibleParkIds: this.state.visibleParkIds,
                         parksTopo: this.state.allParksTopo,
                         trailsTopo: this.state.allTrailsTopo,
@@ -823,6 +835,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _leaflet = require('leaflet');
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -836,6 +852,10 @@ var _utils2 = _interopRequireDefault(_utils);
 var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 
 var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
+
+var _utilsIconLookupJson = require('../utils/iconLookup.json');
+
+var _utilsIconLookupJson2 = _interopRequireDefault(_utilsIconLookupJson);
 
 function onEachFacility(feature, layer) {
     layer.bindPopup(feature.properties.FACILITY_NAME);
@@ -851,7 +871,8 @@ function onEachPark(feature, layer) {
         opacity: 1,
         weight: 1,
         fillColor: 'rgb(86,221,84)',
-        fillOpacity: 0.5
+        fillOpacity: 0.5,
+        icon: '/images/deciduous_tree.png'
     });
 }
 
@@ -863,6 +884,20 @@ function onEachTrail(feature, layer) {
         fillColor: 'rgb(218,193,145)',
         fillOpacity: 0.5
     });
+}
+
+function pointToLayer(feature, latlng) {
+    var icon = _utilsIconLookupJson2['default'][feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : 'images/maki/' + icon + '-18@2x.png';
+
+    var iconLayer = _leaflet2['default'].icon({
+        iconSize: [18, 18],
+        iconAnchor: [12, 17],
+        popupAnchor: [1, -16],
+        iconUrl: iconURL
+    });
+
+    return _leaflet2['default'].marker(latlng, { icon: iconLayer });
 }
 
 var ParkMap = (function (_React$Component) {
@@ -1022,8 +1057,8 @@ var ParkMap = (function (_React$Component) {
                             attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                             id: 'drmaples.ipbindf8' }),
                         this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null,
-                        this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity }) : null,
-                        this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility }) : null,
+                        this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
+                        this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
                         this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
                     )
                 ),
@@ -1051,7 +1086,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/iconLookup.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/iconLookup.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1295,7 +1330,107 @@ var api = {
 exports['default'] = api;
 module.exports = exports['default'];
 
-},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js":[function(require,module,exports){
+},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/iconLookup.json":[function(require,module,exports){
+module.exports={
+    "(Non-PARD) AFD Building": "fire-station",
+    "(Non-PARD) Austin Energy Building": "building",
+    "(Non-PARD) Community Center": "art-gallery",
+    "(Non-PARD) Cultural Center": "art-gallery",
+    "(Non-PARD) Dormitory": "lodging",
+    "(Non-PARD) EMS Building": "hospital",
+    "(Non-PARD) Events Center": "art-gallery",
+    "(Non-PARD) Fire Station": "fire-station",
+    "(Non-PARD) Health Center": "hospital",
+    "(Non-PARD) Leased": "building",
+    "(Non-PARD) Library": "library",
+    "(Non-PARD) School": "school",
+    "(Non-PARD)Theatre": "theatre",
+    "Administrative": "commercial",
+    "Arbor": "garden",
+    "BMX": "bicycle",
+    "Barbecue Pit": "fast-food",
+    "Baseball": "baseball",
+    "Basketball": "basketball",
+    "Bathhouse": "swimming",
+    "Batting Cage": "baseball",
+    "Bench": "?",
+    "Bike Rack": "bicycle",
+    "Boat Ramp": "ferry",
+    "Bocce Ball": "circle-solid",
+    "Challenge Course": "pitch",
+    "Climbing Wall": "pitch",
+    "Concession": "fast-food",
+    "Cricket": "cricket",
+    "Cultural Center": "art-gallery",
+    "Demonstration site": "building",
+    "Drinking Fountain": "water",
+    "Entrance Station": "entrance",
+    "Environmental Education": "building",
+    "Fitness Station": "pitch",
+    "Frisbee/Disc Golf": "pitch",
+    "Garden Center": "garden",
+    "Gazebo": "building",
+    "Geneology Center": "museum",
+    "Golf 18-hole": "golf",
+    "Golf Clubhouse": "golf",
+    "Golf Driving Range": "golf",
+    "Golf Maintenance facility": "golf",
+    "Golf – 9-hole": "golf",
+    "Gym": "pitch",
+    "Historic Building": "lighthouse",
+    "Historic Structure": "lighthouse",
+    "Horseshoes": "pitch",
+    "Kiosks": "building",
+    "Living History site": "building",
+    "Maintenance structure": "building",
+    "Managed Habitat": "wetland",
+    "Marina/Boat storage": "harbor",
+    "Memorial": "cemetery",
+    "Misc Building": "building",
+    "Mixed Use Field": "land-use",
+    "Multipurpose": "land-use",
+    "Mutt Mitt": "dog-park",
+    "Nature Center": "garden",
+    "Other": "?",
+    "Parking Lot": "parking",
+    "Pavilion": "campsite",
+    "Performing Arts venue": "theatre",
+    "Picnic Ground or area": "fast-food",
+    "Picnic Shelter": "fast-food",
+    "Picnic Table": "fast-food",
+    "Pier/Dock": "harbor",
+    "Plant Nursery": "garden",
+    "Playground": "playground",
+    "Public Campground": "campsite",
+    "Pump Station": "fuel",
+    "RV Dump Station": "fuel",
+    "Recreation/Community - Large": "playground",
+    "Recreation/Community - Small": "playground",
+    "Recreation/Community - medium": "playground",
+    "Recreation/Community Extra-Large": "playground",
+    "Reservable Facility": "building",
+    "Residence": "building",
+    "Restroom": "toilets",
+    "Retail Store": "shop",
+    "Rinse Station": "water",
+    "Scenic Overlook": "park2",
+    "Senior Center": "building",
+    "Sign": "square-stroked",
+    "Skateboard": "pitch",
+    "Soccer": "soccer",
+    "Softball": "baseball",
+    "Sprayground": "swimming",
+    "Storage Building": "warehouse",
+    "Swimming Pool": "swimming",
+    "Teen Center": "playground",
+    "Tennis": "tennis",
+    "Trash Can": "waste-basket",
+    "Visual Arts/Crafts": "art-gallery",
+    "Volleyball": "pitch",
+    "Zoo": "zoo"
+}
+
+},{}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
