@@ -1,9 +1,11 @@
 import _ from 'lodash';
+import L from 'leaflet';
 import React from 'react';
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
+import iconLookup from '../utils/iconLookup.json';
 
 
 function onEachFacility(feature, layer) {
@@ -24,6 +26,7 @@ function onEachPark(feature, layer) {
         weight: 1,
         fillColor: 'rgb(86,221,84)',
         fillOpacity: 0.5,
+        icon: '/images/deciduous_tree.png',
     });
 }
 
@@ -35,6 +38,20 @@ function onEachTrail(feature, layer) {
         fillColor: 'rgb(218,193,145)',
         fillOpacity: 0.5,
     });
+}
+
+function pointToLayer(feature, latlng) {
+    var icon = iconLookup[feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/maki/${icon}-18@2x.png`;
+
+    var iconLayer = L.icon({
+        iconSize: [18, 18],
+        iconAnchor: [12, 17],
+        popupAnchor:  [1, -16],
+        iconUrl: iconURL,
+    });
+
+    return L.marker(latlng, {icon: iconLayer});
 }
 
 
@@ -100,8 +117,8 @@ export default class ParkMap extends React.Component {
                             attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                             id='drmaples.ipbindf8' />
                         {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
-                        {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} /> : null}
-                        {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} /> : null}
+                        {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
+                        {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                         {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                     </Map>
                 </div>

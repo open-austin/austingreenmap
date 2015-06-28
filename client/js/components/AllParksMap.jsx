@@ -70,11 +70,11 @@ export default class AllParksMap extends React.Component {
             <CircleMarker
                 center={this.props.userLocation}
                 radius={8}
-                weight={1}
+                weight={3}
                 fillOpacity={1}
                 fillColor='rgb(0,172,238)'
                 strokeOpacity={1}
-                strokeColor='rgb(19,61,232)'
+                strokeColor='rgb(255,255,255)'
                 />
         );
 
@@ -85,8 +85,8 @@ export default class AllParksMap extends React.Component {
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                     <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
+                    <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                     {userLocationMarker}
                 </Map>
             </div>
