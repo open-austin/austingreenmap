@@ -1,7 +1,7 @@
 import React from 'react';
 import topojson from 'topojson';
 import turf from 'turf';  // FIXME: replace with turf-extent
-import { Map, TileLayer } from 'react-leaflet';
+import { Map, TileLayer, CircleMarker } from 'react-leaflet';
 
 import utils from '../utils';
 import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
@@ -10,15 +10,34 @@ import ParkFeatureList from './ParkFeatureList.jsx';
 
 export default class AllParksMap extends React.Component {
 
-    componentDidMount() {
-        this.fitBounds();
-    }
-
     componentDidUpdate(prevProps, prevState) {
-        this.fitBounds();
+        if (prevProps.userLocation !== this.props.userLocation) {
+            this.refs.map.getLeafletElement().setZoomAround(this.props.userLocation, 14).panTo(this.props.userLocation);
+        }
+        else {
+            this.fitBounds();
+        }
     }
 
-    onEachFeature(feature, layer) {
+    fitBounds() {
+        var bounds = utils.boundsForFeature(this.getParksGeo());
+        this.refs.map.getLeafletElement().fitBounds(bounds);
+    }
+
+    getParksGeo() {
+        var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
+
+        var visibleParksGeo = {
+            type: parksGeo.type,
+            features: parksGeo.features.filter((feature) => {
+                return this.props.visibleParkIds.indexOf(feature.id) !== -1;
+            })
+        };
+
+        return visibleParksGeo;
+    }
+
+    onEachParkFeature(feature, layer) {
         layer.setStyle({
             color: 'rgb(56,158,70)',
             opacity: 1,
@@ -32,26 +51,32 @@ export default class AllParksMap extends React.Component {
         });
     }
 
-    fitBounds() {
-        var bounds = utils.boundsForFeature(this.getGeo());
-        this.refs.map.getLeafletElement().fitBounds(bounds);
+    getTrailsGeo() {
+        return topojson.feature(this.props.trailsTopo, this.props.trailsTopo.objects.pard_trails_nrpa);
     }
 
-    getGeo() {
-        var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
-
-        var visibleParksGeo = {
-            type: parksGeo.type,
-            features: parksGeo.features.filter((feature) => {
-                return this.props.visibleParkIds.indexOf(feature.id) !== -1;
-            })
-        };
-
-        return visibleParksGeo;
+    onEachTrailFeature(feature, layer) {
+        layer.setStyle({
+            color: 'rgb(165,105,9)',
+            opacity: 0.8,
+            weight: 2,
+            fillColor: 'rgb(218,193,145)',
+            fillOpacity: 1,
+        });
     }
 
     render() {
-        var geoData = this.getGeo();
+        var userLocationMarker = !this.props.userLocation ? null : (
+            <CircleMarker
+                center={this.props.userLocation}
+                radius={8}
+                weight={3}
+                fillOpacity={1}
+                fillColor='rgb(0,172,238)'
+                strokeOpacity={1}
+                strokeColor='rgb(255,255,255)'
+                />
+        );
 
         return (
             <div className='row'>
@@ -60,7 +85,9 @@ export default class AllParksMap extends React.Component {
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                         attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                         id='drmaples.ipbindf8' />
-                    <GeoJsonUpdatable data={geoData} onEachFeature={this.onEachFeature.bind(this)} />
+                    <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
+                    <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
+                    {userLocationMarker}
                 </Map>
             </div>
         );
@@ -70,5 +97,7 @@ export default class AllParksMap extends React.Component {
 AllParksMap.propTypes = {
     visibleParkIds: React.PropTypes.array.isRequired,
     parksTopo: React.PropTypes.object.isRequired,
+    trailsTopo: React.PropTypes.object.isRequired,
     onSelectPark:  React.PropTypes.func.isRequired,
+    userLocation: React.PropTypes.array,
 };

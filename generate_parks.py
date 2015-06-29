@@ -138,11 +138,24 @@ def unshit_parks_topo(cursor):
 
     for feature in data['features']:
         geometry = less_shitty_geometry(cursor, feature['geometry'], crs)
-
-        park_id = feature['properties']['PARK_ID']
         feature['geometry'] = geometry
 
-    with open('data/city_of_austin_parks.geojson'.format(park_id), 'w+') as fh:
+    with open('data/city_of_austin_parks.geojson', 'w+') as fh:
+        fh.write(json.dumps(data))
+
+
+def unshit_trails_topo(cursor):
+    with open('./raw/pard_trails_nrpa.json', 'r') as fh:
+        data = fh.read()
+    data = json.loads(data)
+
+    crs = data['crs']
+
+    for feature in data['features']:
+        geometry = less_shitty_geometry(cursor, feature['geometry'], crs)
+        feature['geometry'] = geometry
+
+    with open('data/pard_trails_nrpa.geojson', 'w+') as fh:
         fh.write(json.dumps(data))
 
 
@@ -194,6 +207,7 @@ if __name__ == '__main__':
     generate_parks_list(cursor)
 
     unshit_parks_topo(cursor)
+    unshit_trails_topo(cursor)
 
     generate_facility_lookup()
     generate_amenity_lookup()
