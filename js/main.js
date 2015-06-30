@@ -661,6 +661,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utilsIconsJson = require('../utils/icons.json');
+
+var _utilsIconsJson2 = _interopRequireDefault(_utilsIconsJson);
+
 var ParkFeatureListItem = (function (_React$Component) {
     function ParkFeatureListItem() {
         _classCallCheck(this, ParkFeatureListItem);
@@ -677,6 +681,9 @@ var ParkFeatureListItem = (function (_React$Component) {
         value: function render() {
             var _this = this;
 
+            var icon = _utilsIconsJson2['default'][this.props.type];
+            var iconURL = icon === '?' ? 'images/deciduous_tree.png' : 'images/icons/' + icon + '-18@2x.png';
+
             return _react2['default'].createElement(
                 'div',
                 { className: 'row u-clickable', key: this.props.id, onClick: function () {
@@ -684,12 +691,17 @@ var ParkFeatureListItem = (function (_React$Component) {
                     } },
                 _react2['default'].createElement(
                     'div',
+                    { className: 'one columns' },
+                    _react2['default'].createElement('img', { src: iconURL, alt: this.props.type })
+                ),
+                _react2['default'].createElement(
+                    'div',
                     { className: 'two columns' },
                     this.props.type
                 ),
                 _react2['default'].createElement(
                     'div',
-                    { className: 'eight columns' },
+                    { className: 'seven columns' },
                     _react2['default'].createElement(
                         'div',
                         { className: 'name' },
@@ -737,7 +749,7 @@ ParkFeatureListItem.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx":[function(require,module,exports){
+},{"../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -853,9 +865,9 @@ var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 
 var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
 
-var _utilsIconLookupJson = require('../utils/iconLookup.json');
+var _utilsIconsJson = require('../utils/icons.json');
 
-var _utilsIconLookupJson2 = _interopRequireDefault(_utilsIconLookupJson);
+var _utilsIconsJson2 = _interopRequireDefault(_utilsIconsJson);
 
 function onEachFacility(feature, layer) {
     layer.bindPopup(feature.properties.FACILITY_NAME);
@@ -871,8 +883,7 @@ function onEachPark(feature, layer) {
         opacity: 1,
         weight: 1,
         fillColor: 'rgb(86,221,84)',
-        fillOpacity: 0.5,
-        icon: '/images/deciduous_tree.png'
+        fillOpacity: 0.5
     });
 }
 
@@ -887,8 +898,8 @@ function onEachTrail(feature, layer) {
 }
 
 function pointToLayer(feature, latlng) {
-    var icon = _utilsIconLookupJson2['default'][feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
-    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : 'images/maki/' + icon + '-18@2x.png';
+    var icon = _utilsIconsJson2['default'][feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : 'images/icons/' + icon + '-18@2x.png';
 
     var iconLayer = _leaflet2['default'].icon({
         iconSize: [18, 18],
@@ -932,9 +943,11 @@ var ParkMap = (function (_React$Component) {
     }, {
         key: 'showFeatureInMap',
         value: function showFeatureInMap(featureID) {
-            var matchingLayer = _lodash2['default'].find(this.refs.map.leafletElement._layers, function (layer) {
+            var leafletElement = this.refs.map.leafletElement;
+            var matchingLayer = _lodash2['default'].find(leafletElement._layers, function (layer) {
                 return layer.feature && layer.feature.id === featureID;
             });
+
             if (!matchingLayer) {
                 console.error('No layer for', featureID);
                 return;
@@ -943,6 +956,8 @@ var ParkMap = (function (_React$Component) {
             window.scrollTo(0, mapNode.parentNode.offsetTop + mapNode.offsetTop);
 
             matchingLayer.openPopup();
+            leafletElement.setZoom(leafletElement.getMaxZoom());
+            leafletElement.setView(matchingLayer._latlng);
         }
     }, {
         key: 'render',
@@ -1086,7 +1101,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/iconLookup.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/iconLookup.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1330,7 +1345,7 @@ var api = {
 exports['default'] = api;
 module.exports = exports['default'];
 
-},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/iconLookup.json":[function(require,module,exports){
+},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json":[function(require,module,exports){
 module.exports={
     "(Non-PARD) AFD Building": "fire-station",
     "(Non-PARD) Austin Energy Building": "building",
@@ -1348,12 +1363,12 @@ module.exports={
     "Administrative": "commercial",
     "Arbor": "garden",
     "BMX": "bicycle",
-    "Barbecue Pit": "fast-food",
+    "Barbecue Pit": "bbq",
     "Baseball": "baseball",
     "Basketball": "basketball",
     "Bathhouse": "swimming",
     "Batting Cage": "baseball",
-    "Bench": "?",
+    "Bench": "bench",
     "Bike Rack": "bicycle",
     "Boat Ramp": "ferry",
     "Bocce Ball": "circle-solid",
@@ -1367,7 +1382,7 @@ module.exports={
     "Entrance Station": "entrance",
     "Environmental Education": "building",
     "Fitness Station": "pitch",
-    "Frisbee/Disc Golf": "pitch",
+    "Frisbee/Disc Golf": "disc-golf",
     "Garden Center": "garden",
     "Gazebo": "building",
     "Geneology Center": "museum",
@@ -1395,9 +1410,9 @@ module.exports={
     "Parking Lot": "parking",
     "Pavilion": "campsite",
     "Performing Arts venue": "theatre",
-    "Picnic Ground or area": "fast-food",
-    "Picnic Shelter": "fast-food",
-    "Picnic Table": "fast-food",
+    "Picnic Ground or area": "picnic-area",
+    "Picnic Shelter": "picnic-shelter",
+    "Picnic Table": "table",
     "Pier/Dock": "harbor",
     "Plant Nursery": "garden",
     "Playground": "playground",
