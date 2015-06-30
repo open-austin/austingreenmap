@@ -1,14 +1,22 @@
 import React from 'react';
 
+import icons from '../utils/icons.json';
+
 
 export default class ParkFeatureListItem extends React.Component {
     render() {
+        var icon = icons[this.props.type];
+        var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
+
         return (
             <div className='row u-clickable' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
+                <div className='one columns'>
+                    <img src={iconURL} alt={this.props.type} />
+                </div>
                 <div className='two columns'>
                     {this.props.type}
                 </div>
-                <div className='eight columns'>
+                <div className='seven columns'>
                     <div className='name'>{this.props.name}</div>
                     <i>{this.props.description}</i>
                 </div>

@@ -5,7 +5,7 @@ import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
-import iconLookup from '../utils/iconLookup.json';
+import icons from '../utils/icons.json';
 
 
 function onEachFacility(feature, layer) {
@@ -26,7 +26,6 @@ function onEachPark(feature, layer) {
         weight: 1,
         fillColor: 'rgb(86,221,84)',
         fillOpacity: 0.5,
-        icon: '/images/deciduous_tree.png',
     });
 }
 
@@ -41,8 +40,8 @@ function onEachTrail(feature, layer) {
 }
 
 function pointToLayer(feature, latlng) {
-    var icon = iconLookup[feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
-    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/maki/${icon}-18@2x.png`;
+    var icon = icons[feature.properties.AMENITY_TYPE || feature.properties.FACILITY_TYPE];
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
 
     var iconLayer = L.icon({
         iconSize: [18, 18],
@@ -73,7 +72,9 @@ export default class ParkMap extends React.Component {
     }
 
     showFeatureInMap(featureID) {
-        var matchingLayer = _.find(this.refs.map.leafletElement._layers, (layer) => layer.feature && layer.feature.id === featureID);
+        var leafletElement = this.refs.map.leafletElement;
+        var matchingLayer = _.find(leafletElement._layers, (layer) => layer.feature && layer.feature.id === featureID);
+
         if (!matchingLayer) {
             console.error('No layer for', featureID);
             return;
@@ -82,6 +83,8 @@ export default class ParkMap extends React.Component {
         window.scrollTo(0, mapNode.parentNode.offsetTop + mapNode.offsetTop);
 
         matchingLayer.openPopup();
+        leafletElement.setZoom(leafletElement.getMaxZoom());
+        leafletElement.setView(matchingLayer._latlng);
     }
 
     render () {
