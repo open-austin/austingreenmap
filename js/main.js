@@ -14,7 +14,117 @@ var _componentsAppReactJsx2 = _interopRequireDefault(_componentsAppReactJsx);
 window.React = _react2['default'];
 _react2['default'].render(_react2['default'].createElement(_componentsAppReactJsx2['default'], null), document.getElementById('app'));
 
-},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx":[function(require,module,exports){
+},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utilsApi = require('../utils/api');
+
+var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
+var AllParksList = (function (_React$Component) {
+    function AllParksList() {
+        _classCallCheck(this, AllParksList);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(AllParksList, _React$Component);
+
+    _createClass(AllParksList, [{
+        key: 'selectPark',
+        value: function selectPark(park) {
+            this.props.onSelectPark(park);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
+
+            var parkList = sortedParks.map(function (park) {
+                return _react2['default'].createElement(
+                    'div',
+                    { className: 'park-list-item row u-clickable', onClick: function () {
+                            return _this.selectPark(park);
+                        }, key: park.park_id },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'park-name nine columns' },
+                        park.name
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'park-distance three columns' },
+                        park.distance ? Math.round(park.distance * 100) / 100 + ' mi' : null
+                    )
+                );
+            });
+
+            return _react2['default'].createElement(
+                'div',
+                { className: 'parks-list' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'parks-list-header row' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'park-name nine columns' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Name'
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'park-distance three columns' },
+                        _react2['default'].createElement(
+                            'h6',
+                            null,
+                            'Distance (mi)'
+                        )
+                    )
+                ),
+                parkList
+            );
+        }
+    }]);
+
+    return AllParksList;
+})(_react2['default'].Component);
+
+exports['default'] = AllParksList;
+
+AllParksList.propTypes = {
+    parks: _react2['default'].PropTypes.array.isRequired,
+    onSelectPark: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -147,7 +257,7 @@ var AllParksMap = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'row' },
+                null,
                 _react2['default'].createElement(
                     _reactLeaflet.Map,
                     { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
@@ -218,9 +328,9 @@ var _ParkMapJsx = require('./ParkMap.jsx');
 
 var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
 
-var _ParksListJsx = require('./ParksList.jsx');
+var _AllParksListJsx = require('./AllParksList.jsx');
 
-var _ParksListJsx2 = _interopRequireDefault(_ParksListJsx);
+var _AllParksListJsx2 = _interopRequireDefault(_AllParksListJsx);
 
 var _AllParksMapJsx = require('./AllParksMap.jsx');
 
@@ -389,7 +499,6 @@ var App = (function (_React$Component) {
                 content = _react2['default'].createElement(
                     'div',
                     null,
-                    parkFilters,
                     _react2['default'].createElement(_AllParksMapJsx2['default'], {
                         userLocation: this.state.userLocation,
                         visibleParkIds: this.state.visibleParkIds,
@@ -398,7 +507,8 @@ var App = (function (_React$Component) {
                         onSelectPark: function (parkId) {
                             return _this4.selectParkWithId(parkId);
                         } }),
-                    _react2['default'].createElement(_ParksListJsx2['default'], {
+                    parkFilters,
+                    _react2['default'].createElement(_AllParksListJsx2['default'], {
                         parks: this.state.visibleParks,
                         onSelectPark: function (park) {
                             return _this4.selectPark(park);
@@ -420,7 +530,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./AllParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -513,7 +623,7 @@ var Navigation = (function (_React$Component) {
         value: function render() {
             return _react2['default'].createElement(
                 'div',
-                { className: 'row nav' },
+                { className: 'nav row' },
                 _react2['default'].createElement(
                     'a',
                     { className: 'logo', onClick: function () {
@@ -613,7 +723,7 @@ var ParkFeatureList = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                null,
+                { className: 'park-feature-list' },
                 _react2['default'].createElement(
                     'h4',
                     null,
@@ -686,36 +796,40 @@ var ParkFeatureListItem = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'row u-clickable', key: this.props.id, onClick: function () {
+                { className: 'feature-list-item row u-clickable', key: this.props.id, onClick: function () {
                         return _this.props.showFeatureInMap(_this.props.id);
                     } },
                 _react2['default'].createElement(
                     'div',
-                    { className: 'one columns' },
-                    _react2['default'].createElement('img', { src: iconURL, alt: this.props.type })
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'two columns' },
-                    this.props.type
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'seven columns' },
+                    { className: 'feature-name seven columns' },
                     _react2['default'].createElement(
                         'div',
-                        { className: 'name' },
-                        this.props.name
+                        { className: 'feature-icon' },
+                        _react2['default'].createElement('img', { src: iconURL, alt: this.props.type })
                     ),
                     _react2['default'].createElement(
-                        'i',
+                        'div',
                         null,
-                        this.props.description
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'name' },
+                            this.props.name
+                        ),
+                        _react2['default'].createElement(
+                            'i',
+                            null,
+                            this.props.description
+                        )
                     )
                 ),
                 _react2['default'].createElement(
                     'div',
-                    { className: 'two columns right' },
+                    { className: 'feature-type two columns' },
+                    this.props.type
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'feature-status two columns' },
                     _react2['default'].createElement(
                         'div',
                         { className: 'indoorOutdoor' },
@@ -783,11 +897,21 @@ var ParkFilters = (function (_React$Component) {
         _classCallCheck(this, ParkFilters);
 
         _get(Object.getPrototypeOf(ParkFilters.prototype), 'constructor', this).call(this, props);
+        this.state = {
+            selectedFilter: ''
+        };
     }
 
     _inherits(ParkFilters, _React$Component);
 
     _createClass(ParkFilters, [{
+        key: 'onSelect',
+        value: function onSelect(filter) {
+            console.log(filter);
+            this.setState({ selectedFilter: filter });
+            this.props.setFilter(filter);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this = this;
@@ -802,13 +926,38 @@ var ParkFilters = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'filters row' },
+                { className: 'park-filters row' },
                 'Find parks with',
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'filter-icons' },
+                    _react2['default'].createElement(
+                        'button',
+                        { className: 'icon', onClick: function () {
+                                return _this.onSelect('Restroom');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Restroom', src: 'images/icons/toilets-24@2x.png' })
+                    ),
+                    _react2['default'].createElement(
+                        'button',
+                        { className: 'icon', onClick: function () {
+                                return _this.onSelect('Mutt Mitt');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Mutt Mitt', src: 'images/icons/dog-park-24@2x.png' })
+                    ),
+                    _react2['default'].createElement(
+                        'button',
+                        { className: 'icon', onClick: function () {
+                                return _this.onSelect('Parking Lot');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Parking Lot', src: 'images/icons/parking-24@2x.png' })
+                    )
+                ),
                 _react2['default'].createElement(
                     'select',
                     { onChange: function (e) {
-                            return _this.props.setFilter(e.target.value);
-                        } },
+                            return _this.onSelect(e.target.value);
+                        }, value: this.state.selectedFilter },
                     _react2['default'].createElement('option', { defaultValue: true }),
                     options
                 )
@@ -1056,15 +1205,6 @@ var ParkMap = (function (_React$Component) {
                     'div',
                     { className: 'row' },
                     _react2['default'].createElement(
-                        'h3',
-                        null,
-                        this.props.name
-                    )
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
                         _reactLeaflet.Map,
                         { id: 'map', ref: 'map', center: this.props.center, minZoom: 10 },
                         _react2['default'].createElement(_reactLeaflet.TileLayer, {
@@ -1075,6 +1215,15 @@ var ParkMap = (function (_React$Component) {
                         this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
                         this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
                         this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
+                    )
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        'h3',
+                        null,
+                        this.props.name
                     )
                 ),
                 parkSummary,
@@ -1101,117 +1250,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParksList.jsx":[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsApi = require('../utils/api');
-
-var _utilsApi2 = _interopRequireDefault(_utilsApi);
-
-var ParksList = (function (_React$Component) {
-    function ParksList() {
-        _classCallCheck(this, ParksList);
-
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
-    }
-
-    _inherits(ParksList, _React$Component);
-
-    _createClass(ParksList, [{
-        key: 'selectPark',
-        value: function selectPark(park) {
-            this.props.onSelectPark(park);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this = this;
-
-            var sortedParks = _lodash2['default'].sortByAll(this.props.parks, 'distance', 'name');
-
-            var parkList = sortedParks.map(function (park) {
-                return _react2['default'].createElement(
-                    'div',
-                    { className: 'row u-clickable', onClick: function () {
-                            return _this.selectPark(park);
-                        }, key: park.park_id },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'name eleven columns' },
-                        park.name
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'id one column right' },
-                        park.distance ? Math.round(park.distance * 100) / 100 : null
-                    )
-                );
-            });
-
-            return _react2['default'].createElement(
-                'div',
-                null,
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'ten columns' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Name'
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'two columns right' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Distance (mi)'
-                        )
-                    )
-                ),
-                parkList
-            );
-        }
-    }]);
-
-    return ParksList;
-})(_react2['default'].Component);
-
-exports['default'] = ParksList;
-
-ParksList.propTypes = {
-    parks: _react2['default'].PropTypes.array.isRequired,
-    onSelectPark: _react2['default'].PropTypes.func.isRequired
-};
-module.exports = exports['default'];
-
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

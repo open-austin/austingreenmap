@@ -1253,14 +1253,76 @@ there.
   border: 1px solid #666; }
 
 body {
-  padding: 20px 0; }
+  padding: 0 0 20px; }
 
 #map {
   height: 500px;
   margin-bottom: 30px; }
+  @media (max-width: 767px) {
+    #map {
+      border-bottom: 1px solid #c9bcba;
+      height: 300px;
+      margin-left: -20px;
+      margin-right: -20px;
+      margin-bottom: 10px; }
+      #map .leaflet-control-container {
+        display: none; } }
+
+@media (max-width: 767px) {
+  .parks-list .parks-list-header {
+    display: none; } }
+
+.parks-list .park-name {
+  font-weight: 600; }
+
+.parks-list .park-distance {
+  text-align: left; }
+  @media (min-width: 768px) {
+    .parks-list .park-distance {
+      text-align: right; } }
+
+.park-feature-list .feature-list-item .feature-name .name {
+  font-weight: 600; }
+
+@media (min-width: 768px) {
+  .park-feature-list .feature-list-item .feature-status {
+    text-align: right; } }
+
+.park-feature-list .feature-list-item .feature-icon {
+  float: left;
+  display: inline;
+  width: auto;
+  background: red;
+  position: relative; }
+  .park-feature-list .feature-list-item .feature-icon img {
+    height: 18px;
+    width: 18px; }
+
+.park-filters {
+  text-align: center; }
+  .park-filters select {
+    margin-bottom: 10px; }
+  .park-filters .filter-icons {
+    margin-top: 10px;
+    margin-bottom: 0px; }
+  .park-filters .icon {
+    border: 1px solid #51a85d;
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-right: 10px; }
+    .park-filters .icon img {
+      vertical-align: middle;
+      height: 24px;
+      width: 24px; }
+    .park-filters .icon:last-child {
+      margin-right: 0; }
 
 .nav {
+  padding-top: 20px;
   text-align: center; }
+  @media (max-width: 767px) {
+    .nav {
+      display: none; } }
 
 .filters {
   text-align: center; }
@@ -1274,12 +1336,6 @@ body {
     height: 30px; }
 
 .address {
-  text-align: right; }
-
-.name {
-  font-weight: 600; }
-
-.right {
   text-align: right; }
 
 a, .u-clickable {
