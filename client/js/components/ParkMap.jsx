@@ -111,9 +111,6 @@ export default class ParkMap extends React.Component {
         return (
             <div>
                 <div className='row'>
-                    <h3>{this.props.name}</h3>
-                </div>
-                <div className='row'>
                     <Map id='map' ref='map' center={this.props.center} minZoom={10}>
                         <TileLayer
                             url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
@@ -124,6 +121,9 @@ export default class ParkMap extends React.Component {
                         {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                         {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                     </Map>
+                </div>
+                <div className='row'>
+                    <h3>{this.props.name}</h3>
                 </div>
                 {parkSummary}
                 <ParkFeatureList

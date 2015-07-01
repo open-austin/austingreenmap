@@ -44,7 +44,7 @@ export default class ParkFeatureList extends React.Component {
         }
 
         return (
-            <div>
+            <div className='park-feature-list'>
                 <h4>Amenities</h4>
                 {amenityList}
                 <h4>Facilities</h4>

@@ -5,7 +5,7 @@ import turf from 'turf';
 import api from '../utils/api';
 import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
-import ParksList from './ParksList.jsx';
+import AllParksList from './AllParksList.jsx';
 import AllParksMap from './AllParksMap.jsx';
 import Navigation from './Navigation.jsx';
 import ParkFilters from './ParkFilters.jsx';
@@ -132,14 +132,14 @@ export default class App extends React.Component {
             }
             content = (
                 <div>
-                    {parkFilters}
                     <AllParksMap
                         userLocation={this.state.userLocation}
                         visibleParkIds={this.state.visibleParkIds}
                         parksTopo={this.state.allParksTopo}
                         trailsTopo={this.state.allTrailsTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
-                    <ParksList
+                    {parkFilters}
+                    <AllParksList
                         parks={this.state.visibleParks}
                         onSelectPark={(park) => this.selectPark(park)} />
                 </div>

@@ -9,18 +9,20 @@ export default class ParkFeatureListItem extends React.Component {
         var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
 
         return (
-            <div className='row u-clickable' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
-                <div className='one columns'>
-                    <img src={iconURL} alt={this.props.type} />
+            <div className='feature-list-item row u-clickable' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
+                <div className='feature-name seven columns'>
+                    <div className='feature-icon'>
+                        <img src={iconURL} alt={this.props.type} />
+                    </div>
+                    <div>
+                        <div className='name'>{this.props.name}</div>
+                        <i>{this.props.description}</i>
+                    </div>
                 </div>
-                <div className='two columns'>
+                <div className='feature-type two columns'>
                     {this.props.type}
                 </div>
-                <div className='seven columns'>
-                    <div className='name'>{this.props.name}</div>
-                    <i>{this.props.description}</i>
-                </div>
-                <div className='two columns right'>
+                <div className='feature-status two columns'>
                     <div className='indoorOutdoor'>{this.props.indoorOutdoor}</div>
                     <div className='accessibilityStatus'>{this.props.accessibilityStatus}</div>
                 </div>

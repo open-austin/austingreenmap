@@ -4,18 +4,122 @@
 
 $green: #389e46;
 
+// who knows how well this works
+// http://davidwalsh.name/write-media-queries-sass
+$tablet-width: 768px;
+$desktop-width: 1024px;
+@mixin phone {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+@mixin tablet-desktop {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
 
 body {
-    padding: 20px 0;
+    padding: 0 0 20px;
 }
 
 #map {
     height: 500px;
     margin-bottom: 30px;
+    @include phone {
+        border-bottom: 1px solid rgb(201,188,186);
+        height: 300px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: 10px;
+        .leaflet-control-container {
+            display: none;
+        }
+    }
+}
+
+.parks-list {
+    .parks-list-header {
+        @include phone {
+            display: none;
+        }
+    }
+    .park-name {
+        font-weight: 600;
+    }
+    .park-distance {
+        text-align: left;
+        @include tablet-desktop {
+            text-align: right;
+        }
+    }
+}
+
+.park-feature-list {
+    .feature-list-item {
+        .feature-name .name {
+            font-weight: 600;
+        }
+        .feature-status {
+            @include tablet-desktop {
+                text-align: right;
+            }
+        }
+        .feature-icon {
+            img {
+                height: 18px;
+                width: 18px;
+            }
+            float: left;
+            display: inline;
+            width: auto;
+            background: red;
+            position: relative;
+        }
+    }
+}
+
+.park-filters {
+    text-align: center;
+    select {
+        margin-bottom: 10px;
+    }
+    .filter-icons {
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+    .icon {
+        border: 1px solid rgb(81,168,93);
+        padding: 0 5px;
+        border-radius: 5px;
+        img {
+            vertical-align: middle;
+            height: 24px;
+            width: 24px;
+        }
+        margin-right: 10px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .nav {
+    padding-top: 20px;
     text-align: center;
+    @include phone {
+        display: none;
+    }
 }
 
 .filters {
@@ -34,14 +138,6 @@ body {
 }
 
 .address {
-    text-align: right;
-}
-
-.name {
-    font-weight: 600;
-}
-
-.right {
     text-align: right;
 }
 

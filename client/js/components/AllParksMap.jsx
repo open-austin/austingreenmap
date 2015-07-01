@@ -79,7 +79,7 @@ export default class AllParksMap extends React.Component {
         );
 
         return (
-            <div className='row'>
+            <div>
                 <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
