@@ -113,13 +113,16 @@ export default class App extends React.Component {
 
         if (this.state.park) {
             content = (
-                <ParkMap
-                    name={this.state.park.name}
-                    center={this.state.park.center}
-                    parkGeo={this.state.parkGeo}
-                    facilityGeo={this.state.facilityGeo}
-                    amenityGeo={this.state.amenityGeo}
-                    trailGeo={this.state.trailGeo} />
+                <div className='content-wrapper'>
+                    <div className='map-separator'></div>
+                    <ParkMap
+                        name={this.state.park.name}
+                        center={this.state.park.center}
+                        parkGeo={this.state.parkGeo}
+                        facilityGeo={this.state.facilityGeo}
+                        amenityGeo={this.state.amenityGeo}
+                        trailGeo={this.state.trailGeo} />
+                </div>
             );
         }
         else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
@@ -138,10 +141,13 @@ export default class App extends React.Component {
                         parksTopo={this.state.allParksTopo}
                         trailsTopo={this.state.allTrailsTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
-                    {parkFilters}
-                    <AllParksList
-                        parks={this.state.visibleParks}
-                        onSelectPark={(park) => this.selectPark(park)} />
+                    <div className='content-wrapper'>
+                        <div className='map-separator'></div>
+                        {parkFilters}
+                        <AllParksList
+                            parks={this.state.visibleParks}
+                            onSelectPark={(park) => this.selectPark(park)} />
+                    </div>
                 </div>
             );
         }

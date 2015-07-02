@@ -21,8 +21,13 @@ export default class AllParksList extends React.Component {
             );
         });
 
+        var nearbyParkCount = this.props.parks.filter((park) => park.distance && park.distance < 1).length;
+
         return (
             <div className='parks-list'>
+                <div className='row'>
+                    <div className='park-count twelve columns'>{this.props.parks.length} parks{nearbyParkCount > 0 ? `, ${nearbyParkCount} within 1 mi` : null} </div>
+                </div>
                 <div className='parks-list-header row'>
                     <div className='park-name nine columns'><h6>Name</h6></div>
                     <div className='park-distance three columns'><h6>Distance (mi)</h6></div>

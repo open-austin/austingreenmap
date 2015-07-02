@@ -121,6 +121,7 @@ export default class ParkMap extends React.Component {
                         {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                         {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                     </Map>
+                    <div className='after-map'></div>
                 </div>
                 <div className='row'>
                     <h3>{this.props.name}</h3>

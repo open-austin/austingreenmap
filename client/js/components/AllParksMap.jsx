@@ -89,6 +89,7 @@ export default class AllParksMap extends React.Component {
                     <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                     {userLocationMarker}
                 </Map>
+                <div className='after-map'></div>
             </div>
         );
     }
