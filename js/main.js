@@ -83,9 +83,25 @@ var AllParksList = (function (_React$Component) {
                 );
             });
 
+            var nearbyParkCount = this.props.parks.filter(function (park) {
+                return park.distance && park.distance < 1;
+            }).length;
+
             return _react2['default'].createElement(
                 'div',
                 { className: 'parks-list' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'park-count twelve columns' },
+                        this.props.parks.length,
+                        ' parks',
+                        nearbyParkCount > 0 ? ', ' + nearbyParkCount + ' within 1 mi' : null,
+                        ' '
+                    )
+                ),
                 _react2['default'].createElement(
                     'div',
                     { className: 'parks-list-header row' },
@@ -268,7 +284,8 @@ var AllParksMap = (function (_React$Component) {
                     _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) }),
                     _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getTrailsGeo(), onEachFeature: this.onEachTrailFeature.bind(this) }),
                     userLocationMarker
-                )
+                ),
+                _react2['default'].createElement('div', { className: 'after-map' })
             );
         }
     }]);
@@ -479,13 +496,18 @@ var App = (function (_React$Component) {
             var content;
 
             if (this.state.park) {
-                content = _react2['default'].createElement(_ParkMapJsx2['default'], {
-                    name: this.state.park.name,
-                    center: this.state.park.center,
-                    parkGeo: this.state.parkGeo,
-                    facilityGeo: this.state.facilityGeo,
-                    amenityGeo: this.state.amenityGeo,
-                    trailGeo: this.state.trailGeo });
+                content = _react2['default'].createElement(
+                    'div',
+                    { className: 'content-wrapper' },
+                    _react2['default'].createElement('div', { className: 'map-separator' }),
+                    _react2['default'].createElement(_ParkMapJsx2['default'], {
+                        name: this.state.park.name,
+                        center: this.state.park.center,
+                        parkGeo: this.state.parkGeo,
+                        facilityGeo: this.state.facilityGeo,
+                        amenityGeo: this.state.amenityGeo,
+                        trailGeo: this.state.trailGeo })
+                );
             } else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
                 var parkFilters;
                 if (this.state.amenityLookup && this.state.facilityLookup) {
@@ -507,12 +529,17 @@ var App = (function (_React$Component) {
                         onSelectPark: function (parkId) {
                             return _this4.selectParkWithId(parkId);
                         } }),
-                    parkFilters,
-                    _react2['default'].createElement(_AllParksListJsx2['default'], {
-                        parks: this.state.visibleParks,
-                        onSelectPark: function (park) {
-                            return _this4.selectPark(park);
-                        } })
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'content-wrapper' },
+                        _react2['default'].createElement('div', { className: 'map-separator' }),
+                        parkFilters,
+                        _react2['default'].createElement(_AllParksListJsx2['default'], {
+                            parks: this.state.visibleParks,
+                            onSelectPark: function (park) {
+                                return _this4.selectPark(park);
+                            } })
+                    )
                 );
             }
             return _react2['default'].createElement(
@@ -1215,7 +1242,8 @@ var ParkMap = (function (_React$Component) {
                         this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
                         this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
                         this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
-                    )
+                    ),
+                    _react2['default'].createElement('div', { className: 'after-map' })
                 ),
                 _react2['default'].createElement(
                     'div',
@@ -1514,7 +1542,7 @@ var utils = {
             return deferred.reject(err);
         }, {
             enableHighAccuracy: true,
-            timeout: 15000,
+            timeout: 60000,
             maximumAge: 0
         });
 

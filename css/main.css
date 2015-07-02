@@ -1258,15 +1258,52 @@ body {
 #map {
   height: 500px;
   margin-bottom: 30px; }
-  @media (max-width: 767px) {
-    #map {
-      border-bottom: 1px solid #c9bcba;
-      height: 300px;
-      margin-left: -20px;
-      margin-right: -20px;
-      margin-bottom: 10px; }
-      #map .leaflet-control-container {
-        display: none; } }
+
+@media (max-width: 767px) {
+  #map {
+    height: 450px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: -2; }
+    #map .leaflet-control-container {
+      display: none; }
+  .map-separator {
+    margin-top: 400px;
+    width: 100%;
+    margin-left: -20px;
+    margin-right: 40px;
+    position: relative;
+    height: 10px; }
+  .content-wrapper {
+    background: #fff;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px; }
+  body {
+    background: #eae9e9; }
+  .after-map {
+    height: 100px;
+    top: 350px;
+    width: 100%;
+    position: fixed;
+    display: block;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    z-index: -1;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #eae9e9); } }
+
+@media (max-width: 767px) and (orientation: landscape) {
+  #map {
+    height: 300px; }
+  .map-separator {
+    margin-top: 250px; }
+  .after-map {
+    top: 200px; } }
 
 @media (max-width: 767px) {
   .parks-list .parks-list-header {
@@ -1274,6 +1311,10 @@ body {
 
 .parks-list .park-name {
   font-weight: 600; }
+
+.parks-list .park-count {
+  color: #389e46;
+  text-align: center; }
 
 .parks-list .park-distance {
   text-align: left; }
