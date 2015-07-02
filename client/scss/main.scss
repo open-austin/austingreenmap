@@ -64,6 +64,8 @@ body {
         margin-right: 40px;
         position: relative;
         height: 10px;
+        pointer-events: none;
+        background: none !important;
     }
     .content-wrapper {
         background: #fff;
