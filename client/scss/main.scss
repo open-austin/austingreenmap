@@ -51,6 +51,9 @@ body {
     height: 500px;
     margin-bottom: 30px;
 }
+.leaflet-popup-content {
+    font: 12px/1.5 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
 
 @include phone {
     #map {
@@ -148,10 +151,20 @@ body {
             .long-text {
                 float: left;
                 width: 70%;
+                @include phone {
+                    width: 100%;
+                    float: initial;
+                }
             }
             .short-text {
                 float: right;
+                text-align: right;
                 width: 30%;
+                @include phone {
+                    width: 100%;
+                    text-align: left;
+                    float: initial;
+                }
             }
             .feature-name {
                 color: $green1;
@@ -170,7 +183,6 @@ body {
                 color: $gray3;
                 margin-right: 10px;
                 display: block;
-                text-align: right;
             }
         }
         .feature-icon {
@@ -179,9 +191,6 @@ body {
             text-align: center;
             padding-right: 20px;
             padding-top: 8px;
-            @include phone {
-                padding-right: 10px;
-            }
             img {
                 margin-top: 2px;
                 vertical-align: middle;
