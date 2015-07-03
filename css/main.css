@@ -1253,11 +1253,15 @@ there.
   border: 1px solid #666; }
 
 body {
-  padding: 0 0 20px; }
+  padding: 0 0 20px;
+  font-family: 'Roboto', sans-serif; }
 
 #map {
   height: 500px;
   margin-bottom: 30px; }
+
+.leaflet-popup-content {
+  font: 12px/1.5 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif; }
 
 @media (max-width: 767px) {
   #map {
@@ -1324,39 +1328,98 @@ body {
     .parks-list .park-distance {
       text-align: right; } }
 
-.park-feature-list .feature-list-item .feature-name .name {
-  font-weight: 600; }
+h4 {
+  margin-top: 1em; }
 
-@media (min-width: 768px) {
-  .park-feature-list .feature-list-item .feature-status {
-    text-align: right; } }
-
-.park-feature-list .feature-list-item .feature-icon {
-  float: left;
-  display: inline;
-  width: auto;
-  background: red;
-  position: relative; }
-  .park-feature-list .feature-list-item .feature-icon img {
-    height: 18px;
-    width: 18px; }
+.park-feature-list .feature-list-item {
+  margin-bottom: 15px;
+  word-break: break-word; }
+  .park-feature-list .feature-list-item .feature-details {
+    display: table-cell;
+    width: 100%;
+    line-height: 1.5em; }
+    .park-feature-list .feature-list-item .feature-details .long-text, .park-feature-list .feature-list-item .feature-details .short-text {
+      display: inline-block;
+      vertical-align: middle; }
+    .park-feature-list .feature-list-item .feature-details .long-text {
+      float: left;
+      width: 70%; }
+      @media (max-width: 767px) {
+        .park-feature-list .feature-list-item .feature-details .long-text {
+          width: 100%;
+          float: initial; } }
+    .park-feature-list .feature-list-item .feature-details .short-text {
+      float: right;
+      text-align: right;
+      width: 30%; }
+      @media (max-width: 767px) {
+        .park-feature-list .feature-list-item .feature-details .short-text {
+          width: 100%;
+          text-align: left;
+          float: initial; } }
+    .park-feature-list .feature-list-item .feature-details .feature-name {
+      color: #389e46;
+      display: block;
+      font-weight: 500;
+      text-decoration: underline; }
+      .park-feature-list .feature-list-item .feature-details .feature-name:hover {
+        color: #55c05f; }
+    .park-feature-list .feature-list-item .feature-details .feature-description {
+      color: #6c706c;
+      display: block; }
+    .park-feature-list .feature-list-item .feature-details .feature-type, .park-feature-list .feature-list-item .feature-details .feature-accessible {
+      color: #8f958e;
+      margin-right: 10px;
+      display: block; }
+  .park-feature-list .feature-list-item .feature-icon {
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+    padding-right: 20px;
+    padding-top: 8px; }
+    .park-feature-list .feature-list-item .feature-icon img {
+      margin-top: 2px;
+      vertical-align: middle;
+      height: 18px;
+      width: 18px; }
+    .park-feature-list .feature-list-item .feature-icon .icon {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      background: #eae9e9;
+      border: 1px solid #b4c2b5; }
+      .park-feature-list .feature-list-item .feature-icon .icon:hover {
+        border: 2px solid #55c05f; }
+        .park-feature-list .feature-list-item .feature-icon .icon:hover img {
+          margin-top: 0px; }
 
 .park-filters {
   text-align: center; }
   .park-filters select {
     margin-bottom: 10px; }
   .park-filters .filter-icons {
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 0px; }
   .park-filters .icon {
-    border: 1px solid #51a85d;
     padding: 0 5px;
     border-radius: 5px;
     margin-right: 10px; }
     .park-filters .icon img {
       vertical-align: middle;
       height: 24px;
-      width: 24px; }
+      width: 24px;
+      opacity: 0.7; }
+    .park-filters .icon:hover img {
+      opacity: 0.8; }
+    .park-filters .icon:focus img {
+      opacity: 0.9; }
+    .park-filters .icon:active, .park-filters .icon.active {
+      border-color: black; }
+      .park-filters .icon:active img, .park-filters .icon.active img {
+        opacity: 1; }
     .park-filters .icon:last-child {
       margin-right: 0; }
 
@@ -1377,6 +1440,12 @@ body {
   display: block; }
   .logo img {
     height: 30px; }
+  .logo h1 {
+    display: inline-block;
+    font-size: 30px;
+    color: #6c706c;
+    margin-left: 10px;
+    vertical-align: middle; }
 
 .address {
   text-align: right; }

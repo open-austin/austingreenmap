@@ -7,6 +7,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utils = require('./utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
 var _componentsAppReactJsx = require('./components/App.react.jsx');
 
 var _componentsAppReactJsx2 = _interopRequireDefault(_componentsAppReactJsx);
@@ -14,7 +18,9 @@ var _componentsAppReactJsx2 = _interopRequireDefault(_componentsAppReactJsx);
 window.React = _react2['default'];
 _react2['default'].render(_react2['default'].createElement(_componentsAppReactJsx2['default'], null), document.getElementById('app'));
 
-},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
+window.onload = _utils2['default'].setupiOSTouchState;
+
+},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","./utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -656,7 +662,12 @@ var Navigation = (function (_React$Component) {
                     { className: 'logo', onClick: function () {
                             return window.location.reload();
                         } },
-                    _react2['default'].createElement('img', { src: 'images/deciduous_tree.png' })
+                    _react2['default'].createElement('img', { src: 'images/deciduous_tree.png' }),
+                    _react2['default'].createElement(
+                        'h1',
+                        null,
+                        'Austin Green Map'
+                    )
                 )
             );
         }
@@ -823,49 +834,50 @@ var ParkFeatureListItem = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'feature-list-item row u-clickable', key: this.props.id, onClick: function () {
-                        return _this.props.showFeatureInMap(_this.props.id);
-                    } },
+                { className: 'feature-list-item row', key: this.props.type + '-' + this.props.id },
                 _react2['default'].createElement(
                     'div',
-                    { className: 'feature-name seven columns' },
+                    { className: 'feature-icon u-clickable', onClick: function () {
+                            return _this.props.showFeatureInMap(_this.props.id);
+                        } },
                     _react2['default'].createElement(
                         'div',
-                        { className: 'feature-icon' },
+                        { className: 'icon' },
                         _react2['default'].createElement('img', { src: iconURL, alt: this.props.type })
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        _react2['default'].createElement(
-                            'div',
-                            { className: 'name' },
-                            this.props.name
-                        ),
-                        _react2['default'].createElement(
-                            'i',
-                            null,
-                            this.props.description
-                        )
                     )
                 ),
                 _react2['default'].createElement(
                     'div',
-                    { className: 'feature-type two columns' },
-                    this.props.type
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'feature-status two columns' },
+                    { className: 'feature-details eight' },
                     _react2['default'].createElement(
                         'div',
-                        { className: 'indoorOutdoor' },
-                        this.props.indoorOutdoor
+                        { className: 'long-text' },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'feature-name u-clickable', onClick: function () {
+                                    return _this.props.showFeatureInMap(_this.props.id);
+                                } },
+                            this.props.name
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'feature-description' },
+                            this.props.description
+                        )
                     ),
                     _react2['default'].createElement(
                         'div',
-                        { className: 'accessibilityStatus' },
-                        this.props.accessibilityStatus
+                        { className: 'short-text three' },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'feature-type' },
+                            this.props.type
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'feature-accessible' },
+                            this.props.accessibilityStatus
+                        )
                     )
                 )
             );
@@ -956,37 +968,37 @@ var ParkFilters = (function (_React$Component) {
                 { className: 'park-filters row' },
                 'Find parks with',
                 _react2['default'].createElement(
-                    'div',
-                    { className: 'filter-icons' },
-                    _react2['default'].createElement(
-                        'button',
-                        { className: 'icon', onClick: function () {
-                                return _this.onSelect('Restroom');
-                            } },
-                        _react2['default'].createElement('img', { alt: 'Restroom', src: 'images/icons/toilets-24@2x.png' })
-                    ),
-                    _react2['default'].createElement(
-                        'button',
-                        { className: 'icon', onClick: function () {
-                                return _this.onSelect('Mutt Mitt');
-                            } },
-                        _react2['default'].createElement('img', { alt: 'Mutt Mitt', src: 'images/icons/dog-park-24@2x.png' })
-                    ),
-                    _react2['default'].createElement(
-                        'button',
-                        { className: 'icon', onClick: function () {
-                                return _this.onSelect('Parking Lot');
-                            } },
-                        _react2['default'].createElement('img', { alt: 'Parking Lot', src: 'images/icons/parking-24@2x.png' })
-                    )
-                ),
-                _react2['default'].createElement(
                     'select',
                     { onChange: function (e) {
                             return _this.onSelect(e.target.value);
                         }, value: this.state.selectedFilter },
                     _react2['default'].createElement('option', { defaultValue: true }),
                     options
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'filter-icons' },
+                    _react2['default'].createElement(
+                        'button',
+                        { className: this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon', onClick: function () {
+                                return _this.onSelect('Restroom');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Restroom', src: 'images/icons/toilets-24@2x.png' })
+                    ),
+                    _react2['default'].createElement(
+                        'button',
+                        { className: this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon', onClick: function () {
+                                return _this.onSelect('Mutt Mitt');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Mutt Mitt', src: 'images/icons/dog-park-24@2x.png' })
+                    ),
+                    _react2['default'].createElement(
+                        'button',
+                        { className: this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon', onClick: function () {
+                                return _this.onSelect('Parking Lot');
+                            } },
+                        _react2['default'].createElement('img', { alt: 'Parking Lot', src: 'images/icons/parking-24@2x.png' })
+                    )
                 )
             );
         }
@@ -1138,93 +1150,61 @@ var ParkMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var parkSummary = !this.props.parkGeo ? null : _react2['default'].createElement(
-                'div',
-                { className: 'row' },
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'six columns' },
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        this.props.parkGeo.properties.PARK_NAME,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        this.props.parkGeo.properties.ADDRESS,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        this.props.parkGeo.properties.COUNCIL_DISTRICT_AREAS,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Park status: ',
-                        this.props.parkGeo.properties.PARK_STATUS,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Acres: ',
-                        this.props.parkGeo.properties.PARK_ACRES,
-                        ' '
-                    )
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'six columns' },
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Unit ID: ',
-                        this.props.parkGeo.properties.UNIT_ID,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Land owner: ',
-                        this.props.parkGeo.properties.LAND_OWNER,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Management priority: ',
-                        this.props.parkGeo.properties.MANAGEMENT_PRIORITY,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Acquisition source: ',
-                        this.props.parkGeo.properties.ACQUISITION_SOURCE,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Park type: ',
-                        this.props.parkGeo.properties.PARK_TYPE,
-                        ' '
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        null,
-                        'Development status: ',
-                        this.props.parkGeo.properties.DEVELOPMENT_STATUS,
-                        ' '
-                    )
-                )
-            );
+            var parkSummary = undefined;
 
+            if (this.props.parkGeo) {
+                var googleMapsLink = !this.props.parkGeo ? null : 'https://maps.google.com/?q=' + this.props.parkGeo.properties.PARK_NAME + ' ' + this.props.parkGeo.properties.ADDRESS;
+                parkSummary = _react2['default'].createElement(
+                    'div',
+                    { className: 'park-summary row' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'six columns' },
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            _react2['default'].createElement(
+                                'a',
+                                { href: googleMapsLink, target: '_blank' },
+                                this.props.parkGeo.properties.PARK_NAME,
+                                _react2['default'].createElement('br', null),
+                                this.props.parkGeo.properties.ADDRESS
+                            )
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            'Status: ',
+                            this.props.parkGeo.properties.PARK_STATUS
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            'Acres: ',
+                            this.props.parkGeo.properties.PARK_ACRES
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'six columns' },
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            this.props.parkGeo.properties.LAND_OWNER ? 'Land owner: ' + this.props.parkGeo.properties.LAND_OWNER : null
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            this.props.parkGeo.properties.PARK_TYPE ? 'Park type: ' + this.props.parkGeo.properties.PARK_TYPE : null
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            null,
+                            this.props.parkGeo.properties.DEVELOPMENT_STATUS ? 'Development status: ' + this.props.parkGeo.properties.DEVELOPMENT_STATUS : null
+                        )
+                    )
+                );
+            }
             return _react2['default'].createElement(
                 'div',
                 null,
@@ -1552,6 +1532,18 @@ var utils = {
     boundsForFeature: function boundsForFeature(geoJson) {
         var extent = _turf2['default'].extent(geoJson);
         return [[extent[1], extent[0]], [extent[3], extent[2]]];
+    },
+
+    setupiOSTouchState: function setupiOSTouchState() {
+        console.log('meow');
+        if (/iP(hone|ad)/.test(window.navigator.userAgent)) {
+            console.log('meow');
+            var elements = document.querySelectorAll('button');
+            var emptyFunction = function emptyFunction() {};
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('touchstart', emptyFunction, false);
+            }
+        }
     }
 
 };
