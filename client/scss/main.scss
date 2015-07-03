@@ -136,6 +136,7 @@ body {
 .park-feature-list {
     .feature-list-item {
         margin-bottom: 15px;
+        word-break: break-word;
         .feature-details {
             display: table-cell;
             width: 100%;
@@ -174,9 +175,13 @@ body {
         }
         .feature-icon {
             display: table-cell;
-            vertical-align: middle;
+            vertical-align: top;
             text-align: center;
             padding-right: 20px;
+            padding-top: 8px;
+            @include phone {
+                padding-right: 10px;
+            }
             img {
                 margin-top: 2px;
                 vertical-align: middle;
