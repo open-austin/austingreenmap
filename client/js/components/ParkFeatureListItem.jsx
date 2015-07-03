@@ -9,7 +9,7 @@ export default class ParkFeatureListItem extends React.Component {
         var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
 
         return (
-            <div className='feature-list-item row' key={this.props.id}>
+            <div className='feature-list-item row' key={this.props.type + '-' + this.props.id}>
                 <div className='feature-icon u-clickable' onClick={() => this.props.showFeatureInMap(this.props.id)}>
                     <div className='icon'><img src={iconURL} alt={this.props.type} /></div>
                 </div>

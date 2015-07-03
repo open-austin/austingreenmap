@@ -136,6 +136,10 @@ body {
     }
 }
 
+h4 {
+    margin-top: 1em;
+}
+
 .park-feature-list {
     .feature-list-item {
         margin-bottom: 15px;
@@ -273,6 +277,13 @@ body {
     display: block;
     img {
         height: 30px;
+    }
+    h1 {
+        display: inline-block;
+        font-size: 30px;
+        color: $gray2;
+        margin-left: 10px;
+        vertical-align: middle;
     }
 }
 

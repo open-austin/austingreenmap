@@ -88,26 +88,25 @@ export default class ParkMap extends React.Component {
     }
 
     render () {
-        var parkSummary = !this.props.parkGeo ? null : (
-            <div className='row'>
-                <div className='six columns'>
-                    <div>{this.props.parkGeo.properties.PARK_NAME} </div>
-                    <div>{this.props.parkGeo.properties.ADDRESS} </div>
-                    <div>{this.props.parkGeo.properties.COUNCIL_DISTRICT_AREAS} </div>
-                    <div>Park status: {this.props.parkGeo.properties.PARK_STATUS} </div>
-                    <div>Acres: {this.props.parkGeo.properties.PARK_ACRES} </div>
-                </div>
-                <div className='six columns'>
-                    <div>Unit ID: {this.props.parkGeo.properties.UNIT_ID} </div>
-                    <div>Land owner: {this.props.parkGeo.properties.LAND_OWNER} </div>
-                    <div>Management priority: {this.props.parkGeo.properties.MANAGEMENT_PRIORITY} </div>
-                    <div>Acquisition source: {this.props.parkGeo.properties.ACQUISITION_SOURCE} </div>
-                    <div>Park type: {this.props.parkGeo.properties.PARK_TYPE} </div>
-                    <div>Development status: {this.props.parkGeo.properties.DEVELOPMENT_STATUS} </div>
-                </div>
-            </div>
-        );
+        let parkSummary;
 
+        if (this.props.parkGeo) {
+            let googleMapsLink = !this.props.parkGeo ? null : `https://maps.google.com/?q=${this.props.parkGeo.properties.PARK_NAME} ${this.props.parkGeo.properties.ADDRESS}`;
+            parkSummary = (
+                <div className='park-summary row'>
+                    <div className='six columns'>
+                        <div><a href={googleMapsLink} target='_blank'>{this.props.parkGeo.properties.PARK_NAME}<br />{this.props.parkGeo.properties.ADDRESS}</a></div>
+                        <div>Status: {this.props.parkGeo.properties.PARK_STATUS}</div>
+                        <div>Acres: {this.props.parkGeo.properties.PARK_ACRES}</div>
+                    </div>
+                    <div className='six columns'>
+                        <div>{this.props.parkGeo.properties.LAND_OWNER ? `Land owner: ${this.props.parkGeo.properties.LAND_OWNER}` : null}</div>
+                        <div>{this.props.parkGeo.properties.PARK_TYPE ? `Park type: ${this.props.parkGeo.properties.PARK_TYPE}` : null}</div>
+                        <div>{this.props.parkGeo.properties.DEVELOPMENT_STATUS ? `Development status: ${this.props.parkGeo.properties.DEVELOPMENT_STATUS}` : null}</div>
+                    </div>
+                </div>
+            );
+        }
         return (
             <div>
                 <div className='row'>
