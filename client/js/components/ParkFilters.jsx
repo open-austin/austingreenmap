@@ -27,15 +27,15 @@ export default class ParkFilters extends React.Component {
         return (
             <div className='park-filters row'>
                 Find parks with
-                <div className='filter-icons'>
-                    <button className='icon' onClick={() => this.onSelect('Restroom')}><img alt="Restroom" src="images/icons/toilets-24@2x.png" /></button>
-                    <button className='icon' onClick={() => this.onSelect('Mutt Mitt')}><img alt="Mutt Mitt" src="images/icons/dog-park-24@2x.png" /></button>
-                    <button className='icon' onClick={() => this.onSelect('Parking Lot')}><img alt="Parking Lot" src="images/icons/parking-24@2x.png" /></button>
-                </div>
                 <select onChange={(e) => this.onSelect(e.target.value)} value={this.state.selectedFilter}>
                     <option defaultValue></option>
                     {options}
                 </select>
+                <div className='filter-icons'>
+                    <button className={this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon'} onClick={() => this.onSelect('Restroom')}><img alt="Restroom" src="images/icons/toilets-24@2x.png" /></button>
+                    <button className={this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon'} onClick={() => this.onSelect('Mutt Mitt')}><img alt="Mutt Mitt" src="images/icons/dog-park-24@2x.png" /></button>
+                    <button className={this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon'} onClick={() => this.onSelect('Parking Lot')}><img alt="Parking Lot" src="images/icons/parking-24@2x.png" /></button>
+                </div>
             </div>
         );
     }

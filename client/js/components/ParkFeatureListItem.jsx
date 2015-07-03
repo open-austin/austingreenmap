@@ -9,22 +9,19 @@ export default class ParkFeatureListItem extends React.Component {
         var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
 
         return (
-            <div className='feature-list-item row u-clickable' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
-                <div className='feature-name seven columns'>
-                    <div className='feature-icon'>
-                        <img src={iconURL} alt={this.props.type} />
-                    </div>
-                    <div>
-                        <div className='name'>{this.props.name}</div>
-                        <i>{this.props.description}</i>
-                    </div>
+            <div className='feature-list-item row' key={this.props.id}>
+                <div className='feature-icon u-clickable' onClick={() => this.props.showFeatureInMap(this.props.id)}>
+                    <div className='icon'><img src={iconURL} alt={this.props.type} /></div>
                 </div>
-                <div className='feature-type two columns'>
-                    {this.props.type}
-                </div>
-                <div className='feature-status two columns'>
-                    <div className='indoorOutdoor'>{this.props.indoorOutdoor}</div>
-                    <div className='accessibilityStatus'>{this.props.accessibilityStatus}</div>
+                <div className='feature-details eight'>
+                    <div className='long-text'>
+                        <div className='feature-name u-clickable' onClick={() => this.props.showFeatureInMap(this.props.id)}>{this.props.name}</div>
+                        <div className='feature-description'>{this.props.description}</div>
+                    </div>
+                    <div className='short-text three'>
+                        <div className='feature-type'>{this.props.type}</div>
+                        <div className='feature-accessible'>{this.props.accessibilityStatus}</div>
+                    </div>
                 </div>
             </div>
         );

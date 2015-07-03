@@ -3,6 +3,14 @@
 @import "leaflet";
 
 $green: #389e46;
+$green1: $green;
+$green2: rgb(85,192,95);
+$green3: rgb(101,227,112);
+$gray1: rgb(74,76,73);
+$gray2: rgb(108,112,108);
+$gray3: rgb(143,149,142);
+$gray4: rgb(178,185,177);
+$gray5: rgb(180,194,181);
 
 // who knows how well this works
 // http://davidwalsh.name/write-media-queries-sass
@@ -36,6 +44,7 @@ $desktop-width: 1024px;
 
 body {
     padding: 0 0 20px;
+    font-family: 'Roboto', sans-serif;
 }
 
 #map {
@@ -126,24 +135,71 @@ body {
 
 .park-feature-list {
     .feature-list-item {
-        .feature-name .name {
-            font-weight: 600;
-        }
-        .feature-status {
-            @include tablet-desktop {
+        margin-bottom: 15px;
+        .feature-details {
+            display: table-cell;
+            width: 100%;
+            line-height: 1.5em;
+            .long-text, .short-text {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .long-text {
+                float: left;
+                width: 70%;
+            }
+            .short-text {
+                float: right;
+                width: 30%;
+            }
+            .feature-name {
+                color: $green1;
+                display: block;
+                font-weight: 500;
+                text-decoration: underline;
+                &:hover {
+                    color: $green2;
+                }
+            }
+            .feature-description {
+                color: $gray2;
+                display: block;
+            }
+            .feature-type, .feature-accessible {
+                color: $gray3;
+                margin-right: 10px;
+                display: block;
                 text-align: right;
             }
         }
         .feature-icon {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            padding-right: 20px;
             img {
+                margin-top: 2px;
+                vertical-align: middle;
                 height: 18px;
                 width: 18px;
             }
-            float: left;
-            display: inline;
-            width: auto;
-            background: red;
-            position: relative;
+            .icon {
+                box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                -webkit-box-sizing:border-box;
+                width: 30px;
+                height: 30px;
+                border-radius: 15px;
+                background: rgb(234,233,233);
+                border: 1px solid $gray5;
+                &:hover {
+                    border: 2px solid $green2;
+                    img {
+                        margin-top: 0px;
+                    }
+                }
+            }
+
         }
     }
 }
@@ -154,19 +210,29 @@ body {
         margin-bottom: 10px;
     }
     .filter-icons {
-        margin-top: 10px;
+        margin-top: 0px;
         margin-bottom: 0px;
     }
     .icon {
-        border: 1px solid rgb(81,168,93);
         padding: 0 5px;
         border-radius: 5px;
+        margin-right: 10px;
         img {
             vertical-align: middle;
             height: 24px;
             width: 24px;
+            opacity: 0.7;
         }
-        margin-right: 10px;
+        &:hover {
+            img { opacity: 0.8; }
+        }
+        &:focus {
+            img { opacity: 0.9; }
+        }
+        &:active, &.active {
+            border-color: black;
+            img { opacity: 1; }
+        }
         &:last-child {
             margin-right: 0;
         }
