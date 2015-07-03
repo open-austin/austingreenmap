@@ -9,6 +9,7 @@ import AllParksList from './AllParksList.jsx';
 import AllParksMap from './AllParksMap.jsx';
 import Navigation from './Navigation.jsx';
 import ParkFilters from './ParkFilters.jsx';
+import Chevron from './Chevron.jsx';
 
 
 export default class App extends React.Component {
@@ -108,13 +109,18 @@ export default class App extends React.Component {
         });
     }
 
+    slideUp() {
+        var contentNode = React.findDOMNode(this.refs.content);
+        window.scrollTo(0, contentNode.parentNode.offsetTop + contentNode.offsetTop);
+    }
+
     render() {
-        var content;
+        var content = 'loading...';
 
         if (this.state.park) {
             content = (
-                <div className='content-wrapper'>
-                    <div className='map-separator'></div>
+                <div className='content-wrapper' ref='content'>
+                    <Chevron slideUp={() => this.slideUp()} />
                     <ParkMap
                         name={this.state.park.name}
                         center={this.state.park.center}
@@ -134,7 +140,7 @@ export default class App extends React.Component {
                     setFilter={(filter) => this.applyFilters(filter)} />
             }
             content = (
-                <div>
+                <div ref='content'>
                     <AllParksMap
                         userLocation={this.state.userLocation}
                         visibleParkIds={this.state.visibleParkIds}
@@ -142,7 +148,7 @@ export default class App extends React.Component {
                         trailsTopo={this.state.allTrailsTopo}
                         onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
                     <div className='content-wrapper'>
-                        <div className='map-separator'></div>
+                        <Chevron slideUp={() => this.slideUp()} />
                         {parkFilters}
                         <AllParksList
                             parks={this.state.visibleParks}
@@ -153,7 +159,6 @@ export default class App extends React.Component {
         }
         return (
           <div className='container'>
-              <Navigation />
               {content}
           </div>
           );

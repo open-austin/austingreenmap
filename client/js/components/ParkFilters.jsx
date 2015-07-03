@@ -26,8 +26,8 @@ export default class ParkFilters extends React.Component {
 
         return (
             <div className='park-filters row'>
-                Find parks with
-                <select onChange={(e) => this.onSelect(e.target.value)} value={this.state.selectedFilter}>
+                <label htmlFor='park-filter-select'>Find parks with</label>
+                <select name='park-filter-select' id='park-filter-select' onChange={(e) => this.onSelect(e.target.value)} value={this.state.selectedFilter}>
                     <option defaultValue></option>
                     {options}
                 </select>

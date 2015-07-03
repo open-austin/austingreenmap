@@ -45,74 +45,83 @@ $desktop-width: 1024px;
 body {
     padding: 0 0 20px;
     font-family: 'Roboto', sans-serif;
+    background: rgb(234,233,233);
 }
 
 #map {
-    height: 500px;
     margin-bottom: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: -2;
+    .leaflet-control-container {
+        display: none;
+    }
+    .leaflet-popup-content {
+        font: 12px/1.5 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
 }
-.leaflet-popup-content {
-    font: 12px/1.5 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+.content-wrapper {
+    background: #fff;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px 20px;
+    border: 1px solid rgb(213,212,212);
+}
+.chevron {
+    padding: 5px 0;
+    text-align: center;
+    cursor: pointer;
+    &.up {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    &.down {
+        -webkit-transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+    }
+    &:hover, &:focus {
+        g { fill: $green; }
+    }
+}
+
+.after-map {
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    display: block;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    z-index: -1;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgb(234,233,233));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgb(234,233,233));
+}
+
+#map { height: 100vh; }
+.content-wrapper { margin-top: 85vh; }
+
+@include desktop {
+    .after-map { display: none }
+    // .chevron { display: none; }
 }
 
 @include phone {
-    #map {
-        height: 450px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        z-index: -2;
-        .leaflet-control-container {
-            display: none;
-        }
-    }
-    .map-separator {
-        margin-top: 400px;
-        width: 100%;
-        margin-left: -20px;
-        margin-right: 40px;
-        position: relative;
-        height: 10px;
-        pointer-events: none;
-        background: none !important;
-    }
-    .content-wrapper {
-        background: #fff;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding: 0 20px;
-    }
-    body {
-        background: rgb(234,233,233);
-    }
-    .after-map {
-        height: 100px;
-        top: 350px;
-        width: 100%;
-        position: fixed;
-        display: block;
-        margin: 0;
-        padding: 0;
-        left: 0;
-        z-index: -1;
-        background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgb(234,233,233));
-        background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgb(234,233,233));
-    }
+    #map { height: 100vh; }
+    .content-wrapper { margin-top: 70vh; }
+    .after-map { display: block; top: 70vh; height: 30vh;}
 }
 
 @include phone-landscape {
-    #map {
-        height: 300px;
-    }
-    .map-separator {
-        margin-top: 250px;
-    }
-    .after-map {
-        top: 200px;
-    }
+    // #map { height: 300px; }
+    // .content-wrapper { margin-top: 250px; }
+    // .after-map { top: 200px; }
 }
 
 .parks-list {
@@ -224,6 +233,13 @@ h4 {
 
 .park-filters {
     text-align: center;
+    label {
+        @include desktop {
+            margin-top: 10px;
+        }
+        margin-bottom: 0;
+        font-weight: 300;
+    }
     select {
         margin-bottom: 10px;
     }
