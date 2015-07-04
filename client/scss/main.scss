@@ -73,30 +73,12 @@ body {
     }
 }
 
-.content-wrapper {
+.container {
     background: #fff;
     margin-left: -20px;
     margin-right: -20px;
-    padding: 0 20px 20px;
+    padding: 0 20px;
     border: 1px solid $gray-border;
-}
-.chevron {
-    padding: 5px 0;
-    text-align: center;
-    cursor: pointer;
-    &.up {
-        -webkit-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    &.down {
-        -webkit-transform: rotate(-180deg);
-        -ms-transform: rotate(-180deg);
-        transform: rotate(-180deg);
-    }
-    &:hover, &:focus {
-        g { fill: $green; }
-    }
 }
 
 .after-map {
@@ -126,13 +108,61 @@ body {
     .after-map { display: block; top: 70vh; height: 30vh;}
 }
 
-@include phone-landscape {
-    // #map { height: 300px; }
-    // .content-wrapper { margin-top: 250px; }
-    // .after-map { top: 200px; }
+.park-list-container {
+    margin: 0;
+    padding: 0 10px;
+
+    &.down {
+        position: fixed;
+        bottom: 0;
+    }
+
+    &.up {
+        position: relative;
+        top: 48px;
+    }
+
+    .park-count {
+        padding: 10px 0;
+        display: flex;
+        .chevron {
+            background: $green;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            padding: 0;
+            padding-top: 2px;
+            padding-right: 2px;
+            text-align: center;
+            cursor: pointer;
+            path {
+                fill: #fff;
+            }
+            &.up {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            &.down {
+                -webkit-transform: rotate(-180deg);
+                -ms-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+            &:hover, &:focus {
+                g { fill: $green; }
+            }
+        }
+        .count {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
 .parks-list {
+    padding: 10px 0 20px 10px;
     .parks-list-header {
         @include phone {
             display: none;
@@ -238,6 +268,7 @@ h4 {
 
 .park-filters {
     display: flex;
+    z-index: 1;
     position: fixed;
     top: 0;
     background: #fff;
@@ -266,14 +297,14 @@ h4 {
             width: 24px;
             opacity: 0.7;
         }
-        &:hover {
+        &:hover, &:focus{
             img { opacity: 0.8; }
-        }
-        &:focus {
-            img { opacity: 0.9; }
+            border-color: $green1;
+            background: $green1;
         }
         &:active, &.active {
-            border-color: black;
+            border-color: $green3;
+            background: $green3;
             img { opacity: 1; }
         }
         &:last-child {
@@ -309,7 +340,10 @@ h4 {
     text-align: right;
 }
 
-a, .u-clickable {
+.u-clickable {
+    cursor: pointer;
+}
+a {
     cursor: pointer;
     &:hover {
         color: $green;

@@ -8,12 +8,32 @@ import ParkFilters from './ParkFilters.jsx';
 
 export default class HomePage extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            up: false,
+        };
+    }
+
+
     slideUp() {
-        var contentNode = React.findDOMNode(this.refs.content);
-        window.scrollTo(0, contentNode.offsetTop);
+        this.setState({up: !this.state.up});
     }
 
     render() {
+        var allParksList;
+
+        if (this.state.up) {
+            allParksList = (
+                <AllParksList
+                    parks={this.props.visibleParks}
+                    onSelectPark={(park) => this.props.selectPark(park)} />
+            );
+        }
+
+        var nearbyParkCount = this.props.visibleParks.filter((park) => park.distance && park.distance < 1).length;
+
         return (
             <div>
                 <AllParksMap
@@ -26,11 +46,12 @@ export default class HomePage extends React.Component {
                     amenityLookup={this.props.amenityLookup}
                     facilityLookup={this.props.facilityLookup}
                     setFilter={(filter) => this.props.applyFilters(filter)} />
-                <div className='content-wrapper container' ref='content'>
-                    <Chevron slideUp={() => this.slideUp()} />
-                    <AllParksList
-                        parks={this.props.visibleParks}
-                        onSelectPark={(park) => this.props.selectPark(park)} />
+                <div className={this.state.up ? 'park-list-container container up' : 'park-list-container container down'} ref='content'>
+                    <div className='park-count u-clickable' onClick={() => this.slideUp()}>
+                        <Chevron up={this.state.up} />
+                        <div className='count'>{this.props.visibleParks.length}&nbsp;parks{nearbyParkCount > 0 ? `, ${nearbyParkCount} within 1 mi` : null} </div>
+                    </div>
+                    {allParksList}
                 </div>
             </div>
         );
