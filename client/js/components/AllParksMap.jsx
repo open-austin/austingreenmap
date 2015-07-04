@@ -78,6 +78,8 @@ export default class AllParksMap extends React.Component {
                 />
         );
 
+        // FIXME: Only show trails if zoom level is greater than 14
+
         return (
             <div>
                 <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>

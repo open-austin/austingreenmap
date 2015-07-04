@@ -129,7 +129,7 @@ export default class App extends React.Component {
         }
 
         return (
-            <div className='container'>{content}</div>
+            <div>{content}</div>
         );
     }
 }

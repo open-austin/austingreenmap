@@ -11,6 +11,14 @@ $gray2: rgb(108,112,108);
 $gray3: rgb(143,149,142);
 $gray4: rgb(178,185,177);
 $gray5: rgb(180,194,181);
+$gray-border: rgb(213,212,212);
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 // who knows how well this works
 // http://davidwalsh.name/write-media-queries-sass
@@ -70,7 +78,7 @@ body {
     margin-left: -20px;
     margin-right: -20px;
     padding: 0 20px 20px;
-    border: 1px solid rgb(213,212,212);
+    border: 1px solid $gray-border;
 }
 .chevron {
     padding: 5px 0;
@@ -211,9 +219,6 @@ h4 {
                 width: 18px;
             }
             .icon {
-                box-sizing:border-box;
-                -moz-box-sizing:border-box;
-                -webkit-box-sizing:border-box;
                 width: 30px;
                 height: 30px;
                 border-radius: 15px;
@@ -232,25 +237,29 @@ h4 {
 }
 
 .park-filters {
-    text-align: center;
-    label {
-        @include desktop {
-            margin-top: 10px;
-        }
-        margin-bottom: 0;
-        font-weight: 300;
-    }
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    text-align: left;
+    padding: 5px;
+    border: 1px solid $gray-border;
+    border-top: none;
+    width: 100%;
+    flex: 1;
     select {
-        margin-bottom: 10px;
+        display: inline-block;
+        margin: 0;
+        flex: 1;
     }
     .filter-icons {
-        margin-top: 0px;
-        margin-bottom: 0px;
+        display: inline-block;
     }
     .icon {
         padding: 0 5px;
         border-radius: 5px;
-        margin-right: 10px;
+        margin: 0;
+        margin-left: 5px;
         img {
             vertical-align: middle;
             height: 24px;
@@ -278,13 +287,6 @@ h4 {
     text-align: center;
     @include phone {
         display: none;
-    }
-}
-
-.filters {
-    text-align: center;
-    select {
-        margin-left: 10px;
     }
 }
 

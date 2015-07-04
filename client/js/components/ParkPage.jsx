@@ -77,7 +77,7 @@ export default class ParkPage extends React.Component {
                     amenityGeo={this.state.amenityGeo}
                     facilityGeo={this.state.facilityGeo}
                     trailGeo={this.state.trailGeo} />
-                <div className='content-wrapper' ref='content'>
+                <div className='content-wrapper container' ref='content'>
                     <Chevron slideUp={() => this.slideUp()} />
                     <h3>{this.props.name}</h3>
                     <ParkSummary parkGeo={this.state.parkGeo} />

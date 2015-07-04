@@ -22,12 +22,12 @@ export default class HomePage extends React.Component {
                     parksTopo={this.props.allParksTopo}
                     trailsTopo={this.props.allTrailsTopo}
                     onSelectPark={(parkId) => this.props.selectParkWithId(parkId)} />
-                <div className='content-wrapper' ref='content'>
+                <ParkFilters
+                    amenityLookup={this.props.amenityLookup}
+                    facilityLookup={this.props.facilityLookup}
+                    setFilter={(filter) => this.props.applyFilters(filter)} />
+                <div className='content-wrapper container' ref='content'>
                     <Chevron slideUp={() => this.slideUp()} />
-                    <ParkFilters
-                        amenityLookup={this.props.amenityLookup}
-                        facilityLookup={this.props.facilityLookup}
-                        setFilter={(filter) => this.props.applyFilters(filter)} />
                     <AllParksList
                         parks={this.props.visibleParks}
                         onSelectPark={(park) => this.props.selectPark(park)} />
