@@ -43,7 +43,7 @@ $desktop-width: 1024px;
 }
 
 body {
-    padding: 0 0 20px;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
     background: rgb(234,233,233);
 }
@@ -312,4 +312,18 @@ a, .u-clickable {
     &:hover {
         color: $green;
     }
+}
+
+.loading {
+    border: 1px solid $gray4;
+    border-radius: 5px;
+    top: 10vh;
+    padding: 10px 0;
+    width: 300px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    background: rgb(241,238,238);
+    color: black;
+    font-size: 30px;
 }

@@ -26,7 +26,7 @@ export default class AllParksMap extends React.Component {
 
     getParksGeo() {
         var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
-8
+
         var visibleParksGeo = {
             type: parksGeo.type,
             features: parksGeo.features.filter((feature) => {

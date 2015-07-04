@@ -10,12 +10,12 @@ export default class ParkFeatureListItem extends React.Component {
 
         return (
             <div className='feature-list-item row' key={this.props.type + '-' + this.props.id}>
-                <div className='feature-icon u-clickable' onClick={() => this.props.showFeatureInMap(this.props.id)}>
+                <div className='feature-icon u-clickable' onClick={() => this.props.selectFeature(this.props.id)}>
                     <div className='icon'><img src={iconURL} alt={this.props.type} /></div>
                 </div>
                 <div className='feature-details eight'>
                     <div className='long-text'>
-                        <div className='feature-name u-clickable' onClick={() => this.props.showFeatureInMap(this.props.id)}>{this.props.name}</div>
+                        <div className='feature-name u-clickable' onClick={() => this.props.selectFeature(this.props.id)}>{this.props.name}</div>
                         <div className='feature-description'>{this.props.description}</div>
                     </div>
                     <div className='short-text three'>
@@ -37,5 +37,5 @@ ParkFeatureListItem.propTypes = {
     status: React.PropTypes.string,
     reservations: React.PropTypes.string,
     accessibilityStatus: React.PropTypes.string,
-    showFeatureInMap: React.PropTypes.func.isRequired,
+    selectFeature: React.PropTypes.func.isRequired,
 };

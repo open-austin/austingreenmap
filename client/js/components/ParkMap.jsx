@@ -56,19 +56,25 @@ function pointToLayer(feature, latlng) {
 
 export default class ParkMap extends React.Component {
 
-    fitBounds() {
-        if (this.props.parkGeo) {
-            var bounds = utils.boundsForFeature(this.props.parkGeo);
-            this.refs.map.getLeafletElement().fitBounds(bounds);
-        }
-    }
-
     componentDidMount() {
         this.fitBounds();
     }
 
     componentDidUpdate(prevProps, prevState) {
         this.fitBounds();
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.selectedFeatureId !== this.props.selectedFeatureId) {
+            this.showFeatureInMap(nextProps.selectedFeatureId);
+        }
+    }
+
+    fitBounds() {
+        if (this.props.parkGeo) {
+            var bounds = utils.boundsForFeature(this.props.parkGeo);
+            this.refs.map.getLeafletElement().fitBounds(bounds);
+        }
     }
 
     showFeatureInMap(featureID) {
@@ -87,59 +93,27 @@ export default class ParkMap extends React.Component {
         leafletElement.setView(matchingLayer._latlng);
     }
 
-    render () {
-        let parkSummary;
-
-        if (this.props.parkGeo) {
-            let googleMapsLink = !this.props.parkGeo ? null : `https://maps.google.com/?q=${this.props.parkGeo.properties.PARK_NAME} ${this.props.parkGeo.properties.ADDRESS}`;
-            parkSummary = (
-                <div className='park-summary row'>
-                    <div className='six columns'>
-                        <div><a href={googleMapsLink} target='_blank'>{this.props.parkGeo.properties.PARK_NAME}<br />{this.props.parkGeo.properties.ADDRESS}</a></div>
-                        <div>Status: {this.props.parkGeo.properties.PARK_STATUS}</div>
-                        <div>Acres: {this.props.parkGeo.properties.PARK_ACRES}</div>
-                    </div>
-                    <div className='six columns'>
-                        <div>{this.props.parkGeo.properties.LAND_OWNER ? `Land owner: ${this.props.parkGeo.properties.LAND_OWNER}` : null}</div>
-                        <div>{this.props.parkGeo.properties.PARK_TYPE ? `Park type: ${this.props.parkGeo.properties.PARK_TYPE}` : null}</div>
-                        <div>{this.props.parkGeo.properties.DEVELOPMENT_STATUS ? `Development status: ${this.props.parkGeo.properties.DEVELOPMENT_STATUS}` : null}</div>
-                    </div>
-                </div>
-            );
-        }
+    render() {
         return (
-            <div>
-                <div className='row'>
-                    <Map id='map' ref='map' center={this.props.center} minZoom={10}>
-                        <TileLayer
-                            url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                            attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                            id='drmaples.ipbindf8' />
-                        {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
-                        {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
-                        {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
-                        {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
-                    </Map>
-                    <div className='after-map'></div>
-                </div>
-                <div className='row'>
-                    <h3>{this.props.name}</h3>
-                </div>
-                {parkSummary}
-                <ParkFeatureList
-                    amenityGeo={this.props.amenityGeo}
-                    facilityGeo={this.props.facilityGeo}
-                    showFeatureInMap={this.showFeatureInMap.bind(this)} />
-            </div>
+            <Map id='map' ref='map' center={this.props.center} minZoom={10}>
+                <TileLayer
+                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                    id='drmaples.ipbindf8' />
+                <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} />
+                {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
+                {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
+                {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
+            </Map>
         );
     }
 }
 
 ParkMap.propTypes = {
-    name: React.PropTypes.string.isRequired,
     center: React.PropTypes.array.isRequired,
-    parkGeo: React.PropTypes.object,
+    parkGeo: React.PropTypes.object.isRequired,
     amenityGeo: React.PropTypes.object,
     facilityGeo: React.PropTypes.object,
     trailGeo: React.PropTypes.object,
+    selectedFeatureId: React.PropTypes.number,
 };
