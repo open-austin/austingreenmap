@@ -1,20 +1,27 @@
 import React from 'react';
 
+import icons from '../utils/icons.json';
+
 
 export default class ParkFeatureListItem extends React.Component {
     render() {
+        var icon = icons[this.props.type];
+        var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
+
         return (
-            <div className='row u-clickable' key={this.props.id} onClick={() => this.props.showFeatureInMap(this.props.id)}>
-                <div className='two columns'>
-                    {this.props.type}
+            <div className='feature-list-item row' key={this.props.type + '-' + this.props.id}>
+                <div className='feature-icon u-clickable' onClick={() => this.props.selectFeature(this.props.id)}>
+                    <div className='icon'><img src={iconURL} alt={this.props.type} /></div>
                 </div>
-                <div className='eight columns'>
-                    <div className='name'>{this.props.name}</div>
-                    <i>{this.props.description}</i>
-                </div>
-                <div className='two columns right'>
-                    <div className='indoorOutdoor'>{this.props.indoorOutdoor}</div>
-                    <div className='accessibilityStatus'>{this.props.accessibilityStatus}</div>
+                <div className='feature-details eight'>
+                    <div className='long-text'>
+                        <div className='feature-name u-clickable' onClick={() => this.props.selectFeature(this.props.id)}>{this.props.name}</div>
+                        <div className='feature-description'>{this.props.description}</div>
+                    </div>
+                    <div className='short-text three'>
+                        <div className='feature-type'>{this.props.type}</div>
+                        <div className='feature-accessible'>{this.props.accessibilityStatus}</div>
+                    </div>
                 </div>
             </div>
         );
@@ -30,5 +37,5 @@ ParkFeatureListItem.propTypes = {
     status: React.PropTypes.string,
     reservations: React.PropTypes.string,
     accessibilityStatus: React.PropTypes.string,
-    showFeatureInMap: React.PropTypes.func.isRequired,
+    selectFeature: React.PropTypes.func.isRequired,
 };

@@ -3,25 +3,321 @@
 @import "leaflet";
 
 $green: #389e46;
+$green1: $green;
+$green2: rgb(85,192,95);
+$green3: rgb(101,227,112);
+$gray1: rgb(74,76,73);
+$gray2: rgb(108,112,108);
+$gray3: rgb(143,149,142);
+$gray4: rgb(178,185,177);
+$gray5: rgb(180,194,181);
+$gray-border: rgb(213,212,212);
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+// who knows how well this works
+// http://davidwalsh.name/write-media-queries-sass
+$tablet-width: 768px;
+$desktop-width: 1024px;
+@mixin phone {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+@mixin phone-landscape {
+  @media (max-width: #{$tablet-width - 1px}) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+@mixin tablet-desktop {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
 
 body {
-    padding: 20px 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: rgb(234,233,233);
 }
 
 #map {
-    height: 500px;
     margin-bottom: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: -2;
+    .leaflet-control-container {
+        display: none;
+    }
+    .leaflet-popup-content {
+        font: 12px/1.5 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+}
+
+.container {
+    background: #fff;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    border: 1px solid $gray-border;
+}
+
+.after-map {
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    display: block;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    z-index: -1;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgb(234,233,233));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgb(234,233,233));
+}
+
+#map { height: 100vh; }
+.content-wrapper { margin-top: 85vh; }
+
+@include desktop {
+    .after-map { display: none }
+    // .chevron { display: none; }
+}
+
+@include phone {
+    #map { height: 100vh; }
+    .content-wrapper { margin-top: 70vh; }
+    .after-map { display: block; top: 70vh; height: 30vh;}
+}
+
+.park-list-container {
+    margin: 0;
+    padding: 0 10px;
+
+    &.down {
+        position: fixed;
+        bottom: 0;
+    }
+
+    &.up {
+        position: relative;
+        top: 48px;
+    }
+
+    .park-count {
+        padding: 10px 0;
+        display: flex;
+        .chevron {
+            background: $green;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            padding: 0;
+            padding-top: 2px;
+            padding-right: 2px;
+            text-align: center;
+            cursor: pointer;
+            path {
+                fill: #fff;
+            }
+            &.up {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            &.down {
+                -webkit-transform: rotate(-180deg);
+                -ms-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+            &:hover, &:focus {
+                g { fill: $green; }
+            }
+        }
+        .count {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.parks-list {
+    padding: 10px 0 20px 10px;
+    .parks-list-header {
+        @include phone {
+            display: none;
+        }
+    }
+    .park-name {
+        font-weight: 600;
+    }
+    .park-count {
+        color: $green;
+        text-align: center;
+    }
+    .park-distance {
+        text-align: left;
+        @include tablet-desktop {
+            text-align: right;
+        }
+    }
+}
+
+h4 {
+    margin-top: 1em;
+}
+
+.park-feature-list {
+    .feature-list-item {
+        margin-bottom: 15px;
+        word-break: break-word;
+        .feature-details {
+            display: table-cell;
+            width: 100%;
+            line-height: 1.5em;
+            .long-text, .short-text {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .long-text {
+                float: left;
+                width: 70%;
+                @include phone {
+                    width: 100%;
+                    float: initial;
+                }
+            }
+            .short-text {
+                float: right;
+                text-align: right;
+                width: 30%;
+                @include phone {
+                    width: 100%;
+                    text-align: left;
+                    float: initial;
+                }
+            }
+            .feature-name {
+                color: $green1;
+                display: block;
+                font-weight: 500;
+                text-decoration: underline;
+                &:hover {
+                    color: $green2;
+                }
+            }
+            .feature-description {
+                color: $gray2;
+                display: block;
+            }
+            .feature-type, .feature-accessible {
+                color: $gray3;
+                margin-right: 10px;
+                display: block;
+            }
+        }
+        .feature-icon {
+            display: table-cell;
+            vertical-align: top;
+            text-align: center;
+            padding-right: 20px;
+            padding-top: 8px;
+            img {
+                margin-top: 2px;
+                vertical-align: middle;
+                height: 18px;
+                width: 18px;
+            }
+            .icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 15px;
+                background: rgb(234,233,233);
+                border: 1px solid $gray5;
+                &:hover {
+                    border: 2px solid $green2;
+                    img {
+                        margin-top: 0px;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.park-filters {
+    display: flex;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    text-align: left;
+    padding: 5px;
+    border: 1px solid $gray-border;
+    border-top: none;
+    width: 100%;
+    flex: 1;
+    select {
+        display: inline-block;
+        margin: 0;
+        flex: 1;
+    }
+    .filter-icons {
+        display: inline-block;
+    }
+    .icon {
+        padding: 0 5px;
+        border-radius: 5px;
+        margin: 0;
+        margin-left: 5px;
+        img {
+            vertical-align: middle;
+            height: 24px;
+            width: 24px;
+            opacity: 0.7;
+        }
+        &:hover, &:focus{
+            img { opacity: 0.8; }
+            border-color: $green1;
+            background: $green1;
+        }
+        &:active, &.active {
+            border-color: $green3;
+            background: $green3;
+            img { opacity: 1; }
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .nav {
+    padding-top: 20px;
     text-align: center;
-}
-
-.filters {
-    text-align: center;
-    select {
-        margin-left: 10px;
+    @include phone {
+        display: none;
     }
 }
 
@@ -31,23 +327,39 @@ body {
     img {
         height: 30px;
     }
+    h1 {
+        display: inline-block;
+        font-size: 30px;
+        color: $gray2;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
 }
 
 .address {
     text-align: right;
 }
 
-.name {
-    font-weight: 600;
+.u-clickable {
+    cursor: pointer;
 }
-
-.right {
-    text-align: right;
-}
-
-a, .u-clickable {
+a {
     cursor: pointer;
     &:hover {
         color: $green;
     }
+}
+
+.loading {
+    border: 1px solid $gray4;
+    border-radius: 5px;
+    top: 10vh;
+    padding: 10px 0;
+    width: 300px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    background: rgb(241,238,238);
+    color: black;
+    font-size: 30px;
 }

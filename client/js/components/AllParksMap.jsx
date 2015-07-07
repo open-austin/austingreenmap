@@ -43,7 +43,7 @@ export default class AllParksMap extends React.Component {
             opacity: 1,
             weight: 1,
             fillColor: 'rgb(86,221,84)',
-            fillOpacity: 0.5,
+            fillOpacity: 0.8,
         });
 
         layer.on('click', () => {
@@ -78,8 +78,10 @@ export default class AllParksMap extends React.Component {
                 />
         );
 
+        // FIXME: Only show trails if zoom level is greater than 14
+
         return (
-            <div className='row'>
+            <div>
                 <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
                     <TileLayer
                         url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
@@ -89,6 +91,7 @@ export default class AllParksMap extends React.Component {
                     <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                     {userLocationMarker}
                 </Map>
+                <div className='after-map'></div>
             </div>
         );
     }

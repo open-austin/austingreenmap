@@ -5,10 +5,9 @@ import turf from 'turf';
 import api from '../utils/api';
 import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
-import ParksList from './ParksList.jsx';
-import AllParksMap from './AllParksMap.jsx';
 import Navigation from './Navigation.jsx';
-import ParkFilters from './ParkFilters.jsx';
+import HomePage from './HomePage.jsx';
+import ParkPage from './ParkPage.jsx';
 
 
 export default class App extends React.Component {
@@ -21,10 +20,6 @@ export default class App extends React.Component {
             allParksTopo: null,
             allTrailsTopo: null,
             park: null,
-            parkGeo: null,
-            amenityGeo: null,
-            facilityGeo: null,
-            trailGeo: null,
             userLocation: null,
             visibleParks: null,
             visibleParkIds: null,
@@ -36,8 +31,9 @@ export default class App extends React.Component {
             .then((data) => this.setState({
                 allParks: data,
                 visibleParks: data,
-                visibleParkIds: data.map((park) => Number(park.park_id))
-            }));
+                visibleParkIds: data.map((park) => Number(park.park_id))  // FIXME: update the json files so we don't need to convert to number
+            }))
+            .then(() => this.computeParkDistance());
 
         api.getAllParksTopo()
             .then((data) => this.setState({allParksTopo: data}));
@@ -52,7 +48,8 @@ export default class App extends React.Component {
             .then((data) => this.setState({facilityLookup: data}));
 
         utils.getUserLocation()
-            .tap((latLng) => this.setUserLocation(latLng))
+            .tap((latLng) => this.setState({userLocation: latLng}))
+            .tap(() => this.computeParkDistance())
             .catch((err) => console.error(err));
     }
 
@@ -63,23 +60,15 @@ export default class App extends React.Component {
 
     selectPark(park) {
         this.setState({park: park});
-
-        api.getFeatureGeoJson(park.park_id, 'park')
-            .tap((data) => this.setState({parkGeo: data}));
-
-        api.getFeatureGeoJson(park.park_id, 'amenity')
-            .tap((data) => this.setState({amenityGeo: data}));
-
-        api.getFeatureGeoJson(park.park_id, 'facility')
-            .tap((data) => this.setState({facilityGeo: data}));
-
-        api.getFeatureGeoJson(park.park_id, 'trail')
-            .tap((data) => this.setState({trailGeo: data}));
     }
 
-    setUserLocation(userLocation) {
+    computeParkDistance() {
+        if (!this.state.allParks || !this.state.userLocation) {
+            return;
+        }
+
         var parksWithDistance = this.state.allParks.map((park) => {
-            var toPoint = turf.point([userLocation[1], userLocation[0]]);
+            var toPoint = turf.point([this.state.userLocation[1], this.state.userLocation[0]]);
             var fromPoint = turf.point([park.center[1], park.center[0]]);
 
             park.distance = turf.distance(toPoint, fromPoint, 'miles');
@@ -87,10 +76,7 @@ export default class App extends React.Component {
             return park;
         });
 
-        this.setState({
-            allParks: parksWithDistance,
-            userLocation: userLocation
-        });
+        this.setState({allParks: parksWithDistance});
     }
 
     applyFilters(filter) {
@@ -108,48 +94,42 @@ export default class App extends React.Component {
         });
     }
 
+
     render() {
-        var content;
+        var homePageLoaded = this.state.visibleParkIds && this.state.allParksTopo && this.state.allTrailsTopo && this.state.amenityLookup && this.state.facilityLookup && this.state.visibleParks;
+
+        var content = <div className='loading'>Loading</div>;
 
         if (this.state.park) {
             content = (
-                <ParkMap
+                <ParkPage
+                    parkId={this.state.park.park_id}
                     name={this.state.park.name}
                     center={this.state.park.center}
                     parkGeo={this.state.parkGeo}
-                    facilityGeo={this.state.facilityGeo}
                     amenityGeo={this.state.amenityGeo}
+                    facilityGeo={this.state.facilityGeo}
                     trailGeo={this.state.trailGeo} />
             );
         }
-        else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
-            var parkFilters;
-            if (this.state.amenityLookup && this.state.facilityLookup) {
-                parkFilters = <ParkFilters
+        else if (homePageLoaded) {
+            content = (
+                <HomePage
+                    userLocation={this.state.userLocation}
+                    allParksTopo={this.state.allParksTopo}
+                    allTrailsTopo={this.state.allTrailsTopo}
                     amenityLookup={this.state.amenityLookup}
                     facilityLookup={this.state.facilityLookup}
-                    setFilter={(filter) => this.applyFilters(filter)} />
-            }
-            content = (
-                <div>
-                    {parkFilters}
-                    <AllParksMap
-                        userLocation={this.state.userLocation}
-                        visibleParkIds={this.state.visibleParkIds}
-                        parksTopo={this.state.allParksTopo}
-                        trailsTopo={this.state.allTrailsTopo}
-                        onSelectPark={(parkId) => this.selectParkWithId(parkId)} />
-                    <ParksList
-                        parks={this.state.visibleParks}
-                        onSelectPark={(park) => this.selectPark(park)} />
-                </div>
+                    visibleParkIds={this.state.visibleParkIds}
+                    visibleParks={this.state.visibleParks}
+                    selectPark={(park) => this.selectPark(park)}
+                    selectParkWithId={(parkId) => this.selectParkWithId(parkId)}
+                    applyFilters={(filter) => this.applyFilters(filter)} />
             );
         }
+
         return (
-          <div className='container'>
-              <Navigation />
-              {content}
-          </div>
-          );
+            <div>{content}</div>
+        );
     }
 }
