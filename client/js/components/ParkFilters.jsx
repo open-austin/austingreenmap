@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import Select from 'react-select';
 
 import api from '../utils/api';
-
 
 export default class ParkFilters extends React.Component {
     constructor(props) {
@@ -18,18 +18,43 @@ export default class ParkFilters extends React.Component {
         this.props.setFilter(filter);
     }
 
+    onChange(e) {
+      console.log('onChange');
+      console.log(e);
+      console.log(e.target.value);
+    }
+
     render() {
+        // var options = Object.keys(this.props.amenityLookup)
+        //     .concat(Object.keys(this.props.facilityLookup))
+        //     .sort()
+        //     .map((k) => <option key={k}>{k}</option>);
         var options = Object.keys(this.props.amenityLookup)
             .concat(Object.keys(this.props.facilityLookup))
             .sort()
-            .map((k) => <option key={k}>{k}</option>);
+            .map( k => ({ value: k, label: k }) );
+
+        const logChange = function(e) {
+            console.log(e);
+        };
 
         return (
             <div className='park-filters'>
-                <select name='park-filter-select' id='park-filter-select' onChange={(e) => this.onSelect(e.target.value)} value={this.state.selectedFilter}>
+                {/*<select
+                    name='park-filter-select'
+                    id='park-filter-select'
+                    onChange={(e) => this.onSelect(e.target.value)}
+                    value={this.state.selectedFilter} >
                     <option defaultValue>Find parks with</option>
                     {options}
-                </select>
+                </select>*/}
+                <Select
+                    name='park-filter-select'
+                    id='park-filter-select'
+                    value={this.state.selectedFilter}
+                    options={options}
+                    onChange={this.onChange}
+                />
                 <div className='filter-icons'>
                     <button className={this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon'} onClick={() => this.onSelect('Restroom')}><img alt="Restroom" src="images/icons/toilets-24@2x.png" /></button>
                     <button className={this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon'} onClick={() => this.onSelect('Mutt Mitt')}><img alt="Mutt Mitt" src="images/icons/dog-park-24@2x.png" /></button>

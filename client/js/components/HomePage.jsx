@@ -45,7 +45,7 @@ export default class HomePage extends React.Component {
                 <ParkFilters
                     amenityLookup={this.props.amenityLookup}
                     facilityLookup={this.props.facilityLookup}
-                    setFilter={(filter) => this.props.applyFilters(filter)} />
+                    setFilter={this.props.applyFilters} />
                 <div className={this.state.up ? 'park-list-container container up' : 'park-list-container container down'} ref='content'>
                     <div className='park-count u-clickable' onClick={() => this.slideUp()}>
                         <Chevron up={this.state.up} />
