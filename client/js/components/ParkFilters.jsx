@@ -26,7 +26,7 @@ export default class ParkFilters extends React.Component {
         var options = Object.keys(this.props.amenityLookup)
             .concat(Object.keys(this.props.facilityLookup))
             .sort()
-            .map( k => ({ value: k, label: k }) );
+            .map((k) => ({ value: k, label: k }) );
 
         return (
             <div className='park-filters'>
