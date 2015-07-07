@@ -279,10 +279,11 @@ h4 {
     border-top: none;
     width: 100%;
     flex: 1;
-    select {
+    .Select {
         display: inline-block;
         margin: 0;
         flex: 1;
+        .Select-control { padding: 0; }
     }
     .filter-icons {
         display: inline-block;
