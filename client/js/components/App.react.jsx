@@ -79,13 +79,20 @@ export default class App extends React.Component {
         this.setState({allParks: parksWithDistance});
     }
 
-    applyFilters(filter) {
+    applyFilters(filters) {
         var visibleParks = this.state.allParks.filter((park) => {
             // FIXME: Convert park ids to numbers when we generate the data
-            var matchingAmenity = !!this.state.amenityLookup && this.state.amenityLookup[filter] && this.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
-            var matchingFacility = !!this.state.facilityLookup && this.state.facilityLookup[filter] && this.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
-
-            return matchingAmenity || matchingFacility;
+            return filters.reduce( (matches, filter) => {
+                const matchingFacility =
+                    !!this.state.facilityLookup &&
+                    filter in this.state.facilityLookup &&
+                    this.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+                const matchingAmenity =
+                    !!this.state.amenityLookup &&
+                    filter in this.state.amenityLookup &&
+                    this.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+                return matches && (matchingFacility || matchingAmenity);
+            }, true);
         });
 
         this.setState({
