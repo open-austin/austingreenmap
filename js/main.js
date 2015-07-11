@@ -20,7 +20,10 @@ _react2['default'].render(_react2['default'].createElement(_componentsAppReactJs
 
 window.onload = _utils2['default'].setupiOSTouchState;
 
-},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","./utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
+},{"./components/App.react.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx","./utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/images/chevron-up.svg":[function(require,module,exports){
+module.exports = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<svg width=\"15px\" height=\"8px\" viewBox=\"0 0 15 8\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->\n    <title>Slice 1</title>\n    <desc>Created with Sketch.</desc>\n    <defs></defs>\n    <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"noun_119200_cc\" sketch:type=\"MSLayerGroup\" fill=\"#000000\">\n            <path d=\"M14.6139351,7.04256011 C14.2233486,7.43314663 13.5899582,7.43314663 13.1996218,7.04256011 L8.5045817,2.34752004 C8.28078212,2.12372046 7.98321621,2.00044315 7.66689613,2.00044315 C7.350326,2.00044315 7.05301014,2.12372046 6.82946062,2.34726998 L2.13442055,7.04256011 C1.74383402,7.43314663 1.11044371,7.43314663 0.719857187,7.04256011 C0.329270662,6.65197358 0.329270662,6.01858327 0.719857187,5.62799674 L5.41514731,0.932706618 C6.01628048,0.331323397 6.81620768,0 7.66689613,0 C8.51733453,0 9.31751179,0.331323397 9.91889501,0.932706618 L14.613685,5.62774669 C14.8092283,5.82329001 14.907,6.07934673 14.907,6.3351534 C14.907,6.59121012 14.8092283,6.84701679 14.6139351,7.04256011 Z\" id=\"Shape\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n    </g>\n</svg>";
+
+},{}],"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -89,47 +92,9 @@ var AllParksList = (function (_React$Component) {
                 );
             });
 
-            var nearbyParkCount = this.props.parks.filter(function (park) {
-                return park.distance && park.distance < 1;
-            }).length;
-
             return _react2['default'].createElement(
                 'div',
                 { className: 'parks-list' },
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'park-count twelve columns' },
-                        this.props.parks.length,
-                        ' parks',
-                        nearbyParkCount > 0 ? ', ' + nearbyParkCount + ' within 1 mi' : null,
-                        ' '
-                    )
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'parks-list-header row' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'park-name nine columns' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Name'
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'park-distance three columns' },
-                        _react2['default'].createElement(
-                            'h6',
-                            null,
-                            'Distance (mi)'
-                        )
-                    )
-                ),
                 parkList
             );
         }
@@ -241,7 +206,7 @@ var AllParksMap = (function (_React$Component) {
                 opacity: 1,
                 weight: 1,
                 fillColor: 'rgb(86,221,84)',
-                fillOpacity: 0.5
+                fillOpacity: 0.8
             });
 
             layer.on('click', function () {
@@ -277,21 +242,18 @@ var AllParksMap = (function (_React$Component) {
                 strokeColor: 'rgb(255,255,255)'
             });
 
+            // FIXME: Only show trails if zoom level is greater than 14
+
             return _react2['default'].createElement(
-                'div',
-                null,
-                _react2['default'].createElement(
-                    _reactLeaflet.Map,
-                    { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
-                    _react2['default'].createElement(_reactLeaflet.TileLayer, {
-                        url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
-                        id: 'drmaples.ipbindf8' }),
-                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) }),
-                    _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getTrailsGeo(), onEachFeature: this.onEachTrailFeature.bind(this) }),
-                    userLocationMarker
-                ),
-                _react2['default'].createElement('div', { className: 'after-map' })
+                _reactLeaflet.Map,
+                { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
+                _react2['default'].createElement(_reactLeaflet.TileLayer, {
+                    url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+                    attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'drmaples.ipbindf8' }),
+                _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getParksGeo(), onEachFeature: this.onEachParkFeature.bind(this) }),
+                _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getTrailsGeo(), onEachFeature: this.onEachTrailFeature.bind(this) }),
+                userLocationMarker
             );
         }
     }]);
@@ -351,21 +313,17 @@ var _ParkMapJsx = require('./ParkMap.jsx');
 
 var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
 
-var _AllParksListJsx = require('./AllParksList.jsx');
-
-var _AllParksListJsx2 = _interopRequireDefault(_AllParksListJsx);
-
-var _AllParksMapJsx = require('./AllParksMap.jsx');
-
-var _AllParksMapJsx2 = _interopRequireDefault(_AllParksMapJsx);
-
 var _NavigationJsx = require('./Navigation.jsx');
 
 var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
 
-var _ParkFiltersJsx = require('./ParkFilters.jsx');
+var _HomePageJsx = require('./HomePage.jsx');
 
-var _ParkFiltersJsx2 = _interopRequireDefault(_ParkFiltersJsx);
+var _HomePageJsx2 = _interopRequireDefault(_HomePageJsx);
+
+var _ParkPageJsx = require('./ParkPage.jsx');
+
+var _ParkPageJsx2 = _interopRequireDefault(_ParkPageJsx);
 
 var App = (function (_React$Component) {
     function App(props) {
@@ -380,10 +338,6 @@ var App = (function (_React$Component) {
             allParksTopo: null,
             allTrailsTopo: null,
             park: null,
-            parkGeo: null,
-            amenityGeo: null,
-            facilityGeo: null,
-            trailGeo: null,
             userLocation: null,
             visibleParks: null,
             visibleParkIds: null,
@@ -397,8 +351,10 @@ var App = (function (_React$Component) {
                 visibleParks: data,
                 visibleParkIds: data.map(function (park) {
                     return Number(park.park_id);
-                })
+                }) // FIXME: update the json files so we don't need to convert to number
             });
+        }).then(function () {
+            return _this.computeParkDistance();
         });
 
         _utilsApi2['default'].getAllParksTopo().then(function (data) {
@@ -418,7 +374,9 @@ var App = (function (_React$Component) {
         });
 
         _utils2['default'].getUserLocation().tap(function (latLng) {
-            return _this.setUserLocation(latLng);
+            return _this.setState({ userLocation: latLng });
+        }).tap(function () {
+            return _this.computeParkDistance();
         })['catch'](function (err) {
             return console.error(err);
         });
@@ -437,31 +395,19 @@ var App = (function (_React$Component) {
     }, {
         key: 'selectPark',
         value: function selectPark(park) {
-            var _this2 = this;
-
             this.setState({ park: park });
-
-            _utilsApi2['default'].getFeatureGeoJson(park.park_id, 'park').tap(function (data) {
-                return _this2.setState({ parkGeo: data });
-            });
-
-            _utilsApi2['default'].getFeatureGeoJson(park.park_id, 'amenity').tap(function (data) {
-                return _this2.setState({ amenityGeo: data });
-            });
-
-            _utilsApi2['default'].getFeatureGeoJson(park.park_id, 'facility').tap(function (data) {
-                return _this2.setState({ facilityGeo: data });
-            });
-
-            _utilsApi2['default'].getFeatureGeoJson(park.park_id, 'trail').tap(function (data) {
-                return _this2.setState({ trailGeo: data });
-            });
         }
     }, {
-        key: 'setUserLocation',
-        value: function setUserLocation(userLocation) {
+        key: 'computeParkDistance',
+        value: function computeParkDistance() {
+            var _this2 = this;
+
+            if (!this.state.allParks || !this.state.userLocation) {
+                return;
+            }
+
             var parksWithDistance = this.state.allParks.map(function (park) {
-                var toPoint = _turf2['default'].point([userLocation[1], userLocation[0]]);
+                var toPoint = _turf2['default'].point([_this2.state.userLocation[1], _this2.state.userLocation[0]]);
                 var fromPoint = _turf2['default'].point([park.center[1], park.center[0]]);
 
                 park.distance = _turf2['default'].distance(toPoint, fromPoint, 'miles');
@@ -469,22 +415,20 @@ var App = (function (_React$Component) {
                 return park;
             });
 
-            this.setState({
-                allParks: parksWithDistance,
-                userLocation: userLocation
-            });
+            this.setState({ allParks: parksWithDistance });
         }
     }, {
         key: 'applyFilters',
-        value: function applyFilters(filter) {
+        value: function applyFilters(filters) {
             var _this3 = this;
 
             var visibleParks = this.state.allParks.filter(function (park) {
                 // FIXME: Convert park ids to numbers when we generate the data
-                var matchingAmenity = !!_this3.state.amenityLookup && _this3.state.amenityLookup[filter] && _this3.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
-                var matchingFacility = !!_this3.state.facilityLookup && _this3.state.facilityLookup[filter] && _this3.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
-
-                return matchingAmenity || matchingFacility;
+                return filters.reduce(function (matches, filter) {
+                    var matchingFacility = !!_this3.state.facilityLookup && filter in _this3.state.facilityLookup && _this3.state.facilityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+                    var matchingAmenity = !!_this3.state.amenityLookup && filter in _this3.state.amenityLookup && _this3.state.amenityLookup[filter].map(Number).indexOf(park.park_id) !== -1;
+                    return matches && (matchingFacility || matchingAmenity);
+                }, true);
             });
 
             this.setState({
@@ -499,59 +443,46 @@ var App = (function (_React$Component) {
         value: function render() {
             var _this4 = this;
 
-            var content;
+            var homePageLoaded = this.state.visibleParkIds && this.state.allParksTopo && this.state.allTrailsTopo && this.state.amenityLookup && this.state.facilityLookup && this.state.visibleParks;
+
+            var content = _react2['default'].createElement(
+                'div',
+                { className: 'loading' },
+                'Loading'
+            );
 
             if (this.state.park) {
-                content = _react2['default'].createElement(
-                    'div',
-                    { className: 'content-wrapper' },
-                    _react2['default'].createElement('div', { className: 'map-separator' }),
-                    _react2['default'].createElement(_ParkMapJsx2['default'], {
-                        name: this.state.park.name,
-                        center: this.state.park.center,
-                        parkGeo: this.state.parkGeo,
-                        facilityGeo: this.state.facilityGeo,
-                        amenityGeo: this.state.amenityGeo,
-                        trailGeo: this.state.trailGeo })
-                );
-            } else if (this.state.allParks && this.state.allParksTopo && this.state.allTrailsTopo) {
-                var parkFilters;
-                if (this.state.amenityLookup && this.state.facilityLookup) {
-                    parkFilters = _react2['default'].createElement(_ParkFiltersJsx2['default'], {
-                        amenityLookup: this.state.amenityLookup,
-                        facilityLookup: this.state.facilityLookup,
-                        setFilter: function (filter) {
-                            return _this4.applyFilters(filter);
-                        } });
-                }
-                content = _react2['default'].createElement(
-                    'div',
-                    null,
-                    _react2['default'].createElement(_AllParksMapJsx2['default'], {
-                        userLocation: this.state.userLocation,
-                        visibleParkIds: this.state.visibleParkIds,
-                        parksTopo: this.state.allParksTopo,
-                        trailsTopo: this.state.allTrailsTopo,
-                        onSelectPark: function (parkId) {
-                            return _this4.selectParkWithId(parkId);
-                        } }),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'content-wrapper' },
-                        _react2['default'].createElement('div', { className: 'map-separator' }),
-                        parkFilters,
-                        _react2['default'].createElement(_AllParksListJsx2['default'], {
-                            parks: this.state.visibleParks,
-                            onSelectPark: function (park) {
-                                return _this4.selectPark(park);
-                            } })
-                    )
-                );
+                content = _react2['default'].createElement(_ParkPageJsx2['default'], {
+                    parkId: this.state.park.park_id,
+                    name: this.state.park.name,
+                    center: this.state.park.center,
+                    parkGeo: this.state.parkGeo,
+                    amenityGeo: this.state.amenityGeo,
+                    facilityGeo: this.state.facilityGeo,
+                    trailGeo: this.state.trailGeo });
+            } else if (homePageLoaded) {
+                content = _react2['default'].createElement(_HomePageJsx2['default'], {
+                    userLocation: this.state.userLocation,
+                    allParksTopo: this.state.allParksTopo,
+                    allTrailsTopo: this.state.allTrailsTopo,
+                    amenityLookup: this.state.amenityLookup,
+                    facilityLookup: this.state.facilityLookup,
+                    visibleParkIds: this.state.visibleParkIds,
+                    visibleParks: this.state.visibleParks,
+                    selectPark: function (park) {
+                        return _this4.selectPark(park);
+                    },
+                    selectParkWithId: function (parkId) {
+                        return _this4.selectParkWithId(parkId);
+                    },
+                    applyFilters: function (filter) {
+                        return _this4.applyFilters(filter);
+                    } });
             }
+
             return _react2['default'].createElement(
                 'div',
-                { className: 'container' },
-                _react2['default'].createElement(_NavigationJsx2['default'], null),
+                null,
                 content
             );
         }
@@ -563,7 +494,136 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./AllParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./HomePage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/HomePage.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkPage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Chevron.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _imagesChevronUpSvg = require('../../images/chevron-up.svg');
+
+var _imagesChevronUpSvg2 = _interopRequireDefault(_imagesChevronUpSvg);
+
+var Chevron = (function (_React$Component) {
+    function Chevron() {
+        _classCallCheck(this, Chevron);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(Chevron, _React$Component);
+
+    _createClass(Chevron, [{
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement('div', { className: this.props.up ? 'chevron down' : 'chevron up', dangerouslySetInnerHTML: { __html: _imagesChevronUpSvg2['default'] } });
+        }
+    }]);
+
+    return Chevron;
+})(_react2['default'].Component);
+
+exports['default'] = Chevron;
+
+Chevron.PropTypes = {
+    up: _react2['default'].PropTypes.bool.isRequired
+};
+module.exports = exports['default'];
+
+},{"../../images/chevron-up.svg":"/Users/luqmaan/dev/austingreenmap/client/images/chevron-up.svg","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ChevronJsx = require('./Chevron.jsx');
+
+var _ChevronJsx2 = _interopRequireDefault(_ChevronJsx);
+
+var Container = (function (_React$Component) {
+    function Container(props) {
+        _classCallCheck(this, Container);
+
+        _get(Object.getPrototypeOf(Container.prototype), 'constructor', this).call(this, props);
+
+        this.state = {
+            up: false
+        };
+    }
+
+    _inherits(Container, _React$Component);
+
+    _createClass(Container, [{
+        key: 'slideUp',
+        value: function slideUp() {
+            this.setState({ up: !this.state.up });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            return _react2['default'].createElement(
+                'div',
+                { className: this.state.up ? 'container up' : 'container down', ref: 'content' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'park-count u-clickable', onClick: function () {
+                            return _this.slideUp();
+                        } },
+                    _react2['default'].createElement(_ChevronJsx2['default'], { up: this.state.up }),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'count' },
+                        this.props.title
+                    )
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'container-content' },
+                    this.state.up ? this.props.children : null
+                )
+            );
+        }
+    }]);
+
+    return Container;
+})(_react2['default'].Component);
+
+exports['default'] = Container;
+module.exports = exports['default'];
+
+},{"./Chevron.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Chevron.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -621,7 +681,116 @@ GeoJsonUpdatable.propTypes = {
 };
 module.exports = exports["default"];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/HomePage.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ContainerJsx = require('./Container.jsx');
+
+var _ContainerJsx2 = _interopRequireDefault(_ContainerJsx);
+
+var _AllParksListJsx = require('./AllParksList.jsx');
+
+var _AllParksListJsx2 = _interopRequireDefault(_AllParksListJsx);
+
+var _AllParksMapJsx = require('./AllParksMap.jsx');
+
+var _AllParksMapJsx2 = _interopRequireDefault(_AllParksMapJsx);
+
+var _ParkFiltersJsx = require('./ParkFilters.jsx');
+
+var _ParkFiltersJsx2 = _interopRequireDefault(_ParkFiltersJsx);
+
+var HomePage = (function (_React$Component) {
+    function HomePage(props) {
+        _classCallCheck(this, HomePage);
+
+        _get(Object.getPrototypeOf(HomePage.prototype), 'constructor', this).call(this, props);
+
+        this.state = {
+            up: false
+        };
+    }
+
+    _inherits(HomePage, _React$Component);
+
+    _createClass(HomePage, [{
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            var nearbyParkCount = this.props.visibleParks.filter(function (park) {
+                return park.distance && park.distance < 1;
+            }).length;
+            var containerTitle = '' + this.props.visibleParks.length + ' parks';
+            containerTitle = !nearbyParkCount ? containerTitle : '' + containerTitle + ', ' + nearbyParkCount + ' within 1 mi';
+
+            return _react2['default'].createElement(
+                'div',
+                null,
+                _react2['default'].createElement(_AllParksMapJsx2['default'], {
+                    userLocation: this.props.userLocation,
+                    visibleParkIds: this.props.visibleParkIds,
+                    parksTopo: this.props.allParksTopo,
+                    trailsTopo: this.props.allTrailsTopo,
+                    onSelectPark: function (parkId) {
+                        return _this.props.selectParkWithId(parkId);
+                    } }),
+                _react2['default'].createElement(_ParkFiltersJsx2['default'], {
+                    amenityLookup: this.props.amenityLookup,
+                    facilityLookup: this.props.facilityLookup,
+                    applyFilters: this.props.applyFilters }),
+                _react2['default'].createElement(
+                    _ContainerJsx2['default'],
+                    { title: containerTitle },
+                    _react2['default'].createElement(_AllParksListJsx2['default'], {
+                        parks: this.props.visibleParks,
+                        onSelectPark: function (park) {
+                            return _this.props.selectPark(park);
+                        } })
+                )
+            );
+        }
+    }]);
+
+    return HomePage;
+})(_react2['default'].Component);
+
+exports['default'] = HomePage;
+
+HomePage.PropTypes = {
+    userLocation: _react2['default'].PropTypes.array,
+    allParksTopo: _react2['default'].PropTypes.object.isRequired,
+    allTrailsTopo: _react2['default'].PropTypes.object.isRequired,
+    amenityLookup: _react2['default'].PropTypes.object.isRequired,
+    facilityLookup: _react2['default'].PropTypes.object.isRequired,
+    visibleParkIds: _react2['default'].PropTypes.array.isRequired,
+    visibleParks: _react2['default'].PropTypes.array.isRequired,
+
+    selectPark: _react2['default'].PropTypes.func.isRequired,
+    selectParkWithId: _react2['default'].PropTypes.func.isRequired,
+    applyFilters: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"./AllParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -729,7 +898,7 @@ var ParkFeatureList = (function (_React$Component) {
 
                 amenityList = sortedAmenity.map(function (feature) {
                     return _react2['default'].createElement(_ParkFeatureListItemJsx2['default'], {
-                        showFeatureInMap: _this.props.showFeatureInMap,
+                        selectFeature: _this.props.selectFeature,
                         id: feature.id,
                         name: feature.properties.AMENITY_NAME,
                         type: feature.properties.AMENITY_TYPE,
@@ -747,7 +916,7 @@ var ParkFeatureList = (function (_React$Component) {
 
                 facilityList = sortedFacility.map(function (feature) {
                     return _react2['default'].createElement(_ParkFeatureListItemJsx2['default'], {
-                        showFeatureInMap: _this.props.showFeatureInMap,
+                        selectFeature: _this.props.selectFeature,
                         id: feature.id,
                         name: feature.properties.FACILITY_NAME,
                         type: feature.properties.FACILITY_TYPE,
@@ -765,15 +934,15 @@ var ParkFeatureList = (function (_React$Component) {
                 _react2['default'].createElement(
                     'h4',
                     null,
-                    'Amenities'
+                    'Facilities'
                 ),
-                amenityList,
+                facilityList,
                 _react2['default'].createElement(
                     'h4',
                     null,
-                    'Facilities'
+                    'Amenities'
                 ),
-                facilityList
+                amenityList
             );
         }
     }]);
@@ -786,7 +955,7 @@ exports['default'] = ParkFeatureList;
 ParkFeatureList.propTypes = {
     amenityGeo: _react2['default'].PropTypes.object,
     facilityGeo: _react2['default'].PropTypes.object,
-    showFeatureInMap: _react2['default'].PropTypes.func.isRequired
+    selectFeature: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
@@ -838,7 +1007,7 @@ var ParkFeatureListItem = (function (_React$Component) {
                 _react2['default'].createElement(
                     'div',
                     { className: 'feature-icon u-clickable', onClick: function () {
-                            return _this.props.showFeatureInMap(_this.props.id);
+                            return _this.props.selectFeature(_this.props.id);
                         } },
                     _react2['default'].createElement(
                         'div',
@@ -855,7 +1024,7 @@ var ParkFeatureListItem = (function (_React$Component) {
                         _react2['default'].createElement(
                             'div',
                             { className: 'feature-name u-clickable', onClick: function () {
-                                    return _this.props.showFeatureInMap(_this.props.id);
+                                    return _this.props.selectFeature(_this.props.id);
                                 } },
                             this.props.name
                         ),
@@ -898,7 +1067,7 @@ ParkFeatureListItem.propTypes = {
     status: _react2['default'].PropTypes.string,
     reservations: _react2['default'].PropTypes.string,
     accessibilityStatus: _react2['default'].PropTypes.string,
-    showFeatureInMap: _react2['default'].PropTypes.func.isRequired
+    selectFeature: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
@@ -927,6 +1096,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactSelect = require('react-select');
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
 var _utilsApi = require('../utils/api');
 
 var _utilsApi2 = _interopRequireDefault(_utilsApi);
@@ -945,10 +1118,17 @@ var ParkFilters = (function (_React$Component) {
 
     _createClass(ParkFilters, [{
         key: 'onSelect',
-        value: function onSelect(filter) {
-            console.log(filter);
-            this.setState({ selectedFilter: filter });
-            this.props.setFilter(filter);
+        value: function onSelect(filter, filters) {
+            filters = filters.map(function (f) {
+                return f.value;
+            });
+            this.updateFilters(filters);
+        }
+    }, {
+        key: 'updateFilters',
+        value: function updateFilters(filters) {
+            this.setState({ selectedFilters: filters });
+            this.props.applyFilters(filters);
         }
     }, {
         key: 'render',
@@ -956,46 +1136,41 @@ var ParkFilters = (function (_React$Component) {
             var _this = this;
 
             var options = Object.keys(this.props.amenityLookup).concat(Object.keys(this.props.facilityLookup)).sort().map(function (k) {
-                return _react2['default'].createElement(
-                    'option',
-                    { key: k },
-                    k
-                );
+                return { value: k, label: k };
             });
 
             return _react2['default'].createElement(
                 'div',
-                { className: 'park-filters row' },
-                'Find parks with',
-                _react2['default'].createElement(
-                    'select',
-                    { onChange: function (e) {
-                            return _this.onSelect(e.target.value);
-                        }, value: this.state.selectedFilter },
-                    _react2['default'].createElement('option', { defaultValue: true }),
-                    options
-                ),
+                { className: 'park-filters' },
+                _react2['default'].createElement(_reactSelect2['default'], {
+                    name: 'park-filter-select',
+                    id: 'park-filter-select',
+                    multi: true,
+                    value: this.state.selectedFilters,
+                    options: options,
+                    onChange: this.onSelect.bind(this),
+                    placeholder: 'Find parks with' }),
                 _react2['default'].createElement(
                     'div',
                     { className: 'filter-icons' },
                     _react2['default'].createElement(
                         'button',
                         { className: this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon', onClick: function () {
-                                return _this.onSelect('Restroom');
+                                return _this.updateFilters(['Restroom']);
                             } },
                         _react2['default'].createElement('img', { alt: 'Restroom', src: 'images/icons/toilets-24@2x.png' })
                     ),
                     _react2['default'].createElement(
                         'button',
                         { className: this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon', onClick: function () {
-                                return _this.onSelect('Mutt Mitt');
+                                return _this.updateFilters(['Mutt Mitt']);
                             } },
                         _react2['default'].createElement('img', { alt: 'Mutt Mitt', src: 'images/icons/dog-park-24@2x.png' })
                     ),
                     _react2['default'].createElement(
                         'button',
                         { className: this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon', onClick: function () {
-                                return _this.onSelect('Parking Lot');
+                                return _this.updateFilters(['Parking Lot']);
                             } },
                         _react2['default'].createElement('img', { alt: 'Parking Lot', src: 'images/icons/parking-24@2x.png' })
                     )
@@ -1012,11 +1187,11 @@ exports['default'] = ParkFilters;
 ParkFilters.propTypes = {
     amenityLookup: _react2['default'].PropTypes.object.isRequired,
     facilityLookup: _react2['default'].PropTypes.object.isRequired,
-    setFilter: _react2['default'].PropTypes.func.isRequired
+    applyFilters: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
-},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
+},{"../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-select":"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Select.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1111,14 +1286,6 @@ var ParkMap = (function (_React$Component) {
     _inherits(ParkMap, _React$Component);
 
     _createClass(ParkMap, [{
-        key: 'fitBounds',
-        value: function fitBounds() {
-            if (this.props.parkGeo) {
-                var bounds = _utils2['default'].boundsForFeature(this.props.parkGeo);
-                this.refs.map.getLeafletElement().fitBounds(bounds);
-            }
-        }
-    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.fitBounds();
@@ -1127,6 +1294,21 @@ var ParkMap = (function (_React$Component) {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
             this.fitBounds();
+        }
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate(nextProps, nextState) {
+            if (nextProps.selectedFeatureId !== this.props.selectedFeatureId) {
+                this.showFeatureInMap(nextProps.selectedFeatureId);
+            }
+        }
+    }, {
+        key: 'fitBounds',
+        value: function fitBounds() {
+            if (this.props.parkGeo) {
+                var bounds = _utils2['default'].boundsForFeature(this.props.parkGeo);
+                this.refs.map.getLeafletElement().fitBounds(bounds);
+            }
         }
     }, {
         key: 'showFeatureInMap',
@@ -1150,95 +1332,17 @@ var ParkMap = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var parkSummary = undefined;
-
-            if (this.props.parkGeo) {
-                var googleMapsLink = !this.props.parkGeo ? null : 'https://maps.google.com/?q=' + this.props.parkGeo.properties.PARK_NAME + ' ' + this.props.parkGeo.properties.ADDRESS;
-                parkSummary = _react2['default'].createElement(
-                    'div',
-                    { className: 'park-summary row' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'six columns' },
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            _react2['default'].createElement(
-                                'a',
-                                { href: googleMapsLink, target: '_blank' },
-                                this.props.parkGeo.properties.PARK_NAME,
-                                _react2['default'].createElement('br', null),
-                                this.props.parkGeo.properties.ADDRESS
-                            )
-                        ),
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            'Status: ',
-                            this.props.parkGeo.properties.PARK_STATUS
-                        ),
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            'Acres: ',
-                            this.props.parkGeo.properties.PARK_ACRES
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'six columns' },
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            this.props.parkGeo.properties.LAND_OWNER ? 'Land owner: ' + this.props.parkGeo.properties.LAND_OWNER : null
-                        ),
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            this.props.parkGeo.properties.PARK_TYPE ? 'Park type: ' + this.props.parkGeo.properties.PARK_TYPE : null
-                        ),
-                        _react2['default'].createElement(
-                            'div',
-                            null,
-                            this.props.parkGeo.properties.DEVELOPMENT_STATUS ? 'Development status: ' + this.props.parkGeo.properties.DEVELOPMENT_STATUS : null
-                        )
-                    )
-                );
-            }
             return _react2['default'].createElement(
-                'div',
-                null,
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        _reactLeaflet.Map,
-                        { id: 'map', ref: 'map', center: this.props.center, minZoom: 10 },
-                        _react2['default'].createElement(_reactLeaflet.TileLayer, {
-                            url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                            attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
-                            id: 'drmaples.ipbindf8' }),
-                        this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null,
-                        this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
-                        this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
-                        this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
-                    ),
-                    _react2['default'].createElement('div', { className: 'after-map' })
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2['default'].createElement(
-                        'h3',
-                        null,
-                        this.props.name
-                    )
-                ),
-                parkSummary,
-                _react2['default'].createElement(_ParkFeatureListJsx2['default'], {
-                    amenityGeo: this.props.amenityGeo,
-                    facilityGeo: this.props.facilityGeo,
-                    showFeatureInMap: this.showFeatureInMap.bind(this) })
+                _reactLeaflet.Map,
+                { id: 'map', ref: 'map', center: this.props.center, minZoom: 10 },
+                _react2['default'].createElement(_reactLeaflet.TileLayer, {
+                    url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+                    attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'drmaples.ipbindf8' }),
+                _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }),
+                this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
+                this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
+                this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null
             );
         }
     }]);
@@ -1249,6 +1353,178 @@ var ParkMap = (function (_React$Component) {
 exports['default'] = ParkMap;
 
 ParkMap.propTypes = {
+    center: _react2['default'].PropTypes.array.isRequired,
+    parkGeo: _react2['default'].PropTypes.object.isRequired,
+    amenityGeo: _react2['default'].PropTypes.object,
+    facilityGeo: _react2['default'].PropTypes.object,
+    trailGeo: _react2['default'].PropTypes.object,
+    selectedFeatureId: _react2['default'].PropTypes.number
+};
+module.exports = exports['default'];
+
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _when = require('when');
+
+var _when2 = _interopRequireDefault(_when);
+
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+var _utilsApi = require('../utils/api');
+
+var _utilsApi2 = _interopRequireDefault(_utilsApi);
+
+var _ContainerJsx = require('./Container.jsx');
+
+var _ContainerJsx2 = _interopRequireDefault(_ContainerJsx);
+
+var _ParkMapJsx = require('./ParkMap.jsx');
+
+var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
+
+var _ParkSummaryJsx = require('./ParkSummary.jsx');
+
+var _ParkSummaryJsx2 = _interopRequireDefault(_ParkSummaryJsx);
+
+var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
+
+var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
+
+var ParkPage = (function (_React$Component) {
+    function ParkPage(props) {
+        _classCallCheck(this, ParkPage);
+
+        _get(Object.getPrototypeOf(ParkPage.prototype), 'constructor', this).call(this, props);
+
+        this.state = {
+            loading: false,
+            selectedFeatureId: null,
+            parkGeo: null,
+            amenityGeo: null,
+            facilityGeo: null,
+            trailGeo: null
+        };
+    }
+
+    _inherits(ParkPage, _React$Component);
+
+    _createClass(ParkPage, [{
+        key: 'load',
+        value: function load() {
+            var _this = this;
+
+            this.setState({ loading: true });
+            console.log('Loading');
+
+            var parkPromise = _utilsApi2['default'].getFeatureGeoJson(this.props.parkId, 'park').tap(function (data) {
+                return _this.setState({ parkGeo: data });
+            });
+
+            var amenityPromise = _utilsApi2['default'].getFeatureGeoJson(this.props.parkId, 'amenity').tap(function (data) {
+                return _this.setState({ amenityGeo: data });
+            });
+
+            var facilityPromise = _utilsApi2['default'].getFeatureGeoJson(this.props.parkId, 'facility').tap(function (data) {
+                return _this.setState({ facilityGeo: data });
+            });
+
+            var trailPromise = _utilsApi2['default'].getFeatureGeoJson(this.props.parkId, 'trail').tap(function (data) {
+                return _this.setState({ trailGeo: data });
+            });
+
+            _when2['default'].settle([parkPromise, amenityPromise, facilityPromise, trailPromise]).then(function () {
+                console.log('Done loading');
+                _this.setState({ loading: false });
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.load();
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.parkId !== nextProps.parkId) {
+                this.load();
+            }
+        }
+    }, {
+        key: 'slideUp',
+        value: function slideUp() {
+            var contentNode = _react2['default'].findDOMNode(this.refs.content);
+            window.scrollTo(0, contentNode.offsetTop);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            if (this.state.loading) {
+                return _react2['default'].createElement(
+                    'div',
+                    { className: 'loading' },
+                    'Loading'
+                );
+            }
+
+            return _react2['default'].createElement(
+                'div',
+                null,
+                _react2['default'].createElement(_ParkMapJsx2['default'], {
+                    selectedFeatureId: this.state.selectedFeatureId,
+                    center: this.props.center,
+                    parkGeo: this.state.parkGeo,
+                    amenityGeo: this.state.amenityGeo,
+                    facilityGeo: this.state.facilityGeo,
+                    trailGeo: this.state.trailGeo }),
+                _react2['default'].createElement(
+                    _ContainerJsx2['default'],
+                    { title: this.props.name },
+                    _react2['default'].createElement(_ParkSummaryJsx2['default'], { parkGeo: this.state.parkGeo }),
+                    _react2['default'].createElement(_ParkFeatureListJsx2['default'], {
+                        amenityGeo: this.state.amenityGeo,
+                        facilityGeo: this.state.facilityGeo,
+                        selectFeature: function (featureId) {
+                            return _this2.setState({ selectedFeatureId: featureId });
+                        } })
+                )
+            );
+        }
+    }]);
+
+    return ParkPage;
+})(_react2['default'].Component);
+
+exports['default'] = ParkPage;
+
+ParkPage.propTypes = {
+    parkId: _react2['default'].PropTypes.number.isRequired,
     name: _react2['default'].PropTypes.string.isRequired,
     center: _react2['default'].PropTypes.array.isRequired,
     parkGeo: _react2['default'].PropTypes.object,
@@ -1258,7 +1534,123 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkSummary.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ChevronJsx = require('./Chevron.jsx');
+
+var _ChevronJsx2 = _interopRequireDefault(_ChevronJsx);
+
+var ParkSummary = (function (_React$Component) {
+    function ParkSummary() {
+        _classCallCheck(this, ParkSummary);
+
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
+    }
+
+    _inherits(ParkSummary, _React$Component);
+
+    _createClass(ParkSummary, [{
+        key: 'slideUp',
+        value: function slideUp() {
+            var contentNode = _react2['default'].findDOMNode(this.refs.content);
+            window.scrollTo(0, contentNode.offsetTop);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (!this.props.parkGeo) {
+                return _react2['default'].createElement(
+                    'div',
+                    null,
+                    'Loading'
+                );
+            }
+
+            var googleMapsLink = 'https://maps.google.com/?q=' + this.props.parkGeo.properties.PARK_NAME + ' ' + this.props.parkGeo.properties.ADDRESS;
+
+            return _react2['default'].createElement(
+                'div',
+                { className: 'park-summary row' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'six columns' },
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        _react2['default'].createElement(
+                            'a',
+                            { href: googleMapsLink, target: '_blank' },
+                            this.props.parkGeo.properties.PARK_NAME,
+                            _react2['default'].createElement('br', null),
+                            this.props.parkGeo.properties.ADDRESS
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Status: ',
+                        this.props.parkGeo.properties.PARK_STATUS
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        'Acres: ',
+                        this.props.parkGeo.properties.PARK_ACRES
+                    )
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'six columns' },
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.LAND_OWNER ? 'Land owner: ' + this.props.parkGeo.properties.LAND_OWNER : null
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.PARK_TYPE ? 'Park type: ' + this.props.parkGeo.properties.PARK_TYPE : null
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        null,
+                        this.props.parkGeo.properties.DEVELOPMENT_STATUS ? 'Development status: ' + this.props.parkGeo.properties.DEVELOPMENT_STATUS : null
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ParkSummary;
+})(_react2['default'].Component);
+
+exports['default'] = ParkSummary;
+
+ParkSummary.PropTypes = {
+    parkGeo: _react2['default'].PropTypes.object
+};
+module.exports = exports['default'];
+
+},{"./Chevron.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Chevron.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1295,7 +1687,7 @@ function ajax(options) {
 
 module.exports = exports['default'];
 
-},{"component-ajax":"/Users/luqmaan/dev/austingreenmap/node_modules/component-ajax/index.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js":[function(require,module,exports){
+},{"component-ajax":"/Users/luqmaan/dev/austingreenmap/node_modules/component-ajax/index.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js":[function(require,module,exports){
 // FIXME: One day replace when with something like prfun, since we have ES6 Promise
 'use strict';
 
@@ -1392,7 +1784,7 @@ var api = {
 exports['default'] = api;
 module.exports = exports['default'];
 
-},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json":[function(require,module,exports){
+},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json":[function(require,module,exports){
 module.exports={
     "(Non-PARD) AFD Building": "fire-station",
     "(Non-PARD) Austin Energy Building": "building",
@@ -1551,7 +1943,7 @@ var utils = {
 exports['default'] = utils;
 module.exports = exports['default'];
 
-},{"turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js","when":"/Users/luqmaan/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{"turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -29303,7 +29695,1050 @@ function uniqueId(prefix) {
 
 module.exports = uniqueId;
 
-},{"../internal/baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
+},{"../internal/baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Select.js":[function(require,module,exports){
+/* disable some rules until we refactor more completely; fixing them now would
+   cause conflicts with some open PRs unnecessarily. */
+/* eslint react/jsx-sort-prop-types: 0, react/sort-comp: 0, react/prop-types: 0 */
+
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var React = require('react');
+var Input = require('react-input-autosize');
+var classes = require('classnames');
+var Value = require('./Value');
+
+var requestId = 0;
+
+var Select = React.createClass({
+
+	displayName: 'Select',
+
+	propTypes: {
+		allowCreate: React.PropTypes.bool, // wether to allow creation of new entries
+		asyncOptions: React.PropTypes.func, // function to call to get options
+		autoload: React.PropTypes.bool, // whether to auto-load the default async options set
+		className: React.PropTypes.string, // className for the outer element
+		clearable: React.PropTypes.bool, // should it be possible to reset value
+		clearAllText: React.PropTypes.string, // title for the "clear" control when multi: true
+		clearValueText: React.PropTypes.string, // title for the "clear" control
+		delimiter: React.PropTypes.string, // delimiter to use to join multiple values
+		disabled: React.PropTypes.bool, // whether the Select is disabled or not
+		filterOption: React.PropTypes.func, // method to filter a single option: function(option, filterString)
+		filterOptions: React.PropTypes.func, // method to filter the options array: function([options], filterString, [values])
+		ignoreCase: React.PropTypes.bool, // whether to perform case-insensitive filtering
+		inputProps: React.PropTypes.object, // custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
+		matchPos: React.PropTypes.string, // (any|start) match the start or entire string when filtering
+		matchProp: React.PropTypes.string, // (any|label|value) which option property to filter on
+		multi: React.PropTypes.bool, // multi-value input
+		name: React.PropTypes.string, // field name, for hidden <input /> tag
+		addLabelText: React.PropTypes.string, // placeholder displayed when you want to add a label on a multi-value input
+		noResultsText: React.PropTypes.string, // placeholder displayed when there are no matching search results
+		onBlur: React.PropTypes.func, // onBlur handler: function(event) {}
+		onChange: React.PropTypes.func, // onChange handler: function(newValue) {}
+		onFocus: React.PropTypes.func, // onFocus handler: function(event) {}
+		onOptionLabelClick: React.PropTypes.func, // onCLick handler for value labels: function (value, event) {}
+		optionRenderer: React.PropTypes.func, // optionRenderer: function(option) {}
+		options: React.PropTypes.array, // array of options
+		placeholder: React.PropTypes.string, // field placeholder, displayed when there's no value
+		searchable: React.PropTypes.bool, // whether to enable searching feature or not
+		searchPromptText: React.PropTypes.string, // label to prompt for search input
+		value: React.PropTypes.any, // initial field value
+		valueRenderer: React.PropTypes.func // valueRenderer: function(option) {}
+	},
+
+	getDefaultProps: function getDefaultProps() {
+		return {
+			allowCreate: false,
+			asyncOptions: undefined,
+			autoload: true,
+			className: undefined,
+			clearable: true,
+			clearAllText: 'Clear all',
+			clearValueText: 'Clear value',
+			delimiter: ',',
+			disabled: false,
+			ignoreCase: true,
+			inputProps: {},
+			matchPos: 'any',
+			matchProp: 'any',
+			name: undefined,
+			addLabelText: 'Add {label} ?',
+			noResultsText: 'No results found',
+			onChange: undefined,
+			onOptionLabelClick: undefined,
+			options: undefined,
+			placeholder: 'Select...',
+			searchable: true,
+			searchPromptText: 'Type to search',
+			value: undefined
+		};
+	},
+
+	getInitialState: function getInitialState() {
+		return {
+			/*
+    * set by getStateFromValue on componentWillMount:
+    * - value
+    * - values
+    * - filteredOptions
+    * - inputValue
+    * - placeholder
+    * - focusedOption
+   */
+			isFocused: false,
+			isLoading: false,
+			isOpen: false,
+			options: this.props.options
+		};
+	},
+
+	componentWillMount: function componentWillMount() {
+		this._optionsCache = {};
+		this._optionsFilterString = '';
+
+		var self = this;
+		this._closeMenuIfClickedOutside = function (event) {
+			if (!self.state.isOpen) {
+				return;
+			}
+			var menuElem = self.refs.selectMenuContainer.getDOMNode();
+			var controlElem = self.refs.control.getDOMNode();
+
+			var eventOccuredOutsideMenu = self.clickedOutsideElement(menuElem, event);
+			var eventOccuredOutsideControl = self.clickedOutsideElement(controlElem, event);
+
+			// Hide dropdown menu if click occurred outside of menu
+			if (eventOccuredOutsideMenu && eventOccuredOutsideControl) {
+				self.setState({
+					isOpen: false
+				}, self._unbindCloseMenuIfClickedOutside);
+			}
+		};
+
+		this._bindCloseMenuIfClickedOutside = function () {
+			if (!document.addEventListener && document.attachEvent) {
+				document.attachEvent('onclick', this._closeMenuIfClickedOutside);
+			} else {
+				document.addEventListener('click', this._closeMenuIfClickedOutside);
+			}
+		};
+
+		this._unbindCloseMenuIfClickedOutside = function () {
+			if (!document.removeEventListener && document.detachEvent) {
+				document.detachEvent('onclick', this._closeMenuIfClickedOutside);
+			} else {
+				document.removeEventListener('click', this._closeMenuIfClickedOutside);
+			}
+		};
+
+		this.setState(this.getStateFromValue(this.props.value));
+	},
+
+	componentDidMount: function componentDidMount() {
+		if (this.props.asyncOptions && this.props.autoload) {
+			this.autoloadAsyncOptions();
+		}
+	},
+
+	componentWillUnmount: function componentWillUnmount() {
+		clearTimeout(this._blurTimeout);
+		clearTimeout(this._focusTimeout);
+
+		if (this.state.isOpen) {
+			this._unbindCloseMenuIfClickedOutside();
+		}
+	},
+
+	componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+		if (JSON.stringify(newProps.options) !== JSON.stringify(this.props.options)) {
+			this.setState({
+				options: newProps.options,
+				filteredOptions: this.filterOptions(newProps.options)
+			});
+		}
+		if (newProps.value !== this.state.value) {
+			this.setState(this.getStateFromValue(newProps.value, newProps.options));
+		}
+	},
+
+	componentDidUpdate: function componentDidUpdate() {
+		var self = this;
+
+		if (!this.props.disabled && this._focusAfterUpdate) {
+			clearTimeout(this._blurTimeout);
+
+			this._focusTimeout = setTimeout(function () {
+				self.getInputNode().focus();
+				self._focusAfterUpdate = false;
+			}, 50);
+		}
+
+		if (this._focusedOptionReveal) {
+			if (this.refs.focused && this.refs.menu) {
+				var focusedDOM = this.refs.focused.getDOMNode();
+				var menuDOM = this.refs.menu.getDOMNode();
+				var focusedRect = focusedDOM.getBoundingClientRect();
+				var menuRect = menuDOM.getBoundingClientRect();
+
+				if (focusedRect.bottom > menuRect.bottom || focusedRect.top < menuRect.top) {
+					menuDOM.scrollTop = focusedDOM.offsetTop + focusedDOM.clientHeight - menuDOM.offsetHeight;
+				}
+			}
+
+			this._focusedOptionReveal = false;
+		}
+	},
+
+	focus: function focus() {
+		this.getInputNode().focus();
+	},
+
+	clickedOutsideElement: function clickedOutsideElement(element, event) {
+		var eventTarget = event.target ? event.target : event.srcElement;
+		while (eventTarget != null) {
+			if (eventTarget === element) return false;
+			eventTarget = eventTarget.offsetParent;
+		}
+		return true;
+	},
+
+	getStateFromValue: function getStateFromValue(value, options) {
+		if (!options) {
+			options = this.state.options;
+		}
+
+		// reset internal filter string
+		this._optionsFilterString = '';
+
+		var values = this.initValuesArray(value, options),
+		    filteredOptions = this.filterOptions(options, values);
+
+		return {
+			value: values.map(function (v) {
+				return v.value;
+			}).join(this.props.delimiter),
+			values: values,
+			inputValue: '',
+			filteredOptions: filteredOptions,
+			placeholder: !this.props.multi && values.length ? values[0].label : this.props.placeholder,
+			focusedOption: !this.props.multi && values.length ? values[0] : filteredOptions[0]
+		};
+	},
+
+	initValuesArray: function initValuesArray(values, options) {
+		if (!Array.isArray(values)) {
+			if (typeof values === 'string') {
+				values = values === '' ? [] : values.split(this.props.delimiter);
+			} else {
+				values = values ? [values] : [];
+			}
+		}
+
+		return values.map(function (val) {
+			if (typeof val === 'string') {
+				for (var key in options) {
+					if (options.hasOwnProperty(key) && options[key] && options[key].value === val) {
+						return options[key];
+					}
+				}
+				return { value: val, label: val };
+			} else {
+				return val;
+			}
+		});
+	},
+
+	setValue: function setValue(value, focusAfterUpdate) {
+		if (focusAfterUpdate || focusAfterUpdate === undefined) {
+			this._focusAfterUpdate = true;
+		}
+		var newState = this.getStateFromValue(value);
+		newState.isOpen = false;
+		this.fireChangeEvent(newState);
+		this.setState(newState);
+	},
+
+	selectValue: function selectValue(value) {
+		if (!this.props.multi) {
+			this.setValue(value);
+		} else if (value) {
+			this.addValue(value);
+		}
+		this._unbindCloseMenuIfClickedOutside();
+	},
+
+	addValue: function addValue(value) {
+		this.setValue(this.state.values.concat(value));
+	},
+
+	popValue: function popValue() {
+		this.setValue(this.state.values.slice(0, this.state.values.length - 1));
+	},
+
+	removeValue: function removeValue(valueToRemove) {
+		this.setValue(this.state.values.filter(function (value) {
+			return value !== valueToRemove;
+		}));
+	},
+
+	clearValue: function clearValue(event) {
+		// if the event was triggered by a mousedown and not the primary
+		// button, ignore it.
+		if (event && event.type === 'mousedown' && event.button !== 0) {
+			return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+		this.setValue(null);
+	},
+
+	resetValue: function resetValue() {
+		this.setValue(this.state.value === '' ? null : this.state.value);
+	},
+
+	getInputNode: function getInputNode() {
+		var input = this.refs.input;
+		return this.props.searchable ? input : input.getDOMNode();
+	},
+
+	fireChangeEvent: function fireChangeEvent(newState) {
+		if (newState.value !== this.state.value && this.props.onChange) {
+			this.props.onChange(newState.value, newState.values);
+		}
+	},
+
+	handleMouseDown: function handleMouseDown(event) {
+		// if the event was triggered by a mousedown and not the primary
+		// button, or if the component is disabled, ignore it.
+		if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
+			return;
+		}
+
+		event.stopPropagation();
+		event.preventDefault();
+		if (this.state.isFocused) {
+			this.setState({
+				isOpen: true
+			}, this._bindCloseMenuIfClickedOutside);
+		} else {
+			this._openAfterFocus = true;
+			this.getInputNode().focus();
+		}
+	},
+
+	handleMouseDownOnArrow: function handleMouseDownOnArrow(event) {
+		// if the event was triggered by a mousedown and not the primary
+		// button, or if the component is disabled, ignore it.
+		if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
+			return;
+		}
+		// If not focused, handleMouseDown will handle it
+		if (!this.state.isOpen) {
+			return;
+		}
+
+		event.stopPropagation();
+		event.preventDefault();
+		this.setState({
+			isOpen: false
+		}, this._unbindCloseMenuIfClickedOutside);
+	},
+
+	handleInputFocus: function handleInputFocus(event) {
+		var newIsOpen = this.state.isOpen || this._openAfterFocus;
+		this.setState({
+			isFocused: true,
+			isOpen: newIsOpen
+		}, function () {
+			if (newIsOpen) {
+				this._bindCloseMenuIfClickedOutside();
+			} else {
+				this._unbindCloseMenuIfClickedOutside();
+			}
+		});
+		this._openAfterFocus = false;
+
+		if (this.props.onFocus) {
+			this.props.onFocus(event);
+		}
+	},
+
+	handleInputBlur: function handleInputBlur(event) {
+		var self = this;
+
+		this._blurTimeout = setTimeout(function () {
+			if (self._focusAfterUpdate) return;
+
+			self.setState({
+				isFocused: false
+			});
+		}, 50);
+
+		if (this.props.onBlur) {
+			this.props.onBlur(event);
+		}
+	},
+
+	handleKeyDown: function handleKeyDown(event) {
+		if (this.state.disabled) return;
+
+		switch (event.keyCode) {
+
+			case 8:
+				// backspace
+				if (!this.state.inputValue) {
+					this.popValue();
+				}
+				return;
+
+			case 9:
+				// tab
+				if (event.shiftKey || !this.state.isOpen || !this.state.focusedOption) {
+					return;
+				}
+				this.selectFocusedOption();
+				break;
+
+			case 13:
+				// enter
+				if (!this.state.isOpen) return;
+
+				this.selectFocusedOption();
+				break;
+
+			case 27:
+				// escape
+				if (this.state.isOpen) {
+					this.resetValue();
+				} else {
+					this.clearValue();
+				}
+				break;
+
+			case 38:
+				// up
+				this.focusPreviousOption();
+				break;
+
+			case 40:
+				// down
+				this.focusNextOption();
+				break;
+
+			case 188:
+				// ,
+				if (this.props.allowCreate) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
+				} else {
+					return;
+				}
+				break;
+
+			default:
+				return;
+		}
+
+		event.preventDefault();
+	},
+
+	// Ensures that the currently focused option is available in filteredOptions.
+	// If not, returns the first available option.
+	_getNewFocusedOption: function _getNewFocusedOption(filteredOptions) {
+		for (var key in filteredOptions) {
+			if (filteredOptions.hasOwnProperty(key) && filteredOptions[key] === this.state.focusedOption) {
+				return filteredOptions[key];
+			}
+		}
+		return filteredOptions[0];
+	},
+
+	handleInputChange: function handleInputChange(event) {
+		// assign an internal variable because we need to use
+		// the latest value before setState() has completed.
+		this._optionsFilterString = event.target.value;
+
+		if (this.props.asyncOptions) {
+			this.setState({
+				isLoading: true,
+				inputValue: event.target.value
+			});
+			this.loadAsyncOptions(event.target.value, {
+				isLoading: false,
+				isOpen: true
+			}, this._bindCloseMenuIfClickedOutside);
+		} else {
+			var filteredOptions = this.filterOptions(this.state.options);
+			this.setState({
+				isOpen: true,
+				inputValue: event.target.value,
+				filteredOptions: filteredOptions,
+				focusedOption: this._getNewFocusedOption(filteredOptions)
+			}, this._bindCloseMenuIfClickedOutside);
+		}
+	},
+
+	autoloadAsyncOptions: function autoloadAsyncOptions() {
+		var self = this;
+		this.loadAsyncOptions(this.props.value || '', {}, function () {
+			// update with fetched but don't focus
+			self.setValue(self.props.value, false);
+		});
+	},
+
+	loadAsyncOptions: function loadAsyncOptions(input, state, callback) {
+		var thisRequestId = this._currentRequestId = requestId++;
+
+		for (var i = 0; i <= input.length; i++) {
+			var cacheKey = input.slice(0, i);
+			if (this._optionsCache[cacheKey] && (input === cacheKey || this._optionsCache[cacheKey].complete)) {
+				var options = this._optionsCache[cacheKey].options;
+				var filteredOptions = this.filterOptions(options);
+
+				var newState = {
+					options: options,
+					filteredOptions: filteredOptions,
+					focusedOption: this._getNewFocusedOption(filteredOptions)
+				};
+				for (var key in state) {
+					if (state.hasOwnProperty(key)) {
+						newState[key] = state[key];
+					}
+				}
+				this.setState(newState);
+				if (callback) callback.call(this, {});
+				return;
+			}
+		}
+
+		var self = this;
+		this.props.asyncOptions(input, function (err, data) {
+
+			if (err) throw err;
+
+			self._optionsCache[input] = data;
+
+			if (thisRequestId !== self._currentRequestId) {
+				return;
+			}
+			var filteredOptions = self.filterOptions(data.options);
+
+			var newState = {
+				options: data.options,
+				filteredOptions: filteredOptions,
+				focusedOption: self._getNewFocusedOption(filteredOptions)
+			};
+			for (var key in state) {
+				if (state.hasOwnProperty(key)) {
+					newState[key] = state[key];
+				}
+			}
+			self.setState(newState);
+
+			if (callback) callback.call(self, {});
+		});
+	},
+
+	filterOptions: function filterOptions(options, values) {
+		if (!this.props.searchable) {
+			return options;
+		}
+
+		var filterValue = this._optionsFilterString;
+		var exclude = (values || this.state.values).map(function (i) {
+			return i.value;
+		});
+		if (this.props.filterOptions) {
+			return this.props.filterOptions.call(this, options, filterValue, exclude);
+		} else {
+			var filterOption = function filterOption(op) {
+				if (this.props.multi && exclude.indexOf(op.value) > -1) return false;
+				if (this.props.filterOption) return this.props.filterOption.call(this, op, filterValue);
+				var valueTest = String(op.value),
+				    labelTest = String(op.label);
+				if (this.props.ignoreCase) {
+					valueTest = valueTest.toLowerCase();
+					labelTest = labelTest.toLowerCase();
+					filterValue = filterValue.toLowerCase();
+				}
+				return !filterValue || this.props.matchPos === 'start' ? this.props.matchProp !== 'label' && valueTest.substr(0, filterValue.length) === filterValue || this.props.matchProp !== 'value' && labelTest.substr(0, filterValue.length) === filterValue : this.props.matchProp !== 'label' && valueTest.indexOf(filterValue) >= 0 || this.props.matchProp !== 'value' && labelTest.indexOf(filterValue) >= 0;
+			};
+			return (options || []).filter(filterOption, this);
+		}
+	},
+
+	selectFocusedOption: function selectFocusedOption() {
+		if (this.props.allowCreate && !this.state.focusedOption) {
+			return this.selectValue(this.state.inputValue);
+		}
+		return this.selectValue(this.state.focusedOption);
+	},
+
+	focusOption: function focusOption(op) {
+		this.setState({
+			focusedOption: op
+		});
+	},
+
+	focusNextOption: function focusNextOption() {
+		this.focusAdjacentOption('next');
+	},
+
+	focusPreviousOption: function focusPreviousOption() {
+		this.focusAdjacentOption('previous');
+	},
+
+	focusAdjacentOption: function focusAdjacentOption(dir) {
+		this._focusedOptionReveal = true;
+
+		var ops = this.state.filteredOptions;
+
+		if (!this.state.isOpen) {
+			this.setState({
+				isOpen: true,
+				inputValue: '',
+				focusedOption: this.state.focusedOption || ops[dir === 'next' ? 0 : ops.length - 1]
+			}, this._bindCloseMenuIfClickedOutside);
+			return;
+		}
+
+		if (!ops.length) {
+			return;
+		}
+
+		var focusedIndex = -1;
+
+		for (var i = 0; i < ops.length; i++) {
+			if (this.state.focusedOption === ops[i]) {
+				focusedIndex = i;
+				break;
+			}
+		}
+
+		var focusedOption = ops[0];
+
+		if (dir === 'next' && focusedIndex > -1 && focusedIndex < ops.length - 1) {
+			focusedOption = ops[focusedIndex + 1];
+		} else if (dir === 'previous') {
+			if (focusedIndex > 0) {
+				focusedOption = ops[focusedIndex - 1];
+			} else {
+				focusedOption = ops[ops.length - 1];
+			}
+		}
+
+		this.setState({
+			focusedOption: focusedOption
+		});
+	},
+
+	unfocusOption: function unfocusOption(op) {
+		if (this.state.focusedOption === op) {
+			this.setState({
+				focusedOption: null
+			});
+		}
+	},
+
+	buildMenu: function buildMenu() {
+		var focusedValue = this.state.focusedOption ? this.state.focusedOption.value : null;
+		var renderLabel = this.props.optionRenderer || function (op) {
+			return op.label;
+		};
+
+		if (this.state.filteredOptions.length > 0) {
+			focusedValue = focusedValue == null ? this.state.filteredOptions[0] : focusedValue;
+		}
+		// Add the current value to the filtered options in last resort
+		if (this.props.allowCreate && this.state.inputValue.trim()) {
+			var inputValue = this.state.inputValue;
+			this.state.filteredOptions.unshift({
+				value: inputValue,
+				label: inputValue,
+				create: true
+			});
+		}
+
+		var ops = Object.keys(this.state.filteredOptions).map(function (key) {
+			var op = this.state.filteredOptions[key];
+			var isSelected = this.state.value === op.value;
+			var isFocused = focusedValue === op.value;
+
+			var optionClass = classes({
+				'Select-option': true,
+				'is-selected': isSelected,
+				'is-focused': isFocused,
+				'is-disabled': op.disabled
+			});
+
+			var ref = isFocused ? 'focused' : null;
+
+			var mouseEnter = this.focusOption.bind(this, op);
+			var mouseLeave = this.unfocusOption.bind(this, op);
+			var mouseDown = this.selectValue.bind(this, op);
+			var renderedLabel = renderLabel(op);
+
+			return op.disabled ? React.createElement(
+				'div',
+				{ ref: ref, key: 'option-' + op.value, className: optionClass },
+				renderedLabel
+			) : React.createElement(
+				'div',
+				{ ref: ref, key: 'option-' + op.value, className: optionClass, onMouseEnter: mouseEnter, onMouseLeave: mouseLeave, onMouseDown: mouseDown, onClick: mouseDown },
+				op.create ? this.props.addLabelText.replace('{label}', op.label) : renderedLabel
+			);
+		}, this);
+
+		return ops.length ? ops : React.createElement(
+			'div',
+			{ className: 'Select-noresults' },
+			this.props.asyncOptions && !this.state.inputValue ? this.props.searchPromptText : this.props.noResultsText
+		);
+	},
+
+	handleOptionLabelClick: function handleOptionLabelClick(value, event) {
+		if (this.props.onOptionLabelClick) {
+			this.props.onOptionLabelClick(value, event);
+		}
+	},
+
+	render: function render() {
+		var selectClass = classes('Select', this.props.className, {
+			'is-multi': this.props.multi,
+			'is-searchable': this.props.searchable,
+			'is-open': this.state.isOpen,
+			'is-focused': this.state.isFocused,
+			'is-loading': this.state.isLoading,
+			'is-disabled': this.props.disabled,
+			'has-value': this.state.value
+		});
+
+		var value = [];
+
+		if (this.props.multi) {
+			this.state.values.forEach(function (val) {
+				value.push(React.createElement(Value, {
+					key: val.value,
+					option: val,
+					renderer: this.props.valueRenderer,
+					optionLabelClick: !!this.props.onOptionLabelClick,
+					onOptionLabelClick: this.handleOptionLabelClick.bind(this, val),
+					onRemove: this.removeValue.bind(this, val),
+					disabled: this.props.disabled }));
+			}, this);
+		}
+
+		if (!this.state.inputValue && (!this.props.multi || !value.length)) {
+			value.push(React.createElement(
+				'div',
+				{ className: 'Select-placeholder', key: 'placeholder' },
+				this.state.placeholder
+			));
+		}
+
+		var loading = this.state.isLoading ? React.createElement('span', { className: 'Select-loading', 'aria-hidden': 'true' }) : null;
+		var clear = this.props.clearable && this.state.value && !this.props.disabled ? React.createElement('span', { className: 'Select-clear', title: this.props.multi ? this.props.clearAllText : this.props.clearValueText, 'aria-label': this.props.multi ? this.props.clearAllText : this.props.clearValueText, onMouseDown: this.clearValue, onClick: this.clearValue, dangerouslySetInnerHTML: { __html: '&times;' } }) : null;
+
+		var menu;
+		var menuProps;
+		if (this.state.isOpen) {
+			menuProps = {
+				ref: 'menu',
+				className: 'Select-menu'
+			};
+			if (this.props.multi) {
+				menuProps.onMouseDown = this.handleMouseDown;
+			}
+			menu = React.createElement(
+				'div',
+				{ ref: 'selectMenuContainer', className: 'Select-menu-outer' },
+				React.createElement(
+					'div',
+					menuProps,
+					this.buildMenu()
+				)
+			);
+		}
+
+		var input;
+		var inputProps = {
+			ref: 'input',
+			className: 'Select-input',
+			tabIndex: this.props.tabIndex || 0,
+			onFocus: this.handleInputFocus,
+			onBlur: this.handleInputBlur
+		};
+		for (var key in this.props.inputProps) {
+			if (this.props.inputProps.hasOwnProperty(key)) {
+				inputProps[key] = this.props.inputProps[key];
+			}
+		}
+
+		if (!this.props.disabled) {
+			if (this.props.searchable) {
+				input = React.createElement(Input, _extends({ value: this.state.inputValue, onChange: this.handleInputChange, minWidth: '5' }, inputProps));
+			} else {
+				input = React.createElement(
+					'div',
+					inputProps,
+					' '
+				);
+			}
+		} else if (!this.props.multi || !this.state.values.length) {
+			input = React.createElement(
+				'div',
+				{ className: 'Select-input' },
+				' '
+			);
+		}
+
+		return React.createElement(
+			'div',
+			{ ref: 'wrapper', className: selectClass },
+			React.createElement('input', { type: 'hidden', ref: 'value', name: this.props.name, value: this.state.value, disabled: this.props.disabled }),
+			React.createElement(
+				'div',
+				{ className: 'Select-control', ref: 'control', onKeyDown: this.handleKeyDown, onMouseDown: this.handleMouseDown, onTouchEnd: this.handleMouseDown },
+				value,
+				input,
+				React.createElement('span', { className: 'Select-arrow-zone', onMouseDown: this.handleMouseDownOnArrow }),
+				React.createElement('span', { className: 'Select-arrow', onMouseDown: this.handleMouseDownOnArrow }),
+				loading,
+				clear
+			),
+			menu
+		);
+	}
+
+});
+
+module.exports = Select;
+},{"./Value":"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Value.js","classnames":"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/node_modules/classnames/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-input-autosize":"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/node_modules/react-input-autosize/lib/AutosizeInput.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Value.js":[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+
+var Value = React.createClass({
+
+	displayName: 'Value',
+
+	propTypes: {
+		disabled: React.PropTypes.bool,
+		onOptionLabelClick: React.PropTypes.func,
+		onRemove: React.PropTypes.func,
+		option: React.PropTypes.object.isRequired,
+		optionLabelClick: React.PropTypes.bool,
+		renderer: React.PropTypes.func
+	},
+
+	blockEvent: function blockEvent(event) {
+		event.stopPropagation();
+	},
+
+	handleOnRemove: function handleOnRemove(event) {
+		if (!this.props.disabled) {
+			this.props.onRemove(event);
+		}
+	},
+
+	render: function render() {
+		var label = this.props.option.label;
+		if (this.props.renderer) {
+			label = this.props.renderer(this.props.option);
+		}
+
+		if (this.props.optionLabelClick) {
+			label = React.createElement(
+				'a',
+				{ className: 'Select-item-label__a',
+					onMouseDown: this.blockEvent,
+					onTouchEnd: this.props.onOptionLabelClick,
+					onClick: this.props.onOptionLabelClick },
+				label
+			);
+		}
+
+		return React.createElement(
+			'div',
+			{ className: 'Select-item' },
+			React.createElement(
+				'span',
+				{ className: 'Select-item-icon',
+					onMouseDown: this.blockEvent,
+					onClick: this.handleOnRemove,
+					onTouchEnd: this.handleOnRemove },
+				'×'
+			),
+			React.createElement(
+				'span',
+				{ className: 'Select-item-label' },
+				label
+			)
+		);
+	}
+
+});
+
+module.exports = Value;
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/node_modules/classnames/index.js":[function(require,module,exports){
+/*!
+  Copyright (c) 2015 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+(function () {
+	'use strict';
+
+	function classNames () {
+
+		var classes = '';
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if ('string' === argType || 'number' === argType) {
+				classes += ' ' + arg;
+
+			} else if (Array.isArray(arg)) {
+				classes += ' ' + classNames.apply(null, arg);
+
+			} else if ('object' === argType) {
+				for (var key in arg) {
+					if (arg.hasOwnProperty(key) && arg[key]) {
+						classes += ' ' + key;
+					}
+				}
+			}
+		}
+
+		return classes.substr(1);
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd){
+		// AMD. Register as an anonymous module.
+		define(function () {
+			return classNames;
+		});
+	} else {
+		window.classNames = classNames;
+	}
+
+}());
+
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/node_modules/react-input-autosize/lib/AutosizeInput.js":[function(require,module,exports){
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var React = require('react');
+
+var sizerStyle = { position: 'absolute', visibility: 'hidden', height: 0, width: 0, overflow: 'scroll', whiteSpace: 'nowrap' };
+
+var AutosizeInput = React.createClass({
+	displayName: 'AutosizeInput',
+
+	propTypes: {
+		value: React.PropTypes.any, // field value
+		defaultValue: React.PropTypes.any, // default field value
+		onChange: React.PropTypes.func, // onChange handler: function(newValue) {}
+		style: React.PropTypes.object, // css styles for the outer element
+		className: React.PropTypes.string, // className for the outer element
+		minWidth: React.PropTypes.oneOfType([// minimum width for input element
+		React.PropTypes.number, React.PropTypes.string]),
+		inputStyle: React.PropTypes.object, // css styles for the input element
+		inputClassName: React.PropTypes.string // className for the input element
+	},
+	getDefaultProps: function getDefaultProps() {
+		return {
+			minWidth: 1
+		};
+	},
+	getInitialState: function getInitialState() {
+		return {
+			inputWidth: this.props.minWidth
+		};
+	},
+	componentDidMount: function componentDidMount() {
+		this.copyInputStyles();
+		this.updateInputWidth();
+	},
+	componentDidUpdate: function componentDidUpdate() {
+		this.updateInputWidth();
+	},
+	copyInputStyles: function copyInputStyles() {
+		if (!this.isMounted() || !window.getComputedStyle) {
+			return;
+		}
+		var inputStyle = window.getComputedStyle(this.refs.input.getDOMNode());
+		var widthNode = this.refs.sizer.getDOMNode();
+		widthNode.style.fontSize = inputStyle.fontSize;
+		widthNode.style.fontFamily = inputStyle.fontFamily;
+		if (this.props.placeholder) {
+			var placeholderNode = this.refs.placeholderSizer.getDOMNode();
+			placeholderNode.style.fontSize = inputStyle.fontSize;
+			placeholderNode.style.fontFamily = inputStyle.fontFamily;
+		}
+	},
+	updateInputWidth: function updateInputWidth() {
+		if (!this.isMounted() || typeof this.refs.sizer.getDOMNode().scrollWidth === 'undefined') {
+			return;
+		}
+		var newInputWidth;
+		if (this.props.placeholder) {
+			newInputWidth = Math.max(this.refs.sizer.getDOMNode().scrollWidth, this.refs.placeholderSizer.getDOMNode().scrollWidth) + 2;
+		} else {
+			newInputWidth = this.refs.sizer.getDOMNode().scrollWidth + 2;
+		}
+		if (newInputWidth < this.props.minWidth) {
+			newInputWidth = this.props.minWidth;
+		}
+		if (newInputWidth !== this.state.inputWidth) {
+			this.setState({
+				inputWidth: newInputWidth
+			});
+		}
+	},
+	getInput: function getInput() {
+		return this.refs.input;
+	},
+	focus: function focus() {
+		this.refs.input.getDOMNode().focus();
+	},
+	select: function select() {
+		this.refs.input.getDOMNode().select();
+	},
+	render: function render() {
+		var escapedValue = (this.props.value || '').replace(/\&/g, '&amp;').replace(/ /g, '&nbsp;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+		var wrapperStyle = this.props.style || {};
+		wrapperStyle.display = 'inline-block';
+		var inputStyle = this.props.inputStyle || {};
+		inputStyle.width = this.state.inputWidth;
+		var placeholder = this.props.placeholder ? React.createElement(
+			'div',
+			{ ref: 'placeholderSizer', style: sizerStyle },
+			this.props.placeholder
+		) : null;
+		return React.createElement(
+			'div',
+			{ className: this.props.className, style: wrapperStyle },
+			React.createElement('input', _extends({}, this.props, { ref: 'input', className: this.props.inputClassName, style: inputStyle })),
+			React.createElement('div', { ref: 'sizer', style: sizerStyle, dangerouslySetInnerHTML: { __html: escapedValue } }),
+			placeholder
+		);
+	}
+});
+
+module.exports = AutosizeInput;
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -61854,7 +63289,7 @@ module.exports = function(ptFC, polyFC){
   return pointsWithin;
 };
 
-},{"turf-featurecollection":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/node_modules/turf-featurecollection/index.js","turf-inside":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/node_modules/turf-inside/index.js"}],"/Users/luqmaan/node_modules/when/lib/Promise.js":[function(require,module,exports){
+},{"turf-featurecollection":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/node_modules/turf-featurecollection/index.js","turf-inside":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/node_modules/turf-inside/index.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/Promise.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -61873,7 +63308,7 @@ define(function (require) {
 });
 })(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
 
-},{"./Scheduler":"/Users/luqmaan/node_modules/when/lib/Scheduler.js","./env":"/Users/luqmaan/node_modules/when/lib/env.js","./makePromise":"/Users/luqmaan/node_modules/when/lib/makePromise.js"}],"/Users/luqmaan/node_modules/when/lib/Scheduler.js":[function(require,module,exports){
+},{"./Scheduler":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/Scheduler.js","./env":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/env.js","./makePromise":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/makePromise.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/Scheduler.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -61955,7 +63390,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/TimeoutError.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/TimeoutError.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -61983,7 +63418,7 @@ define(function() {
 	return TimeoutError;
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-},{}],"/Users/luqmaan/node_modules/when/lib/apply.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/apply.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62040,7 +63475,7 @@ define(function() {
 
 
 
-},{}],"/Users/luqmaan/node_modules/when/lib/decorators/array.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/array.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62331,7 +63766,7 @@ define(function(require) {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
-},{"../apply":"/Users/luqmaan/node_modules/when/lib/apply.js","../state":"/Users/luqmaan/node_modules/when/lib/state.js"}],"/Users/luqmaan/node_modules/when/lib/decorators/flow.js":[function(require,module,exports){
+},{"../apply":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/apply.js","../state":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/state.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/flow.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62493,7 +63928,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/decorators/fold.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/fold.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62522,7 +63957,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/decorators/inspect.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/inspect.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62544,7 +63979,7 @@ define(function(require) {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
-},{"../state":"/Users/luqmaan/node_modules/when/lib/state.js"}],"/Users/luqmaan/node_modules/when/lib/decorators/iterate.js":[function(require,module,exports){
+},{"../state":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/state.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/iterate.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62611,7 +64046,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/decorators/progress.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/progress.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62637,7 +64072,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/decorators/timed.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/timed.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62717,7 +64152,7 @@ define(function(require) {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
-},{"../TimeoutError":"/Users/luqmaan/node_modules/when/lib/TimeoutError.js","../env":"/Users/luqmaan/node_modules/when/lib/env.js"}],"/Users/luqmaan/node_modules/when/lib/decorators/unhandledRejection.js":[function(require,module,exports){
+},{"../TimeoutError":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/TimeoutError.js","../env":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/env.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/unhandledRejection.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62805,7 +64240,7 @@ define(function(require) {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
-},{"../env":"/Users/luqmaan/node_modules/when/lib/env.js","../format":"/Users/luqmaan/node_modules/when/lib/format.js"}],"/Users/luqmaan/node_modules/when/lib/decorators/with.js":[function(require,module,exports){
+},{"../env":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/env.js","../format":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/format.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/with.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62845,7 +64280,7 @@ define(function() {
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
 
-},{}],"/Users/luqmaan/node_modules/when/lib/env.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/env.js":[function(require,module,exports){
 (function (process){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
@@ -62891,8 +64326,8 @@ define(function(require) {
 	};
 
 	function isNode () {
-		return typeof process !== 'undefined' && process !== null &&
-			typeof process.nextTick === 'function';
+		return typeof process !== 'undefined' &&
+			Object.prototype.toString.call(process) === '[object process]';
 	}
 
 	function hasMutationObserver () {
@@ -62922,7 +64357,7 @@ define(function(require) {
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
 }).call(this,require('_process'))
-},{"_process":"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luqmaan/node_modules/when/lib/format.js":[function(require,module,exports){
+},{"_process":"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/format.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -62980,7 +64415,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/lib/makePromise.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/makePromise.js":[function(require,module,exports){
 (function (process){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
@@ -63911,7 +65346,7 @@ define(function() {
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
 }).call(this,require('_process'))
-},{"_process":"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luqmaan/node_modules/when/lib/state.js":[function(require,module,exports){
+},{"_process":"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/process/browser.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/state.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -63948,7 +65383,7 @@ define(function() {
 });
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
-},{}],"/Users/luqmaan/node_modules/when/when.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js":[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 
 /**
@@ -63956,7 +65391,6 @@ define(function() {
  * when is part of the cujoJS family of libraries (http://cujojs.com/)
  * @author Brian Cavalier
  * @author John Hann
- * @version 3.7.2
  */
 (function(define) { 'use strict';
 define(function (require) {
@@ -64179,4 +65613,4 @@ define(function (require) {
 });
 })(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
 
-},{"./lib/Promise":"/Users/luqmaan/node_modules/when/lib/Promise.js","./lib/TimeoutError":"/Users/luqmaan/node_modules/when/lib/TimeoutError.js","./lib/apply":"/Users/luqmaan/node_modules/when/lib/apply.js","./lib/decorators/array":"/Users/luqmaan/node_modules/when/lib/decorators/array.js","./lib/decorators/flow":"/Users/luqmaan/node_modules/when/lib/decorators/flow.js","./lib/decorators/fold":"/Users/luqmaan/node_modules/when/lib/decorators/fold.js","./lib/decorators/inspect":"/Users/luqmaan/node_modules/when/lib/decorators/inspect.js","./lib/decorators/iterate":"/Users/luqmaan/node_modules/when/lib/decorators/iterate.js","./lib/decorators/progress":"/Users/luqmaan/node_modules/when/lib/decorators/progress.js","./lib/decorators/timed":"/Users/luqmaan/node_modules/when/lib/decorators/timed.js","./lib/decorators/unhandledRejection":"/Users/luqmaan/node_modules/when/lib/decorators/unhandledRejection.js","./lib/decorators/with":"/Users/luqmaan/node_modules/when/lib/decorators/with.js"}]},{},["./client/js/main.js"]);
+},{"./lib/Promise":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/Promise.js","./lib/TimeoutError":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/TimeoutError.js","./lib/apply":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/apply.js","./lib/decorators/array":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/array.js","./lib/decorators/flow":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/flow.js","./lib/decorators/fold":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/fold.js","./lib/decorators/inspect":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/inspect.js","./lib/decorators/iterate":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/iterate.js","./lib/decorators/progress":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/progress.js","./lib/decorators/timed":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/timed.js","./lib/decorators/unhandledRejection":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/unhandledRejection.js","./lib/decorators/with":"/Users/luqmaan/dev/austingreenmap/node_modules/when/lib/decorators/with.js"}]},{},["./client/js/main.js"]);
