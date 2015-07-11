@@ -7,7 +7,7 @@ export default class Navigation extends React.Component {
 
         return (
             <div className='navigation'>
-                <a className='logo' onClick={() => window.location.reload()}>
+                <a title='Austin Green Map' className='logo' onClick={() => window.location.reload()}>
                     <img alt='Austin Green Map' src='images/deciduous_tree.png' />
                 </a>
                 {this.props.children ? this.props.children : h1}

@@ -66,7 +66,7 @@ body {
     overflow: hidden;
 
     .container-content {
-        padding: 15px 25px 30px;
+        padding: 15px 25px 100px;
         max-height: 100%;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
@@ -329,15 +329,13 @@ a {
 }
 
 .loading {
-    border: 1px solid $gray4;
-    border-radius: 5px;
+    font-family: Arial;
     top: 10vh;
     padding: 10px 0;
     width: 300px;
     position: relative;
     margin: 0 auto;
+    color: $green;
     text-align: center;
-    background: rgb(241,238,238);
-    color: black;
     font-size: 30px;
 }
