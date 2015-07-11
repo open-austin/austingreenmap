@@ -313,10 +313,6 @@ var _ParkMapJsx = require('./ParkMap.jsx');
 
 var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
 
-var _NavigationJsx = require('./Navigation.jsx');
-
-var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
-
 var _HomePageJsx = require('./HomePage.jsx');
 
 var _HomePageJsx2 = _interopRequireDefault(_HomePageJsx);
@@ -494,7 +490,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./HomePage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/HomePage.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkPage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Chevron.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./HomePage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/HomePage.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkPage.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Chevron.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -531,7 +527,7 @@ var Chevron = (function (_React$Component) {
     _createClass(Chevron, [{
         key: 'render',
         value: function render() {
-            return _react2['default'].createElement('div', { className: this.props.up ? 'chevron down' : 'chevron up', dangerouslySetInnerHTML: { __html: _imagesChevronUpSvg2['default'] } });
+            return _react2['default'].createElement('div', { className: this.props.up ? 'chevron up' : 'chevron down', dangerouslySetInnerHTML: { __html: _imagesChevronUpSvg2['default'] } });
         }
     }]);
 
@@ -608,11 +604,11 @@ var Container = (function (_React$Component) {
                         this.props.title
                     )
                 ),
-                _react2['default'].createElement(
+                this.state.up ? _react2['default'].createElement(
                     'div',
                     { className: 'container-content' },
-                    this.state.up ? this.props.children : null
-                )
+                    this.props.children
+                ) : null
             );
         }
     }]);
@@ -706,6 +702,10 @@ var _ContainerJsx = require('./Container.jsx');
 
 var _ContainerJsx2 = _interopRequireDefault(_ContainerJsx);
 
+var _NavigationJsx = require('./Navigation.jsx');
+
+var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
+
 var _AllParksListJsx = require('./AllParksList.jsx');
 
 var _AllParksListJsx2 = _interopRequireDefault(_AllParksListJsx);
@@ -753,10 +753,14 @@ var HomePage = (function (_React$Component) {
                     onSelectPark: function (parkId) {
                         return _this.props.selectParkWithId(parkId);
                     } }),
-                _react2['default'].createElement(_ParkFiltersJsx2['default'], {
-                    amenityLookup: this.props.amenityLookup,
-                    facilityLookup: this.props.facilityLookup,
-                    applyFilters: this.props.applyFilters }),
+                _react2['default'].createElement(
+                    _NavigationJsx2['default'],
+                    null,
+                    _react2['default'].createElement(_ParkFiltersJsx2['default'], {
+                        amenityLookup: this.props.amenityLookup,
+                        facilityLookup: this.props.facilityLookup,
+                        applyFilters: this.props.applyFilters })
+                ),
                 _react2['default'].createElement(
                     _ContainerJsx2['default'],
                     { title: containerTitle },
@@ -790,7 +794,7 @@ HomePage.PropTypes = {
 };
 module.exports = exports['default'];
 
-},{"./AllParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
+},{"./AllParksList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksList.jsx","./AllParksMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/AllParksMap.jsx","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFilters.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFilters.jsx","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -823,21 +827,25 @@ var Navigation = (function (_React$Component) {
     _createClass(Navigation, [{
         key: 'render',
         value: function render() {
+            var h1 = _react2['default'].createElement(
+                'h1',
+                { onClick: function () {
+                        return window.location.reload();
+                    } },
+                'Austin Green Map'
+            );
+
             return _react2['default'].createElement(
                 'div',
-                { className: 'nav row' },
+                { className: 'navigation' },
                 _react2['default'].createElement(
                     'a',
                     { className: 'logo', onClick: function () {
                             return window.location.reload();
                         } },
-                    _react2['default'].createElement('img', { src: 'images/deciduous_tree.png' }),
-                    _react2['default'].createElement(
-                        'h1',
-                        null,
-                        'Austin Green Map'
-                    )
-                )
+                    _react2['default'].createElement('img', { alt: 'Austin Green Map', src: 'images/deciduous_tree.png' })
+                ),
+                this.props.children ? this.props.children : h1
             );
         }
     }]);
@@ -1403,6 +1411,10 @@ var _ContainerJsx = require('./Container.jsx');
 
 var _ContainerJsx2 = _interopRequireDefault(_ContainerJsx);
 
+var _NavigationJsx = require('./Navigation.jsx');
+
+var _NavigationJsx2 = _interopRequireDefault(_NavigationJsx);
+
 var _ParkMapJsx = require('./ParkMap.jsx');
 
 var _ParkMapJsx2 = _interopRequireDefault(_ParkMapJsx);
@@ -1503,6 +1515,7 @@ var ParkPage = (function (_React$Component) {
                     amenityGeo: this.state.amenityGeo,
                     facilityGeo: this.state.facilityGeo,
                     trailGeo: this.state.trailGeo }),
+                _react2['default'].createElement(_NavigationJsx2['default'], null),
                 _react2['default'].createElement(
                     _ContainerJsx2['default'],
                     { title: this.props.name },
@@ -1534,7 +1547,7 @@ ParkPage.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkSummary.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/luqmaan/dev/austingreenmap/client/js/utils/api.js","./Container.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Container.jsx","./Navigation.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/Navigation.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","./ParkMap.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkMap.jsx","./ParkSummary.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkSummary.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
