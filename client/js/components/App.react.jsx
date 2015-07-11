@@ -5,7 +5,6 @@ import turf from 'turf';
 import api from '../utils/api';
 import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
-import Navigation from './Navigation.jsx';
 import HomePage from './HomePage.jsx';
 import ParkPage from './ParkPage.jsx';
 

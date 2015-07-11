@@ -54,8 +54,7 @@ body {
     border-top: 1px solid $gray-border;
     box-shadow: 0 0px 3px rgba(108,112,108, 0.5);
 
-    padding: 0 10px;
-    width: 960px;
+    padding: 0;
 
     bottom: 0;
     left: 50%;
@@ -67,6 +66,7 @@ body {
     overflow: hidden;
 
     .container-content {
+        padding: 15px 25px 30px;
         max-height: 100%;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
@@ -74,38 +74,37 @@ body {
 
     &.up {
         top: 48px;
+        .park-count {
+            // background: $green;
+            // background: rgb(244,245,245);
+            border-bottom: 1px solid rgb(233, 235, 235);
+            .count {
+                // color: #fff;
+            }
+        }
     }
 }
 
 .park-count {
-    padding: 10px 0;
+    padding: 10px 10px;
     display: flex;
+    transition: background 0.1s ease-in, color 0.1s ease-in;
+
     .chevron {
-        background: $green1;
         width: 30px;
         height: 30px;
-        border-radius: 15px;
         margin-right: 10px;
         padding: 0;
         padding-top: 2px;
         padding-right: 2px;
         text-align: center;
         cursor: pointer;
-        path {
-            fill: #fff;
-        }
-        &.up {
-            -webkit-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
+        path { fill: $green; }
+        &.down {
             transform: rotate(0deg);
         }
-        &.down {
-            -webkit-transform: rotate(-180deg);
-            -ms-transform: rotate(-180deg);
+        &.up {
             transform: rotate(-180deg);
-        }
-        &:hover, &:focus {
-            g { fill: $green; }
         }
     }
     .count {
@@ -119,7 +118,6 @@ body {
 }
 
 .parks-list {
-    padding: 10px 0 20px 10px;
     .park-count {
         color: $green;
         text-align: center;
@@ -132,6 +130,7 @@ body {
     }
     .park-list-item {
         margin: 5px 0;
+        .park-name { text-decoration: underline; }
     }
 }
 
@@ -219,11 +218,17 @@ h4 {
 }
 
 .park-filters {
+    display: flex;
+    flex: 1;
+}
+
+.navigation {
     width: 960px;
     max-width: 100%;
-    box-shadow: 0 0px 3px rgba(108,112,108, 0.5);
+    box-shadow: 0 0px 1px rgba(108,112,108, 0.5);
     left: 50%;
     transform: translate(-50%, 0);
+    height: 49px;
 
     display: flex;
     z-index: 1;
@@ -235,6 +240,22 @@ h4 {
     border: 1px solid $gray-border;
     border-top: none;
     flex: 1;
+
+    .logo {
+        padding-top: 3px;
+        width: 35px;
+        height: 24px;
+    }
+    h1 {
+        cursor: pointer;
+        margin: 0 5px;
+        font-size: 1.3em;
+        letter-spacing: 0;
+        font-weight: 400;
+        color: $gray2;
+        display: flex;
+        align-items: center;
+    }
 
     .Select {
         flex: 1;

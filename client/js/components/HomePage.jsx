@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Container from './Container.jsx';
+import Navigation from './Navigation.jsx';
 import AllParksList from './AllParksList.jsx';
 import AllParksMap from './AllParksMap.jsx';
 import ParkFilters from './ParkFilters.jsx';
@@ -29,10 +30,12 @@ export default class HomePage extends React.Component {
                     parksTopo={this.props.allParksTopo}
                     trailsTopo={this.props.allTrailsTopo}
                     onSelectPark={(parkId) => this.props.selectParkWithId(parkId)} />
-                <ParkFilters
-                    amenityLookup={this.props.amenityLookup}
-                    facilityLookup={this.props.facilityLookup}
-                    applyFilters={this.props.applyFilters} />
+                <Navigation>
+                    <ParkFilters
+                        amenityLookup={this.props.amenityLookup}
+                        facilityLookup={this.props.facilityLookup}
+                        applyFilters={this.props.applyFilters} />
+                </Navigation>
                 <Container title={containerTitle}>
                     <AllParksList
                         parks={this.props.visibleParks}

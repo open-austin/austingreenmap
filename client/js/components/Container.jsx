@@ -23,9 +23,7 @@ export default class Container extends React.Component {
                     <Chevron up={this.state.up} />
                     <div className='count'>{this.props.title}</div>
                 </div>
-                <div className='container-content'>
-                    {this.state.up ? this.props.children : null}
-                </div>
+                {this.state.up ? <div className='container-content'>{this.props.children}</div> : null}
             </div>
         );
     }
