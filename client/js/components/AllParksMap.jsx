@@ -81,18 +81,15 @@ export default class AllParksMap extends React.Component {
         // FIXME: Only show trails if zoom level is greater than 14
 
         return (
-            <div>
-                <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
-                    <TileLayer
-                        url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                        attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                        id='drmaples.ipbindf8' />
-                    <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
-                    <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
-                    {userLocationMarker}
-                </Map>
-                <div className='after-map'></div>
-            </div>
+            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
+                <TileLayer
+                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                    id='drmaples.ipbindf8' />
+                <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
+                <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
+                {userLocationMarker}
+            </Map>
         );
     }
 }

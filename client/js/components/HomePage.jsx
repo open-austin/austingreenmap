@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Chevron from './Chevron.jsx';
+import Container from './Container.jsx';
 import AllParksList from './AllParksList.jsx';
 import AllParksMap from './AllParksMap.jsx';
 import ParkFilters from './ParkFilters.jsx';
@@ -16,23 +16,10 @@ export default class HomePage extends React.Component {
         };
     }
 
-
-    slideUp() {
-        this.setState({up: !this.state.up});
-    }
-
     render() {
-        var allParksList;
-
-        if (this.state.up) {
-            allParksList = (
-                <AllParksList
-                    parks={this.props.visibleParks}
-                    onSelectPark={(park) => this.props.selectPark(park)} />
-            );
-        }
-
         var nearbyParkCount = this.props.visibleParks.filter((park) => park.distance && park.distance < 1).length;
+        var containerTitle = `${this.props.visibleParks.length} parks`;
+        containerTitle = !nearbyParkCount ? containerTitle : `${containerTitle}, ${nearbyParkCount} within 1 mi`;
 
         return (
             <div>
@@ -46,13 +33,11 @@ export default class HomePage extends React.Component {
                     amenityLookup={this.props.amenityLookup}
                     facilityLookup={this.props.facilityLookup}
                     applyFilters={this.props.applyFilters} />
-                <div className={this.state.up ? 'park-list-container container up' : 'park-list-container container down'} ref='content'>
-                    <div className='park-count u-clickable' onClick={() => this.slideUp()}>
-                        <Chevron up={this.state.up} />
-                        <div className='count'>{this.props.visibleParks.length}&nbsp;parks{nearbyParkCount > 0 ? `, ${nearbyParkCount} within 1 mi` : null} </div>
-                    </div>
-                    {allParksList}
-                </div>
+                <Container title={containerTitle}>
+                    <AllParksList
+                        parks={this.props.visibleParks}
+                        onSelectPark={(park) => this.props.selectPark(park)} />
+                </Container>
             </div>
         );
     }
