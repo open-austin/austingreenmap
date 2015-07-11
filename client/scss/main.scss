@@ -58,6 +58,8 @@ body {
     width: 960px;
 
     bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 
     width: 960px;
     max-width: 100%;
@@ -220,6 +222,8 @@ h4 {
     width: 960px;
     max-width: 100%;
     box-shadow: 0 0px 3px rgba(108,112,108, 0.5);
+    left: 50%;
+    transform: translate(-50%, 0);
 
     display: flex;
     z-index: 1;
