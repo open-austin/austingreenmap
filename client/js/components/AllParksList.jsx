@@ -14,8 +14,8 @@ export default class AllParksList extends React.Component {
 
         var parkList = sortedParks.map((park) => {
             return (
-                <div className='park-list-item row u-clickable' onClick={() => this.selectPark(park)} key={park.park_id}>
-                    <div className='park-name nine columns'>{park.name}</div>
+                <div className='park-list-item row' key={park.park_id}>
+                    <div className='park-name nine columns'><span onClick={() => this.selectPark(park)}>{park.name}</span></div>
                     <div className='park-distance three columns'>{park.distance ? Math.round(park.distance * 100) / 100 + ' mi' : null}</div>
                 </div>
             );
