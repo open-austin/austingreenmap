@@ -152,13 +152,39 @@ gulp.task('deploy-gh-pages', function() {
     var ghPages = require('gulp-gh-pages');
 
     return gulp.src('./build/**/**/*.*')
-        .pipe(
-            ghPages({
-                message: 'Deploy to gh-pages :deciduous_tree: ' + new Date(),
-            })
-        );
-    });
+        .pipe(ghPages({message: 'Deploy to gh-pages :deciduous_tree: ' + new Date()}));
+});
+
+// (ohgodwhy)
+// Watch tasks should depend on suppress-errors - it will force all stream pipes to print but not crash on error
+gulp.task('suppress-errors', function(){
+    function monkeyPatchPipe(o){
+        while(!o.hasOwnProperty('pipe')){
+            o = Object.getPrototypeOf(o);
+            if(!o){
+                return;
+            }
+        }
+        var originalPipe = o.pipe;
+        var newPipe = function(){
+            var result = originalPipe.apply(this, arguments);
+
+            if(!result.pipe['monkey patched for suppress-errors']){
+                monkeyPatchPipe(result);
+            }
+
+            return result.on('error', function (err) {
+                gutil.log(gutil.colors.yellow(err));
+                gutil.beep();
+                this.emit('end');
+            });
+        };
+        newPipe['monkey patched for suppress-errors'] = true;
+        o.pipe = newPipe;
+    }
+    monkeyPatchPipe(gulp.src(""));
+});
 
 gulp.task('build', ['styles', 'build-js', 'copy-html', 'copy-data', 'copy-images']);
-gulp.task('default', ['clean', 'styles', 'copy-html', 'copy-data', 'copy-images', 'webserver', 'watch', 'watch-js']);
+gulp.task('default', ['suppress-errors', 'clean', 'styles', 'copy-html', 'copy-data', 'copy-images', 'webserver', 'watch', 'watch-js']);
 gulp.task('frontend', ['clean', 'copy-html', 'styles', 'webserver', 'watch']);

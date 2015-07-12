@@ -4,7 +4,8 @@ import when from 'when';
 
 import utils from '../utils';
 import api from '../utils/api';
-import Chevron from './Chevron.jsx';
+import Container from './Container.jsx';
+import Navigation from './Navigation.jsx';
 import ParkMap from './ParkMap.jsx';
 import ParkSummary from './ParkSummary.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
@@ -77,15 +78,14 @@ export default class ParkPage extends React.Component {
                     amenityGeo={this.state.amenityGeo}
                     facilityGeo={this.state.facilityGeo}
                     trailGeo={this.state.trailGeo} />
-                <div className='container' ref='content'>
-                    <Chevron slideUp={() => this.slideUp()} />
-                    <h3>{this.props.name}</h3>
+                <Navigation />
+                <Container title={this.props.name}>
                     <ParkSummary parkGeo={this.state.parkGeo} />
                     <ParkFeatureList
                         amenityGeo={this.state.amenityGeo}
                         facilityGeo={this.state.facilityGeo}
                         selectFeature={(featureId) => this.setState({selectedFeatureId: featureId})} />
-                </div>
+                </Container>
             </div>
         );
     }

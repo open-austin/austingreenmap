@@ -23,10 +23,6 @@ export default class AllParksList extends React.Component {
 
         return (
             <div className='parks-list'>
-                <div className='parks-list-header row'>
-                    <div className='park-name nine columns'><h6>Name</h6></div>
-                    <div className='park-distance three columns'><h6>Distance (mi)</h6></div>
-                </div>
                 {parkList}
             </div>
         );

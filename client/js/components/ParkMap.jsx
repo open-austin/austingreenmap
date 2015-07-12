@@ -100,7 +100,7 @@ export default class ParkMap extends React.Component {
                     url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                     attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                     id='drmaples.ipbindf8' />
-                <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} />
+                {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
                 {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
                 {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
@@ -111,7 +111,7 @@ export default class ParkMap extends React.Component {
 
 ParkMap.propTypes = {
     center: React.PropTypes.array.isRequired,
-    parkGeo: React.PropTypes.object.isRequired,
+    parkGeo: React.PropTypes.object,
     amenityGeo: React.PropTypes.object,
     facilityGeo: React.PropTypes.object,
     trailGeo: React.PropTypes.object,

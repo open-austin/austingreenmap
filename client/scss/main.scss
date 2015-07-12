@@ -1,6 +1,8 @@
 @import "normalize";
 @import "skeleton";
 @import "leaflet";
+@import "react-select";
+@import "responsive";
 
 $green: #389e46;
 $green1: $green;
@@ -19,37 +21,6 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
-// who knows how well this works
-// http://davidwalsh.name/write-media-queries-sass
-$tablet-width: 768px;
-$desktop-width: 1024px;
-@mixin phone {
-  @media (max-width: #{$tablet-width - 1px}) {
-    @content;
-  }
-}
-@mixin phone-landscape {
-  @media (max-width: #{$tablet-width - 1px}) and (orientation: landscape) {
-    @content;
-  }
-}
-@mixin tablet {
-  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
-    @content;
-  }
-}
-@mixin tablet-desktop {
-  @media (min-width: #{$tablet-width}) {
-    @content;
-  }
-}
-@mixin desktop {
-  @media (min-width: #{$desktop-width}) {
-    @content;
-  }
-}
-
 body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -62,6 +33,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
     padding: 0;
     margin: 0;
     z-index: -2;
@@ -74,103 +46,78 @@ body {
 }
 
 .container {
-    background: #fff;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 0 20px;
-    border: 1px solid $gray-border;
-}
-
-.after-map {
-    height: 10vh;
-    width: 100%;
+    // transition: all 4s ease-in-out;
     position: fixed;
-    display: block;
-    margin: 0;
+    margin: 0 auto;
+
+    background: #fff;
+    border-top: 1px solid $gray-border;
+    box-shadow: 0 0px 3px rgba(108,112,108, 0.5);
+
     padding: 0;
-    left: 0;
-    z-index: -1;
-    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgb(234,233,233));
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgb(234,233,233));
-}
 
-#map { height: 100vh; }
-.content-wrapper { margin-top: 85vh; }
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 
-@include desktop {
-    .after-map { display: none }
-    // .chevron { display: none; }
-}
+    width: 960px;
+    max-width: 100%;
 
-@include phone {
-    #map { height: 100vh; }
-    .content-wrapper { margin-top: 70vh; }
-    .after-map { display: block; top: 70vh; height: 30vh;}
-}
+    overflow: hidden;
 
-.park-list-container {
-    margin: 0;
-    padding: 0 10px;
-
-    &.down {
-        position: fixed;
-        bottom: 0;
+    .container-content {
+        padding: 15px 25px 100px;
+        max-height: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 
     &.up {
-        position: relative;
         top: 48px;
+        .park-count {
+            // background: $green;
+            // background: rgb(244,245,245);
+            border-bottom: 1px solid rgb(233, 235, 235);
+            .count {
+                // color: #fff;
+            }
+        }
     }
+}
 
-    .park-count {
-        padding: 10px 0;
+.park-count {
+    padding: 10px 10px;
+    display: flex;
+    transition: background 0.1s ease-in, color 0.1s ease-in;
+
+    .chevron {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        padding: 0;
+        padding-top: 2px;
+        padding-right: 2px;
+        text-align: center;
+        cursor: pointer;
+        path { fill: $green; }
+        &.down {
+            transform: rotate(0deg);
+        }
+        &.up {
+            transform: rotate(-180deg);
+        }
+    }
+    .count {
+        font-size: 1.2em;
+        font-weight: 400;
+        color: $gray2;
+        flex: 1;
         display: flex;
-        .chevron {
-            background: $green;
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            margin-right: 10px;
-            padding: 0;
-            padding-top: 2px;
-            padding-right: 2px;
-            text-align: center;
-            cursor: pointer;
-            path {
-                fill: #fff;
-            }
-            &.up {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-            &.down {
-                -webkit-transform: rotate(-180deg);
-                -ms-transform: rotate(-180deg);
-                transform: rotate(-180deg);
-            }
-            &:hover, &:focus {
-                g { fill: $green; }
-            }
-        }
-        .count {
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
+        align-items: center;
     }
 }
 
 .parks-list {
-    padding: 10px 0 20px 10px;
-    .parks-list-header {
-        @include phone {
-            display: none;
-        }
-    }
-    .park-name {
-        font-weight: 600;
-    }
     .park-count {
         color: $green;
         text-align: center;
@@ -180,6 +127,10 @@ body {
         @include tablet-desktop {
             text-align: right;
         }
+    }
+    .park-list-item {
+        margin: 5px 0;
+        .park-name { text-decoration: underline; }
     }
 }
 
@@ -268,6 +219,18 @@ h4 {
 
 .park-filters {
     display: flex;
+    flex: 1;
+}
+
+.navigation {
+    width: 960px;
+    max-width: 100%;
+    box-shadow: 0 0px 1px rgba(108,112,108, 0.5);
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 49px;
+
+    display: flex;
     z-index: 1;
     position: fixed;
     top: 0;
@@ -276,12 +239,27 @@ h4 {
     padding: 5px;
     border: 1px solid $gray-border;
     border-top: none;
-    width: 100%;
     flex: 1;
-    select {
-        display: inline-block;
-        margin: 0;
+
+    .logo {
+        padding-top: 3px;
+        width: 35px;
+        height: 24px;
+    }
+    h1 {
+        cursor: pointer;
+        margin: 0 5px;
+        font-size: 1.3em;
+        letter-spacing: 0;
+        font-weight: 400;
+        color: $gray2;
+        display: flex;
+        align-items: center;
+    }
+
+    .Select {
         flex: 1;
+        .Select-control { padding: 0; }
     }
     .filter-icons {
         display: inline-block;
@@ -351,15 +329,13 @@ a {
 }
 
 .loading {
-    border: 1px solid $gray4;
-    border-radius: 5px;
+    font-family: Arial;
     top: 10vh;
     padding: 10px 0;
     width: 300px;
     position: relative;
     margin: 0 auto;
+    color: $green;
     text-align: center;
-    background: rgb(241,238,238);
-    color: black;
     font-size: 30px;
 }
