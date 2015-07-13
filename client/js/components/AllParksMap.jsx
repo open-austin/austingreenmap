@@ -98,6 +98,5 @@ AllParksMap.propTypes = {
     visibleParkIds: React.PropTypes.array.isRequired,
     parksTopo: React.PropTypes.object.isRequired,
     trailsTopo: React.PropTypes.object.isRequired,
-    onSelectPark:  React.PropTypes.func.isRequired,
     userLocation: React.PropTypes.array,
 };
