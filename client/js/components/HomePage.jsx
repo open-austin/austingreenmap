@@ -28,8 +28,7 @@ export default class HomePage extends React.Component {
                     userLocation={this.props.userLocation}
                     visibleParkIds={this.props.visibleParkIds}
                     parksTopo={this.props.allParksTopo}
-                    trailsTopo={this.props.allTrailsTopo}
-                    onSelectPark={(parkId) => this.props.selectParkWithId(parkId)} />
+                    trailsTopo={this.props.allTrailsTopo} />
                 <Navigation>
                     <ParkFilters
                         amenityLookup={this.props.amenityLookup}
@@ -37,9 +36,7 @@ export default class HomePage extends React.Component {
                         applyFilters={this.props.applyFilters} />
                 </Navigation>
                 <Container title={containerTitle}>
-                    <AllParksList
-                        parks={this.props.visibleParks}
-                        onSelectPark={(park) => this.props.selectPark(park)} />
+                    <AllParksList parks={this.props.visibleParks} />
                 </Container>
             </div>
         );
@@ -55,8 +52,5 @@ HomePage.PropTypes = {
     facilityLookup: React.PropTypes.object.isRequired,
     visibleParkIds: React.PropTypes.array.isRequired,
     visibleParks: React.PropTypes.array.isRequired,
-
-    selectPark: React.PropTypes.func.isRequired,
-    selectParkWithId: React.PropTypes.func.isRequired,
     applyFilters: React.PropTypes.func.isRequired,
 };
