@@ -5,9 +5,6 @@ import api from '../utils/api';
 
 
 export default class AllParksList extends React.Component {
-    selectPark(park) {
-        this.props.onSelectPark(park);
-    }
 
     render() {
         var sortedParks = _.sortByAll(this.props.parks, 'distance', 'name');
@@ -31,5 +28,4 @@ export default class AllParksList extends React.Component {
 
 AllParksList.propTypes = {
     parks:  React.PropTypes.array.isRequired,
-    onSelectPark:  React.PropTypes.func.isRequired,
 };
