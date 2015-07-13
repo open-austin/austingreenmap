@@ -20,15 +20,29 @@ gulp clean && gulp
 
 #### Deploy
 
+To deploy the webapp:
+
 ```
 gulp clean
 gulp build
 gulp deploy-gh-pages
 ```
 
+#### Cordova
+
+To run as a native iOS/Android app through Cordova see [github.com/open-austin/austingreenmap-cordova](https://github.com/open-austin/austingreenmap-cordova).
+
+To build the app for Cordova:
+
+```
+gulp clean
+gulp build
+gulp inject-cordova
+```
+
 #### Data
 
-We use PostGIS to transform the GeoJSON files, even though we should not. One day we'll fix this. To setup your PostGIS database follow the instruction at https://github.com/codeforboston/bostongreenmap.
+We use PostGIS to transform the GeoJSON files, even though we should not. One day we'll fix this. To setup your PostGIS database follow the instructions at https://github.com/codeforboston/bostongreenmap.
 
 ```
 pip install -r requirements.txt
