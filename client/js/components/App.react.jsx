@@ -128,8 +128,6 @@ export default class App extends React.Component {
                     facilityLookup={this.state.facilityLookup}
                     visibleParkIds={this.state.visibleParkIds}
                     visibleParks={this.state.visibleParks}
-                    selectPark={(park) => this.selectPark(park)}
-                    selectParkWithId={(parkId) => this.selectParkWithId(parkId)}
                     applyFilters={(filter) => this.applyFilters(filter)} />
             );
         }
