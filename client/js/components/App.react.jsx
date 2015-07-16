@@ -134,7 +134,7 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <AppRouter selectParkWithId={this.selectParkWithId.bind(this)}/>
+                <AppRouter selectParkWithId={(parkId) => this.selectParkWithId(parkId)}/>
                 {content}
             </div>
         );

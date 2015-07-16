@@ -47,7 +47,7 @@ export default class AllParksMap extends React.Component {
         });
 
         layer.on('click', () => {
-           window.location.hash = feature.id
+            window.location.hash = feature.id
         });
     }
 
