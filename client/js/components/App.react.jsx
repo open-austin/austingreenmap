@@ -7,7 +7,7 @@ import utils from '../utils';
 import ParkMap from './ParkMap.jsx';
 import HomePage from './HomePage.jsx';
 import ParkPage from './ParkPage.jsx';
-
+import AppRouter from './AppRouter.jsx';
 
 export default class App extends React.Component {
 
@@ -53,7 +53,7 @@ export default class App extends React.Component {
     }
 
     selectParkWithId(parkId) {
-        var park = _.find(this.state.allParks, (park) => park.park_id === parkId);
+        var park = _.find(this.state.allParks, (park) => park.park_id === Number(parkId));
         this.selectPark(park);
     }
 
@@ -128,14 +128,15 @@ export default class App extends React.Component {
                     facilityLookup={this.state.facilityLookup}
                     visibleParkIds={this.state.visibleParkIds}
                     visibleParks={this.state.visibleParks}
-                    selectPark={(park) => this.selectPark(park)}
-                    selectParkWithId={(parkId) => this.selectParkWithId(parkId)}
                     applyFilters={(filter) => this.applyFilters(filter)} />
             );
         }
 
         return (
-            <div>{content}</div>
+            <div>
+                <AppRouter selectParkWithId={(parkId) => this.selectParkWithId(parkId)}/>
+                {content}
+            </div>
         );
     }
 }
