@@ -69,7 +69,7 @@ var AllParksList = (function (_React$Component) {
             var parkList = sortedParks.map(function (park) {
                 return _react2['default'].createElement(
                     'a',
-                    { className: 'park-list-item row u-clickable', href: '#' + park.park_id, key: park.park_id },
+                    { className: 'park-list-item row u-clickable', href: '#park/' + park.park_id, key: park.park_id },
                     _react2['default'].createElement(
                         'div',
                         { className: 'park-name nine columns' },
@@ -198,7 +198,7 @@ var AllParksMap = (function (_React$Component) {
             });
 
             layer.on('click', function () {
-                window.location.hash = feature.id;
+                window.location.hash = 'park/' + feature.id;
             });
         }
     }, {
@@ -464,7 +464,9 @@ var App = (function (_React$Component) {
             return _react2['default'].createElement(
                 'div',
                 null,
-                _react2['default'].createElement(_AppRouterJsx2['default'], { selectParkWithId: this.selectParkWithId.bind(this) }),
+                _react2['default'].createElement(_AppRouterJsx2['default'], { selectParkWithId: function (parkId) {
+                        return _this4.selectParkWithId(parkId);
+                    } }),
                 content
             );
         }
@@ -480,7 +482,7 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+    value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -496,45 +498,52 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var AppRouter = (function (_React$Component) {
-  function AppRouter() {
-    _classCallCheck(this, AppRouter);
+    function AppRouter() {
+        _classCallCheck(this, AppRouter);
 
-    if (_React$Component != null) {
-      _React$Component.apply(this, arguments);
+        if (_React$Component != null) {
+            _React$Component.apply(this, arguments);
+        }
     }
-  }
 
-  _inherits(AppRouter, _React$Component);
+    _inherits(AppRouter, _React$Component);
 
-  _createClass(AppRouter, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      window.addEventListener('hashchange', this.onHashChange.bind(this));
-    }
-  }, {
-    key: 'componentDidUnmount',
-    value: function componentDidUnmount() {
-      window.removeEventListener('hashchange', this.onHashChange.bind(this));
-    }
-  }, {
-    key: 'onHashChange',
-    value: function onHashChange() {
-      this.props.selectParkWithId(window.location.hash.substring(1));
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return null;
-    }
-  }]);
+    _createClass(AppRouter, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            window.addEventListener('hashchange', this.onHashChange.bind(this));
+        }
+    }, {
+        key: 'componentDidUnmount',
+        value: function componentDidUnmount() {
+            window.removeEventListener('hashchange', this.onHashChange.bind(this));
+        }
+    }, {
+        key: 'onHashChange',
+        value: function onHashChange() {
+            var route = window.location.hash.substring(1);
+            var id;
+            if (route.match(/park\/\d*/)) {
+                id = route.split('park/')[1];
+            } else {
+                id = null;
+            }
+            this.props.selectParkWithId(id);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return null;
+        }
+    }]);
 
-  return AppRouter;
+    return AppRouter;
 })(_react2['default'].Component);
 
 exports['default'] = AppRouter;
 
 AppRouter.propTypes = {
-  selectParkWithId: _react2['default'].PropTypes.func.isRequired
+    selectParkWithId: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
