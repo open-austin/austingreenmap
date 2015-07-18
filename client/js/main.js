@@ -1,10 +1,10 @@
 import React from 'react';
 
 import utils from './utils';
-import App from'./components/App.react.jsx';
+import AppRouter from'./components/AppRouter.jsx';
 
 
 window.React = React;
-React.render(<App />, document.getElementById('app'));
+React.render(<AppRouter />, document.getElementById('app'));
 
 window.onload = utils.setupiOSTouchState;

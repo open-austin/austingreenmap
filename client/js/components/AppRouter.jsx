@@ -1,6 +1,14 @@
 import React from 'react';
+import App from './App.react.jsx';
+
 
 export default class AppRouter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            route: window.location.hash.substring(1)
+        }
+    }
 
     componentWillMount() {
         window.addEventListener('hashchange', this.onHashChange.bind(this));
@@ -11,22 +19,18 @@ export default class AppRouter extends React.Component {
     }
 
     onHashChange() {
-        const route = window.location.hash.substring(1);
-        var id;
-        if (route.match(/park\/\d*/)) {
-            id = route.split('park/')[1]
-        } else {
-            id = null
-        }
-        this.props.selectParkWithId(id);
+        this.setState({ route: window.location.hash.substring(1) })
     }
 
     render() {
-        return null;
+        var id;
+        if (this.state.route.match(/park\/\d*/)) {
+            id = this.state.route.split('park/')[1]
+        } else {
+            id = null
+        }
+        console.log(id)
+        return <App parkId={id}/>;
     }
 
-}
-
-AppRouter.propTypes = {
-    selectParkWithId: React.PropTypes.func.isRequired
 }
