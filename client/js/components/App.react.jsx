@@ -98,9 +98,8 @@ export default class App extends React.Component {
         var homePageLoaded = this.state.visibleParkIds && this.state.allParksTopo && this.state.allTrailsTopo && this.state.amenityLookup && this.state.facilityLookup && this.state.visibleParks;
 
         var content = <div className='loading'>Loading</div>;
-
-        if (this.props.parkId && this.selectParkWithId(this.props.parkId)) {
-            const park = this.selectParkWithId(this.props.parkId)
+        const park = this.props.parkId && this.selectParkWithId(this.props.parkId);
+        if (park) {
             content = (
                 <ParkPage
                     parkId={park.park_id}
