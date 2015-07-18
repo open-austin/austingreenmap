@@ -29,7 +29,6 @@ export default class AppRouter extends React.Component {
         } else {
             id = null
         }
-        console.log(id)
         return <App parkId={id}/>;
     }
 
