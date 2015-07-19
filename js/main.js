@@ -11,16 +11,16 @@ var _utils = require('./utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _componentsAppReactJsx = require('./components/App.react.jsx');
+var _componentsAppRouterJsx = require('./components/AppRouter.jsx');
 
-var _componentsAppReactJsx2 = _interopRequireDefault(_componentsAppReactJsx);
+var _componentsAppRouterJsx2 = _interopRequireDefault(_componentsAppRouterJsx);
 
 window.React = _react2['default'];
-_react2['default'].render(_react2['default'].createElement(_componentsAppReactJsx2['default'], null), document.getElementById('app'));
+_react2['default'].render(_react2['default'].createElement(_componentsAppRouterJsx2['default'], null), document.getElementById('app'));
 
 window.onload = _utils2['default'].setupiOSTouchState;
 
-},{"./components/App.react.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/App.react.jsx","./utils":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/index.js","react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/images/chevron-up.svg":[function(require,module,exports){
+},{"./components/AppRouter.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/AppRouter.jsx","./utils":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/index.js","react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/images/chevron-up.svg":[function(require,module,exports){
 module.exports = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<svg width=\"15px\" height=\"8px\" viewBox=\"0 0 15 8\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->\n    <title>Slice 1</title>\n    <desc>Created with Sketch.</desc>\n    <defs></defs>\n    <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"noun_119200_cc\" sketch:type=\"MSLayerGroup\" fill=\"#000000\">\n            <path d=\"M14.6139351,7.04256011 C14.2233486,7.43314663 13.5899582,7.43314663 13.1996218,7.04256011 L8.5045817,2.34752004 C8.28078212,2.12372046 7.98321621,2.00044315 7.66689613,2.00044315 C7.350326,2.00044315 7.05301014,2.12372046 6.82946062,2.34726998 L2.13442055,7.04256011 C1.74383402,7.43314663 1.11044371,7.43314663 0.719857187,7.04256011 C0.329270662,6.65197358 0.329270662,6.01858327 0.719857187,5.62799674 L5.41514731,0.932706618 C6.01628048,0.331323397 6.81620768,0 7.66689613,0 C8.51733453,0 9.31751179,0.331323397 9.91889501,0.932706618 L14.613685,5.62774669 C14.8092283,5.82329001 14.907,6.07934673 14.907,6.3351534 C14.907,6.59121012 14.8092283,6.84701679 14.6139351,7.04256011 Z\" id=\"Shape\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n    </g>\n</svg>";
 
 },{}],"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/AllParksList.jsx":[function(require,module,exports){
@@ -308,10 +308,6 @@ var _ParkPageJsx = require('./ParkPage.jsx');
 
 var _ParkPageJsx2 = _interopRequireDefault(_ParkPageJsx);
 
-var _AppRouterJsx = require('./AppRouter.jsx');
-
-var _AppRouterJsx2 = _interopRequireDefault(_AppRouterJsx);
-
 var App = (function (_React$Component) {
     function App(props) {
         var _this = this;
@@ -324,7 +320,6 @@ var App = (function (_React$Component) {
             allParks: null,
             allParksTopo: null,
             allTrailsTopo: null,
-            park: null,
             userLocation: null,
             visibleParks: null,
             visibleParkIds: null,
@@ -374,15 +369,9 @@ var App = (function (_React$Component) {
     _createClass(App, [{
         key: 'selectParkWithId',
         value: function selectParkWithId(parkId) {
-            var park = _lodash2['default'].find(this.state.allParks, function (park) {
+            return _lodash2['default'].find(this.state.allParks, function (park) {
                 return park.park_id === Number(parkId);
             });
-            this.selectPark(park);
-        }
-    }, {
-        key: 'selectPark',
-        value: function selectPark(park) {
-            this.setState({ park: park });
         }
     }, {
         key: 'computeParkDistance',
@@ -437,12 +426,12 @@ var App = (function (_React$Component) {
                 { className: 'loading' },
                 'Loading'
             );
-
-            if (this.state.park) {
+            var park = this.props.parkId && this.selectParkWithId(this.props.parkId);
+            if (park) {
                 content = _react2['default'].createElement(_ParkPageJsx2['default'], {
-                    parkId: this.state.park.park_id,
-                    name: this.state.park.name,
-                    center: this.state.park.center,
+                    parkId: park.park_id,
+                    name: park.name,
+                    center: park.center,
                     parkGeo: this.state.parkGeo,
                     amenityGeo: this.state.amenityGeo,
                     facilityGeo: this.state.facilityGeo,
@@ -464,9 +453,6 @@ var App = (function (_React$Component) {
             return _react2['default'].createElement(
                 'div',
                 null,
-                _react2['default'].createElement(_AppRouterJsx2['default'], { selectParkWithId: function (parkId) {
-                        return _this4.selectParkWithId(parkId);
-                    } }),
                 content
             );
         }
@@ -476,9 +462,13 @@ var App = (function (_React$Component) {
 })(_react2['default'].Component);
 
 exports['default'] = App;
+
+App.propTypes = {
+    parkId: _react2['default'].PropTypes.string
+};
 module.exports = exports['default'];
 
-},{"../utils":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/api.js","./AppRouter.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/AppRouter.jsx","./HomePage.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/HomePage.jsx","./ParkMap.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/ParkMap.jsx","./ParkPage.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/ParkPage.jsx","lodash":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/lodash/index.js","react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js","turf":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/turf/index.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/AppRouter.jsx":[function(require,module,exports){
+},{"../utils":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/index.js","../utils/api":"/Users/fremn/c/atxhacks/austingreenmap/client/js/utils/api.js","./HomePage.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/HomePage.jsx","./ParkMap.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/ParkMap.jsx","./ParkPage.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/ParkPage.jsx","lodash":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/lodash/index.js","react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js","turf":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/turf/index.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/AppRouter.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -486,6 +476,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -497,13 +489,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _AppReactJsx = require('./App.react.jsx');
+
+var _AppReactJsx2 = _interopRequireDefault(_AppReactJsx);
+
 var AppRouter = (function (_React$Component) {
-    function AppRouter() {
+    function AppRouter(props) {
         _classCallCheck(this, AppRouter);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(AppRouter.prototype), 'constructor', this).call(this, props);
+        this.state = {
+            route: window.location.hash.substring(1)
+        };
     }
 
     _inherits(AppRouter, _React$Component);
@@ -521,19 +518,18 @@ var AppRouter = (function (_React$Component) {
     }, {
         key: 'onHashChange',
         value: function onHashChange() {
-            var route = window.location.hash.substring(1);
-            var id;
-            if (route.match(/park\/\d*/)) {
-                id = route.split('park/')[1];
-            } else {
-                id = null;
-            }
-            this.props.selectParkWithId(id);
+            this.setState({ route: window.location.hash.substring(1) });
         }
     }, {
         key: 'render',
         value: function render() {
-            return null;
+            var id;
+            if (this.state.route.match(/park\/\d*/)) {
+                id = this.state.route.split('park/')[1];
+            } else {
+                id = null;
+            }
+            return _react2['default'].createElement(_AppReactJsx2['default'], { parkId: id });
         }
     }]);
 
@@ -541,13 +537,9 @@ var AppRouter = (function (_React$Component) {
 })(_react2['default'].Component);
 
 exports['default'] = AppRouter;
-
-AppRouter.propTypes = {
-    selectParkWithId: _react2['default'].PropTypes.func.isRequired
-};
 module.exports = exports['default'];
 
-},{"react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/Chevron.jsx":[function(require,module,exports){
+},{"./App.react.jsx":"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/App.react.jsx","react":"/Users/fremn/c/atxhacks/austingreenmap/node_modules/react/react.js"}],"/Users/fremn/c/atxhacks/austingreenmap/client/js/components/Chevron.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
