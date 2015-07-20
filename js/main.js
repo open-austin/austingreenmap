@@ -866,10 +866,12 @@ var Navigation = (function (_React$Component) {
         value: function render() {
             var siteTitle = _react2['default'].createElement(
                 'h1',
-                { onClick: function () {
-                        return window.location.hash = '';
-                    } },
-                'Austin Green Map'
+                null,
+                _react2['default'].createElement(
+                    'a',
+                    { href: '#' },
+                    'Austin Green Map'
+                )
             );
 
             return _react2['default'].createElement(
@@ -877,9 +879,7 @@ var Navigation = (function (_React$Component) {
                 { className: 'navigation' },
                 _react2['default'].createElement(
                     'a',
-                    { title: 'Austin Green Map', className: 'logo', onClick: function () {
-                            return window.location.hash = '';
-                        } },
+                    { title: 'Austin Green Map', className: 'logo', href: '#' },
                     _react2['default'].createElement('img', { alt: 'Austin Green Map', src: 'images/deciduous_tree.png' })
                 ),
                 this.props.children ? this.props.children : siteTitle
