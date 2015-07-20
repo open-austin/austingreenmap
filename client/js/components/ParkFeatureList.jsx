@@ -21,7 +21,8 @@ export default class ParkFeatureList extends React.Component {
                     indoorOutdoor={feature.properties.INDOOR_OUTDOOR}
                     status={feature.properties.STATUS}
                     reservations={feature.properties.RESERVATIONS}
-                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS} />;
+                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS}
+                    slideUp={this.props.slideUp} />;
             });
         }
 
@@ -39,7 +40,8 @@ export default class ParkFeatureList extends React.Component {
                     indoorOutdoor={feature.properties.INDOOR_OUTDOOR}
                     status={feature.properties.STATUS}
                     reservations={feature.properties.RESERVATIONS}
-                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS} />;
+                    accessibilityStatus={feature.properties.ACCESSIBILITY_STATUS}
+                    slideUp={this.props.slideUp} />;
             });
         }
 
