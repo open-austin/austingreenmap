@@ -43,3 +43,7 @@ npm install -g topojson
 #### License
 
 Released to the public domain under [the Unlicense](http://unlicense.org/) by Open Austin, 2015.
+
+#### Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md).
