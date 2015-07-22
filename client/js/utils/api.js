@@ -3,7 +3,7 @@ import when from 'when';
 import ajax from './ajax';
 import cache from './cache';
 
-var wrap = (url) => () => {
+var generateApiFn = (url) => () => {
     const data = cache.get(url);
     if (data) return when.resolve(data);
 
@@ -13,11 +13,11 @@ var wrap = (url) => () => {
 }
 
 var api = {
-    getAllParks: wrap('data/parks.json'),
-    getFeatureGeoJson: (parkID, featureType) => wrap(`data/${featureType}/park_${parkID}.geojson`)(),
-    getLookup: (lookupType) => wrap(`data/${lookupType}_lookup.json`)(),
-    getAllParksTopo: wrap('data/city_of_austin_parks.topo.json'),
-    getAllTrailsTopo: wrap('data/pard_trails_nrpa.topo.json')
+    getAllParks: generateApiFn('data/parks.json'),
+    getFeatureGeoJson: (parkID, featureType) => generateApiFn(`data/${featureType}/park_${parkID}.geojson`)(),
+    getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup.json`)(),
+    getAllParksTopo: generateApiFn('data/city_of_austin_parks.topo.json'),
+    getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json')
 };
 
 export default api;
