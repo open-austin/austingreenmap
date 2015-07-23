@@ -1,4 +1,4 @@
-By contributing your code you agree to the following:
+By contributing to this project you agree to the following:
 
 I dedicate any and all copyright interest in this software to the
 public domain. I make this dedication for the benefit of the public at
