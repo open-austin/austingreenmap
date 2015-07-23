@@ -1,6 +1,6 @@
 # Austin Green Map
 
-:deciduous_tree: See it live! [open-austin.github.io/austingreenmap/](http://open-austin.github.io/austingreenmap/) :deciduous_tree: 
+:deciduous_tree: See it live! [open-austin.github.io/austingreenmap/](http://open-austin.github.io/austingreenmap/) :deciduous_tree:
 
 
 An easy to browse gallery of the parks in Austin. Started at [ATX Hack For Change 2015](http://atxhackforchange.org). Inspired by https://github.com/codeforboston/bostongreenmap.
@@ -39,3 +39,11 @@ brew install jq
 npm install -g topojson
 ./download.sh
 ```
+
+#### License
+
+Released to the public domain under [the Unlicense](http://unlicense.org/) by Open Austin, 2015.
+
+#### Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md).
