@@ -1,13 +1,13 @@
 import React from 'react';
 import utils from './utils';
-import App from './components/App.react.jsx';
+import AppRouter from'./components/AppRouter.jsx';
 
 window.React = React;
-window.App = App;
+window.AppRouter = AppRouter;
 
 function init() {
     utils.setupiOSTouchState();
-    window.austingreenmap = React.render(<App />, document.getElementById('app'));
+    window.austingreenmap = React.render(<AppRouter />, document.getElementById('app'));
 }
 
 if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {

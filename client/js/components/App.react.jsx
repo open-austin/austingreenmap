@@ -8,7 +8,6 @@ import ParkMap from './ParkMap.jsx';
 import HomePage from './HomePage.jsx';
 import ParkPage from './ParkPage.jsx';
 
-
 export default class App extends React.Component {
 
     constructor(props) {
@@ -18,7 +17,6 @@ export default class App extends React.Component {
             allParks: null,
             allParksTopo: null,
             allTrailsTopo: null,
-            park: null,
             userLocation: null,
             visibleParks: null,
             visibleParkIds: null,
@@ -53,12 +51,7 @@ export default class App extends React.Component {
     }
 
     selectParkWithId(parkId) {
-        var park = _.find(this.state.allParks, (park) => park.park_id === parkId);
-        this.selectPark(park);
-    }
-
-    selectPark(park) {
-        this.setState({park: park});
+        return _.find(this.state.allParks, (park) => park.park_id === Number(parkId));
     }
 
     computeParkDistance() {
@@ -105,13 +98,13 @@ export default class App extends React.Component {
         var homePageLoaded = this.state.visibleParkIds && this.state.allParksTopo && this.state.allTrailsTopo && this.state.amenityLookup && this.state.facilityLookup && this.state.visibleParks;
 
         var content = <div className='loading'>Loading</div>;
-
-        if (this.state.park) {
+        const park = this.props.parkId && this.selectParkWithId(this.props.parkId);
+        if (park) {
             content = (
                 <ParkPage
-                    parkId={this.state.park.park_id}
-                    name={this.state.park.name}
-                    center={this.state.park.center}
+                    parkId={park.park_id}
+                    name={park.name}
+                    center={park.center}
                     parkGeo={this.state.parkGeo}
                     amenityGeo={this.state.amenityGeo}
                     facilityGeo={this.state.facilityGeo}
@@ -128,14 +121,18 @@ export default class App extends React.Component {
                     facilityLookup={this.state.facilityLookup}
                     visibleParkIds={this.state.visibleParkIds}
                     visibleParks={this.state.visibleParks}
-                    selectPark={(park) => this.selectPark(park)}
-                    selectParkWithId={(parkId) => this.selectParkWithId(parkId)}
                     applyFilters={(filter) => this.applyFilters(filter)} />
             );
         }
 
         return (
-            <div>{content}</div>
+            <div>
+                {content}
+            </div>
         );
     }
 }
+
+App.propTypes = {
+    parkId:  React.PropTypes.string,
+};
