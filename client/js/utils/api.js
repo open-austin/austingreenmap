@@ -14,7 +14,7 @@ var api = {
             return when.resolve(_cache[url]);
         }
 
-        return ajax({url: url})
+        return ajax({url: url, dataType: 'json'})
             .tap((body) => _cache[url] = body)
             .catch((err) => console.error(url, err));
     },

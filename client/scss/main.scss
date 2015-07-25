@@ -124,13 +124,22 @@ body {
     }
     .park-distance {
         text-align: left;
+        color: $gray3;
         @include tablet-desktop {
             text-align: right;
         }
     }
     .park-list-item {
         margin: 5px 0;
-        .park-name { text-decoration: underline; }
+        .park-name {
+            span {
+                text-decoration: underline;
+                cursor: pointer;
+                &:hover {
+                    color: $green;
+                }
+            }
+        }
     }
 }
 

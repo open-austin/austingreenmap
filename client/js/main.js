@@ -1,10 +1,18 @@
 import React from 'react';
-
 import utils from './utils';
 import AppRouter from'./components/AppRouter.jsx';
 
-
 window.React = React;
-React.render(<AppRouter />, document.getElementById('app'));
+window.AppRouter = AppRouter;
 
-window.onload = utils.setupiOSTouchState;
+function init() {
+    utils.setupiOSTouchState();
+    window.austingreenmap = React.render(<AppRouter />, document.getElementById('app'));
+}
+
+if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {
+    document.addEventListener('deviceready', init, false);
+}
+else {
+    init();
+}

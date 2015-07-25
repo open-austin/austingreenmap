@@ -13,6 +13,7 @@ export default class ParkFeatureList extends React.Component {
 
             amenityList = sortedAmenity.map((feature) => {
                 return <ParkFeatureListItem
+                    key={feature.id}
                     selectFeature={this.props.selectFeature}
                     id={feature.id}
                     name={feature.properties.AMENITY_NAME}
@@ -32,6 +33,7 @@ export default class ParkFeatureList extends React.Component {
 
             facilityList = sortedFacility.map((feature) => {
                 return <ParkFeatureListItem
+                    key={feature.id}
                     selectFeature={this.props.selectFeature}
                     id={feature.id}
                     name={feature.properties.FACILITY_NAME}

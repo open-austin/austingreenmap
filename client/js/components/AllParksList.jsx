@@ -11,10 +11,10 @@ export default class AllParksList extends React.Component {
 
         var parkList = sortedParks.map((park) => {
             return (
-                <a className='park-list-item row u-clickable' href={`#park/${park.park_id}`} key={park.park_id}>
-                    <div className='park-name nine columns'>{park.name}</div>
+                <div className='park-list-item row' key={park.park_id}>
+                    <div className='park-name nine columns'><a href={`#park/${park.park_id}`}>{park.name}</a></div>
                     <div className='park-distance three columns'>{park.distance ? Math.round(park.distance * 100) / 100 + ' mi' : null}</div>
-                </a>
+                </div>
             );
         });
 
