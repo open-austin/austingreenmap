@@ -1,72 +1,23 @@
 // FIXME: One day replace when with something like prfun, since we have ES6 Promise
 import when from 'when';
-
 import ajax from './ajax';
+import cache from './cache';
 
-var _cache = {};
+const generateApiFn = (url) => () => {
+    const data = cache.get(url);
+    if (data) return when.resolve(data);
 
-var api = {
+    return ajax({url: url, dataType: 'json'})
+        .tap((body) => cache.set(url, body))
+        .catch((err) => console.error(url, err));
+}
 
-    getAllParks() {
-        var url = 'data/parks.json';
-
-        if (_cache[url]) {
-            return when.resolve(_cache[url]);
-        }
-
-        return ajax({url: url, dataType: 'json'})
-            .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(url, err));
-    },
-
-    getFeatureGeoJson(parkID, featureType) {
-        var url = `data/${featureType}/park_${parkID}.geojson`;
-
-        if (_cache[url]) {
-            return when.resolve(_cache[url]);
-        }
-
-        return ajax({url: url, dataType: 'json'})
-            .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(url, err));
-    },
-
-    getLookup(lookupType) {
-        var url = `data/${lookupType}_lookup.json`;
-
-        if (_cache[url]) {
-            return when.resolve(_cache[url]);
-        }
-
-        return ajax({url: url, dataType: 'json'})
-            .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(url, err));
-    },
-
-    getAllParksTopo() {
-        var url = `data/city_of_austin_parks.topo.json`;
-
-        if (_cache[url]) {
-            return when.resolve(_cache[url]);
-        }
-
-        return ajax({url: url, dataType: 'json'})
-            .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(url, err));
-    },
-
-    getAllTrailsTopo() {
-        var url = `data/pard_trails_nrpa.topo.json`;
-
-        if (_cache[url]) {
-            return when.resolve(_cache[url]);
-        }
-
-        return ajax({url: url, dataType: 'json'})
-            .tap((body) => _cache[url] = body)
-            .catch((err) => console.error(url, err));
-    },
-
+const api = {
+    getAllParks: generateApiFn('data/parks.json'),
+    getFeatureGeoJson: (parkID, featureType) => generateApiFn(`data/${featureType}/park_${parkID}.geojson`)(),
+    getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup.json`)(),
+    getAllParksTopo: generateApiFn('data/city_of_austin_parks.topo.json'),
+    getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json')
 };
 
 export default api;
