@@ -7,7 +7,7 @@ var generateApiFn = (url) => () => {
     const data = cache.get(url);
     if (data) return when.resolve(data);
 
-    return ajax({url: url})
+    return ajax({url: url, dataType: 'json'})
         .tap((body) => cache.set(url, body))
         .catch((err) => console.error(url, err));
 }

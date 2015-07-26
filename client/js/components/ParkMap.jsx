@@ -104,6 +104,10 @@ export default class ParkMap extends React.Component {
                 {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
                 {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
+                <TileLayer
+                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                    id='drmaples.ipbindf8' />
             </Map>
         );
     }

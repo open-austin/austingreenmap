@@ -185,6 +185,16 @@ gulp.task('suppress-errors', function(){
     monkeyPatchPipe(gulp.src(""));
 });
 
+gulp.task('inject-cordova', function() {
+    var htmlreplace = require('gulp-html-replace');
+
+    return gulp.src('./build/index.html')
+        .pipe(htmlreplace({
+            'cordova': '<script src="cordova.js"></script>',
+        }))
+        .pipe(gulp.dest('./build/'));
+});
+
 gulp.task('build', ['styles', 'build-js', 'copy-html', 'copy-data', 'copy-images']);
 gulp.task('default', ['suppress-errors', 'clean', 'styles', 'copy-html', 'copy-data', 'copy-images', 'webserver', 'watch', 'watch-js']);
 gulp.task('frontend', ['clean', 'copy-html', 'styles', 'webserver', 'watch']);
