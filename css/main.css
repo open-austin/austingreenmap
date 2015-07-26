@@ -1602,15 +1602,19 @@ body {
   text-align: center; }
 
 .parks-list .park-distance {
-  text-align: left; }
+  text-align: left;
+  color: #8f958e; }
   @media (min-width: 768px) {
     .parks-list .park-distance {
       text-align: right; } }
 
 .parks-list .park-list-item {
   margin: 5px 0; }
-  .parks-list .park-list-item .park-name {
-    text-decoration: underline; }
+  .parks-list .park-list-item .park-name span {
+    text-decoration: underline;
+    cursor: pointer; }
+    .parks-list .park-list-item .park-name span:hover {
+      color: #389e46; }
 
 h4 {
   margin-top: 1em; }
@@ -1795,3 +1799,11 @@ a {
   color: #389e46;
   text-align: center;
   font-size: 30px; }
+
+.park-label {
+  width: 80px !important;
+  margin-left: -40px !important;
+  text-align: center;
+  display: block;
+  height: 1000px;
+  text-shadow: 0px 0px 4px #fff; }
