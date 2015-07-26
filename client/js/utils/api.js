@@ -3,7 +3,7 @@ import when from 'when';
 import ajax from './ajax';
 import cache from './cache';
 
-var generateApiFn = (url) => () => {
+const generateApiFn = (url) => () => {
     const data = cache.get(url);
     if (data) return when.resolve(data);
 
@@ -12,7 +12,7 @@ var generateApiFn = (url) => () => {
         .catch((err) => console.error(url, err));
 }
 
-var api = {
+const api = {
     getAllParks: generateApiFn('data/parks.json'),
     getFeatureGeoJson: (parkID, featureType) => generateApiFn(`data/${featureType}/park_${parkID}.geojson`)(),
     getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup.json`)(),
