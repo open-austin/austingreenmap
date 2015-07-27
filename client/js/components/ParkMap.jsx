@@ -2,7 +2,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import { GeoJsonCluster } from 'react-geojson-cluster';
+import { GeoJsonCluster } from 'react-leaflet-geojson-cluster';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
