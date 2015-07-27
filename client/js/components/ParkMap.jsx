@@ -55,7 +55,7 @@ function pointToLayer(feature, latlng) {
 }
 
 function clusterIcon (cluster) {
-    //majority feature wins
+    // majority feature wins
     var group = _.groupBy(cluster.getAllChildMarkers(), function (c) {
         return icons[c.feature.properties.AMENITY_TYPE || c.feature.properties.FACILITY_TYPE];
     });
