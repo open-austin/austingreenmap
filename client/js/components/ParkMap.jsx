@@ -121,8 +121,8 @@ export default class ParkMap extends React.Component {
                     attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                     id='drmaples.ipbindf8' />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
-                {this.props.amenityGeo ? <GeoJsonCluster data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
-                {this.props.facilityGeo ? <GeoJsonCluster data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
+                {this.props.amenityGeo ? <GeoJsonCluster data={this.props.amenityGeo} disableClusteringAtZoom={18} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
+                {this.props.facilityGeo ? <GeoJsonCluster data={this.props.facilityGeo} disableClusteringAtZoom={18} onEachFeature={onEachFacility} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                 <TileLayer
                     url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
