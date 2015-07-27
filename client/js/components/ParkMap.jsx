@@ -2,6 +2,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { GeoJsonCluster } from 'react-geojson-cluster';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
@@ -53,6 +54,25 @@ function pointToLayer(feature, latlng) {
     return L.marker(latlng, {icon: iconLayer});
 }
 
+function clusterIcon (cluster) {
+    //majority feature wins
+    var group = _.groupBy(cluster.getAllChildMarkers(), function (c) {
+        return icons[c.feature.properties.AMENITY_TYPE || c.feature.properties.FACILITY_TYPE];
+    });
+
+    var icon = _.max(Object.keys(group), function (k) {
+        return group[k].length;
+    });
+
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
+
+    return L.icon({
+        iconSize: [18, 18],
+        iconAnchor: [12, 17],
+        popupAnchor:  [1, -16],
+        iconUrl: iconURL,
+    });
+}
 
 export default class ParkMap extends React.Component {
 
@@ -101,8 +121,8 @@ export default class ParkMap extends React.Component {
                     attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
                     id='drmaples.ipbindf8' />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
-                {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
-                {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
+                {this.props.amenityGeo ? <GeoJsonCluster data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
+                {this.props.facilityGeo ? <GeoJsonCluster data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} iconCreateFunction={clusterIcon} /> : null}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
                 <TileLayer
                     url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
