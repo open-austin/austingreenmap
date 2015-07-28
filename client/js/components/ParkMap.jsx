@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
-import { GeoJson, Map, Marker, Popup } from 'react-leaflet';
+import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { GeoJsonCluster } from 'react-leaflet-geojson-cluster';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
-import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 import icons from '../utils/icons.json';
 
 
@@ -54,6 +54,25 @@ function pointToLayer(feature, latlng) {
     return L.marker(latlng, {icon: iconLayer});
 }
 
+function clusterIcon (cluster) {
+    // majority feature wins
+    var group = _.groupBy(cluster.getAllChildMarkers(), function (c) {
+        return icons[c.feature.properties.AMENITY_TYPE || c.feature.properties.FACILITY_TYPE];
+    });
+
+    var icon = _.max(Object.keys(group), function (k) {
+        return group[k].length;
+    });
+
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : `images/icons/${icon}-18@2x.png`;
+
+    return L.icon({
+        iconSize: [18, 18],
+        iconAnchor: [12, 17],
+        popupAnchor:  [1, -16],
+        iconUrl: iconURL,
+    });
+}
 
 export default class ParkMap extends React.Component {
 
@@ -78,6 +97,25 @@ export default class ParkMap extends React.Component {
         }
     }
 
+    showMarkerCluster (props) {
+        if (!props) return null;
+        var group = _.groupBy(props.features, (f) => {
+            return f.properties.AMENITY_TYPE || f.properties.FACILITY_TYPE;
+        });
+
+        return _.map(Object.keys(group), (f) => {
+            return (
+                <GeoJsonCluster
+                    data={ { "type": "FeatureCollection", "features": group[f] }}
+                    disableClusteringAtZoom={18}
+                    onEachFeature={onEachAmenity}
+                    pointToLayer={pointToLayer}
+                    showCoverageOnHover={false}
+                    iconCreateFunction={clusterIcon} />
+            );
+        });
+    }
+
     showFeatureInMap(featureID) {
         var leafletElement = this.refs.map.leafletElement;
         var matchingLayer = _.find(leafletElement._layers, (layer) => layer.feature && layer.feature.id === featureID);
@@ -96,12 +134,19 @@ export default class ParkMap extends React.Component {
 
     render() {
         return (
-            <Map id='map' ref='map' center={this.props.center} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
-                <ParkBaseTileLayer />
+            <Map id='map' ref='map' center={this.props.center} minZoom={10}>
+                <TileLayer
+                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                    id='drmaples.ipbindf8' />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
-                {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
-                {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
+                {this.showMarkerCluster(this.props.amenityGeo)}
+                {this.showMarkerCluster(this.props.facilityGeo)}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
+                <TileLayer
+                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
+                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
+                    id='drmaples.ipbindf8' />
             </Map>
         );
     }
