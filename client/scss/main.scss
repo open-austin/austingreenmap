@@ -349,10 +349,16 @@ a {
     font-size: 30px;
 }
 
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+    -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
+    -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
+    -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+}
+
 .park-label {
     width: 80px !important;
     margin-left: -40px !important;
-    // margin-top: 0px !important;
     text-align: center;
     display: block;
     height: 1000px;
