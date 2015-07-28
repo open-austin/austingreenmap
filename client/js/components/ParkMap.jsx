@@ -95,7 +95,7 @@ export default class ParkMap extends React.Component {
 
     render() {
         return (
-            <Map id='map' ref='map' center={this.props.center} minZoom={10}>
+            <Map id='map' ref='map' center={this.props.center} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <TileLayer
                     url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                     attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'

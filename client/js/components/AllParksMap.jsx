@@ -81,7 +81,7 @@ export default class AllParksMap extends React.Component {
         // FIXME: Only show trails if zoom level is greater than 14
 
         return (
-            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
+            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <TileLayer
                     url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
                     attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
