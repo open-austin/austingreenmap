@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Mapping Austin parks",
   "main": "index.js",
-  "homepage": "https://github.com/openaustin/",
+  "homepage": "http://open-austin.github.io/austingreenmap/",
+  "repository": "https://github.com/open-austin/austingreenmap",
   "author": "Open Austin",
   "scripts": {
     "start": "gulp clean && gulp"
@@ -37,6 +38,7 @@
     "component-ajax": "0.0.2",
     "flux": "^2.0.1",
     "leaflet": "^0.7.3",
+    "leaflet.label": "git+ssh://git@github.com:Leaflet/Leaflet.label.git",
     "lodash": "^3.9.3",
     "moment": "^2.9.0",
     "protobufjs": "^3.8.2",

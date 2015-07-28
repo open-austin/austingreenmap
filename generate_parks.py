@@ -99,6 +99,14 @@ def generate_trails(cursor):
             fh.write(json.dumps(feature_collection))
 
 
+def _center_for_geometry(cursor, geometry, crs):
+    geometry['crs'] = crs
+    cursor.execute('SELECT ST_AsGeoJSON(ST_Centroid(ST_Transform(ST_GeomFromGeoJson(%s), 4326)));', (json.dumps(geometry), ))
+    center = json.loads(cursor.fetchone()[0])['coordinates']
+    center = [center[1], center[0]]
+    return center
+
+
 def generate_parks_list(cursor):
     with open('./raw/city_of_austin_parks.json', 'r') as fh:
         data = fh.read()
@@ -110,10 +118,7 @@ def generate_parks_list(cursor):
 
     for feature in data['features']:
         geometry = feature['geometry']
-        geometry['crs'] = crs
-        cursor.execute('SELECT ST_AsGeoJSON(ST_Centroid(ST_Transform(ST_GeomFromGeoJson(%s), 4326)));', (json.dumps(geometry), ))
-        center = json.loads(cursor.fetchone()[0])['coordinates']
-        center = [center[1], center[0]]
+        center = _center_for_geometry(cursor, geometry, crs)
 
         properties = feature['properties']
         park = {
@@ -137,6 +142,8 @@ def unshit_parks_topo(cursor):
     crs = data['crs']
 
     for feature in data['features']:
+        center = _center_for_geometry(cursor, feature['geometry'], crs)
+        feature['properties']['center'] = center
         geometry = less_shitty_geometry(cursor, feature['geometry'], crs)
         feature['geometry'] = geometry
 
