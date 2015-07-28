@@ -1800,6 +1800,10 @@ a {
   text-align: center;
   font-size: 30px; }
 
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+  transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in; }
+
 .park-label {
   width: 80px !important;
   margin-left: -40px !important;

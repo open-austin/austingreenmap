@@ -23,7 +23,7 @@ function init() {
     window.austingreenmap = _react2['default'].render(_react2['default'].createElement(_componentsAppRouterJsx2['default'], null), document.getElementById('app'));
 }
 
-if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
+if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {
     document.addEventListener('deviceready', init, false);
 } else {
     init();
@@ -41,11 +41,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -60,15 +62,13 @@ var _utilsApi = require('../utils/api');
 var _utilsApi2 = _interopRequireDefault(_utilsApi);
 
 var AllParksList = (function (_React$Component) {
+    _inherits(AllParksList, _React$Component);
+
     function AllParksList() {
         _classCallCheck(this, AllParksList);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(AllParksList.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(AllParksList, _React$Component);
 
     _createClass(AllParksList, [{
         key: 'render',
@@ -123,11 +123,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _leaflet = require('leaflet');
 
@@ -147,9 +149,9 @@ var _topojson2 = _interopRequireDefault(_topojson);
 
 var _turf = require('turf');
 
-var _turf2 = _interopRequireDefault(_turf);
-
 // FIXME: replace with turf-extent
+
+var _turf2 = _interopRequireDefault(_turf);
 
 var _reactLeaflet = require('react-leaflet');
 
@@ -165,21 +167,23 @@ var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 
 var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
 
+var _ParkBaseTileLayerJsx = require('./ParkBaseTileLayer.jsx');
+
 // A warning:
 // I tried adding zoomLevel to this.state and upating it in zoomEnd
 // This lead to funky rerenders happening when leaflet trigges a zoom
 // :O
 
+var _ParkBaseTileLayerJsx2 = _interopRequireDefault(_ParkBaseTileLayerJsx);
+
 var AllParksMap = (function (_React$Component) {
+    _inherits(AllParksMap, _React$Component);
+
     function AllParksMap() {
         _classCallCheck(this, AllParksMap);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(AllParksMap.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(AllParksMap, _React$Component);
 
     _createClass(AllParksMap, [{
         key: 'componentDidMount',
@@ -209,7 +213,11 @@ var AllParksMap = (function (_React$Component) {
         }
     }, {
         key: 'componentWillUnmount',
-        value: function componentWillUnmount() {}
+        value: function componentWillUnmount() {
+            // FIXME: prbyl need to do thigns here
+            // map.off zoomend maybe?
+            // delete the layer groups arrays maybe?
+        }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
@@ -298,7 +306,7 @@ var AllParksMap = (function (_React$Component) {
                 opacity: 1,
                 weight: 1,
                 fillColor: 'rgb(86,221,84)',
-                fillOpacity: 0.8
+                fillOpacity: 0.4
             };
 
             var parkTrailStyle = {
@@ -311,11 +319,8 @@ var AllParksMap = (function (_React$Component) {
 
             return _react2['default'].createElement(
                 _reactLeaflet.Map,
-                { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10 },
-                _react2['default'].createElement(_reactLeaflet.TileLayer, {
-                    url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                    attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
-                    id: 'drmaples.ipbindf8' }),
+                { id: 'map', ref: 'map', center: [30.267153, -97.743061], zoom: 12, minZoom: 10, maxBounds: [[30.05, -98.3], [30.6, -97.2]] },
+                _react2['default'].createElement(_ParkBaseTileLayerJsx2['default'], null),
                 _react2['default'].createElement(_GeoJsonUpdatableJsx2['default'], { data: this.getVisibleParks(), style: parkLayerStyle, onEachFeature: function (feature, layer) {
                         return _this3.onEachParkFeature(feature, layer);
                     } }),
@@ -338,11 +343,7 @@ AllParksMap.propTypes = {
 };
 module.exports = exports['default'];
 
-// FIXME: prbyl need to do thigns here
-// map.off zoomend maybe?
-// delete the layer groups arrays maybe?
-
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","leaflet.label":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet.label/dist/leaflet.label.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","./GeoJsonUpdatable.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/GeoJsonUpdatable.jsx","./ParkBaseTileLayer.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkBaseTileLayer.jsx","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","leaflet.label":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet.label/dist/leaflet.label.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","topojson":"/Users/luqmaan/dev/austingreenmap/node_modules/topojson/topojson.js","turf":"/Users/luqmaan/dev/austingreenmap/node_modules/turf/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/App.react.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -351,13 +352,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -392,6 +393,8 @@ var _ParkPageJsx = require('./ParkPage.jsx');
 var _ParkPageJsx2 = _interopRequireDefault(_ParkPageJsx);
 
 var App = (function (_React$Component) {
+    _inherits(App, _React$Component);
+
     function App(props) {
         var _this = this;
 
@@ -446,8 +449,6 @@ var App = (function (_React$Component) {
             return console.error(err);
         });
     }
-
-    _inherits(App, _React$Component);
 
     _createClass(App, [{
         key: 'selectParkWithId',
@@ -560,13 +561,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -577,6 +578,8 @@ var _AppReactJsx = require('./App.react.jsx');
 var _AppReactJsx2 = _interopRequireDefault(_AppReactJsx);
 
 var AppRouter = (function (_React$Component) {
+    _inherits(AppRouter, _React$Component);
+
     function AppRouter(props) {
         _classCallCheck(this, AppRouter);
 
@@ -585,8 +588,6 @@ var AppRouter = (function (_React$Component) {
             route: window.location.hash.substring(1)
         };
     }
-
-    _inherits(AppRouter, _React$Component);
 
     _createClass(AppRouter, [{
         key: 'componentWillMount',
@@ -631,11 +632,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -646,15 +649,13 @@ var _imagesChevronUpSvg = require('../../images/chevron-up.svg');
 var _imagesChevronUpSvg2 = _interopRequireDefault(_imagesChevronUpSvg);
 
 var Chevron = (function (_React$Component) {
+    _inherits(Chevron, _React$Component);
+
     function Chevron() {
         _classCallCheck(this, Chevron);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(Chevron.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(Chevron, _React$Component);
 
     _createClass(Chevron, [{
         key: 'render',
@@ -682,13 +683,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -699,6 +700,8 @@ var _ChevronJsx = require('./Chevron.jsx');
 var _ChevronJsx2 = _interopRequireDefault(_ChevronJsx);
 
 var Container = (function (_React$Component) {
+    _inherits(Container, _React$Component);
+
     function Container(props) {
         _classCallCheck(this, Container);
 
@@ -708,8 +711,6 @@ var Container = (function (_React$Component) {
             up: false
         };
     }
-
-    _inherits(Container, _React$Component);
 
     _createClass(Container, [{
         key: 'slideUp',
@@ -768,11 +769,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require("react");
 
@@ -781,15 +784,13 @@ var _react2 = _interopRequireDefault(_react);
 var _reactLeaflet = require("react-leaflet");
 
 var GeoJsonUpdatable = (function (_GeoJson) {
+    _inherits(GeoJsonUpdatable, _GeoJson);
+
     function GeoJsonUpdatable() {
         _classCallCheck(this, GeoJsonUpdatable);
 
-        if (_GeoJson != null) {
-            _GeoJson.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(GeoJsonUpdatable.prototype), "constructor", this).apply(this, arguments);
     }
-
-    _inherits(GeoJsonUpdatable, _GeoJson);
 
     _createClass(GeoJsonUpdatable, [{
         key: "componentWillReceiveProps",
@@ -826,13 +827,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -859,6 +860,8 @@ var _ParkFiltersJsx = require('./ParkFilters.jsx');
 var _ParkFiltersJsx2 = _interopRequireDefault(_ParkFiltersJsx);
 
 var HomePage = (function (_React$Component) {
+    _inherits(HomePage, _React$Component);
+
     function HomePage(props) {
         _classCallCheck(this, HomePage);
 
@@ -869,16 +872,14 @@ var HomePage = (function (_React$Component) {
         };
     }
 
-    _inherits(HomePage, _React$Component);
-
     _createClass(HomePage, [{
         key: 'render',
         value: function render() {
             var nearbyParkCount = this.props.visibleParks.filter(function (park) {
                 return park.distance && park.distance < 1;
             }).length;
-            var containerTitle = '' + this.props.visibleParks.length + ' parks';
-            containerTitle = !nearbyParkCount ? containerTitle : '' + containerTitle + ', ' + nearbyParkCount + ' within 1 mi';
+            var containerTitle = this.props.visibleParks.length + ' parks';
+            containerTitle = !nearbyParkCount ? containerTitle : containerTitle + ', ' + nearbyParkCount + ' within 1 mi';
 
             return _react2['default'].createElement(
                 'div',
@@ -931,26 +932,26 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var Navigation = (function (_React$Component) {
+    _inherits(Navigation, _React$Component);
+
     function Navigation() {
         _classCallCheck(this, Navigation);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(Navigation.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(Navigation, _React$Component);
 
     _createClass(Navigation, [{
         key: 'render',
@@ -984,7 +985,53 @@ var Navigation = (function (_React$Component) {
 exports['default'] = Navigation;
 module.exports = exports['default'];
 
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkBaseTileLayer.jsx":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _reactLeaflet = require("react-leaflet");
+
+var ParkBaseTileLayer = (function (_TileLayer) {
+  _inherits(ParkBaseTileLayer, _TileLayer);
+
+  function ParkBaseTileLayer() {
+    _classCallCheck(this, ParkBaseTileLayer);
+
+    _get(Object.getPrototypeOf(ParkBaseTileLayer.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(ParkBaseTileLayer, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var isRetina = window.devicePixelRatio && window.devicePixelRatio > 1;
+
+      this.props.url = isRetina ? 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png' : 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+      this.props.attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+
+      _get(Object.getPrototypeOf(ParkBaseTileLayer.prototype), 'componentWillMount', this).call(this);
+    }
+  }]);
+
+  return ParkBaseTileLayer;
+})(_reactLeaflet.TileLayer);
+
+exports['default'] = ParkBaseTileLayer;
+
+ParkBaseTileLayer.propTypes = {};
+module.exports = exports['default'];
+
+},{"react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -993,11 +1040,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -1012,15 +1061,13 @@ var _ParkFeatureListItemJsx = require('./ParkFeatureListItem.jsx');
 var _ParkFeatureListItemJsx2 = _interopRequireDefault(_ParkFeatureListItemJsx);
 
 var ParkFeatureList = (function (_React$Component) {
+    _inherits(ParkFeatureList, _React$Component);
+
     function ParkFeatureList() {
         _classCallCheck(this, ParkFeatureList);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(ParkFeatureList.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(ParkFeatureList, _React$Component);
 
     _createClass(ParkFeatureList, [{
         key: 'render',
@@ -1108,11 +1155,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -1123,15 +1172,13 @@ var _utilsIconsJson = require('../utils/icons.json');
 var _utilsIconsJson2 = _interopRequireDefault(_utilsIconsJson);
 
 var ParkFeatureListItem = (function (_React$Component) {
+    _inherits(ParkFeatureListItem, _React$Component);
+
     function ParkFeatureListItem() {
         _classCallCheck(this, ParkFeatureListItem);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(ParkFeatureListItem.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(ParkFeatureListItem, _React$Component);
 
     _createClass(ParkFeatureListItem, [{
         key: 'onClick',
@@ -1226,13 +1273,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -1251,6 +1298,8 @@ var _utilsApi = require('../utils/api');
 var _utilsApi2 = _interopRequireDefault(_utilsApi);
 
 var ParkFilters = (function (_React$Component) {
+    _inherits(ParkFilters, _React$Component);
+
     function ParkFilters(props) {
         _classCallCheck(this, ParkFilters);
 
@@ -1259,8 +1308,6 @@ var ParkFilters = (function (_React$Component) {
             selectedFilter: ''
         };
     }
-
-    _inherits(ParkFilters, _React$Component);
 
     _createClass(ParkFilters, [{
         key: 'onSelect',
@@ -1295,7 +1342,7 @@ var ParkFilters = (function (_React$Component) {
                     value: this.state.selectedFilters,
                     options: options,
                     onChange: this.onSelect.bind(this),
-                    placeholder: 'Find parks with' }),
+                    placeholder: "Find parks with" }),
                 _react2['default'].createElement(
                     'div',
                     { className: 'filter-icons' },
@@ -1304,21 +1351,21 @@ var ParkFilters = (function (_React$Component) {
                         { className: this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon', onClick: function () {
                                 return _this.updateFilters(['Restroom']);
                             } },
-                        _react2['default'].createElement('img', { alt: 'Restroom', src: 'images/icons/toilets-24@2x.png' })
+                        _react2['default'].createElement('img', { alt: "Restroom", src: "images/icons/toilets-24@2x.png" })
                     ),
                     _react2['default'].createElement(
                         'button',
                         { className: this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon', onClick: function () {
                                 return _this.updateFilters(['Mutt Mitt']);
                             } },
-                        _react2['default'].createElement('img', { alt: 'Mutt Mitt', src: 'images/icons/dog-park-24@2x.png' })
+                        _react2['default'].createElement('img', { alt: "Mutt Mitt", src: "images/icons/dog-park-24@2x.png" })
                     ),
                     _react2['default'].createElement(
                         'button',
                         { className: this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon', onClick: function () {
                                 return _this.updateFilters(['Parking Lot']);
                             } },
-                        _react2['default'].createElement('img', { alt: 'Parking Lot', src: 'images/icons/parking-24@2x.png' })
+                        _react2['default'].createElement('img', { alt: "Parking Lot", src: "images/icons/parking-24@2x.png" })
                     )
                 )
             );
@@ -1346,11 +1393,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -1365,6 +1414,8 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _reactLeaflet = require('react-leaflet');
+
+var _reactLeafletGeojsonCluster = require('react-leaflet-geojson-cluster');
 
 var _utils = require('../utils');
 
@@ -1420,16 +1471,34 @@ function pointToLayer(feature, latlng) {
     return _leaflet2['default'].marker(latlng, { icon: iconLayer });
 }
 
+function clusterIcon(cluster) {
+    // majority feature wins
+    var group = _lodash2['default'].groupBy(cluster.getAllChildMarkers(), function (c) {
+        return _utilsIconsJson2['default'][c.feature.properties.AMENITY_TYPE || c.feature.properties.FACILITY_TYPE];
+    });
+
+    var icon = _lodash2['default'].max(Object.keys(group), function (k) {
+        return group[k].length;
+    });
+
+    var iconURL = icon === '?' ? 'images/deciduous_tree.png' : 'images/icons/' + icon + '-18@2x.png';
+
+    return _leaflet2['default'].icon({
+        iconSize: [18, 18],
+        iconAnchor: [12, 17],
+        popupAnchor: [1, -16],
+        iconUrl: iconURL
+    });
+}
+
 var ParkMap = (function (_React$Component) {
+    _inherits(ParkMap, _React$Component);
+
     function ParkMap() {
         _classCallCheck(this, ParkMap);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(ParkMap.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(ParkMap, _React$Component);
 
     _createClass(ParkMap, [{
         key: 'componentDidMount',
@@ -1455,6 +1524,24 @@ var ParkMap = (function (_React$Component) {
                 var bounds = _utils2['default'].boundsForFeature(this.props.parkGeo);
                 this.refs.map.getLeafletElement().fitBounds(bounds);
             }
+        }
+    }, {
+        key: 'showMarkerCluster',
+        value: function showMarkerCluster(props) {
+            if (!props) return null;
+            var group = _lodash2['default'].groupBy(props.features, function (f) {
+                return f.properties.AMENITY_TYPE || f.properties.FACILITY_TYPE;
+            });
+
+            return _lodash2['default'].map(Object.keys(group), function (f) {
+                return _react2['default'].createElement(_reactLeafletGeojsonCluster.GeoJsonCluster, {
+                    data: { "type": "FeatureCollection", "features": group[f] },
+                    disableClusteringAtZoom: 18,
+                    onEachFeature: onEachAmenity,
+                    pointToLayer: pointToLayer,
+                    showCoverageOnHover: false,
+                    iconCreateFunction: clusterIcon });
+            });
         }
     }, {
         key: 'showFeatureInMap',
@@ -1486,8 +1573,8 @@ var ParkMap = (function (_React$Component) {
                     attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                     id: 'drmaples.ipbindf8' }),
                 this.props.parkGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.parkGeo, onEachFeature: onEachPark }) : null,
-                this.props.amenityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.amenityGeo, onEachFeature: onEachAmenity, pointToLayer: pointToLayer }) : null,
-                this.props.facilityGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.facilityGeo, onEachFeature: onEachFacility, pointToLayer: pointToLayer }) : null,
+                this.showMarkerCluster(this.props.amenityGeo),
+                this.showMarkerCluster(this.props.facilityGeo),
                 this.props.trailGeo ? _react2['default'].createElement(_reactLeaflet.GeoJson, { data: this.props.trailGeo, onEachFeature: onEachTrail }) : null,
                 _react2['default'].createElement(_reactLeaflet.TileLayer, {
                     url: 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
@@ -1512,7 +1599,7 @@ ParkMap.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx":[function(require,module,exports){
+},{"../utils":"/Users/luqmaan/dev/austingreenmap/client/js/utils/index.js","../utils/icons.json":"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json","./ParkFeatureList.jsx":"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkFeatureList.jsx","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js","react-leaflet-geojson-cluster":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/index.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/components/ParkPage.jsx":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1521,13 +1608,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _lodash = require('lodash');
 
@@ -1570,6 +1657,8 @@ var _ParkFeatureListJsx = require('./ParkFeatureList.jsx');
 var _ParkFeatureListJsx2 = _interopRequireDefault(_ParkFeatureListJsx);
 
 var ParkPage = (function (_React$Component) {
+    _inherits(ParkPage, _React$Component);
+
     function ParkPage(props) {
         _classCallCheck(this, ParkPage);
 
@@ -1584,8 +1673,6 @@ var ParkPage = (function (_React$Component) {
             trailGeo: null
         };
     }
-
-    _inherits(ParkPage, _React$Component);
 
     _createClass(ParkPage, [{
         key: 'load',
@@ -1698,11 +1785,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -1713,15 +1802,13 @@ var _ChevronJsx = require('./Chevron.jsx');
 var _ChevronJsx2 = _interopRequireDefault(_ChevronJsx);
 
 var ParkSummary = (function (_React$Component) {
+    _inherits(ParkSummary, _React$Component);
+
     function ParkSummary() {
         _classCallCheck(this, ParkSummary);
 
-        if (_React$Component != null) {
-            _React$Component.apply(this, arguments);
-        }
+        _get(Object.getPrototypeOf(ParkSummary.prototype), 'constructor', this).apply(this, arguments);
     }
-
-    _inherits(ParkSummary, _React$Component);
 
     _createClass(ParkSummary, [{
         key: 'slideUp',
@@ -1860,86 +1947,63 @@ var _ajax = require('./ajax');
 
 var _ajax2 = _interopRequireDefault(_ajax);
 
-var _cache = {};
+var _cache = require('./cache');
+
+var _cache2 = _interopRequireDefault(_cache);
+
+var generateApiFn = function generateApiFn(url) {
+    return function () {
+        var data = _cache2['default'].get(url);
+        if (data) return _when2['default'].resolve(data);
+
+        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
+            return _cache2['default'].set(url, body);
+        })['catch'](function (err) {
+            return console.error(url, err);
+        });
+    };
+};
 
 var api = {
-
-    getAllParks: function getAllParks() {
-        var url = 'data/parks.json';
-
-        if (_cache[url]) {
-            return _when2['default'].resolve(_cache[url]);
-        }
-
-        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
-            return _cache[url] = body;
-        })['catch'](function (err) {
-            return console.error(url, err);
-        });
-    },
-
+    getAllParks: generateApiFn('data/parks.json'),
     getFeatureGeoJson: function getFeatureGeoJson(parkID, featureType) {
-        var url = 'data/' + featureType + '/park_' + parkID + '.geojson';
-
-        if (_cache[url]) {
-            return _when2['default'].resolve(_cache[url]);
-        }
-
-        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
-            return _cache[url] = body;
-        })['catch'](function (err) {
-            return console.error(url, err);
-        });
+        return generateApiFn('data/' + featureType + '/park_' + parkID + '.geojson')();
     },
-
     getLookup: function getLookup(lookupType) {
-        var url = 'data/' + lookupType + '_lookup.json';
-
-        if (_cache[url]) {
-            return _when2['default'].resolve(_cache[url]);
-        }
-
-        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
-            return _cache[url] = body;
-        })['catch'](function (err) {
-            return console.error(url, err);
-        });
+        return generateApiFn('data/' + lookupType + '_lookup.json')();
     },
-
-    getAllParksTopo: function getAllParksTopo() {
-        var url = 'data/city_of_austin_parks.topo.json';
-
-        if (_cache[url]) {
-            return _when2['default'].resolve(_cache[url]);
-        }
-
-        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
-            return _cache[url] = body;
-        })['catch'](function (err) {
-            return console.error(url, err);
-        });
-    },
-
-    getAllTrailsTopo: function getAllTrailsTopo() {
-        var url = 'data/pard_trails_nrpa.topo.json';
-
-        if (_cache[url]) {
-            return _when2['default'].resolve(_cache[url]);
-        }
-
-        return (0, _ajax2['default'])({ url: url, dataType: 'json' }).tap(function (body) {
-            return _cache[url] = body;
-        })['catch'](function (err) {
-            return console.error(url, err);
-        });
-    }
-
+    getAllParksTopo: generateApiFn('data/city_of_austin_parks.topo.json'),
+    getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json')
 };
 
 exports['default'] = api;
 module.exports = exports['default'];
 
-},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json":[function(require,module,exports){
+},{"./ajax":"/Users/luqmaan/dev/austingreenmap/client/js/utils/ajax.js","./cache":"/Users/luqmaan/dev/austingreenmap/client/js/utils/cache.js","when":"/Users/luqmaan/dev/austingreenmap/node_modules/when/when.js"}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/cache.js":[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var _cache = {};
+
+if (localStorage) {
+    _cache = localStorage;
+}
+
+var cache = {
+    get: function get(key) {
+        return _cache[key] ? JSON.parse(_cache[key]) : null;
+    },
+    set: function set(key, val) {
+        return _cache[key] = JSON.stringify(val);
+    }
+};
+
+exports["default"] = cache;
+module.exports = exports["default"];
+
+},{}],"/Users/luqmaan/dev/austingreenmap/client/js/utils/icons.json":[function(require,module,exports){
 module.exports={
     "(Non-PARD) AFD Building": "fire-station",
     "(Non-PARD) Austin Energy Building": "building",
@@ -2050,9 +2114,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var _turf = require('turf');
 
-var _turf2 = _interopRequireDefault(_turf);
-
 // FIXME: replace with turf-extent
+
+var _turf2 = _interopRequireDefault(_turf);
 
 var _when = require('when');
 
@@ -2115,7 +2179,6 @@ exports.SlowBuffer = SlowBuffer
 exports.INSPECT_MAX_BYTES = 50
 Buffer.poolSize = 8192 // not used by this implementation
 
-var kMaxLength = 0x3fffffff
 var rootParent = {}
 
 /**
@@ -2141,17 +2204,26 @@ var rootParent = {}
  * get the Object implementation, which is slower but will work correctly.
  */
 Buffer.TYPED_ARRAY_SUPPORT = (function () {
+  function Foo () {}
   try {
     var buf = new ArrayBuffer(0)
     var arr = new Uint8Array(buf)
     arr.foo = function () { return 42 }
+    arr.constructor = Foo
     return arr.foo() === 42 && // typed array instances can be augmented
+        arr.constructor === Foo && // constructor can be set
         typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
         new Uint8Array(1).subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
   } catch (e) {
     return false
   }
 })()
+
+function kMaxLength () {
+  return Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+}
 
 /**
  * Class: Buffer
@@ -2303,9 +2375,9 @@ function allocate (that, length) {
 function checked (length) {
   // Note: cannot use `length < kMaxLength` here because that fails when
   // length is NaN (which is otherwise coerced to zero.)
-  if (length >= kMaxLength) {
+  if (length >= kMaxLength()) {
     throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
-                         'size: 0x' + kMaxLength.toString(16) + ' bytes')
+                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
   }
   return length | 0
 }
@@ -2397,29 +2469,38 @@ Buffer.concat = function concat (list, length) {
 }
 
 function byteLength (string, encoding) {
-  if (typeof string !== 'string') string = String(string)
+  if (typeof string !== 'string') string = '' + string
 
-  if (string.length === 0) return 0
+  var len = string.length
+  if (len === 0) return 0
 
-  switch (encoding || 'utf8') {
-    case 'ascii':
-    case 'binary':
-    case 'raw':
-      return string.length
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      return string.length * 2
-    case 'hex':
-      return string.length >>> 1
-    case 'utf8':
-    case 'utf-8':
-      return utf8ToBytes(string).length
-    case 'base64':
-      return base64ToBytes(string).length
-    default:
-      return string.length
+  // Use a for loop to avoid recursion
+  var loweredCase = false
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'binary':
+      // Deprecated
+      case 'raw':
+      case 'raws':
+        return len
+      case 'utf8':
+      case 'utf-8':
+        return utf8ToBytes(string).length
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2
+      case 'hex':
+        return len >>> 1
+      case 'base64':
+        return base64ToBytes(string).length
+      default:
+        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+        encoding = ('' + encoding).toLowerCase()
+        loweredCase = true
+    }
   }
 }
 Buffer.byteLength = byteLength
@@ -2428,8 +2509,7 @@ Buffer.byteLength = byteLength
 Buffer.prototype.length = undefined
 Buffer.prototype.parent = undefined
 
-// toString(encoding, start=0, end=buffer.length)
-Buffer.prototype.toString = function toString (encoding, start, end) {
+function slowToString (encoding, start, end) {
   var loweredCase = false
 
   start = start | 0
@@ -2470,6 +2550,13 @@ Buffer.prototype.toString = function toString (encoding, start, end) {
         loweredCase = true
     }
   }
+}
+
+Buffer.prototype.toString = function toString () {
+  var length = this.length | 0
+  if (length === 0) return ''
+  if (arguments.length === 0) return utf8Slice(this, 0, length)
+  return slowToString.apply(this, arguments)
 }
 
 Buffer.prototype.equals = function equals (b) {
@@ -3642,14 +3729,14 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 },{}],"/Users/luqmaan/dev/austingreenmap/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js":[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-  var e, m,
-      eLen = nBytes * 8 - mLen - 1,
-      eMax = (1 << eLen) - 1,
-      eBias = eMax >> 1,
-      nBits = -7,
-      i = isLE ? (nBytes - 1) : 0,
-      d = isLE ? -1 : 1,
-      s = buffer[offset + i]
+  var e, m
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var nBits = -7
+  var i = isLE ? (nBytes - 1) : 0
+  var d = isLE ? -1 : 1
+  var s = buffer[offset + i]
 
   i += d
 
@@ -3675,14 +3762,14 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
 }
 
 exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c,
-      eLen = nBytes * 8 - mLen - 1,
-      eMax = (1 << eLen) - 1,
-      eBias = eMax >> 1,
-      rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0),
-      i = isLE ? 0 : (nBytes - 1),
-      d = isLE ? 1 : -1,
-      s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+  var e, m, c
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+  var i = isLE ? 0 : (nBytes - 1)
+  var d = isLE ? 1 : -1
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
 
   value = Math.abs(value)
 
@@ -13335,11 +13422,177 @@ L.Map.include({
 
 
 }(window, document));
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/array/last.js":[function(require,module,exports){
+/**
+ * Gets the last element of `array`.
+ *
+ * @static
+ * @memberOf _
+ * @category Array
+ * @param {Array} array The array to query.
+ * @returns {*} Returns the last element of `array`.
+ * @example
+ *
+ * _.last([1, 2, 3]);
+ * // => 3
+ */
+function last(array) {
+  var length = array ? array.length : 0;
+  return length ? array[length - 1] : undefined;
+}
+
+module.exports = last;
+
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/collection/forEach.js":[function(require,module,exports){
+var arrayEach = require('../internal/arrayEach'),
+    baseEach = require('../internal/baseEach'),
+    createForEach = require('../internal/createForEach');
+
+/**
+ * Iterates over elements of `collection` invoking `iteratee` for each element.
+ * The `iteratee` is bound to `thisArg` and invoked with three arguments:
+ * (value, index|key, collection). Iteratee functions may exit iteration early
+ * by explicitly returning `false`.
+ *
+ * **Note:** As with other "Collections" methods, objects with a "length" property
+ * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
+ * may be used for object iteration.
+ *
+ * @static
+ * @memberOf _
+ * @alias each
+ * @category Collection
+ * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Array|Object|string} Returns `collection`.
+ * @example
+ *
+ * _([1, 2]).forEach(function(n) {
+ *   console.log(n);
+ * }).value();
+ * // => logs each value from left to right and returns the array
+ *
+ * _.forEach({ 'a': 1, 'b': 2 }, function(n, key) {
+ *   console.log(n, key);
+ * });
+ * // => logs each value-key pair and returns the object (iteration order is not guaranteed)
+ */
+var forEach = createForEach(arrayEach, baseEach);
+
+module.exports = forEach;
+
+},{"../internal/arrayEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayEach.js","../internal/baseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseEach.js","../internal/createForEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createForEach.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/collection/reduce.js":[function(require,module,exports){
+var arrayReduce = require('../internal/arrayReduce'),
+    baseEach = require('../internal/baseEach'),
+    createReduce = require('../internal/createReduce');
+
+/**
+ * Reduces `collection` to a value which is the accumulated result of running
+ * each element in `collection` through `iteratee`, where each successive
+ * invocation is supplied the return value of the previous. If `accumulator`
+ * is not provided the first element of `collection` is used as the initial
+ * value. The `iteratee` is bound to `thisArg` and invoked with four arguments:
+ * (accumulator, value, index|key, collection).
+ *
+ * Many lodash methods are guarded to work as iteratees for methods like
+ * `_.reduce`, `_.reduceRight`, and `_.transform`.
+ *
+ * The guarded methods are:
+ * `assign`, `defaults`, `defaultsDeep`, `includes`, `merge`, `sortByAll`,
+ * and `sortByOrder`
+ *
+ * @static
+ * @memberOf _
+ * @alias foldl, inject
+ * @category Collection
+ * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @param {*} [accumulator] The initial value.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {*} Returns the accumulated value.
+ * @example
+ *
+ * _.reduce([1, 2], function(total, n) {
+ *   return total + n;
+ * });
+ * // => 3
+ *
+ * _.reduce({ 'a': 1, 'b': 2 }, function(result, n, key) {
+ *   result[key] = n * 3;
+ *   return result;
+ * }, {});
+ * // => { 'a': 3, 'b': 6 } (iteration order is not guaranteed)
+ */
+var reduce = createReduce(arrayReduce, baseEach);
+
+module.exports = reduce;
+
+},{"../internal/arrayReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayReduce.js","../internal/baseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseEach.js","../internal/createReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createReduce.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/function/restParam.js":[function(require,module,exports){
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Native method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Creates a function that invokes `func` with the `this` binding of the
+ * created function and arguments from `start` and beyond provided as an array.
+ *
+ * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
+ *
+ * @static
+ * @memberOf _
+ * @category Function
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ * @example
+ *
+ * var say = _.restParam(function(what, names) {
+ *   return what + ' ' + _.initial(names).join(', ') +
+ *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+ * });
+ *
+ * say('hello', 'fred', 'barney', 'pebbles');
+ * // => 'hello fred, barney, & pebbles'
+ */
+function restParam(func, start) {
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        rest = Array(length);
+
+    while (++index < length) {
+      rest[index] = args[start + index];
+    }
+    switch (start) {
+      case 0: return func.call(this, rest);
+      case 1: return func.call(this, args[0], rest);
+      case 2: return func.call(this, args[0], args[1], rest);
+    }
+    var otherArgs = Array(start + 1);
+    index = -1;
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = rest;
+    return func.apply(this, otherArgs);
+  };
+}
+
+module.exports = restParam;
+
 },{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/index.js":[function(require,module,exports){
 (function (global){
 /**
  * @license
- * lodash 3.9.3 (Custom Build) <https://lodash.com/>
+ * lodash 3.10.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern -d -o ./index.js`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -13352,7 +13605,7 @@ L.Map.include({
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '3.9.3';
+  var VERSION = '3.10.0';
 
   /** Used to compose bitmasks for wrapper metadata. */
   var BIND_FLAG = 1,
@@ -13373,9 +13626,11 @@ L.Map.include({
   var HOT_COUNT = 150,
       HOT_SPAN = 16;
 
+  /** Used as the size to enable large array optimizations. */
+  var LARGE_ARRAY_SIZE = 200;
+
   /** Used to indicate the type of lazy iteratees. */
-  var LAZY_DROP_WHILE_FLAG = 0,
-      LAZY_FILTER_FLAG = 1,
+  var LAZY_FILTER_FLAG = 1,
       LAZY_MAP_FLAG = 2;
 
   /** Used as the `TypeError` message for "Functions" methods. */
@@ -13432,11 +13687,10 @@ L.Map.include({
       rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
 
   /**
-   * Used to match `RegExp` [special characters](http://www.regular-expressions.info/characters.html#special).
-   * In addition to special characters the forward slash is escaped to allow for
-   * easier `eval` use and `Function` compilation.
+   * Used to match `RegExp` [syntax characters](http://ecma-international.org/ecma-262/6.0/#sec-patterns)
+   * and those outlined by [`EscapeRegExpPattern`](http://ecma-international.org/ecma-262/6.0/#sec-escaperegexppattern).
    */
-  var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
+  var reRegExpChars = /^[:!,]|[\\^$.*+?()[\]{}|\/]|(^[0-9a-fA-Fnrtuvx])|([\n\r\u2028\u2029])/g,
       reHasRegExpChars = RegExp(reRegExpChars.source);
 
   /** Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks). */
@@ -13445,7 +13699,7 @@ L.Map.include({
   /** Used to match backslashes in property paths. */
   var reEscapeChar = /\\(\\)?/g;
 
-  /** Used to match [ES template delimiters](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components). */
+  /** Used to match [ES template delimiters](http://ecma-international.org/ecma-262/6.0/#sec-template-literal-lexical-components). */
   var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
 
   /** Used to match `RegExp` flags from their coerced string values. */
@@ -13477,25 +13731,13 @@ L.Map.include({
     return RegExp(upper + '+(?=' + upper + lower + ')|' + upper + '?' + lower + '|' + upper + '+|[0-9]+', 'g');
   }());
 
-  /** Used to detect and test for whitespace. */
-  var whitespace = (
-    // Basic whitespace characters.
-    ' \t\x0b\f\xa0\ufeff' +
-
-    // Line terminators.
-    '\n\r\u2028\u2029' +
-
-    // Unicode category "Zs" space separators.
-    '\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
-  );
-
   /** Used to assign default `context` object properties. */
   var contextProps = [
     'Array', 'ArrayBuffer', 'Date', 'Error', 'Float32Array', 'Float64Array',
     'Function', 'Int8Array', 'Int16Array', 'Int32Array', 'Math', 'Number',
-    'Object', 'RegExp', 'Set', 'String', '_', 'clearTimeout', 'document',
-    'isFinite', 'parseFloat', 'parseInt', 'setTimeout', 'TypeError', 'Uint8Array',
-    'Uint8ClampedArray', 'Uint16Array', 'Uint32Array', 'WeakMap', 'window'
+    'Object', 'RegExp', 'Set', 'String', '_', 'clearTimeout', 'isFinite',
+    'parseFloat', 'parseInt', 'setTimeout', 'TypeError', 'Uint8Array',
+    'Uint8ClampedArray', 'Uint16Array', 'Uint32Array', 'WeakMap'
   ];
 
   /** Used to make template sourceURLs easier to identify. */
@@ -13530,13 +13772,6 @@ L.Map.include({
   cloneableTags[errorTag] = cloneableTags[funcTag] =
   cloneableTags[mapTag] = cloneableTags[setTag] =
   cloneableTags[weakMapTag] = false;
-
-  /** Used as an internal `_.debounce` options object by `_.throttle`. */
-  var debounceOptions = {
-    'leading': false,
-    'maxWait': 0,
-    'trailing': false
-  };
 
   /** Used to map latin-1 supplementary letters to basic latin letters. */
   var deburredLetters = {
@@ -13583,6 +13818,15 @@ L.Map.include({
   var objectTypes = {
     'function': true,
     'object': true
+  };
+
+  /** Used to escape characters for inclusion in compiled regexes. */
+  var regexpEscapes = {
+    '0': 'x30', '1': 'x31', '2': 'x32', '3': 'x33', '4': 'x34',
+    '5': 'x35', '6': 'x36', '7': 'x37', '8': 'x38', '9': 'x39',
+    'A': 'x41', 'B': 'x42', 'C': 'x43', 'D': 'x44', 'E': 'x45', 'F': 'x46',
+    'a': 'x61', 'b': 'x62', 'c': 'x63', 'd': 'x64', 'e': 'x65', 'f': 'x66',
+    'n': 'x6e', 'r': 'x72', 't': 'x74', 'u': 'x75', 'v': 'x76', 'x': 'x78'
   };
 
   /** Used to escape characters for inclusion in compiled string literals. */
@@ -13725,9 +13969,6 @@ L.Map.include({
    * @returns {string} Returns the string.
    */
   function baseToString(value) {
-    if (typeof value == 'string') {
-      return value;
-    }
     return value == null ? '' : (value + '');
   }
 
@@ -13769,8 +14010,8 @@ L.Map.include({
    * sort them in ascending order.
    *
    * @private
-   * @param {Object} object The object to compare to `other`.
-   * @param {Object} other The object to compare to `object`.
+   * @param {Object} object The object to compare.
+   * @param {Object} other The other object to compare.
    * @returns {number} Returns the sort order indicator for `object`.
    */
   function compareAscending(object, other) {
@@ -13778,16 +14019,16 @@ L.Map.include({
   }
 
   /**
-   * Used by `_.sortByOrder` to compare multiple properties of each element
-   * in a collection and stable sort them in the following order:
+   * Used by `_.sortByOrder` to compare multiple properties of a value to another
+   * and stable sort them.
    *
-   * If `orders` is unspecified, sort in ascending order for all properties.
-   * Otherwise, for each property, sort in ascending order if its corresponding value in
-   * orders is true, and descending order if false.
+   * If `orders` is unspecified, all valuess are sorted in ascending order. Otherwise,
+   * a value is sorted in ascending order if its corresponding order is "asc", and
+   * descending if "desc".
    *
    * @private
-   * @param {Object} object The object to compare to `other`.
-   * @param {Object} other The object to compare to `object`.
+   * @param {Object} object The object to compare.
+   * @param {Object} other The other object to compare.
    * @param {boolean[]} orders The order to sort by for each property.
    * @returns {number} Returns the sort order indicator for `object`.
    */
@@ -13804,7 +14045,8 @@ L.Map.include({
         if (index >= ordersLength) {
           return result;
         }
-        return result * (orders[index] ? 1 : -1);
+        var order = orders[index];
+        return result * ((order === 'asc' || order === true) ? 1 : -1);
       }
     }
     // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
@@ -13840,8 +14082,25 @@ L.Map.include({
   }
 
   /**
-   * Used by `_.template` to escape characters for inclusion in compiled
-   * string literals.
+   * Used by `_.escapeRegExp` to escape characters for inclusion in compiled regexes.
+   *
+   * @private
+   * @param {string} chr The matched character to escape.
+   * @param {string} leadingChar The capture group for a leading character.
+   * @param {string} whitespaceChar The capture group for a whitespace character.
+   * @returns {string} Returns the escaped character.
+   */
+  function escapeRegExpChar(chr, leadingChar, whitespaceChar) {
+    if (leadingChar) {
+      chr = regexpEscapes[chr];
+    } else if (whitespaceChar) {
+      chr = stringEscapes[chr];
+    }
+    return '\\' + chr;
+  }
+
+  /**
+   * Used by `_.template` to escape characters for inclusion in compiled string literals.
    *
    * @private
    * @param {string} chr The matched character to escape.
@@ -14052,9 +14311,6 @@ L.Map.include({
         objectProto = Object.prototype,
         stringProto = String.prototype;
 
-    /** Used to detect DOM support. */
-    var document = (document = context.window) ? document.document : null;
-
     /** Used to resolve the decompiled source of functions. */
     var fnToString = Function.prototype.toString;
 
@@ -14065,56 +14321,42 @@ L.Map.include({
     var idCounter = 0;
 
     /**
-     * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+     * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
      * of values.
      */
     var objToString = objectProto.toString;
 
     /** Used to restore the original `_` reference in `_.noConflict`. */
-    var oldDash = context._;
+    var oldDash = root._;
 
     /** Used to detect if a method is native. */
     var reIsNative = RegExp('^' +
-      escapeRegExp(fnToString.call(hasOwnProperty))
+      fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
       .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
     );
 
     /** Native method references. */
-    var ArrayBuffer = getNative(context, 'ArrayBuffer'),
-        bufferSlice = getNative(ArrayBuffer && new ArrayBuffer(0), 'slice'),
-        ceil = Math.ceil,
+    var ArrayBuffer = context.ArrayBuffer,
         clearTimeout = context.clearTimeout,
-        floor = Math.floor,
-        getPrototypeOf = getNative(Object, 'getPrototypeOf'),
         parseFloat = context.parseFloat,
-        push = arrayProto.push,
+        pow = Math.pow,
+        propertyIsEnumerable = objectProto.propertyIsEnumerable,
         Set = getNative(context, 'Set'),
         setTimeout = context.setTimeout,
         splice = arrayProto.splice,
-        Uint8Array = getNative(context, 'Uint8Array'),
+        Uint8Array = context.Uint8Array,
         WeakMap = getNative(context, 'WeakMap');
 
-    /** Used to clone array buffers. */
-    var Float64Array = (function() {
-      // Safari 5 errors when using an array buffer to initialize a typed array
-      // where the array buffer's `byteLength` is not a multiple of the typed
-      // array's `BYTES_PER_ELEMENT`.
-      try {
-        var func = getNative(context, 'Float64Array'),
-            result = new func(new ArrayBuffer(10), 0, 1) && func;
-      } catch(e) {}
-      return result || null;
-    }());
-
     /* Native method references for those with the same name as other `lodash` methods. */
-    var nativeCreate = getNative(Object, 'create'),
+    var nativeCeil = Math.ceil,
+        nativeCreate = getNative(Object, 'create'),
+        nativeFloor = Math.floor,
         nativeIsArray = getNative(Array, 'isArray'),
         nativeIsFinite = context.isFinite,
         nativeKeys = getNative(Object, 'keys'),
         nativeMax = Math.max,
         nativeMin = Math.min,
         nativeNow = getNative(Date, 'now'),
-        nativeNumIsFinite = getNative(Number, 'isFinite'),
         nativeParseInt = context.parseInt,
         nativeRandom = Math.random;
 
@@ -14127,11 +14369,8 @@ L.Map.include({
         MAX_ARRAY_INDEX = MAX_ARRAY_LENGTH - 1,
         HALF_MAX_ARRAY_LENGTH = MAX_ARRAY_LENGTH >>> 1;
 
-    /** Used as the size, in bytes, of each `Float64Array` element. */
-    var FLOAT64_BYTES_PER_ELEMENT = Float64Array ? Float64Array.BYTES_PER_ELEMENT : 0;
-
     /**
-     * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+     * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
      * of an array-like value.
      */
     var MAX_SAFE_INTEGER = 9007199254740991;
@@ -14147,15 +14386,16 @@ L.Map.include({
     /**
      * Creates a `lodash` object which wraps `value` to enable implicit chaining.
      * Methods that operate on and return arrays, collections, and functions can
-     * be chained together. Methods that return a boolean or single value will
-     * automatically end the chain returning the unwrapped value. Explicit chaining
-     * may be enabled using `_.chain`. The execution of chained methods is lazy,
-     * that is, execution is deferred until `_#value` is implicitly or explicitly
-     * called.
+     * be chained together. Methods that retrieve a single value or may return a
+     * primitive value will automatically end the chain returning the unwrapped
+     * value. Explicit chaining may be enabled using `_.chain`. The execution of
+     * chained methods is lazy, that is, execution is deferred until `_#value`
+     * is implicitly or explicitly called.
      *
      * Lazy evaluation allows several methods to support shortcut fusion. Shortcut
-     * fusion is an optimization that merges iteratees to avoid creating intermediate
-     * arrays and reduce the number of iteratee executions.
+     * fusion is an optimization strategy which merge iteratee calls; this can help
+     * to avoid the creation of intermediate data structures and greatly reduce the
+     * number of iteratee executions.
      *
      * Chaining is supported in custom builds as long as the `_#value` method is
      * directly or indirectly included in the build.
@@ -14178,36 +14418,37 @@ L.Map.include({
      * The chainable wrapper methods are:
      * `after`, `ary`, `assign`, `at`, `before`, `bind`, `bindAll`, `bindKey`,
      * `callback`, `chain`, `chunk`, `commit`, `compact`, `concat`, `constant`,
-     * `countBy`, `create`, `curry`, `debounce`, `defaults`, `defer`, `delay`,
-     * `difference`, `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `fill`,
-     * `filter`, `flatten`, `flattenDeep`, `flow`, `flowRight`, `forEach`,
-     * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
-     * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
-     * `keysIn`, `map`, `mapKeys`, `mapValues`, `matches`, `matchesProperty`,
-     * `memoize`, `merge`, `method`, `methodOf`, `mixin`, `negate`, `omit`, `once`,
-     * `pairs`, `partial`, `partialRight`, `partition`, `pick`, `plant`, `pluck`,
-     * `property`, `propertyOf`, `pull`, `pullAt`, `push`, `range`, `rearg`,
-     * `reject`, `remove`, `rest`, `restParam`, `reverse`, `set`, `shuffle`,
-     * `slice`, `sort`, `sortBy`, `sortByAll`, `sortByOrder`, `splice`, `spread`,
-     * `take`, `takeRight`, `takeRightWhile`, `takeWhile`, `tap`, `throttle`,
-     * `thru`, `times`, `toArray`, `toPlainObject`, `transform`, `union`, `uniq`,
-     * `unshift`, `unzip`, `unzipWith`, `values`, `valuesIn`, `where`, `without`,
-     * `wrap`, `xor`, `zip`, `zipObject`, `zipWith`
+     * `countBy`, `create`, `curry`, `debounce`, `defaults`, `defaultsDeep`,
+     * `defer`, `delay`, `difference`, `drop`, `dropRight`, `dropRightWhile`,
+     * `dropWhile`, `fill`, `filter`, `flatten`, `flattenDeep`, `flow`, `flowRight`,
+     * `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`,
+     * `functions`, `groupBy`, `indexBy`, `initial`, `intersection`, `invert`,
+     * `invoke`, `keys`, `keysIn`, `map`, `mapKeys`, `mapValues`, `matches`,
+     * `matchesProperty`, `memoize`, `merge`, `method`, `methodOf`, `mixin`,
+     * `modArgs`, `negate`, `omit`, `once`, `pairs`, `partial`, `partialRight`,
+     * `partition`, `pick`, `plant`, `pluck`, `property`, `propertyOf`, `pull`,
+     * `pullAt`, `push`, `range`, `rearg`, `reject`, `remove`, `rest`, `restParam`,
+     * `reverse`, `set`, `shuffle`, `slice`, `sort`, `sortBy`, `sortByAll`,
+     * `sortByOrder`, `splice`, `spread`, `take`, `takeRight`, `takeRightWhile`,
+     * `takeWhile`, `tap`, `throttle`, `thru`, `times`, `toArray`, `toPlainObject`,
+     * `transform`, `union`, `uniq`, `unshift`, `unzip`, `unzipWith`, `values`,
+     * `valuesIn`, `where`, `without`, `wrap`, `xor`, `zip`, `zipObject`, `zipWith`
      *
      * The wrapper methods that are **not** chainable by default are:
-     * `add`, `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
-     * `endsWith`, `escape`, `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`,
-     * `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`, `get`,
-     * `gt`, `gte`, `has`, `identity`, `includes`, `indexOf`, `inRange`, `isArguments`,
-     * `isArray`, `isBoolean`, `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`,
-     * `isFinite` `isFunction`, `isMatch`, `isNative`, `isNaN`, `isNull`, `isNumber`,
-     * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`,
-     * `isTypedArray`, `join`, `kebabCase`, `last`, `lastIndexOf`, `lt`, `lte`,
-     * `max`, `min`, `noConflict`, `noop`, `now`, `pad`, `padLeft`, `padRight`,
-     * `parseInt`, `pop`, `random`, `reduce`, `reduceRight`, `repeat`, `result`,
-     * `runInContext`, `shift`, `size`, `snakeCase`, `some`, `sortedIndex`,
-     * `sortedLastIndex`, `startCase`, `startsWith`, `sum`, `template`, `trim`,
-     * `trimLeft`, `trimRight`, `trunc`, `unescape`, `uniqueId`, `value`, and `words`
+     * `add`, `attempt`, `camelCase`, `capitalize`, `ceil`, `clone`, `cloneDeep`,
+     * `deburr`, `endsWith`, `escape`, `escapeRegExp`, `every`, `find`, `findIndex`,
+     * `findKey`, `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`,
+     * `floor`, `get`, `gt`, `gte`, `has`, `identity`, `includes`, `indexOf`,
+     * `inRange`, `isArguments`, `isArray`, `isBoolean`, `isDate`, `isElement`,
+     * `isEmpty`, `isEqual`, `isError`, `isFinite` `isFunction`, `isMatch`,
+     * `isNative`, `isNaN`, `isNull`, `isNumber`, `isObject`, `isPlainObject`,
+     * `isRegExp`, `isString`, `isUndefined`, `isTypedArray`, `join`, `kebabCase`,
+     * `last`, `lastIndexOf`, `lt`, `lte`, `max`, `min`, `noConflict`, `noop`,
+     * `now`, `pad`, `padLeft`, `padRight`, `parseInt`, `pop`, `random`, `reduce`,
+     * `reduceRight`, `repeat`, `result`, `round`, `runInContext`, `shift`, `size`,
+     * `snakeCase`, `some`, `sortedIndex`, `sortedLastIndex`, `startCase`,
+     * `startsWith`, `sum`, `template`, `trim`, `trimLeft`, `trimRight`, `trunc`,
+     * `unescape`, `uniqueId`, `value`, and `words`
      *
      * The wrapper method `sample` will return a wrapped value when `n` is provided,
      * otherwise an unwrapped value is returned.
@@ -14282,27 +14523,6 @@ L.Map.include({
      */
     var support = lodash.support = {};
 
-    (function(x) {
-      var Ctor = function() { this.x = x; },
-          object = { '0': x, 'length': x },
-          props = [];
-
-      Ctor.prototype = { 'valueOf': x, 'y': x };
-      for (var key in new Ctor) { props.push(key); }
-
-      /**
-       * Detect if the DOM is supported.
-       *
-       * @memberOf _.support
-       * @type boolean
-       */
-      try {
-        support.dom = document.createDocumentFragment().nodeType === 11;
-      } catch(e) {
-        support.dom = false;
-      }
-    }(1, 0));
-
     /**
      * By default, the template delimiters used by lodash are like those in
      * embedded Ruby (ERB). Change the following template settings to use
@@ -14374,13 +14594,12 @@ L.Map.include({
      */
     function LazyWrapper(value) {
       this.__wrapped__ = value;
-      this.__actions__ = null;
+      this.__actions__ = [];
       this.__dir__ = 1;
-      this.__dropCount__ = 0;
       this.__filtered__ = false;
-      this.__iteratees__ = null;
+      this.__iteratees__ = [];
       this.__takeCount__ = POSITIVE_INFINITY;
-      this.__views__ = null;
+      this.__views__ = [];
     }
 
     /**
@@ -14392,17 +14611,13 @@ L.Map.include({
      * @returns {Object} Returns the cloned `LazyWrapper` object.
      */
     function lazyClone() {
-      var actions = this.__actions__,
-          iteratees = this.__iteratees__,
-          views = this.__views__,
-          result = new LazyWrapper(this.__wrapped__);
-
-      result.__actions__ = actions ? arrayCopy(actions) : null;
+      var result = new LazyWrapper(this.__wrapped__);
+      result.__actions__ = arrayCopy(this.__actions__);
       result.__dir__ = this.__dir__;
       result.__filtered__ = this.__filtered__;
-      result.__iteratees__ = iteratees ? arrayCopy(iteratees) : null;
+      result.__iteratees__ = arrayCopy(this.__iteratees__);
       result.__takeCount__ = this.__takeCount__;
-      result.__views__ = views ? arrayCopy(views) : null;
+      result.__views__ = arrayCopy(this.__views__);
       return result;
     }
 
@@ -14435,22 +14650,25 @@ L.Map.include({
      * @returns {*} Returns the unwrapped value.
      */
     function lazyValue() {
-      var array = this.__wrapped__.value();
-      if (!isArray(array)) {
-        return baseWrapperValue(array, this.__actions__);
-      }
-      var dir = this.__dir__,
+      var array = this.__wrapped__.value(),
+          dir = this.__dir__,
+          isArr = isArray(array),
           isRight = dir < 0,
-          view = getView(0, array.length, this.__views__),
+          arrLength = isArr ? array.length : 0,
+          view = getView(0, arrLength, this.__views__),
           start = view.start,
           end = view.end,
           length = end - start,
           index = isRight ? end : (start - 1),
-          takeCount = nativeMin(length, this.__takeCount__),
           iteratees = this.__iteratees__,
-          iterLength = iteratees ? iteratees.length : 0,
+          iterLength = iteratees.length,
           resIndex = 0,
-          result = [];
+          takeCount = nativeMin(length, this.__takeCount__);
+
+      if (!isArr || arrLength < LARGE_ARRAY_SIZE || (arrLength == length && takeCount == length)) {
+        return baseWrapperValue((isRight && isArr) ? array.reverse() : array, this.__actions__);
+      }
+      var result = [];
 
       outer:
       while (length-- && resIndex < takeCount) {
@@ -14462,30 +14680,16 @@ L.Map.include({
         while (++iterIndex < iterLength) {
           var data = iteratees[iterIndex],
               iteratee = data.iteratee,
-              type = data.type;
+              type = data.type,
+              computed = iteratee(value);
 
-          if (type == LAZY_DROP_WHILE_FLAG) {
-            if (data.done && (isRight ? (index > data.index) : (index < data.index))) {
-              data.count = 0;
-              data.done = false;
-            }
-            data.index = index;
-            if (!data.done) {
-              var limit = data.limit;
-              if (!(data.done = limit > -1 ? (data.count++ >= limit) : !iteratee(value))) {
-                continue outer;
-              }
-            }
-          } else {
-            var computed = iteratee(value);
-            if (type == LAZY_MAP_FLAG) {
-              value = computed;
-            } else if (!computed) {
-              if (type == LAZY_FILTER_FLAG) {
-                continue outer;
-              } else {
-                break outer;
-              }
+          if (type == LAZY_MAP_FLAG) {
+            value = computed;
+          } else if (!computed) {
+            if (type == LAZY_FILTER_FLAG) {
+              continue outer;
+            } else {
+              break outer;
             }
           }
         }
@@ -14616,6 +14820,30 @@ L.Map.include({
     }
 
     /*------------------------------------------------------------------------*/
+
+    /**
+     * Creates a new array joining `array` with `other`.
+     *
+     * @private
+     * @param {Array} array The array to join.
+     * @param {Array} other The other array to join.
+     * @returns {Array} Returns the new concatenated array.
+     */
+    function arrayConcat(array, other) {
+      var index = -1,
+          length = array.length,
+          othIndex = -1,
+          othLength = other.length,
+          result = Array(length + othLength);
+
+      while (++index < length) {
+        result[index] = array[index];
+      }
+      while (++othIndex < othLength) {
+        result[index++] = other[othIndex];
+      }
+      return result;
+    }
 
     /**
      * Copies the values of `source` to `array`.
@@ -14773,6 +15001,25 @@ L.Map.include({
     }
 
     /**
+     * Appends the elements of `values` to `array`.
+     *
+     * @private
+     * @param {Array} array The array to modify.
+     * @param {Array} values The values to append.
+     * @returns {Array} Returns `array`.
+     */
+    function arrayPush(array, values) {
+      var index = -1,
+          length = values.length,
+          offset = array.length;
+
+      while (++index < length) {
+        array[offset + index] = values[index];
+      }
+      return array;
+    }
+
+    /**
      * A specialized version of `_.reduce` for arrays without support for callback
      * shorthands and `this` binding.
      *
@@ -14843,18 +15090,20 @@ L.Map.include({
     }
 
     /**
-     * A specialized version of `_.sum` for arrays without support for iteratees.
+     * A specialized version of `_.sum` for arrays without support for callback
+     * shorthands and `this` binding..
      *
      * @private
      * @param {Array} array The array to iterate over.
+     * @param {Function} iteratee The function invoked per iteration.
      * @returns {number} Returns the sum.
      */
-    function arraySum(array) {
+    function arraySum(array, iteratee) {
       var length = array.length,
           result = 0;
 
       while (length--) {
-        result += +array[length] || 0;
+        result += +iteratee(array[length]) || 0;
       }
       return result;
     }
@@ -15058,7 +15307,7 @@ L.Map.include({
             : (object ? value : {});
         }
       }
-      // Check for circular references and return corresponding clone.
+      // Check for circular references and return its corresponding clone.
       stackA || (stackA = []);
       stackB || (stackB = []);
 
@@ -15093,7 +15342,7 @@ L.Map.include({
         if (isObject(prototype)) {
           object.prototype = prototype;
           var result = new object;
-          object.prototype = null;
+          object.prototype = undefined;
         }
         return result || {};
       };
@@ -15135,7 +15384,7 @@ L.Map.include({
       var index = -1,
           indexOf = getIndexOf(),
           isCommon = indexOf == baseIndexOf,
-          cache = (isCommon && values.length >= 200) ? createCache(values) : null,
+          cache = (isCommon && values.length >= LARGE_ARRAY_SIZE) ? createCache(values) : null,
           valuesLength = values.length;
 
       if (cache) {
@@ -15311,13 +15560,14 @@ L.Map.include({
      * @param {Array} array The array to flatten.
      * @param {boolean} [isDeep] Specify a deep flatten.
      * @param {boolean} [isStrict] Restrict flattening to arrays-like objects.
+     * @param {Array} [result=[]] The initial result value.
      * @returns {Array} Returns the new flattened array.
      */
-    function baseFlatten(array, isDeep, isStrict) {
+    function baseFlatten(array, isDeep, isStrict, result) {
+      result || (result = []);
+
       var index = -1,
-          length = array.length,
-          resIndex = -1,
-          result = [];
+          length = array.length;
 
       while (++index < length) {
         var value = array[index];
@@ -15325,16 +15575,12 @@ L.Map.include({
             (isStrict || isArray(value) || isArguments(value))) {
           if (isDeep) {
             // Recursively flatten arrays (susceptible to call stack limits).
-            value = baseFlatten(value, isDeep, isStrict);
-          }
-          var valIndex = -1,
-              valLength = value.length;
-
-          while (++valIndex < valLength) {
-            result[++resIndex] = value[valIndex];
+            baseFlatten(value, isDeep, isStrict, result);
+          } else {
+            arrayPush(result, value);
           }
         } else if (!isStrict) {
-          result[++resIndex] = value;
+          result[result.length] = value;
         }
       }
       return result;
@@ -15689,7 +15935,7 @@ L.Map.include({
      * @private
      * @param {Object} object The destination object.
      * @param {Object} source The source object.
-     * @param {Function} [customizer] The function to customize merging properties.
+     * @param {Function} [customizer] The function to customize merged values.
      * @param {Array} [stackA=[]] Tracks traversed source objects.
      * @param {Array} [stackB=[]] Associates values with source counterparts.
      * @returns {Object} Returns `object`.
@@ -15699,7 +15945,7 @@ L.Map.include({
         return object;
       }
       var isSrcArr = isArrayLike(source) && (isArray(source) || isTypedArray(source)),
-          props = isSrcArr ? null : keys(source);
+          props = isSrcArr ? undefined : keys(source);
 
       arrayEach(props || source, function(srcValue, key) {
         if (props) {
@@ -15738,7 +15984,7 @@ L.Map.include({
      * @param {Object} source The source object.
      * @param {string} key The key of the value to merge.
      * @param {Function} mergeFunc The function to merge values.
-     * @param {Function} [customizer] The function to customize merging properties.
+     * @param {Function} [customizer] The function to customize merged values.
      * @param {Array} [stackA=[]] Tracks traversed source objects.
      * @param {Array} [stackB=[]] Associates values with source counterparts.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
@@ -15845,7 +16091,7 @@ L.Map.include({
      * @returns {number} Returns the random number.
      */
     function baseRandom(min, max) {
-      return min + floor(nativeRandom() * (max - min + 1));
+      return min + nativeFloor(nativeRandom() * (max - min + 1));
     }
 
     /**
@@ -16011,7 +16257,7 @@ L.Map.include({
           indexOf = getIndexOf(),
           length = array.length,
           isCommon = indexOf == baseIndexOf,
-          isLarge = isCommon && length >= 200,
+          isLarge = isCommon && length >= LARGE_ARRAY_SIZE,
           seen = isLarge ? createCache() : null,
           result = [];
 
@@ -16110,11 +16356,8 @@ L.Map.include({
           length = actions.length;
 
       while (++index < length) {
-        var args = [result],
-            action = actions[index];
-
-        push.apply(args, action.args);
-        result = action.func.apply(action.thisArg, args);
+        var action = actions[index];
+        result = action.func.apply(action.thisArg, arrayPush([result], action.args));
       }
       return result;
     }
@@ -16173,7 +16416,7 @@ L.Map.include({
           valIsUndef = value === undefined;
 
       while (low < high) {
-        var mid = floor((low + high) / 2),
+        var mid = nativeFloor((low + high) / 2),
             computed = iteratee(array[mid]),
             isDef = computed !== undefined,
             isReflexive = computed === computed;
@@ -16242,26 +16485,11 @@ L.Map.include({
      * @returns {ArrayBuffer} Returns the cloned array buffer.
      */
     function bufferClone(buffer) {
-      return bufferSlice.call(buffer, 0);
-    }
-    if (!bufferSlice) {
-      // PhantomJS has `ArrayBuffer` and `Uint8Array` but not `Float64Array`.
-      bufferClone = !(ArrayBuffer && Uint8Array) ? constant(null) : function(buffer) {
-        var byteLength = buffer.byteLength,
-            floatLength = Float64Array ? floor(byteLength / FLOAT64_BYTES_PER_ELEMENT) : 0,
-            offset = floatLength * FLOAT64_BYTES_PER_ELEMENT,
-            result = new ArrayBuffer(byteLength);
+      var result = new ArrayBuffer(buffer.byteLength),
+          view = new Uint8Array(result);
 
-        if (floatLength) {
-          var view = new Float64Array(result, 0, floatLength);
-          view.set(new Float64Array(buffer, 0, floatLength));
-        }
-        if (byteLength != offset) {
-          view = new Uint8Array(result, offset);
-          view.set(new Uint8Array(buffer, offset));
-        }
-        return result;
-      };
+      view.set(new Uint8Array(buffer));
+      return result;
     }
 
     /**
@@ -16280,7 +16508,7 @@ L.Map.include({
           argsLength = nativeMax(args.length - holdersLength, 0),
           leftIndex = -1,
           leftLength = partials.length,
-          result = Array(argsLength + leftLength);
+          result = Array(leftLength + argsLength);
 
       while (++leftIndex < leftLength) {
         result[leftIndex] = partials[leftIndex];
@@ -16327,12 +16555,7 @@ L.Map.include({
     }
 
     /**
-     * Creates a function that aggregates a collection, creating an accumulator
-     * object composed from the results of running each element in the collection
-     * through an iteratee.
-     *
-     * **Note:** This function is used to create `_.countBy`, `_.groupBy`, `_.indexBy`,
-     * and `_.partition`.
+     * Creates a `_.countBy`, `_.groupBy`, `_.indexBy`, or `_.partition` function.
      *
      * @private
      * @param {Function} setter The function to set keys and values of the accumulator object.
@@ -16362,10 +16585,7 @@ L.Map.include({
     }
 
     /**
-     * Creates a function that assigns properties of source object(s) to a given
-     * destination object.
-     *
-     * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+     * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
      *
      * @private
      * @param {Function} assigner The function to assign values.
@@ -16476,9 +16696,9 @@ L.Map.include({
      * @param {Array} [values] The values to cache.
      * @returns {null|Object} Returns the new cache object if `Set` is supported, else `null`.
      */
-    var createCache = !(nativeCreate && Set) ? constant(null) : function(values) {
-      return new SetCache(values);
-    };
+    function createCache(values) {
+      return (nativeCreate && Set) ? new SetCache(values) : null;
+    }
 
     /**
      * Creates a function that produces compound words out of the words in a
@@ -16513,7 +16733,7 @@ L.Map.include({
     function createCtorWrapper(Ctor) {
       return function() {
         // Use a `switch` statement to work with class constructors.
-        // See https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-function-objects-call-thisargument-argumentslist
+        // See http://ecma-international.org/ecma-262/6.0/#sec-ecmascript-function-objects-call-thisargument-argumentslist
         // for more details.
         var args = arguments;
         switch (args.length) {
@@ -16523,6 +16743,8 @@ L.Map.include({
           case 3: return new Ctor(args[0], args[1], args[2]);
           case 4: return new Ctor(args[0], args[1], args[2], args[3]);
           case 5: return new Ctor(args[0], args[1], args[2], args[3], args[4]);
+          case 6: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5]);
+          case 7: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
         }
         var thisBinding = baseCreate(Ctor.prototype),
             result = Ctor.apply(thisBinding, args);
@@ -16543,13 +16765,32 @@ L.Map.include({
     function createCurry(flag) {
       function curryFunc(func, arity, guard) {
         if (guard && isIterateeCall(func, arity, guard)) {
-          arity = null;
+          arity = undefined;
         }
-        var result = createWrapper(func, flag, null, null, null, null, null, arity);
+        var result = createWrapper(func, flag, undefined, undefined, undefined, undefined, undefined, arity);
         result.placeholder = curryFunc.placeholder;
         return result;
       }
       return curryFunc;
+    }
+
+    /**
+     * Creates a `_.defaults` or `_.defaultsDeep` function.
+     *
+     * @private
+     * @param {Function} assigner The function to assign values.
+     * @param {Function} customizer The function to customize assigned values.
+     * @returns {Function} Returns the new defaults function.
+     */
+    function createDefaults(assigner, customizer) {
+      return restParam(function(args) {
+        var object = args[0];
+        if (object == null) {
+          return object;
+        }
+        args.push(customizer);
+        return assigner.apply(undefined, args);
+      });
     }
 
     /**
@@ -16563,11 +16804,11 @@ L.Map.include({
     function createExtremum(comparator, exValue) {
       return function(collection, iteratee, thisArg) {
         if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
-          iteratee = null;
+          iteratee = undefined;
         }
         iteratee = getCallback(iteratee, thisArg, 3);
         if (iteratee.length == 1) {
-          collection = toIterable(collection);
+          collection = isArray(collection) ? collection : toIterable(collection);
           var result = arrayExtremum(collection, iteratee, comparator, exValue);
           if (!(collection.length && result === exValue)) {
             return result;
@@ -16648,7 +16889,7 @@ L.Map.include({
             throw new TypeError(FUNC_ERROR_TEXT);
           }
           if (!wrapper && LodashWrapper.prototype.thru && getFuncName(func) == 'wrapper') {
-            wrapper = new LodashWrapper([]);
+            wrapper = new LodashWrapper([], true);
           }
         }
         index = wrapper ? -1 : length;
@@ -16656,7 +16897,7 @@ L.Map.include({
           func = funcs[index];
 
           var funcName = getFuncName(func),
-              data = funcName == 'wrapper' ? getData(func) : null;
+              data = funcName == 'wrapper' ? getData(func) : undefined;
 
           if (data && isLaziable(data[0]) && data[1] == (ARY_FLAG | CURRY_FLAG | PARTIAL_FLAG | REARG_FLAG) && !data[4].length && data[9] == 1) {
             wrapper = wrapper[getFuncName(data[0])].apply(wrapper, data[3]);
@@ -16665,12 +16906,14 @@ L.Map.include({
           }
         }
         return function() {
-          var args = arguments;
-          if (wrapper && args.length == 1 && isArray(args[0])) {
-            return wrapper.plant(args[0]).value();
+          var args = arguments,
+              value = args[0];
+
+          if (wrapper && args.length == 1 && isArray(value) && value.length >= LARGE_ARRAY_SIZE) {
+            return wrapper.plant(value).value();
           }
           var index = 0,
-              result = length ? funcs[index].apply(this, args) : args[0];
+              result = length ? funcs[index].apply(this, args) : value;
 
           while (++index < length) {
             result = funcs[index].call(this, result);
@@ -16774,7 +17017,7 @@ L.Map.include({
     function createPartial(flag) {
       var partialFunc = restParam(function(func, partials) {
         var holders = replaceHolders(partials, partialFunc.placeholder);
-        return createWrapper(func, flag, null, partials, holders);
+        return createWrapper(func, flag, undefined, partials, holders);
       });
       return partialFunc;
     }
@@ -16820,7 +17063,7 @@ L.Map.include({
           isCurry = bitmask & CURRY_FLAG,
           isCurryBound = bitmask & CURRY_BOUND_FLAG,
           isCurryRight = bitmask & CURRY_RIGHT_FLAG,
-          Ctor = isBindKey ? null : createCtorWrapper(func);
+          Ctor = isBindKey ? undefined : createCtorWrapper(func);
 
       function wrapper() {
         // Avoid `arguments` object use disqualifying optimizations by
@@ -16844,12 +17087,12 @@ L.Map.include({
 
           length -= argsHolders.length;
           if (length < arity) {
-            var newArgPos = argPos ? arrayCopy(argPos) : null,
+            var newArgPos = argPos ? arrayCopy(argPos) : undefined,
                 newArity = nativeMax(arity - length, 0),
-                newsHolders = isCurry ? argsHolders : null,
-                newHoldersRight = isCurry ? null : argsHolders,
-                newPartials = isCurry ? args : null,
-                newPartialsRight = isCurry ? null : args;
+                newsHolders = isCurry ? argsHolders : undefined,
+                newHoldersRight = isCurry ? undefined : argsHolders,
+                newPartials = isCurry ? args : undefined,
+                newPartialsRight = isCurry ? undefined : args;
 
             bitmask |= (isCurry ? PARTIAL_FLAG : PARTIAL_RIGHT_FLAG);
             bitmask &= ~(isCurry ? PARTIAL_RIGHT_FLAG : PARTIAL_FLAG);
@@ -16903,7 +17146,7 @@ L.Map.include({
       }
       var padLength = length - strLength;
       chars = chars == null ? ' ' : (chars + '');
-      return repeat(chars, ceil(padLength / chars.length)).slice(0, padLength);
+      return repeat(chars, nativeCeil(padLength / chars.length)).slice(0, padLength);
     }
 
     /**
@@ -16929,7 +17172,7 @@ L.Map.include({
             argsLength = arguments.length,
             leftIndex = -1,
             leftLength = partials.length,
-            args = Array(argsLength + leftLength);
+            args = Array(leftLength + argsLength);
 
         while (++leftIndex < leftLength) {
           args[leftIndex] = partials[leftIndex];
@@ -16941,6 +17184,25 @@ L.Map.include({
         return fn.apply(isBind ? thisArg : this, args);
       }
       return wrapper;
+    }
+
+    /**
+     * Creates a `_.ceil`, `_.floor`, or `_.round` function.
+     *
+     * @private
+     * @param {string} methodName The name of the `Math` method to use when rounding.
+     * @returns {Function} Returns the new round function.
+     */
+    function createRound(methodName) {
+      var func = Math[methodName];
+      return function(number, precision) {
+        precision = precision === undefined ? 0 : (+precision || 0);
+        if (precision) {
+          precision = pow(10, precision);
+          return func(number * precision) / precision;
+        }
+        return func(number);
+      };
     }
 
     /**
@@ -16992,16 +17254,16 @@ L.Map.include({
       var length = partials ? partials.length : 0;
       if (!length) {
         bitmask &= ~(PARTIAL_FLAG | PARTIAL_RIGHT_FLAG);
-        partials = holders = null;
+        partials = holders = undefined;
       }
       length -= (holders ? holders.length : 0);
       if (bitmask & PARTIAL_RIGHT_FLAG) {
         var partialsRight = partials,
             holdersRight = holders;
 
-        partials = holders = null;
+        partials = holders = undefined;
       }
-      var data = isBindKey ? null : getData(func),
+      var data = isBindKey ? undefined : getData(func),
           newData = [func, bitmask, thisArg, partials, holders, partialsRight, holdersRight, argPos, ary, arity];
 
       if (data) {
@@ -17080,7 +17342,7 @@ L.Map.include({
      * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
      *
      * @private
-     * @param {Object} value The object to compare.
+     * @param {Object} object The object to compare.
      * @param {Object} other The other object to compare.
      * @param {string} tag The `toStringTag` of the objects to compare.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
@@ -17280,13 +17542,13 @@ L.Map.include({
      * @private
      * @param {number} start The start of the view.
      * @param {number} end The end of the view.
-     * @param {Array} [transforms] The transformations to apply to the view.
+     * @param {Array} transforms The transformations to apply to the view.
      * @returns {Object} Returns an object containing the `start` and `end`
      *  positions of the view.
      */
     function getView(start, end, transforms) {
       var index = -1,
-          length = transforms ? transforms.length : 0;
+          length = transforms.length;
 
       while (++index < length) {
         var data = transforms[index],
@@ -17485,7 +17747,7 @@ L.Map.include({
     /**
      * Checks if `value` is a valid array-like length.
      *
-     * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
+     * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
      *
      * @private
      * @param {*} value The value to check.
@@ -17575,6 +17837,18 @@ L.Map.include({
       data[1] = newBitmask;
 
       return data;
+    }
+
+    /**
+     * Used by `_.defaultsDeep` to customize its `_.merge` use.
+     *
+     * @private
+     * @param {*} objectValue The destination object property value.
+     * @param {*} sourceValue The source object property value.
+     * @returns {*} Returns the value to assign to the destination object.
+     */
+    function mergeDefaults(objectValue, sourceValue) {
+      return objectValue === undefined ? sourceValue : merge(objectValue, sourceValue, mergeDefaults);
     }
 
     /**
@@ -17675,38 +17949,6 @@ L.Map.include({
         return baseSetData(key, value);
       };
     }());
-
-    /**
-     * A fallback implementation of `_.isPlainObject` which checks if `value`
-     * is an object created by the `Object` constructor or has a `[[Prototype]]`
-     * of `null`.
-     *
-     * @private
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-     */
-    function shimIsPlainObject(value) {
-      var Ctor,
-          support = lodash.support;
-
-      // Exit early for non `Object` objects.
-      if (!(isObjectLike(value) && objToString.call(value) == objectTag) ||
-          (!hasOwnProperty.call(value, 'constructor') &&
-            (Ctor = value.constructor, typeof Ctor == 'function' && !(Ctor instanceof Ctor)))) {
-        return false;
-      }
-      // IE < 9 iterates inherited properties before own properties. If the first
-      // iterated property is an object's own property then there are no inherited
-      // enumerable properties.
-      var result;
-      // In most environments an object's own properties are iterated before
-      // its inherited properties. If the last iterated property is an object's
-      // own property then there are no inherited enumerable properties.
-      baseForIn(value, function(subValue, key) {
-        result = key;
-      });
-      return result === undefined || hasOwnProperty.call(value, result);
-    }
 
     /**
      * A fallback implementation of `Object.keys` which creates an array of the
@@ -17821,12 +18063,12 @@ L.Map.include({
       if (guard ? isIterateeCall(array, size, guard) : size == null) {
         size = 1;
       } else {
-        size = nativeMax(+size || 1, 1);
+        size = nativeMax(nativeFloor(size) || 1, 1);
       }
       var index = 0,
           length = array ? array.length : 0,
           resIndex = -1,
-          result = Array(ceil(length / size));
+          result = Array(nativeCeil(length / size));
 
       while (index < length) {
         result[++resIndex] = baseSlice(array, index, (index += size));
@@ -17865,7 +18107,7 @@ L.Map.include({
 
     /**
      * Creates an array of unique `array` values not included in the other
-     * provided arrays using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons.
      *
      * @static
@@ -17880,7 +18122,7 @@ L.Map.include({
      * // => [1, 3]
      */
     var difference = restParam(function(array, values) {
-      return isArrayLike(array)
+      return (isObjectLike(array) && isArrayLike(array))
         ? baseDifference(array, baseFlatten(values, false, true))
         : [];
     });
@@ -18275,7 +18517,7 @@ L.Map.include({
 
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
-     * using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it is used as the offset
      * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
      * performs a faster binary search.
@@ -18309,10 +18551,9 @@ L.Map.include({
       if (typeof fromIndex == 'number') {
         fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : fromIndex;
       } else if (fromIndex) {
-        var index = binaryIndex(array, value),
-            other = array[index];
-
-        if (value === value ? (value === other) : (other !== other)) {
+        var index = binaryIndex(array, value);
+        if (index < length &&
+            (value === value ? (value === array[index]) : (array[index] !== array[index]))) {
           return index;
         }
         return -1;
@@ -18339,7 +18580,7 @@ L.Map.include({
 
     /**
      * Creates an array of unique values that are included in all of the provided
-     * arrays using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons.
      *
      * @static
@@ -18460,7 +18701,7 @@ L.Map.include({
 
     /**
      * Removes all provided values from `array` using
-     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons.
      *
      * **Note:** Unlike `_.without`, this method mutates `array`.
@@ -18893,7 +19134,7 @@ L.Map.include({
 
     /**
      * Creates an array of unique values, in order, from all of the provided arrays
-     * using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons.
      *
      * @static
@@ -18912,7 +19153,7 @@ L.Map.include({
 
     /**
      * Creates a duplicate-free version of an array, using
-     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons, in which only the first occurence of each element
      * is kept. Providing `true` for `isSorted` performs a faster search algorithm
      * for sorted arrays. If an iteratee function is provided it is invoked for
@@ -18966,7 +19207,7 @@ L.Map.include({
       }
       if (isSorted != null && typeof isSorted != 'boolean') {
         thisArg = iteratee;
-        iteratee = isIterateeCall(array, isSorted, thisArg) ? null : isSorted;
+        iteratee = isIterateeCall(array, isSorted, thisArg) ? undefined : isSorted;
         isSorted = false;
       }
       var callback = getCallback();
@@ -19053,7 +19294,7 @@ L.Map.include({
 
     /**
      * Creates an array excluding all provided values using
-     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons.
      *
      * @static
@@ -19095,7 +19336,7 @@ L.Map.include({
         var array = arguments[index];
         if (isArrayLike(array)) {
           var result = result
-            ? baseDifference(result, array).concat(baseDifference(array, result))
+            ? arrayPush(baseDifference(result, array), baseDifference(array, result))
             : array;
         }
       }
@@ -19317,16 +19558,16 @@ L.Map.include({
      * @example
      *
      * var array = [1, 2];
-     * var wrapper = _(array).push(3);
+     * var wrapped = _(array).push(3);
      *
      * console.log(array);
      * // => [1, 2]
      *
-     * wrapper = wrapper.commit();
+     * wrapped = wrapped.commit();
      * console.log(array);
      * // => [1, 2, 3]
      *
-     * wrapper.last();
+     * wrapped.last();
      * // => 3
      *
      * console.log(array);
@@ -19335,6 +19576,33 @@ L.Map.include({
     function wrapperCommit() {
       return new LodashWrapper(this.value(), this.__chain__);
     }
+
+    /**
+     * Creates a new array joining a wrapped array with any additional arrays
+     * and/or values.
+     *
+     * @name concat
+     * @memberOf _
+     * @category Chain
+     * @param {...*} [values] The values to concatenate.
+     * @returns {Array} Returns the new concatenated array.
+     * @example
+     *
+     * var array = [1];
+     * var wrapped = _(array).concat(2, [3], [[4]]);
+     *
+     * console.log(wrapped.value());
+     * // => [1, 2, 3, [4]]
+     *
+     * console.log(array);
+     * // => [1]
+     */
+    var wrapperConcat = restParam(function(values) {
+      values = baseFlatten(values);
+      return this.thru(function(array) {
+        return arrayConcat(isArray(array) ? array : [toObject(array)], values);
+      });
+    });
 
     /**
      * Creates a clone of the chained sequence planting `value` as the wrapped value.
@@ -19346,17 +19614,17 @@ L.Map.include({
      * @example
      *
      * var array = [1, 2];
-     * var wrapper = _(array).map(function(value) {
+     * var wrapped = _(array).map(function(value) {
      *   return Math.pow(value, 2);
      * });
      *
      * var other = [3, 4];
-     * var otherWrapper = wrapper.plant(other);
+     * var otherWrapped = wrapped.plant(other);
      *
-     * otherWrapper.value();
+     * otherWrapped.value();
      * // => [9, 16]
      *
-     * wrapper.value();
+     * wrapped.value();
      * // => [1, 4]
      */
     function wrapperPlant(value) {
@@ -19399,15 +19667,20 @@ L.Map.include({
      */
     function wrapperReverse() {
       var value = this.__wrapped__;
+
+      var interceptor = function(value) {
+        return (wrapped && wrapped.__dir__ < 0) ? value : value.reverse();
+      };
       if (value instanceof LazyWrapper) {
+        var wrapped = value;
         if (this.__actions__.length) {
-          value = new LazyWrapper(this);
+          wrapped = new LazyWrapper(this);
         }
-        return new LodashWrapper(value.reverse(), this.__chain__);
+        wrapped = wrapped.reverse();
+        wrapped.__actions__.push({ 'func': thru, 'args': [interceptor], 'thisArg': undefined });
+        return new LodashWrapper(wrapped, this.__chain__);
       }
-      return this.thru(function(value) {
-        return value.reverse();
-      });
+      return this.thru(interceptor);
     }
 
     /**
@@ -19565,7 +19838,7 @@ L.Map.include({
     function every(collection, predicate, thisArg) {
       var func = isArray(collection) ? arrayEvery : baseEvery;
       if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
-        predicate = null;
+        predicate = undefined;
       }
       if (typeof predicate != 'function' || thisArg !== undefined) {
         predicate = getCallback(predicate, thisArg, 3);
@@ -19839,7 +20112,7 @@ L.Map.include({
 
     /**
      * Checks if `value` is in `collection` using
-     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it is used as the offset
      * from the end of `collection`.
      *
@@ -19872,17 +20145,14 @@ L.Map.include({
         collection = values(collection);
         length = collection.length;
       }
-      if (!length) {
-        return false;
-      }
       if (typeof fromIndex != 'number' || (guard && isIterateeCall(target, fromIndex, guard))) {
         fromIndex = 0;
       } else {
         fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
       }
       return (typeof collection == 'string' || !isArray(collection) && isString(collection))
-        ? (fromIndex < length && collection.indexOf(target, fromIndex) > -1)
-        : (getIndexOf(collection, target, fromIndex) > -1);
+        ? (fromIndex <= length && collection.indexOf(target, fromIndex) > -1)
+        : (!!length && getIndexOf(collection, target, fromIndex) > -1);
     }
 
     /**
@@ -19964,7 +20234,7 @@ L.Map.include({
           result = isArrayLike(collection) ? Array(collection.length) : [];
 
       baseEach(collection, function(value) {
-        var func = isFunc ? path : ((isProp && value != null) ? value[path] : null);
+        var func = isFunc ? path : ((isProp && value != null) ? value[path] : undefined);
         result[++index] = func ? func.apply(value, args) : invokePath(value, path, args);
       });
       return result;
@@ -20134,7 +20404,8 @@ L.Map.include({
      * `_.reduce`, `_.reduceRight`, and `_.transform`.
      *
      * The guarded methods are:
-     * `assign`, `defaults`, `includes`, `merge`, `sortByAll`, and `sortByOrder`
+     * `assign`, `defaults`, `defaultsDeep`, `includes`, `merge`, `sortByAll`,
+     * and `sortByOrder`
      *
      * @static
      * @memberOf _
@@ -20364,7 +20635,7 @@ L.Map.include({
     function some(collection, predicate, thisArg) {
       var func = isArray(collection) ? arraySome : baseSome;
       if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
-        predicate = null;
+        predicate = undefined;
       }
       if (typeof predicate != 'function' || thisArg !== undefined) {
         predicate = getCallback(predicate, thisArg, 3);
@@ -20425,7 +20696,7 @@ L.Map.include({
         return [];
       }
       if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
-        iteratee = null;
+        iteratee = undefined;
       }
       var index = -1;
       iteratee = getCallback(iteratee, thisArg, 3);
@@ -20484,9 +20755,9 @@ L.Map.include({
 
     /**
      * This method is like `_.sortByAll` except that it allows specifying the
-     * sort orders of the iteratees to sort by. A truthy value in `orders` will
-     * sort the corresponding property name in ascending order while a falsey
-     * value will sort it in descending order.
+     * sort orders of the iteratees to sort by. If `orders` is unspecified, all
+     * values are sorted in ascending order. Otherwise, a value is sorted in
+     * ascending order if its corresponding order is "asc", and descending if "desc".
      *
      * If a property name is provided for an iteratee the created `_.property`
      * style callback returns the property value of the given element.
@@ -20500,7 +20771,7 @@ L.Map.include({
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
-     * @param {boolean[]} orders The sort orders of `iteratees`.
+     * @param {boolean[]} [orders] The sort orders of `iteratees`.
      * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
      * @returns {Array} Returns the new sorted array.
      * @example
@@ -20513,7 +20784,7 @@ L.Map.include({
      * ];
      *
      * // sort by `user` in ascending order and by `age` in descending order
-     * _.map(_.sortByOrder(users, ['user', 'age'], [true, false]), _.values);
+     * _.map(_.sortByOrder(users, ['user', 'age'], ['asc', 'desc']), _.values);
      * // => [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
     function sortByOrder(collection, iteratees, orders, guard) {
@@ -20521,7 +20792,7 @@ L.Map.include({
         return [];
       }
       if (guard && isIterateeCall(iteratees, orders, guard)) {
-        orders = null;
+        orders = undefined;
       }
       if (!isArray(iteratees)) {
         iteratees = iteratees == null ? [] : [iteratees];
@@ -20646,10 +20917,10 @@ L.Map.include({
      */
     function ary(func, n, guard) {
       if (guard && isIterateeCall(func, n, guard)) {
-        n = null;
+        n = undefined;
       }
       n = (func && n == null) ? func.length : nativeMax(+n || 0, 0);
-      return createWrapper(func, ARY_FLAG, null, null, null, null, n);
+      return createWrapper(func, ARY_FLAG, undefined, undefined, undefined, undefined, n);
     }
 
     /**
@@ -20684,7 +20955,7 @@ L.Map.include({
           result = func.apply(this, arguments);
         }
         if (n <= 1) {
-          func = null;
+          func = undefined;
         }
         return result;
       };
@@ -20992,9 +21263,9 @@ L.Map.include({
         var leading = true;
         trailing = false;
       } else if (isObject(options)) {
-        leading = options.leading;
+        leading = !!options.leading;
         maxWait = 'maxWait' in options && nativeMax(+options.maxWait || 0, wait);
-        trailing = 'trailing' in options ? options.trailing : trailing;
+        trailing = 'trailing' in options ? !!options.trailing : trailing;
       }
 
       function cancel() {
@@ -21004,41 +21275,35 @@ L.Map.include({
         if (maxTimeoutId) {
           clearTimeout(maxTimeoutId);
         }
+        lastCalled = 0;
         maxTimeoutId = timeoutId = trailingCall = undefined;
+      }
+
+      function complete(isCalled, id) {
+        if (id) {
+          clearTimeout(id);
+        }
+        maxTimeoutId = timeoutId = trailingCall = undefined;
+        if (isCalled) {
+          lastCalled = now();
+          result = func.apply(thisArg, args);
+          if (!timeoutId && !maxTimeoutId) {
+            args = thisArg = undefined;
+          }
+        }
       }
 
       function delayed() {
         var remaining = wait - (now() - stamp);
         if (remaining <= 0 || remaining > wait) {
-          if (maxTimeoutId) {
-            clearTimeout(maxTimeoutId);
-          }
-          var isCalled = trailingCall;
-          maxTimeoutId = timeoutId = trailingCall = undefined;
-          if (isCalled) {
-            lastCalled = now();
-            result = func.apply(thisArg, args);
-            if (!timeoutId && !maxTimeoutId) {
-              args = thisArg = null;
-            }
-          }
+          complete(trailingCall, maxTimeoutId);
         } else {
           timeoutId = setTimeout(delayed, remaining);
         }
       }
 
       function maxDelayed() {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-        maxTimeoutId = timeoutId = trailingCall = undefined;
-        if (trailing || (maxWait !== wait)) {
-          lastCalled = now();
-          result = func.apply(thisArg, args);
-          if (!timeoutId && !maxTimeoutId) {
-            args = thisArg = null;
-          }
-        }
+        complete(trailing, timeoutId);
       }
 
       function debounced() {
@@ -21078,7 +21343,7 @@ L.Map.include({
           result = func.apply(thisArg, args);
         }
         if (isCalled && !timeoutId && !maxTimeoutId) {
-          args = thisArg = null;
+          args = thisArg = undefined;
         }
         return result;
       }
@@ -21183,7 +21448,7 @@ L.Map.include({
      *
      * **Note:** The cache is exposed as the `cache` property on the memoized
      * function. Its creation may be customized by replacing the `_.memoize.Cache`
-     * constructor with one whose instances implement the [`Map`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
+     * constructor with one whose instances implement the [`Map`](http://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-map-prototype-object)
      * method interface of `get`, `has`, and `set`.
      *
      * @static
@@ -21243,6 +21508,52 @@ L.Map.include({
       memoized.cache = new memoize.Cache;
       return memoized;
     }
+
+    /**
+     * Creates a function that runs each argument through a corresponding
+     * transform function.
+     *
+     * @static
+     * @memberOf _
+     * @category Function
+     * @param {Function} func The function to wrap.
+     * @param {...(Function|Function[])} [transforms] The functions to transform
+     * arguments, specified as individual functions or arrays of functions.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * function doubled(n) {
+     *   return n * 2;
+     * }
+     *
+     * function square(n) {
+     *   return n * n;
+     * }
+     *
+     * var modded = _.modArgs(function(x, y) {
+     *   return [x, y];
+     * }, square, doubled);
+     *
+     * modded(1, 2);
+     * // => [1, 4]
+     *
+     * modded(5, 10);
+     * // => [25, 20]
+     */
+    var modArgs = restParam(function(func, transforms) {
+      transforms = baseFlatten(transforms);
+      if (typeof func != 'function' || !arrayEvery(transforms, baseIsFunction)) {
+        throw new TypeError(FUNC_ERROR_TEXT);
+      }
+      var length = transforms.length;
+      return restParam(function(args) {
+        var index = nativeMin(args.length, length);
+        while (index--) {
+          args[index] = transforms[index](args[index]);
+        }
+        return func.apply(this, args);
+      });
+    });
 
     /**
      * Creates a function that negates the result of the predicate `func`. The
@@ -21389,7 +21700,7 @@ L.Map.include({
      * // => [3, 6, 9]
      */
     var rearg = restParam(function(func, indexes) {
-      return createWrapper(func, REARG_FLAG, null, null, null, baseFlatten(indexes));
+      return createWrapper(func, REARG_FLAG, undefined, undefined, undefined, baseFlatten(indexes));
     });
 
     /**
@@ -21535,10 +21846,7 @@ L.Map.include({
         leading = 'leading' in options ? !!options.leading : leading;
         trailing = 'trailing' in options ? !!options.trailing : trailing;
       }
-      debounceOptions.leading = leading;
-      debounceOptions.maxWait = +wait;
-      debounceOptions.trailing = trailing;
-      return debounce(func, wait, debounceOptions);
+      return debounce(func, wait, { 'leading': leading, 'maxWait': +wait, 'trailing': trailing });
     }
 
     /**
@@ -21564,7 +21872,7 @@ L.Map.include({
      */
     function wrap(value, wrapper) {
       wrapper = wrapper == null ? identity : wrapper;
-      return createWrapper(wrapper, PARTIAL_FLAG, null, [value], []);
+      return createWrapper(wrapper, PARTIAL_FLAG, undefined, [value], []);
     }
 
     /*------------------------------------------------------------------------*/
@@ -21750,7 +22058,8 @@ L.Map.include({
      * // => false
      */
     function isArguments(value) {
-      return isObjectLike(value) && isArrayLike(value) && objToString.call(value) == argsTag;
+      return isObjectLike(value) && isArrayLike(value) &&
+        hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
     }
 
     /**
@@ -21830,14 +22139,7 @@ L.Map.include({
      * // => false
      */
     function isElement(value) {
-      return !!value && value.nodeType === 1 && isObjectLike(value) &&
-        (objToString.call(value).indexOf('Element') > -1);
-    }
-    // Fallback for environments without DOM support.
-    if (!support.dom) {
-      isElement = function(value) {
-        return !!value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value);
-      };
+      return !!value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value);
     }
 
     /**
@@ -21952,7 +22254,7 @@ L.Map.include({
     /**
      * Checks if `value` is a finite primitive number.
      *
-     * **Note:** This method is based on [`Number.isFinite`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.isfinite).
+     * **Note:** This method is based on [`Number.isFinite`](http://ecma-international.org/ecma-262/6.0/#sec-number.isfinite).
      *
      * @static
      * @memberOf _
@@ -21976,9 +22278,9 @@ L.Map.include({
      * _.isFinite(Infinity);
      * // => false
      */
-    var isFinite = nativeNumIsFinite || function(value) {
+    function isFinite(value) {
       return typeof value == 'number' && nativeIsFinite(value);
-    };
+    }
 
     /**
      * Checks if `value` is classified as a `Function` object.
@@ -21996,12 +22298,12 @@ L.Map.include({
      * _.isFunction(/abc/);
      * // => false
      */
-    var isFunction = !(baseIsFunction(/x/) || (Uint8Array && !baseIsFunction(Uint8Array))) ? baseIsFunction : function(value) {
+    function isFunction(value) {
       // The use of `Object#toString` avoids issues with the `typeof` operator
       // in older versions of Chrome and Safari which return 'function' for regexes
       // and Safari 8 equivalents which return 'object' for typed array constructors.
-      return objToString.call(value) == funcTag;
-    };
+      return isObject(value) && objToString.call(value) == funcTag;
+    }
 
     /**
      * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
@@ -22125,7 +22427,7 @@ L.Map.include({
       if (value == null) {
         return false;
       }
-      if (objToString.call(value) == funcTag) {
+      if (isFunction(value)) {
         return reIsNative.test(fnToString.call(value));
       }
       return isObjectLike(value) && reIsHostCtor.test(value);
@@ -22207,17 +22509,26 @@ L.Map.include({
      * _.isPlainObject(Object.create(null));
      * // => true
      */
-    var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
-      if (!(value && objToString.call(value) == objectTag)) {
+    function isPlainObject(value) {
+      var Ctor;
+
+      // Exit early for non `Object` objects.
+      if (!(isObjectLike(value) && objToString.call(value) == objectTag && !isArguments(value)) ||
+          (!hasOwnProperty.call(value, 'constructor') && (Ctor = value.constructor, typeof Ctor == 'function' && !(Ctor instanceof Ctor)))) {
         return false;
       }
-      var valueOf = getNative(value, 'valueOf'),
-          objProto = valueOf && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
-
-      return objProto
-        ? (value == objProto || getPrototypeOf(value) == objProto)
-        : shimIsPlainObject(value);
-    };
+      // IE < 9 iterates inherited properties before own properties. If the first
+      // iterated property is an object's own property then there are no inherited
+      // enumerable properties.
+      var result;
+      // In most environments an object's own properties are iterated before
+      // its inherited properties. If the last iterated property is an object's
+      // own property then there are no inherited enumerable properties.
+      baseForIn(value, function(subValue, key) {
+        result = key;
+      });
+      return result === undefined || hasOwnProperty.call(value, result);
+    }
 
     /**
      * Checks if `value` is classified as a `RegExp` object.
@@ -22236,7 +22547,7 @@ L.Map.include({
      * // => false
      */
     function isRegExp(value) {
-      return isObjectLike(value) && objToString.call(value) == regexpTag;
+      return isObject(value) && objToString.call(value) == regexpTag;
     }
 
     /**
@@ -22403,6 +22714,56 @@ L.Map.include({
     /*------------------------------------------------------------------------*/
 
     /**
+     * Recursively merges own enumerable properties of the source object(s), that
+     * don't resolve to `undefined` into the destination object. Subsequent sources
+     * overwrite property assignments of previous sources. If `customizer` is
+     * provided it is invoked to produce the merged values of the destination and
+     * source properties. If `customizer` returns `undefined` merging is handled
+     * by the method instead. The `customizer` is bound to `thisArg` and invoked
+     * with five arguments: (objectValue, sourceValue, key, object, source).
+     *
+     * @static
+     * @memberOf _
+     * @category Object
+     * @param {Object} object The destination object.
+     * @param {...Object} [sources] The source objects.
+     * @param {Function} [customizer] The function to customize assigned values.
+     * @param {*} [thisArg] The `this` binding of `customizer`.
+     * @returns {Object} Returns `object`.
+     * @example
+     *
+     * var users = {
+     *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
+     * };
+     *
+     * var ages = {
+     *   'data': [{ 'age': 36 }, { 'age': 40 }]
+     * };
+     *
+     * _.merge(users, ages);
+     * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
+     *
+     * // using a customizer callback
+     * var object = {
+     *   'fruits': ['apple'],
+     *   'vegetables': ['beet']
+     * };
+     *
+     * var other = {
+     *   'fruits': ['banana'],
+     *   'vegetables': ['carrot']
+     * };
+     *
+     * _.merge(object, other, function(a, b) {
+     *   if (_.isArray(a)) {
+     *     return a.concat(b);
+     *   }
+     * });
+     * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
+     */
+    var merge = createAssigner(baseMerge);
+
+    /**
      * Assigns own enumerable properties of source object(s) to the destination
      * object. Subsequent sources overwrite property assignments of previous sources.
      * If `customizer` is provided it is invoked to produce the assigned values.
@@ -22410,7 +22771,7 @@ L.Map.include({
      * (objectValue, sourceValue, key, object, source).
      *
      * **Note:** This method mutates `object` and is based on
-     * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
+     * [`Object.assign`](http://ecma-international.org/ecma-262/6.0/#sec-object.assign).
      *
      * @static
      * @memberOf _
@@ -22477,7 +22838,7 @@ L.Map.include({
     function create(prototype, properties, guard) {
       var result = baseCreate(prototype);
       if (guard && isIterateeCall(prototype, properties, guard)) {
-        properties = null;
+        properties = undefined;
       }
       return properties ? baseAssign(result, properties) : result;
     }
@@ -22500,14 +22861,27 @@ L.Map.include({
      * _.defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
      * // => { 'user': 'barney', 'age': 36 }
      */
-    var defaults = restParam(function(args) {
-      var object = args[0];
-      if (object == null) {
-        return object;
-      }
-      args.push(assignDefaults);
-      return assign.apply(undefined, args);
-    });
+    var defaults = createDefaults(assign, assignDefaults);
+
+    /**
+     * This method is like `_.defaults` except that it recursively assigns
+     * default properties.
+     *
+     * **Note:** This method mutates `object`.
+     *
+     * @static
+     * @memberOf _
+     * @category Object
+     * @param {Object} object The destination object.
+     * @param {...Object} [sources] The source objects.
+     * @returns {Object} Returns `object`.
+     * @example
+     *
+     * _.defaultsDeep({ 'user': { 'name': 'barney' } }, { 'user': { 'name': 'fred', 'age': 36 } });
+     * // => { 'user': { 'name': 'barney', 'age': 36 } }
+     *
+     */
+    var defaultsDeep = createDefaults(merge, mergeDefaults);
 
     /**
      * This method is like `_.find` except that it returns the key of the first
@@ -22834,7 +23208,7 @@ L.Map.include({
      */
     function invert(object, multiValue, guard) {
       if (guard && isIterateeCall(object, multiValue, guard)) {
-        multiValue = null;
+        multiValue = undefined;
       }
       var index = -1,
           props = keys(object),
@@ -22863,7 +23237,7 @@ L.Map.include({
      * Creates an array of the own enumerable property names of `object`.
      *
      * **Note:** Non-object values are coerced to objects. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.keys)
+     * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
      * for more details.
      *
      * @static
@@ -22887,7 +23261,7 @@ L.Map.include({
      * // => ['0', '1']
      */
     var keys = !nativeKeys ? shimKeys : function(object) {
-      var Ctor = object == null ? null : object.constructor;
+      var Ctor = object == null ? undefined : object.constructor;
       if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
           (typeof object != 'function' && isArrayLike(object))) {
         return shimKeys(object);
@@ -23010,56 +23384,6 @@ L.Map.include({
      * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
      */
     var mapValues = createObjectMapper();
-
-    /**
-     * Recursively merges own enumerable properties of the source object(s), that
-     * don't resolve to `undefined` into the destination object. Subsequent sources
-     * overwrite property assignments of previous sources. If `customizer` is
-     * provided it is invoked to produce the merged values of the destination and
-     * source properties. If `customizer` returns `undefined` merging is handled
-     * by the method instead. The `customizer` is bound to `thisArg` and invoked
-     * with five arguments: (objectValue, sourceValue, key, object, source).
-     *
-     * @static
-     * @memberOf _
-     * @category Object
-     * @param {Object} object The destination object.
-     * @param {...Object} [sources] The source objects.
-     * @param {Function} [customizer] The function to customize assigned values.
-     * @param {*} [thisArg] The `this` binding of `customizer`.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * var users = {
-     *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
-     * };
-     *
-     * var ages = {
-     *   'data': [{ 'age': 36 }, { 'age': 40 }]
-     * };
-     *
-     * _.merge(users, ages);
-     * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
-     *
-     * // using a customizer callback
-     * var object = {
-     *   'fruits': ['apple'],
-     *   'vegetables': ['beet']
-     * };
-     *
-     * var other = {
-     *   'fruits': ['banana'],
-     *   'vegetables': ['carrot']
-     * };
-     *
-     * _.merge(object, other, function(a, b) {
-     *   if (_.isArray(a)) {
-     *     return a.concat(b);
-     *   }
-     * });
-     * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
-     */
-    var merge = createAssigner(baseMerge);
 
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
@@ -23291,7 +23615,7 @@ L.Map.include({
           if (isArr) {
             accumulator = isArray(object) ? new Ctor : [];
           } else {
-            accumulator = baseCreate(isFunction(Ctor) ? Ctor.prototype : null);
+            accumulator = baseCreate(isFunction(Ctor) ? Ctor.prototype : undefined);
           }
         } else {
           accumulator = {};
@@ -23394,7 +23718,7 @@ L.Map.include({
      */
     function inRange(value, start, end) {
       start = +start || 0;
-      if (typeof end === 'undefined') {
+      if (end === undefined) {
         end = start;
         start = 0;
       } else {
@@ -23432,7 +23756,7 @@ L.Map.include({
      */
     function random(min, max, floating) {
       if (floating && isIterateeCall(min, max, floating)) {
-        max = floating = null;
+        max = floating = undefined;
       }
       var noMin = min == null,
           noMax = max == null;
@@ -23619,8 +23943,8 @@ L.Map.include({
     function escapeRegExp(string) {
       string = baseToString(string);
       return (string && reHasRegExpChars.test(string))
-        ? string.replace(reRegExpChars, '\\$&')
-        : string;
+        ? string.replace(reRegExpChars, escapeRegExpChar)
+        : (string || '(?:)');
     }
 
     /**
@@ -23677,8 +24001,8 @@ L.Map.include({
         return string;
       }
       var mid = (length - strLength) / 2,
-          leftLength = floor(mid),
-          rightLength = ceil(mid);
+          leftLength = nativeFloor(mid),
+          rightLength = nativeCeil(mid);
 
       chars = createPadding('', rightLength, chars);
       return chars.slice(0, leftLength) + string + chars;
@@ -23756,25 +24080,16 @@ L.Map.include({
      * // => [6, 8, 10]
      */
     function parseInt(string, radix, guard) {
-      if (guard && isIterateeCall(string, radix, guard)) {
+      // Firefox < 21 and Opera < 15 follow ES3 for `parseInt`.
+      // Chrome fails to trim leading <BOM> whitespace characters.
+      // See https://code.google.com/p/v8/issues/detail?id=3109 for more details.
+      if (guard ? isIterateeCall(string, radix, guard) : radix == null) {
         radix = 0;
+      } else if (radix) {
+        radix = +radix;
       }
-      return nativeParseInt(string, radix);
-    }
-    // Fallback for environments with pre-ES5 implementations.
-    if (nativeParseInt(whitespace + '08') != 8) {
-      parseInt = function(string, radix, guard) {
-        // Firefox < 21 and Opera < 15 follow ES3 for `parseInt`.
-        // Chrome fails to trim leading <BOM> whitespace characters.
-        // See https://code.google.com/p/v8/issues/detail?id=3109 for more details.
-        if (guard ? isIterateeCall(string, radix, guard) : radix == null) {
-          radix = 0;
-        } else if (radix) {
-          radix = +radix;
-        }
-        string = trim(string);
-        return nativeParseInt(string, radix || (reHasHexPrefix.test(string) ? 16 : 10));
-      };
+      string = trim(string);
+      return nativeParseInt(string, radix || (reHasHexPrefix.test(string) ? 16 : 10));
     }
 
     /**
@@ -23810,7 +24125,7 @@ L.Map.include({
         if (n % 2) {
           result += string;
         }
-        n = floor(n / 2);
+        n = nativeFloor(n / 2);
         string += string;
       } while (n);
 
@@ -23995,7 +24310,7 @@ L.Map.include({
       var settings = lodash.templateSettings;
 
       if (otherOptions && isIterateeCall(string, options, otherOptions)) {
-        options = otherOptions = null;
+        options = otherOptions = undefined;
       }
       string = baseToString(string);
       options = assignWith(baseAssign({}, otherOptions || options), settings, assignOwnDefaults);
@@ -24231,7 +24546,7 @@ L.Map.include({
      */
     function trunc(string, options, guard) {
       if (guard && isIterateeCall(string, options, guard)) {
-        options = null;
+        options = undefined;
       }
       var length = DEFAULT_TRUNC_LENGTH,
           omission = DEFAULT_TRUNC_OMISSION;
@@ -24326,7 +24641,7 @@ L.Map.include({
      */
     function words(string, pattern, guard) {
       if (guard && isIterateeCall(string, pattern, guard)) {
-        pattern = null;
+        pattern = undefined;
       }
       string = baseToString(string);
       return string.match(pattern || reWords) || [];
@@ -24402,7 +24717,7 @@ L.Map.include({
      */
     function callback(func, thisArg, guard) {
       if (guard && isIterateeCall(func, thisArg, guard)) {
-        thisArg = null;
+        thisArg = undefined;
       }
       return isObjectLike(func)
         ? matches(func)
@@ -24603,8 +24918,8 @@ L.Map.include({
     function mixin(object, source, options) {
       if (options == null) {
         var isObj = isObject(source),
-            props = isObj ? keys(source) : null,
-            methodNames = (props && props.length) ? baseFunctions(source, props) : null;
+            props = isObj ? keys(source) : undefined,
+            methodNames = (props && props.length) ? baseFunctions(source, props) : undefined;
 
         if (!(methodNames ? methodNames.length : isObj)) {
           methodNames = false;
@@ -24643,9 +24958,7 @@ L.Map.include({
                 result.__chain__ = chainAll;
                 return result;
               }
-              var args = [this.value()];
-              push.apply(args, arguments);
-              return func.apply(object, args);
+              return func.apply(object, arrayPush([this.value()], arguments));
             };
           }(func));
         }
@@ -24666,7 +24979,7 @@ L.Map.include({
      * var lodash = _.noConflict();
      */
     function noConflict() {
-      context._ = oldDash;
+      root._ = oldDash;
       return this;
     }
 
@@ -24775,7 +25088,7 @@ L.Map.include({
      */
     function range(start, end, step) {
       if (step && isIterateeCall(start, end, step)) {
-        end = step = null;
+        end = step = undefined;
       }
       start = +start || 0;
       step = step == null ? 1 : (+step || 0);
@@ -24789,7 +25102,7 @@ L.Map.include({
       // Use `Array(length)` so engines like Chakra and V8 avoid slower modes.
       // See https://youtu.be/XAqIpGU8ZZk#t=17m25s for more details.
       var index = -1,
-          length = nativeMax(ceil((end - start) / (step || 1)), 0),
+          length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
           result = Array(length);
 
       while (++index < length) {
@@ -24827,7 +25140,7 @@ L.Map.include({
      * // => also invokes `mage.castSpell(n)` three times
      */
     function times(n, iteratee, thisArg) {
-      n = floor(n);
+      n = nativeFloor(n);
 
       // Exit early to avoid a JSC JIT bug in Safari 8
       // where `Array(0)` is treated as `Array(1)`.
@@ -24888,6 +25201,50 @@ L.Map.include({
     function add(augend, addend) {
       return (+augend || 0) + (+addend || 0);
     }
+
+    /**
+     * Calculates `n` rounded up to `precision`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {number} n The number to round up.
+     * @param {number} [precision=0] The precision to round up to.
+     * @returns {number} Returns the rounded up number.
+     * @example
+     *
+     * _.ceil(4.006);
+     * // => 5
+     *
+     * _.ceil(6.004, 2);
+     * // => 6.01
+     *
+     * _.ceil(6040, -2);
+     * // => 6100
+     */
+    var ceil = createRound('ceil');
+
+    /**
+     * Calculates `n` rounded down to `precision`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {number} n The number to round down.
+     * @param {number} [precision=0] The precision to round down to.
+     * @returns {number} Returns the rounded down number.
+     * @example
+     *
+     * _.floor(4.006);
+     * // => 4
+     *
+     * _.floor(0.046, 2);
+     * // => 0.04
+     *
+     * _.floor(4060, -2);
+     * // => 4000
+     */
+    var floor = createRound('floor');
 
     /**
      * Gets the maximum value of `collection`. If `collection` is empty or falsey
@@ -24988,6 +25345,28 @@ L.Map.include({
     var min = createExtremum(lt, POSITIVE_INFINITY);
 
     /**
+     * Calculates `n` rounded to `precision`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {number} n The number to round.
+     * @param {number} [precision=0] The precision to round to.
+     * @returns {number} Returns the rounded number.
+     * @example
+     *
+     * _.round(4.006);
+     * // => 4
+     *
+     * _.round(4.006, 2);
+     * // => 4.01
+     *
+     * _.round(4060, -2);
+     * // => 4100
+     */
+    var round = createRound('round');
+
+    /**
      * Gets the sum of the values in `collection`.
      *
      * @static
@@ -25021,17 +25400,11 @@ L.Map.include({
      */
     function sum(collection, iteratee, thisArg) {
       if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
-        iteratee = null;
+        iteratee = undefined;
       }
-      var callback = getCallback(),
-          noIteratee = iteratee == null;
-
-      if (!(noIteratee && callback === baseCallback)) {
-        noIteratee = false;
-        iteratee = callback(iteratee, thisArg, 3);
-      }
-      return noIteratee
-        ? arraySum(isArray(collection) ? collection : toIterable(collection))
+      iteratee = getCallback(iteratee, thisArg, 3);
+      return iteratee.length == 1
+        ? arraySum(isArray(collection) ? collection : toIterable(collection), iteratee)
         : baseSum(collection, iteratee);
     }
 
@@ -25078,6 +25451,7 @@ L.Map.include({
     lodash.curryRight = curryRight;
     lodash.debounce = debounce;
     lodash.defaults = defaults;
+    lodash.defaultsDeep = defaultsDeep;
     lodash.defer = defer;
     lodash.delay = delay;
     lodash.difference = difference;
@@ -25116,6 +25490,7 @@ L.Map.include({
     lodash.method = method;
     lodash.methodOf = methodOf;
     lodash.mixin = mixin;
+    lodash.modArgs = modArgs;
     lodash.negate = negate;
     lodash.omit = omit;
     lodash.once = once;
@@ -25191,6 +25566,7 @@ L.Map.include({
     lodash.attempt = attempt;
     lodash.camelCase = camelCase;
     lodash.capitalize = capitalize;
+    lodash.ceil = ceil;
     lodash.clone = clone;
     lodash.cloneDeep = cloneDeep;
     lodash.deburr = deburr;
@@ -25206,6 +25582,7 @@ L.Map.include({
     lodash.findLastKey = findLastKey;
     lodash.findWhere = findWhere;
     lodash.first = first;
+    lodash.floor = floor;
     lodash.get = get;
     lodash.gt = gt;
     lodash.gte = gte;
@@ -25254,6 +25631,7 @@ L.Map.include({
     lodash.reduceRight = reduceRight;
     lodash.repeat = repeat;
     lodash.result = result;
+    lodash.round = round;
     lodash.runInContext = runInContext;
     lodash.size = size;
     lodash.snakeCase = snakeCase;
@@ -25324,48 +25702,20 @@ L.Map.include({
       lodash[methodName].placeholder = lodash;
     });
 
-    // Add `LazyWrapper` methods that accept an `iteratee` value.
-    arrayEach(['dropWhile', 'filter', 'map', 'takeWhile'], function(methodName, type) {
-      var isFilter = type != LAZY_MAP_FLAG,
-          isDropWhile = type == LAZY_DROP_WHILE_FLAG;
-
-      LazyWrapper.prototype[methodName] = function(iteratee, thisArg) {
-        var filtered = this.__filtered__,
-            result = (filtered && isDropWhile) ? new LazyWrapper(this) : this.clone(),
-            iteratees = result.__iteratees__ || (result.__iteratees__ = []);
-
-        iteratees.push({
-          'done': false,
-          'count': 0,
-          'index': 0,
-          'iteratee': getCallback(iteratee, thisArg, 1),
-          'limit': -1,
-          'type': type
-        });
-
-        result.__filtered__ = filtered || isFilter;
-        return result;
-      };
-    });
-
     // Add `LazyWrapper` methods for `_.drop` and `_.take` variants.
     arrayEach(['drop', 'take'], function(methodName, index) {
-      var whileName = methodName + 'While';
-
       LazyWrapper.prototype[methodName] = function(n) {
-        var filtered = this.__filtered__,
-            result = (filtered && !index) ? this.dropWhile() : this.clone();
+        var filtered = this.__filtered__;
+        if (filtered && !index) {
+          return new LazyWrapper(this);
+        }
+        n = n == null ? 1 : nativeMax(nativeFloor(n) || 0, 0);
 
-        n = n == null ? 1 : nativeMax(floor(n) || 0, 0);
+        var result = this.clone();
         if (filtered) {
-          if (index) {
-            result.__takeCount__ = nativeMin(result.__takeCount__, n);
-          } else {
-            last(result.__iteratees__).limit = n;
-          }
+          result.__takeCount__ = nativeMin(result.__takeCount__, n);
         } else {
-          var views = result.__views__ || (result.__views__ = []);
-          views.push({ 'size': n, 'type': methodName + (result.__dir__ < 0 ? 'Right' : '') });
+          result.__views__.push({ 'size': n, 'type': methodName + (result.__dir__ < 0 ? 'Right' : '') });
         }
         return result;
       };
@@ -25373,9 +25723,18 @@ L.Map.include({
       LazyWrapper.prototype[methodName + 'Right'] = function(n) {
         return this.reverse()[methodName](n).reverse();
       };
+    });
 
-      LazyWrapper.prototype[methodName + 'RightWhile'] = function(predicate, thisArg) {
-        return this.reverse()[whileName](predicate, thisArg).reverse();
+    // Add `LazyWrapper` methods that accept an `iteratee` value.
+    arrayEach(['filter', 'map', 'takeWhile'], function(methodName, index) {
+      var type = index + 1,
+          isFilter = type != LAZY_MAP_FLAG;
+
+      LazyWrapper.prototype[methodName] = function(iteratee, thisArg) {
+        var result = this.clone();
+        result.__iteratees__.push({ 'iteratee': getCallback(iteratee, thisArg, 1), 'type': type });
+        result.__filtered__ = result.__filtered__ || isFilter;
+        return result;
       };
     });
 
@@ -25393,7 +25752,7 @@ L.Map.include({
       var dropName = 'drop' + (index ? '' : 'Right');
 
       LazyWrapper.prototype[methodName] = function() {
-        return this[dropName](1);
+        return this.__filtered__ ? new LazyWrapper(this) : this[dropName](1);
       };
     });
 
@@ -25422,10 +25781,13 @@ L.Map.include({
       start = start == null ? 0 : (+start || 0);
 
       var result = this;
+      if (result.__filtered__ && (start > 0 || end < 0)) {
+        return new LazyWrapper(result);
+      }
       if (start < 0) {
-        result = this.takeRight(-start);
+        result = result.takeRight(-start);
       } else if (start) {
-        result = this.drop(start);
+        result = result.drop(start);
       }
       if (end !== undefined) {
         end = (+end || 0);
@@ -25434,21 +25796,25 @@ L.Map.include({
       return result;
     };
 
+    LazyWrapper.prototype.takeRightWhile = function(predicate, thisArg) {
+      return this.reverse().takeWhile(predicate, thisArg).reverse();
+    };
+
     LazyWrapper.prototype.toArray = function() {
-      return this.drop(0);
+      return this.take(POSITIVE_INFINITY);
     };
 
     // Add `LazyWrapper` methods to `lodash.prototype`.
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
-      var lodashFunc = lodash[methodName];
+      var checkIteratee = /^(?:filter|map|reject)|While$/.test(methodName),
+          retUnwrapped = /^(?:first|last)$/.test(methodName),
+          lodashFunc = lodash[retUnwrapped ? ('take' + (methodName == 'last' ? 'Right' : '')) : methodName];
+
       if (!lodashFunc) {
         return;
       }
-      var checkIteratee = /^(?:filter|map|reject)|While$/.test(methodName),
-          retUnwrapped = /^(?:first|last)$/.test(methodName);
-
       lodash.prototype[methodName] = function() {
-        var args = arguments,
+        var args = retUnwrapped ? [1] : arguments,
             chainAll = this.__chain__,
             value = this.__wrapped__,
             isHybrid = !!this.__actions__.length,
@@ -25457,28 +25823,30 @@ L.Map.include({
             useLazy = isLazy || isArray(value);
 
         if (useLazy && checkIteratee && typeof iteratee == 'function' && iteratee.length != 1) {
-          // avoid lazy use if the iteratee has a "length" value other than `1`
+          // Avoid lazy use if the iteratee has a "length" value other than `1`.
           isLazy = useLazy = false;
         }
-        var onlyLazy = isLazy && !isHybrid;
-        if (retUnwrapped && !chainAll) {
-          return onlyLazy
-            ? func.call(value)
-            : lodashFunc.call(lodash, this.value());
-        }
         var interceptor = function(value) {
-          var otherArgs = [value];
-          push.apply(otherArgs, args);
-          return lodashFunc.apply(lodash, otherArgs);
+          return (retUnwrapped && chainAll)
+            ? lodashFunc(value, 1)[0]
+            : lodashFunc.apply(undefined, arrayPush([value], args));
         };
-        if (useLazy) {
-          var wrapper = onlyLazy ? value : new LazyWrapper(this),
-              result = func.apply(wrapper, args);
 
-          if (!retUnwrapped && (isHybrid || result.__actions__)) {
-            var actions = result.__actions__ || (result.__actions__ = []);
-            actions.push({ 'func': thru, 'args': [interceptor], 'thisArg': lodash });
+        var action = { 'func': thru, 'args': [interceptor], 'thisArg': undefined },
+            onlyLazy = isLazy && !isHybrid;
+
+        if (retUnwrapped && !chainAll) {
+          if (onlyLazy) {
+            value = value.clone();
+            value.__actions__.push(action);
+            return func.call(value);
           }
+          return lodashFunc.call(undefined, this.value())[0];
+        }
+        if (!retUnwrapped && useLazy) {
+          value = onlyLazy ? value : new LazyWrapper(this);
+          var result = func.apply(value, args);
+          result.__actions__.push(action);
           return new LodashWrapper(result, chainAll);
         }
         return this.thru(interceptor);
@@ -25486,7 +25854,7 @@ L.Map.include({
     });
 
     // Add `Array` and `String` methods to `lodash.prototype`.
-    arrayEach(['concat', 'join', 'pop', 'push', 'replace', 'shift', 'sort', 'splice', 'split', 'unshift'], function(methodName) {
+    arrayEach(['join', 'pop', 'push', 'replace', 'shift', 'sort', 'splice', 'split', 'unshift'], function(methodName) {
       var func = (/^(?:replace|split)$/.test(methodName) ? stringProto : arrayProto)[methodName],
           chainName = /^(?:push|sort|unshift)$/.test(methodName) ? 'tap' : 'thru',
           retUnwrapped = /^(?:join|pop|replace|shift)$/.test(methodName);
@@ -25513,7 +25881,7 @@ L.Map.include({
       }
     });
 
-    realNames[createHybridWrapper(null, BIND_KEY_FLAG).name] = [{ 'name': 'wrapper', 'func': null }];
+    realNames[createHybridWrapper(undefined, BIND_KEY_FLAG).name] = [{ 'name': 'wrapper', 'func': undefined }];
 
     // Add functions to the lazy wrapper.
     LazyWrapper.prototype.clone = lazyClone;
@@ -25523,6 +25891,7 @@ L.Map.include({
     // Add chaining functions to the `lodash` wrapper.
     lodash.prototype.chain = wrapperChain;
     lodash.prototype.commit = wrapperCommit;
+    lodash.prototype.concat = wrapperConcat;
     lodash.prototype.plant = wrapperPlant;
     lodash.prototype.reverse = wrapperReverse;
     lodash.prototype.toString = wrapperToString;
@@ -25574,1986 +25943,7 @@ L.Map.include({
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _MapLayer2 = require("./MapLayer");
-
-var _MapLayer3 = _interopRequireDefault(_MapLayer2);
-
-var BaseTileLayer = (function (_MapLayer) {
-  function BaseTileLayer() {
-    _classCallCheck(this, BaseTileLayer);
-
-    if (_MapLayer != null) {
-      _MapLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(BaseTileLayer, _MapLayer);
-
-  _createClass(BaseTileLayer, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _props = this.props;
-      var opacity = _props.opacity;
-      var zIndex = _props.zIndex;
-
-      if (opacity && opacity !== prevProps.opacity) {
-        this.leafletElement.setOpacity(opacity);
-      }
-      if (zIndex && zIndex !== prevProps.zIndex) {
-        this.leafletElement.setZIndex(zIndex);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return null;
-    }
-  }]);
-
-  return BaseTileLayer;
-})(_MapLayer3["default"]);
-
-exports["default"] = BaseTileLayer;
-
-BaseTileLayer.propTypes = {
-  opacity: _react2["default"].PropTypes.number,
-  zIndex: _react2["default"].PropTypes.number
-};
-module.exports = exports["default"];
-},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CanvasTileLayer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _BaseTileLayer2 = require("./BaseTileLayer");
-
-var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
-
-var CanvasTileLayer = (function (_BaseTileLayer) {
-  function CanvasTileLayer() {
-    _classCallCheck(this, CanvasTileLayer);
-
-    if (_BaseTileLayer != null) {
-      _BaseTileLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(CanvasTileLayer, _BaseTileLayer);
-
-  _createClass(CanvasTileLayer, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(CanvasTileLayer.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["map"]);
-
-      this.leafletElement = _leaflet2["default"].tileLayer.canvas(props);
-    }
-  }]);
-
-  return CanvasTileLayer;
-})(_BaseTileLayer3["default"]);
-
-exports["default"] = CanvasTileLayer;
-module.exports = exports["default"];
-},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Circle.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlng = require("./types/latlng");
-
-var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var Circle = (function (_PopupContainer) {
-  function Circle() {
-    _classCallCheck(this, Circle);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(Circle, _PopupContainer);
-
-  _createClass(Circle, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Circle.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var center = _props.center;
-      var map = _props.map;
-      var radius = _props.radius;
-
-      var props = _objectWithoutProperties(_props, ["center", "map", "radius"]);
-
-      this.leafletElement = _leaflet2["default"].circle(center, radius, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.center !== prevProps.center) {
-        this.leafletElement.setLatLng(this.props.center);
-      }
-      if (this.props.radius !== prevProps.radius) {
-        this.leafletElement.setRadius(this.props.radius);
-      }
-    }
-  }]);
-
-  return Circle;
-})(_PopupContainer3["default"]);
-
-exports["default"] = Circle;
-
-Circle.propTypes = {
-  center: _typesLatlng2["default"].isRequired,
-  radius: _react2["default"].PropTypes.number.isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CircleMarker.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlng = require("./types/latlng");
-
-var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var CircleMarker = (function (_PopupContainer) {
-  function CircleMarker() {
-    _classCallCheck(this, CircleMarker);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(CircleMarker, _PopupContainer);
-
-  _createClass(CircleMarker, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(CircleMarker.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var center = _props.center;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["center", "map"]);
-
-      this.leafletElement = _leaflet2["default"].circleMarker(center, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.center !== prevProps.center) {
-        this.leafletElement.setLatLng(this.props.center);
-      }
-      if (this.props.radius !== prevProps.radius) {
-        this.leafletElement.setRadius(this.props.radius);
-      }
-    }
-  }]);
-
-  return CircleMarker;
-})(_PopupContainer3["default"]);
-
-exports["default"] = CircleMarker;
-
-CircleMarker.propTypes = {
-  center: _typesLatlng2["default"].isRequired,
-  radius: _react2["default"].PropTypes.number
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/FeatureGroup.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var FeatureGroup = (function (_PopupContainer) {
-  function FeatureGroup() {
-    _classCallCheck(this, FeatureGroup);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(FeatureGroup, _PopupContainer);
-
-  _createClass(FeatureGroup, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      var _props = this.props;
-      var layers = _props.layers;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["layers", "map"]);
-
-      this.leafletElement = _leaflet2["default"].featureGroup(layers);
-    }
-  }]);
-
-  return FeatureGroup;
-})(_PopupContainer3["default"]);
-
-exports["default"] = FeatureGroup;
-
-FeatureGroup.propTypes = {
-  layers: _react2["default"].PropTypes.array.isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/GeoJson.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var GeoJson = (function (_PopupContainer) {
-  function GeoJson() {
-    _classCallCheck(this, GeoJson);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(GeoJson, _PopupContainer);
-
-  _createClass(GeoJson, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(GeoJson.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var data = _props.data;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["data", "map"]);
-
-      this.leafletElement = _leaflet2["default"].geoJson(data, props);
-    }
-  }]);
-
-  return GeoJson;
-})(_PopupContainer3["default"]);
-
-exports["default"] = GeoJson;
-
-GeoJson.propTypes = {
-  data: _react2["default"].PropTypes.object.isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/ImageOverlay.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesBounds = require("./types/bounds");
-
-var _typesBounds2 = _interopRequireDefault(_typesBounds);
-
-var _MapLayer2 = require("./MapLayer");
-
-var _MapLayer3 = _interopRequireDefault(_MapLayer2);
-
-var ImageOverlay = (function (_MapLayer) {
-  function ImageOverlay() {
-    _classCallCheck(this, ImageOverlay);
-
-    if (_MapLayer != null) {
-      _MapLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(ImageOverlay, _MapLayer);
-
-  _createClass(ImageOverlay, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(ImageOverlay.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var bounds = _props.bounds;
-      var map = _props.map;
-      var url = _props.url;
-
-      var props = _objectWithoutProperties(_props, ["bounds", "map", "url"]);
-
-      this.leafletElement = _leaflet2["default"].imageOverlay(url, bounds, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.url !== prevProps.url) {
-        this.leafletElement.setUrl(this.props.url);
-      }
-      if (this.props.opacity !== prevProps.opacity) {
-        this.leafletElement.setOpacity(this.props.opacity);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return null;
-    }
-  }]);
-
-  return ImageOverlay;
-})(_MapLayer3["default"]);
-
-exports["default"] = ImageOverlay;
-
-ImageOverlay.propTypes = {
-  attribution: _react2["default"].PropTypes.string,
-  bounds: _typesBounds2["default"].isRequired,
-  opacity: _react2["default"].PropTypes.number,
-  url: _react2["default"].PropTypes.string.isRequired
-};
-module.exports = exports["default"];
-},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Map.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _lodashLangIsArray = require("lodash/lang/isArray");
-
-var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
-
-var _lodashUtilityUniqueId = require("lodash/utility/uniqueId");
-
-var _lodashUtilityUniqueId2 = _interopRequireDefault(_lodashUtilityUniqueId);
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesBounds = require("./types/bounds");
-
-var _typesBounds2 = _interopRequireDefault(_typesBounds);
-
-var _typesLatlng = require("./types/latlng");
-
-var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
-
-var _MapComponent2 = require("./MapComponent");
-
-var _MapComponent3 = _interopRequireDefault(_MapComponent2);
-
-var normalizeCenter = function normalizeCenter(pos) {
-  return (0, _lodashLangIsArray2["default"])(pos) ? pos : [pos.lat, pos.lng || pos.lon];
-};
-
-var Map = (function (_MapComponent) {
-  function Map(props) {
-    _classCallCheck(this, Map);
-
-    _get(Object.getPrototypeOf(Map.prototype), "constructor", this).call(this, props);
-    this.state = {
-      id: props.id || (0, _lodashUtilityUniqueId2["default"])("map")
-    };
-  }
-
-  _inherits(Map, _MapComponent);
-
-  _createClass(Map, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.leafletElement = _leaflet2["default"].map(this.state.id, this.props);
-      _get(Object.getPrototypeOf(Map.prototype), "componentDidMount", this).call(this);
-      this.setState({ map: this.leafletElement });
-    }
-  }, {
-    key: "shouldUpdateCenter",
-    value: function shouldUpdateCenter(next, prev) {
-      if (!prev) return true;
-      next = normalizeCenter(next);
-      prev = normalizeCenter(prev);
-      return next[0] !== prev[0] || next[1] !== prev[1];
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _props = this.props;
-      var center = _props.center;
-      var zoom = _props.zoom;
-
-      if (center && this.shouldUpdateCenter(center, prevProps.center)) {
-        this.leafletElement.setView(center, zoom, { animate: false });
-      } else if (zoom && zoom !== prevProps.zoom) {
-        this.leafletElement.setZoom(zoom);
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      _get(Object.getPrototypeOf(Map.prototype), "componentWillUnmount", this).call(this);
-      this.leafletElement.remove();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var map = this.leafletElement;
-      var children = map ? _react2["default"].Children.map(this.props.children, function (child) {
-        return child ? _react2["default"].cloneElement(child, { map: map }) : null;
-      }) : null;
-
-      return _react2["default"].createElement(
-        "div",
-        { className: this.props.className, id: this.state.id, style: this.props.style },
-        children
-      );
-    }
-  }]);
-
-  return Map;
-})(_MapComponent3["default"]);
-
-exports["default"] = Map;
-
-Map.propTypes = {
-  center: _typesLatlng2["default"],
-  className: _react2["default"].PropTypes.string,
-  id: _react2["default"].PropTypes.string,
-  maxBounds: _typesBounds2["default"],
-  maxZoom: _react2["default"].PropTypes.number,
-  minZoom: _react2["default"].PropTypes.number,
-  style: _react2["default"].PropTypes.object,
-  zoom: _react2["default"].PropTypes.number
-};
-module.exports = exports["default"];
-},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash/lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","lodash/utility/uniqueId":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/uniqueId.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _lodashLangClone = require("lodash/lang/clone");
-
-var _lodashLangClone2 = _interopRequireDefault(_lodashLangClone);
-
-var _lodashCollectionForEach = require("lodash/collection/forEach");
-
-var _lodashCollectionForEach2 = _interopRequireDefault(_lodashCollectionForEach);
-
-var _lodashCollectionReduce = require("lodash/collection/reduce");
-
-var _lodashCollectionReduce2 = _interopRequireDefault(_lodashCollectionReduce);
-
-var _react = require("react");
-
-var EVENTS_RE = /on(?:Leaflet)?(.+)/i;
-
-var MapComponent = (function (_Component) {
-  function MapComponent() {
-    _classCallCheck(this, MapComponent);
-
-    if (_Component != null) {
-      _Component.apply(this, arguments);
-    }
-  }
-
-  _inherits(MapComponent, _Component);
-
-  _createClass(MapComponent, [{
-    key: "getLeafletElement",
-    value: function getLeafletElement() {
-      return this.leafletElement;
-    }
-  }, {
-    key: "extractLeafletEvents",
-    value: function extractLeafletEvents(props) {
-      return (0, _lodashCollectionReduce2["default"])(props, function (res, cb, ev) {
-        if (EVENTS_RE.test(ev)) {
-          var key = ev.replace(EVENTS_RE, function (match, p) {
-            return p.toLowerCase();
-          });
-          res[key] = cb;
-        }
-        return res;
-      }, {});
-    }
-  }, {
-    key: "bindLeafletEvents",
-    value: function bindLeafletEvents() {
-      var next = arguments[0] === undefined ? {} : arguments[0];
-      var prev = arguments[1] === undefined ? {} : arguments[1];
-
-      var el = this.leafletElement;
-      if (!el) return;
-
-      var diff = (0, _lodashLangClone2["default"])(prev);
-      (0, _lodashCollectionForEach2["default"])(prev, function (cb, ev) {
-        if (!next[ev] || cb !== next[ev]) {
-          delete diff[ev];
-          el.off(ev, cb);
-        }
-      });
-
-      (0, _lodashCollectionForEach2["default"])(next, function (cb, ev) {
-        if (!prev[ev] || cb !== prev[ev]) {
-          diff[ev] = cb;
-          el.on(ev, cb);
-        }
-      });
-
-      return diff;
-    }
-  }, {
-    key: "fireLeafletEvent",
-    value: function fireLeafletEvent(type, data) {
-      var el = this.leafletElement;
-      if (el) el.fire(type, data);
-    }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this._leafletEvents = this.extractLeafletEvents(this.props);
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.bindLeafletEvents(this._leafletEvents);
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      var next = this.extractLeafletEvents(nextProps);
-      this._leafletEvents = this.bindLeafletEvents(next, this._leafletEvents);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      var el = this.leafletElement;
-      if (!el) return;
-
-      (0, _lodashCollectionForEach2["default"])(this._leafletEvents, function (cb, ev) {
-        el.off(ev, cb);
-      });
-    }
-  }]);
-
-  return MapComponent;
-})(_react.Component);
-
-exports["default"] = MapComponent;
-module.exports = exports["default"];
-},{"lodash/collection/forEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/collection/forEach.js","lodash/collection/reduce":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/collection/reduce.js","lodash/lang/clone":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/clone.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _lodashObjectAssign = require("lodash/object/assign");
-
-var _lodashObjectAssign2 = _interopRequireDefault(_lodashObjectAssign);
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _MapComponent2 = require("./MapComponent");
-
-var _MapComponent3 = _interopRequireDefault(_MapComponent2);
-
-var MapLayer = (function (_MapComponent) {
-  function MapLayer() {
-    _classCallCheck(this, MapLayer);
-
-    if (_MapComponent != null) {
-      _MapComponent.apply(this, arguments);
-    }
-  }
-
-  _inherits(MapLayer, _MapComponent);
-
-  _createClass(MapLayer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      _get(Object.getPrototypeOf(MapLayer.prototype), "componentDidMount", this).call(this);
-      this.props.map.addLayer(this.leafletElement);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      _get(Object.getPrototypeOf(MapLayer.prototype), "componentWillUnmount", this).call(this);
-      this.props.map.removeLayer(this.leafletElement);
-    }
-  }, {
-    key: "getClonedChildrenWithMap",
-    value: function getClonedChildrenWithMap(extra) {
-      var _props = this.props;
-      var children = _props.children;
-      var map = _props.map;
-
-      var props = (0, _lodashObjectAssign2["default"])({ map: map }, extra);
-
-      return _react2["default"].Children.map(children, function (child) {
-        return child ? _react2["default"].cloneElement(child, props) : null;
-      });
-    }
-  }]);
-
-  return MapLayer;
-})(_MapComponent3["default"]);
-
-exports["default"] = MapLayer;
-module.exports = exports["default"];
-},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","lodash/object/assign":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/assign.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Marker.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlng = require("./types/latlng");
-
-var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var Marker = (function (_PopupContainer) {
-  function Marker() {
-    _classCallCheck(this, Marker);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(Marker, _PopupContainer);
-
-  _createClass(Marker, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Marker.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var position = _props.position;
-
-      var props = _objectWithoutProperties(_props, ["map", "position"]);
-
-      this.leafletElement = _leaflet2["default"].marker(position, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.position !== prevProps.position) {
-        this.leafletElement.setLatLng(this.props.position);
-      }
-      if (this.props.icon !== prevProps.icon) {
-        this.leafletElement.setIcon(this.props.icon);
-      }
-      if (this.props.zIndexOffset !== prevProps.zIndexOffset) {
-        this.leafletElement.setZIndexOffset(this.props.zIndexOffset);
-      }
-      if (this.props.opacity !== prevProps.opacity) {
-        this.leafletElement.setOpacity(this.props.opacity);
-      }
-    }
-  }]);
-
-  return Marker;
-})(_PopupContainer3["default"]);
-
-exports["default"] = Marker;
-
-Marker.propTypes = {
-  position: _typesLatlng2["default"].isRequired,
-  icon: _react2["default"].PropTypes.instanceOf(_leaflet2["default"].Icon),
-  zIndexOffset: _react2["default"].PropTypes.number,
-  opacity: _react2["default"].PropTypes.number
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolygon.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlngList = require("./types/latlngList");
-
-var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var MultiPolygon = (function (_PopupContainer) {
-  function MultiPolygon() {
-    _classCallCheck(this, MultiPolygon);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(MultiPolygon, _PopupContainer);
-
-  _createClass(MultiPolygon, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(MultiPolygon.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var polygons = _props.polygons;
-
-      var props = _objectWithoutProperties(_props, ["map", "polygons"]);
-
-      this.leafletElement = _leaflet2["default"].multiPolygon(polygons, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.polygons !== prevProps.polygons) {
-        this.leafletElement.setLatLngs(this.props.polygons);
-      }
-    }
-  }]);
-
-  return MultiPolygon;
-})(_PopupContainer3["default"]);
-
-exports["default"] = MultiPolygon;
-
-MultiPolygon.propTypes = {
-  polygons: _react2["default"].PropTypes.arrayOf(_typesLatlngList2["default"]).isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolyline.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlngList = require("./types/latlngList");
-
-var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var MultiPolyline = (function (_PopupContainer) {
-  function MultiPolyline() {
-    _classCallCheck(this, MultiPolyline);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(MultiPolyline, _PopupContainer);
-
-  _createClass(MultiPolyline, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(MultiPolyline.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var polylines = _props.polylines;
-
-      var props = _objectWithoutProperties(_props, ["map", "polylines"]);
-
-      this.leafletElement = _leaflet2["default"].multiPolyline(polylines, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.polylines !== prevProps.polylines) {
-        this.leafletElement.setLatLngs(this.props.polylines);
-      }
-    }
-  }]);
-
-  return MultiPolyline;
-})(_PopupContainer3["default"]);
-
-exports["default"] = MultiPolyline;
-
-MultiPolyline.propTypes = {
-  polylines: _react2["default"].PropTypes.arrayOf(_typesLatlngList2["default"]).isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polygon.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlngList = require("./types/latlngList");
-
-var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var Polygon = (function (_PopupContainer) {
-  function Polygon() {
-    _classCallCheck(this, Polygon);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(Polygon, _PopupContainer);
-
-  _createClass(Polygon, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Polygon.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var positions = _props.positions;
-
-      var props = _objectWithoutProperties(_props, ["map", "positions"]);
-
-      this.leafletElement = _leaflet2["default"].polygon(positions, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.positions !== prevProps.positions) {
-        this.leafletElement.setLatLngs(this.props.positions);
-      }
-    }
-  }]);
-
-  return Polygon;
-})(_PopupContainer3["default"]);
-
-exports["default"] = Polygon;
-
-Polygon.propTypes = {
-  positions: _typesLatlngList2["default"].isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polyline.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlngList = require("./types/latlngList");
-
-var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var Polyline = (function (_PopupContainer) {
-  function Polyline() {
-    _classCallCheck(this, Polyline);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(Polyline, _PopupContainer);
-
-  _createClass(Polyline, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Polyline.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var positions = _props.positions;
-
-      var props = _objectWithoutProperties(_props, ["map", "positions"]);
-
-      this.leafletElement = _leaflet2["default"].polyline(positions, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.positions !== prevProps.positions) {
-        this.leafletElement.setLatLngs(this.props.positions);
-      }
-    }
-  }]);
-
-  return Polyline;
-})(_PopupContainer3["default"]);
-
-exports["default"] = Polyline;
-
-Polyline.propTypes = {
-  positions: _typesLatlngList2["default"].isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Popup.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesLatlng = require("./types/latlng");
-
-var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
-
-var _MapComponent2 = require("./MapComponent");
-
-var _MapComponent3 = _interopRequireDefault(_MapComponent2);
-
-var Popup = (function (_MapComponent) {
-  function Popup() {
-    _classCallCheck(this, Popup);
-
-    if (_MapComponent != null) {
-      _MapComponent.apply(this, arguments);
-    }
-  }
-
-  _inherits(Popup, _MapComponent);
-
-  _createClass(Popup, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Popup.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var children = _props.children;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["children", "map"]);
-
-      this.leafletElement = _leaflet2["default"].popup(props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _props2 = this.props;
-      var children = _props2.children;
-      var map = _props2.map;
-      var popupContainer = _props2.popupContainer;
-      var position = _props2.position;
-
-      var props = _objectWithoutProperties(_props2, ["children", "map", "popupContainer", "position"]);
-
-      if (children !== prevProps.children) {
-        var content = _react2["default"].renderToStaticMarkup(children);
-        if (popupContainer) {
-          popupContainer.bindPopup(content, props);
-        } else {
-          var el = this.leafletElement;
-          el.setContent(content);
-          if (position !== prevProps.position) el.setLatLng(position);
-        }
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      _get(Object.getPrototypeOf(Popup.prototype), "componentWillUnmount", this).call(this);
-      this.props.map.removeLayer(this.leafletElement);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _props3 = this.props;
-      var children = _props3.children;
-      var map = _props3.map;
-      var popupContainer = _props3.popupContainer;
-      var position = _props3.position;
-
-      var props = _objectWithoutProperties(_props3, ["children", "map", "popupContainer", "position"]);
-
-      if (children) {
-        var content = _react2["default"].renderToStaticMarkup(children);
-        // Attach to container component
-        if (popupContainer) {
-          popupContainer.bindPopup(content, props);
-          return null;
-        }
-        // Attach to a Map
-        var el = this.leafletElement;
-        el.setContent(content);
-        if (position) el.setLatLng(position);
-        el.openOn(map);
-      }
-      return null;
-    }
-  }]);
-
-  return Popup;
-})(_MapComponent3["default"]);
-
-exports["default"] = Popup;
-
-Popup.propTypes = {
-  position: _typesLatlng2["default"]
-};
-module.exports = exports["default"];
-},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _MapLayer2 = require("./MapLayer");
-
-var _MapLayer3 = _interopRequireDefault(_MapLayer2);
-
-var PopupContainer = (function (_MapLayer) {
-  function PopupContainer() {
-    _classCallCheck(this, PopupContainer);
-
-    if (_MapLayer != null) {
-      _MapLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(PopupContainer, _MapLayer);
-
-  _createClass(PopupContainer, [{
-    key: "render",
-    value: function render() {
-      var children = this.getClonedChildrenWithMap({
-        popupContainer: this.leafletElement
-      });
-      return _react2["default"].createElement(
-        "div",
-        { style: { display: "none" } },
-        children
-      );
-    }
-  }]);
-
-  return PopupContainer;
-})(_MapLayer3["default"]);
-
-exports["default"] = PopupContainer;
-module.exports = exports["default"];
-},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Rectangle.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _typesBounds = require("./types/bounds");
-
-var _typesBounds2 = _interopRequireDefault(_typesBounds);
-
-var _PopupContainer2 = require("./PopupContainer");
-
-var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
-
-var Rectangle = (function (_PopupContainer) {
-  function Rectangle() {
-    _classCallCheck(this, Rectangle);
-
-    if (_PopupContainer != null) {
-      _PopupContainer.apply(this, arguments);
-    }
-  }
-
-  _inherits(Rectangle, _PopupContainer);
-
-  _createClass(Rectangle, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(Rectangle.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var bounds = _props.bounds;
-      var map = _props.map;
-
-      var props = _objectWithoutProperties(_props, ["bounds", "map"]);
-
-      this.leafletElement = _leaflet2["default"].rectangle(bounds, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.bounds !== prevProps.bounds) {
-        this.leafletElement.setBounds(this.props.bounds);
-      }
-    }
-  }]);
-
-  return Rectangle;
-})(_PopupContainer3["default"]);
-
-exports["default"] = Rectangle;
-
-Rectangle.propTypes = {
-  bounds: _typesBounds2["default"].isRequired
-};
-module.exports = exports["default"];
-},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/TileLayer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _BaseTileLayer2 = require("./BaseTileLayer");
-
-var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
-
-var TileLayer = (function (_BaseTileLayer) {
-  function TileLayer() {
-    _classCallCheck(this, TileLayer);
-
-    if (_BaseTileLayer != null) {
-      _BaseTileLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(TileLayer, _BaseTileLayer);
-
-  _createClass(TileLayer, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(TileLayer.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var url = _props.url;
-
-      var props = _objectWithoutProperties(_props, ["map", "url"]);
-
-      this.leafletElement = _leaflet2["default"].tileLayer(url, props);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var url = this.props.url;
-
-      if (url && url !== prevProps.url) {
-        this.leafletElement.setUrl(url);
-      }
-    }
-  }]);
-
-  return TileLayer;
-})(_BaseTileLayer3["default"]);
-
-exports["default"] = TileLayer;
-
-TileLayer.propTypes = {
-  url: _react2["default"].PropTypes.string.isRequired
-};
-module.exports = exports["default"];
-},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/WMSTileLayer.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _BaseTileLayer2 = require("./BaseTileLayer");
-
-var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
-
-var WMSTileLayer = (function (_BaseTileLayer) {
-  function WMSTileLayer() {
-    _classCallCheck(this, WMSTileLayer);
-
-    if (_BaseTileLayer != null) {
-      _BaseTileLayer.apply(this, arguments);
-    }
-  }
-
-  _inherits(WMSTileLayer, _BaseTileLayer);
-
-  _createClass(WMSTileLayer, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      _get(Object.getPrototypeOf(WMSTileLayer.prototype), "componentWillMount", this).call(this);
-      var _props = this.props;
-      var map = _props.map;
-      var url = _props.url;
-
-      var props = _objectWithoutProperties(_props, ["map", "url"]);
-
-      this.leafletElement = _leaflet2["default"].tileLayer.wms(url, props);
-    }
-  }]);
-
-  return WMSTileLayer;
-})(_BaseTileLayer3["default"]);
-
-exports["default"] = WMSTileLayer;
-
-WMSTileLayer.propTypes = {
-  url: _react2["default"].PropTypes.string.isRequired
-};
-module.exports = exports["default"];
-},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _types = require("./types");
-
-var _types2 = _interopRequireDefault(_types);
-
-var _BaseTileLayer = require("./BaseTileLayer");
-
-var _BaseTileLayer2 = _interopRequireDefault(_BaseTileLayer);
-
-var _CanvasTileLayer = require("./CanvasTileLayer");
-
-var _CanvasTileLayer2 = _interopRequireDefault(_CanvasTileLayer);
-
-var _Circle = require("./Circle");
-
-var _Circle2 = _interopRequireDefault(_Circle);
-
-var _CircleMarker = require("./CircleMarker");
-
-var _CircleMarker2 = _interopRequireDefault(_CircleMarker);
-
-var _FeatureGroup = require("./FeatureGroup");
-
-var _FeatureGroup2 = _interopRequireDefault(_FeatureGroup);
-
-var _GeoJson = require("./GeoJson");
-
-var _GeoJson2 = _interopRequireDefault(_GeoJson);
-
-var _ImageOverlay = require("./ImageOverlay");
-
-var _ImageOverlay2 = _interopRequireDefault(_ImageOverlay);
-
-var _Map = require("./Map");
-
-var _Map2 = _interopRequireDefault(_Map);
-
-var _MapComponent = require("./MapComponent");
-
-var _MapComponent2 = _interopRequireDefault(_MapComponent);
-
-var _MapLayer = require("./MapLayer");
-
-var _MapLayer2 = _interopRequireDefault(_MapLayer);
-
-var _Marker = require("./Marker");
-
-var _Marker2 = _interopRequireDefault(_Marker);
-
-var _MultiPolygon = require("./MultiPolygon");
-
-var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
-
-var _MultiPolyline = require("./MultiPolyline");
-
-var _MultiPolyline2 = _interopRequireDefault(_MultiPolyline);
-
-var _Polygon = require("./Polygon");
-
-var _Polygon2 = _interopRequireDefault(_Polygon);
-
-var _Polyline = require("./Polyline");
-
-var _Polyline2 = _interopRequireDefault(_Polyline);
-
-var _Popup = require("./Popup");
-
-var _Popup2 = _interopRequireDefault(_Popup);
-
-var _PopupContainer = require("./PopupContainer");
-
-var _PopupContainer2 = _interopRequireDefault(_PopupContainer);
-
-var _Rectangle = require("./Rectangle");
-
-var _Rectangle2 = _interopRequireDefault(_Rectangle);
-
-var _TileLayer = require("./TileLayer");
-
-var _TileLayer2 = _interopRequireDefault(_TileLayer);
-
-var _WMSTileLayer = require("./WMSTileLayer");
-
-var _WMSTileLayer2 = _interopRequireDefault(_WMSTileLayer);
-
-var setIconDefaultImagePath = function setIconDefaultImagePath(path) {
-  _leaflet2["default"].Icon.Default.imagePath = path;
-};
-
-setIconDefaultImagePath("//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/images");
-
-exports["default"] = {
-  setIconDefaultImagePath: setIconDefaultImagePath,
-  PropTypes: _types2["default"],
-  BaseTileLayer: _BaseTileLayer2["default"],
-  CanvasTileLayer: _CanvasTileLayer2["default"],
-  Circle: _Circle2["default"],
-  CircleMarker: _CircleMarker2["default"],
-  FeatureGroup: _FeatureGroup2["default"],
-  GeoJson: _GeoJson2["default"],
-  ImageOverlay: _ImageOverlay2["default"],
-  Map: _Map2["default"],
-  MapComponent: _MapComponent2["default"],
-  MapLayer: _MapLayer2["default"],
-  Marker: _Marker2["default"],
-  MultiPolygon: _MultiPolygon2["default"],
-  MultiPolyline: _MultiPolyline2["default"],
-  Polygon: _Polygon2["default"],
-  Polyline: _Polyline2["default"],
-  Popup: _Popup2["default"],
-  PopupContainer: _PopupContainer2["default"],
-  Rectangle: _Rectangle2["default"],
-  TileLayer: _TileLayer2["default"],
-  WMSTileLayer: _WMSTileLayer2["default"]
-};
-module.exports = exports["default"];
-},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","./CanvasTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CanvasTileLayer.js","./Circle":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Circle.js","./CircleMarker":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CircleMarker.js","./FeatureGroup":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/FeatureGroup.js","./GeoJson":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/GeoJson.js","./ImageOverlay":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/ImageOverlay.js","./Map":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Map.js","./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","./Marker":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Marker.js","./MultiPolygon":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolygon.js","./MultiPolyline":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolyline.js","./Polygon":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polygon.js","./Polyline":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polyline.js","./Popup":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Popup.js","./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./Rectangle":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Rectangle.js","./TileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/TileLayer.js","./WMSTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/WMSTileLayer.js","./types":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/index.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _leaflet = require("leaflet");
-
-var _leaflet2 = _interopRequireDefault(_leaflet);
-
-var _latlngList = require("./latlngList");
-
-var _latlngList2 = _interopRequireDefault(_latlngList);
-
-exports["default"] = _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.instanceOf(_leaflet2["default"].LatLngBounds), _latlngList2["default"]]);
-module.exports = exports["default"];
-},{"./latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/index.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _bounds = require("./bounds");
-
-var _bounds2 = _interopRequireDefault(_bounds);
-
-var _latlng = require("./latlng");
-
-var _latlng2 = _interopRequireDefault(_latlng);
-
-var _latlngList = require("./latlngList");
-
-var _latlngList2 = _interopRequireDefault(_latlngList);
-
-exports["default"] = { bounds: _bounds2["default"], latlng: _latlng2["default"], latlngList: _latlngList2["default"] };
-module.exports = exports["default"];
-},{"./bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","./latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","./latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var Type = _react2["default"].PropTypes;
-
-exports["default"] = Type.oneOfType([
-// [Number, Number]
-Type.arrayOf(Type.number),
-// {lat: Number, lng: Number}
-Type.shape({
-  lat: Type.number,
-  lng: Type.number
-}),
-// {lat: Number, lon: Number}
-Type.shape({
-  lat: Type.number,
-  lon: Type.number
-})]);
-module.exports = exports["default"];
-},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js":[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _latlng = require("./latlng");
-
-var _latlng2 = _interopRequireDefault(_latlng);
-
-exports["default"] = _react2["default"].PropTypes.arrayOf(_latlng2["default"]);
-module.exports = exports["default"];
-},{"./latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/array/last.js":[function(require,module,exports){
-/**
- * Gets the last element of `array`.
- *
- * @static
- * @memberOf _
- * @category Array
- * @param {Array} array The array to query.
- * @returns {*} Returns the last element of `array`.
- * @example
- *
- * _.last([1, 2, 3]);
- * // => 3
- */
-function last(array) {
-  var length = array ? array.length : 0;
-  return length ? array[length - 1] : undefined;
-}
-
-module.exports = last;
-
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/collection/forEach.js":[function(require,module,exports){
-var arrayEach = require('../internal/arrayEach'),
-    baseEach = require('../internal/baseEach'),
-    createForEach = require('../internal/createForEach');
-
-/**
- * Iterates over elements of `collection` invoking `iteratee` for each element.
- * The `iteratee` is bound to `thisArg` and invoked with three arguments:
- * (value, index|key, collection). Iteratee functions may exit iteration early
- * by explicitly returning `false`.
- *
- * **Note:** As with other "Collections" methods, objects with a "length" property
- * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
- * may be used for object iteration.
- *
- * @static
- * @memberOf _
- * @alias each
- * @category Collection
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @param {*} [thisArg] The `this` binding of `iteratee`.
- * @returns {Array|Object|string} Returns `collection`.
- * @example
- *
- * _([1, 2]).forEach(function(n) {
- *   console.log(n);
- * }).value();
- * // => logs each value from left to right and returns the array
- *
- * _.forEach({ 'a': 1, 'b': 2 }, function(n, key) {
- *   console.log(n, key);
- * });
- * // => logs each value-key pair and returns the object (iteration order is not guaranteed)
- */
-var forEach = createForEach(arrayEach, baseEach);
-
-module.exports = forEach;
-
-},{"../internal/arrayEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayEach.js","../internal/baseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseEach.js","../internal/createForEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createForEach.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/collection/reduce.js":[function(require,module,exports){
-var arrayReduce = require('../internal/arrayReduce'),
-    baseEach = require('../internal/baseEach'),
-    createReduce = require('../internal/createReduce');
-
-/**
- * Reduces `collection` to a value which is the accumulated result of running
- * each element in `collection` through `iteratee`, where each successive
- * invocation is supplied the return value of the previous. If `accumulator`
- * is not provided the first element of `collection` is used as the initial
- * value. The `iteratee` is bound to `thisArg` and invoked with four arguments:
- * (accumulator, value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.reduce`, `_.reduceRight`, and `_.transform`.
- *
- * The guarded methods are:
- * `assign`, `defaults`, `includes`, `merge`, `sortByAll`, and `sortByOrder`
- *
- * @static
- * @memberOf _
- * @alias foldl, inject
- * @category Collection
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {*} [thisArg] The `this` binding of `iteratee`.
- * @returns {*} Returns the accumulated value.
- * @example
- *
- * _.reduce([1, 2], function(total, n) {
- *   return total + n;
- * });
- * // => 3
- *
- * _.reduce({ 'a': 1, 'b': 2 }, function(result, n, key) {
- *   result[key] = n * 3;
- *   return result;
- * }, {});
- * // => { 'a': 3, 'b': 6 } (iteration order is not guaranteed)
- */
-var reduce = createReduce(arrayReduce, baseEach);
-
-module.exports = reduce;
-
-},{"../internal/arrayReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayReduce.js","../internal/baseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseEach.js","../internal/createReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createReduce.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/function/restParam.js":[function(require,module,exports){
-/** Used as the `TypeError` message for "Functions" methods. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/* Native method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max;
-
-/**
- * Creates a function that invokes `func` with the `this` binding of the
- * created function and arguments from `start` and beyond provided as an array.
- *
- * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
- *
- * @static
- * @memberOf _
- * @category Function
- * @param {Function} func The function to apply a rest parameter to.
- * @param {number} [start=func.length-1] The start position of the rest parameter.
- * @returns {Function} Returns the new function.
- * @example
- *
- * var say = _.restParam(function(what, names) {
- *   return what + ' ' + _.initial(names).join(', ') +
- *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
- * });
- *
- * say('hello', 'fred', 'barney', 'pebbles');
- * // => 'hello fred, barney, & pebbles'
- */
-function restParam(func, start) {
-  if (typeof func != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
-  return function() {
-    var args = arguments,
-        index = -1,
-        length = nativeMax(args.length - start, 0),
-        rest = Array(length);
-
-    while (++index < length) {
-      rest[index] = args[start + index];
-    }
-    switch (start) {
-      case 0: return func.call(this, rest);
-      case 1: return func.call(this, args[0], rest);
-      case 2: return func.call(this, args[0], args[1], rest);
-    }
-    var otherArgs = Array(start + 1);
-    index = -1;
-    while (++index < start) {
-      otherArgs[index] = args[index];
-    }
-    otherArgs[start] = rest;
-    return func.apply(this, otherArgs);
-  };
-}
-
-module.exports = restParam;
-
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayCopy.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayCopy.js":[function(require,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -27575,7 +25965,7 @@ function arrayCopy(source, array) {
 
 module.exports = arrayCopy;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayEach.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayEach.js":[function(require,module,exports){
 /**
  * A specialized version of `_.forEach` for arrays without support for callback
  * shorthands and `this` binding.
@@ -27599,7 +25989,7 @@ function arrayEach(array, iteratee) {
 
 module.exports = arrayEach;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayReduce.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayReduce.js":[function(require,module,exports){
 /**
  * A specialized version of `_.reduce` for arrays without support for callback
  * shorthands and `this` binding.
@@ -27627,7 +26017,7 @@ function arrayReduce(array, iteratee, accumulator, initFromArray) {
 
 module.exports = arrayReduce;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arraySome.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arraySome.js":[function(require,module,exports){
 /**
  * A specialized version of `_.some` for arrays without support for callback
  * shorthands and `this` binding.
@@ -27652,7 +26042,7 @@ function arraySome(array, predicate) {
 
 module.exports = arraySome;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/assignWith.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/assignWith.js":[function(require,module,exports){
 var keys = require('../object/keys');
 
 /**
@@ -27686,7 +26076,7 @@ function assignWith(object, source, customizer) {
 
 module.exports = assignWith;
 
-},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseAssign.js":[function(require,module,exports){
+},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseAssign.js":[function(require,module,exports){
 var baseCopy = require('./baseCopy'),
     keys = require('../object/keys');
 
@@ -27707,7 +26097,7 @@ function baseAssign(object, source) {
 
 module.exports = baseAssign;
 
-},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js","./baseCopy":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseCopy.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseCallback.js":[function(require,module,exports){
+},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js","./baseCopy":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseCopy.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseCallback.js":[function(require,module,exports){
 var baseMatches = require('./baseMatches'),
     baseMatchesProperty = require('./baseMatchesProperty'),
     bindCallback = require('./bindCallback'),
@@ -27744,7 +26134,7 @@ function baseCallback(func, thisArg, argCount) {
 
 module.exports = baseCallback;
 
-},{"../utility/identity":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/identity.js","../utility/property":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/property.js","./baseMatches":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseMatches.js","./baseMatchesProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseMatchesProperty.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bindCallback.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseClone.js":[function(require,module,exports){
+},{"../utility/identity":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/identity.js","../utility/property":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/property.js","./baseMatches":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseMatches.js","./baseMatchesProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseMatchesProperty.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bindCallback.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseClone.js":[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     arrayEach = require('./arrayEach'),
     baseAssign = require('./baseAssign'),
@@ -27800,7 +26190,7 @@ cloneableTags[weakMapTag] = false;
 var objectProto = Object.prototype;
 
 /**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
  * of values.
  */
 var objToString = objectProto.toString;
@@ -27851,7 +26241,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
         : (object ? value : {});
     }
   }
-  // Check for circular references and return corresponding clone.
+  // Check for circular references and return its corresponding clone.
   stackA || (stackA = []);
   stackB || (stackB = []);
 
@@ -27874,7 +26264,7 @@ function baseClone(value, isDeep, customizer, key, object, stackA, stackB) {
 
 module.exports = baseClone;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js","./arrayCopy":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayCopy.js","./arrayEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arrayEach.js","./baseAssign":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseAssign.js","./baseForOwn":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseForOwn.js","./initCloneArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneArray.js","./initCloneByTag":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneByTag.js","./initCloneObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseCopy.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js","./arrayCopy":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayCopy.js","./arrayEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arrayEach.js","./baseAssign":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseAssign.js","./baseForOwn":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseForOwn.js","./initCloneArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneArray.js","./initCloneByTag":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneByTag.js","./initCloneObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseCopy.js":[function(require,module,exports){
 /**
  * Copies properties of `source` to `object`.
  *
@@ -27899,7 +26289,7 @@ function baseCopy(source, props, object) {
 
 module.exports = baseCopy;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseEach.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseEach.js":[function(require,module,exports){
 var baseForOwn = require('./baseForOwn'),
     createBaseEach = require('./createBaseEach');
 
@@ -27916,7 +26306,7 @@ var baseEach = createBaseEach(baseForOwn);
 
 module.exports = baseEach;
 
-},{"./baseForOwn":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseForOwn.js","./createBaseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createBaseEach.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseFor.js":[function(require,module,exports){
+},{"./baseForOwn":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseForOwn.js","./createBaseEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createBaseEach.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseFor.js":[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -27935,7 +26325,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./createBaseFor":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createBaseFor.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseForOwn.js":[function(require,module,exports){
+},{"./createBaseFor":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createBaseFor.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseForOwn.js":[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keys = require('../object/keys');
 
@@ -27954,7 +26344,7 @@ function baseForOwn(object, iteratee) {
 
 module.exports = baseForOwn;
 
-},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js","./baseFor":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseFor.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseGet.js":[function(require,module,exports){
+},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js","./baseFor":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseFor.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseGet.js":[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -27985,7 +26375,7 @@ function baseGet(object, path, pathKey) {
 
 module.exports = baseGet;
 
-},{"./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsEqual.js":[function(require,module,exports){
+},{"./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsEqual.js":[function(require,module,exports){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
     isObject = require('../lang/isObject'),
     isObjectLike = require('./isObjectLike');
@@ -28015,7 +26405,7 @@ function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js","./baseIsEqualDeep":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsEqualDeep.js","./isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsEqualDeep.js":[function(require,module,exports){
+},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js","./baseIsEqualDeep":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsEqualDeep.js","./isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsEqualDeep.js":[function(require,module,exports){
 var equalArrays = require('./equalArrays'),
     equalByTag = require('./equalByTag'),
     equalObjects = require('./equalObjects'),
@@ -28034,7 +26424,7 @@ var objectProto = Object.prototype;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
  * of values.
  */
 var objToString = objectProto.toString;
@@ -28119,7 +26509,7 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, 
 
 module.exports = baseIsEqualDeep;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","../lang/isTypedArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isTypedArray.js","./equalArrays":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalArrays.js","./equalByTag":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalByTag.js","./equalObjects":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalObjects.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsMatch.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","../lang/isTypedArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isTypedArray.js","./equalArrays":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalArrays.js","./equalByTag":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalByTag.js","./equalObjects":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalObjects.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsMatch.js":[function(require,module,exports){
 var baseIsEqual = require('./baseIsEqual'),
     toObject = require('./toObject');
 
@@ -28173,7 +26563,7 @@ function baseIsMatch(object, matchData, customizer) {
 
 module.exports = baseIsMatch;
 
-},{"./baseIsEqual":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsEqual.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseMatches.js":[function(require,module,exports){
+},{"./baseIsEqual":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsEqual.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseMatches.js":[function(require,module,exports){
 var baseIsMatch = require('./baseIsMatch'),
     getMatchData = require('./getMatchData'),
     toObject = require('./toObject');
@@ -28205,7 +26595,7 @@ function baseMatches(source) {
 
 module.exports = baseMatches;
 
-},{"./baseIsMatch":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsMatch.js","./getMatchData":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getMatchData.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseMatchesProperty.js":[function(require,module,exports){
+},{"./baseIsMatch":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsMatch.js","./getMatchData":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getMatchData.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseMatchesProperty.js":[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseIsEqual = require('./baseIsEqual'),
     baseSlice = require('./baseSlice'),
@@ -28252,7 +26642,7 @@ function baseMatchesProperty(path, srcValue) {
 
 module.exports = baseMatchesProperty;
 
-},{"../array/last":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/array/last.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","./baseGet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseGet.js","./baseIsEqual":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseIsEqual.js","./baseSlice":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseSlice.js","./isKey":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isKey.js","./isStrictComparable":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isStrictComparable.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js","./toPath":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toPath.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseProperty.js":[function(require,module,exports){
+},{"../array/last":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/array/last.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","./baseGet":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseGet.js","./baseIsEqual":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseIsEqual.js","./baseSlice":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseSlice.js","./isKey":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isKey.js","./isStrictComparable":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isStrictComparable.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js","./toPath":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toPath.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseProperty.js":[function(require,module,exports){
 /**
  * The base implementation of `_.property` without support for deep paths.
  *
@@ -28268,7 +26658,7 @@ function baseProperty(key) {
 
 module.exports = baseProperty;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/basePropertyDeep.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/basePropertyDeep.js":[function(require,module,exports){
 var baseGet = require('./baseGet'),
     toPath = require('./toPath');
 
@@ -28289,7 +26679,7 @@ function basePropertyDeep(path) {
 
 module.exports = basePropertyDeep;
 
-},{"./baseGet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseGet.js","./toPath":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toPath.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseReduce.js":[function(require,module,exports){
+},{"./baseGet":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseGet.js","./toPath":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toPath.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseReduce.js":[function(require,module,exports){
 /**
  * The base implementation of `_.reduce` and `_.reduceRight` without support
  * for callback shorthands and `this` binding, which iterates over `collection`
@@ -28315,7 +26705,7 @@ function baseReduce(collection, iteratee, accumulator, initFromCollection, eachF
 
 module.exports = baseReduce;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseSlice.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseSlice.js":[function(require,module,exports){
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -28349,7 +26739,7 @@ function baseSlice(array, start, end) {
 
 module.exports = baseSlice;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseToString.js":[function(require,module,exports){
 /**
  * Converts `value` to a string if it's not one. An empty string is returned
  * for `null` or `undefined` values.
@@ -28359,15 +26749,12 @@ module.exports = baseSlice;
  * @returns {string} Returns the string.
  */
 function baseToString(value) {
-  if (typeof value == 'string') {
-    return value;
-  }
   return value == null ? '' : (value + '');
 }
 
 module.exports = baseToString;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bindCallback.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bindCallback.js":[function(require,module,exports){
 var identity = require('../utility/identity');
 
 /**
@@ -28408,31 +26795,11 @@ function bindCallback(func, thisArg, argCount) {
 
 module.exports = bindCallback;
 
-},{"../utility/identity":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/identity.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bufferClone.js":[function(require,module,exports){
+},{"../utility/identity":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/identity.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bufferClone.js":[function(require,module,exports){
 (function (global){
-var constant = require('../utility/constant'),
-    getNative = require('./getNative');
-
 /** Native method references. */
-var ArrayBuffer = getNative(global, 'ArrayBuffer'),
-    bufferSlice = getNative(ArrayBuffer && new ArrayBuffer(0), 'slice'),
-    floor = Math.floor,
-    Uint8Array = getNative(global, 'Uint8Array');
-
-/** Used to clone array buffers. */
-var Float64Array = (function() {
-  // Safari 5 errors when using an array buffer to initialize a typed array
-  // where the array buffer's `byteLength` is not a multiple of the typed
-  // array's `BYTES_PER_ELEMENT`.
-  try {
-    var func = getNative(global, 'Float64Array'),
-        result = new func(new ArrayBuffer(10), 0, 1) && func;
-  } catch(e) {}
-  return result || null;
-}());
-
-/** Used as the size, in bytes, of each `Float64Array` element. */
-var FLOAT64_BYTES_PER_ELEMENT = Float64Array ? Float64Array.BYTES_PER_ELEMENT : 0;
+var ArrayBuffer = global.ArrayBuffer,
+    Uint8Array = global.Uint8Array;
 
 /**
  * Creates a clone of the given array buffer.
@@ -28442,41 +26809,23 @@ var FLOAT64_BYTES_PER_ELEMENT = Float64Array ? Float64Array.BYTES_PER_ELEMENT : 
  * @returns {ArrayBuffer} Returns the cloned array buffer.
  */
 function bufferClone(buffer) {
-  return bufferSlice.call(buffer, 0);
-}
-if (!bufferSlice) {
-  // PhantomJS has `ArrayBuffer` and `Uint8Array` but not `Float64Array`.
-  bufferClone = !(ArrayBuffer && Uint8Array) ? constant(null) : function(buffer) {
-    var byteLength = buffer.byteLength,
-        floatLength = Float64Array ? floor(byteLength / FLOAT64_BYTES_PER_ELEMENT) : 0,
-        offset = floatLength * FLOAT64_BYTES_PER_ELEMENT,
-        result = new ArrayBuffer(byteLength);
+  var result = new ArrayBuffer(buffer.byteLength),
+      view = new Uint8Array(result);
 
-    if (floatLength) {
-      var view = new Float64Array(result, 0, floatLength);
-      view.set(new Float64Array(buffer, 0, floatLength));
-    }
-    if (byteLength != offset) {
-      view = new Uint8Array(result, offset);
-      view.set(new Uint8Array(buffer, offset));
-    }
-    return result;
-  };
+  view.set(new Uint8Array(buffer));
+  return result;
 }
 
 module.exports = bufferClone;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utility/constant":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/constant.js","./getNative":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getNative.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createAssigner.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createAssigner.js":[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isIterateeCall = require('./isIterateeCall'),
     restParam = require('../function/restParam');
 
 /**
- * Creates a function that assigns properties of source object(s) to a given
- * destination object.
- *
- * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+ * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
  *
  * @private
  * @param {Function} assigner The function to assign values.
@@ -28513,7 +26862,7 @@ function createAssigner(assigner) {
 
 module.exports = createAssigner;
 
-},{"../function/restParam":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/function/restParam.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bindCallback.js","./isIterateeCall":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIterateeCall.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createBaseEach.js":[function(require,module,exports){
+},{"../function/restParam":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/function/restParam.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bindCallback.js","./isIterateeCall":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIterateeCall.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createBaseEach.js":[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength'),
     toObject = require('./toObject');
@@ -28546,7 +26895,7 @@ function createBaseEach(eachFunc, fromRight) {
 
 module.exports = createBaseEach;
 
-},{"./getLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getLength.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createBaseFor.js":[function(require,module,exports){
+},{"./getLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getLength.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createBaseFor.js":[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -28575,7 +26924,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{"./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createForEach.js":[function(require,module,exports){
+},{"./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createForEach.js":[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isArray = require('../lang/isArray');
 
@@ -28597,7 +26946,7 @@ function createForEach(arrayFunc, eachFunc) {
 
 module.exports = createForEach;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bindCallback.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createReduce.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","./bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bindCallback.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createReduce.js":[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseReduce = require('./baseReduce'),
     isArray = require('../lang/isArray');
@@ -28621,7 +26970,7 @@ function createReduce(arrayFunc, eachFunc) {
 
 module.exports = createReduce;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","./baseCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseCallback.js","./baseReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseReduce.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalArrays.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","./baseCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseCallback.js","./baseReduce":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseReduce.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalArrays.js":[function(require,module,exports){
 var arraySome = require('./arraySome');
 
 /**
@@ -28674,7 +27023,7 @@ function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stack
 
 module.exports = equalArrays;
 
-},{"./arraySome":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/arraySome.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalByTag.js":[function(require,module,exports){
+},{"./arraySome":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/arraySome.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalByTag.js":[function(require,module,exports){
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]',
     dateTag = '[object Date]',
@@ -28691,7 +27040,7 @@ var boolTag = '[object Boolean]',
  * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
  *
  * @private
- * @param {Object} value The object to compare.
+ * @param {Object} object The object to compare.
  * @param {Object} other The other object to compare.
  * @param {string} tag The `toStringTag` of the objects to compare.
  * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
@@ -28724,7 +27073,7 @@ function equalByTag(object, other, tag) {
 
 module.exports = equalByTag;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/equalObjects.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/equalObjects.js":[function(require,module,exports){
 var keys = require('../object/keys');
 
 /** Used for native method references. */
@@ -28793,7 +27142,7 @@ function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, sta
 
 module.exports = equalObjects;
 
-},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getLength.js":[function(require,module,exports){
+},{"../object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getLength.js":[function(require,module,exports){
 var baseProperty = require('./baseProperty');
 
 /**
@@ -28810,7 +27159,7 @@ var getLength = baseProperty('length');
 
 module.exports = getLength;
 
-},{"./baseProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseProperty.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getMatchData.js":[function(require,module,exports){
+},{"./baseProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseProperty.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getMatchData.js":[function(require,module,exports){
 var isStrictComparable = require('./isStrictComparable'),
     pairs = require('../object/pairs');
 
@@ -28833,7 +27182,7 @@ function getMatchData(object) {
 
 module.exports = getMatchData;
 
-},{"../object/pairs":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/pairs.js","./isStrictComparable":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isStrictComparable.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getNative.js":[function(require,module,exports){
+},{"../object/pairs":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/pairs.js","./isStrictComparable":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isStrictComparable.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getNative.js":[function(require,module,exports){
 var isNative = require('../lang/isNative');
 
 /**
@@ -28851,7 +27200,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"../lang/isNative":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isNative.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneArray.js":[function(require,module,exports){
+},{"../lang/isNative":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isNative.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneArray.js":[function(require,module,exports){
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
@@ -28879,7 +27228,7 @@ function initCloneArray(array) {
 
 module.exports = initCloneArray;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneByTag.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneByTag.js":[function(require,module,exports){
 var bufferClone = require('./bufferClone');
 
 /** `Object#toString` result references. */
@@ -28944,7 +27293,7 @@ function initCloneByTag(object, tag, isDeep) {
 
 module.exports = initCloneByTag;
 
-},{"./bufferClone":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bufferClone.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/initCloneObject.js":[function(require,module,exports){
+},{"./bufferClone":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bufferClone.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/initCloneObject.js":[function(require,module,exports){
 /**
  * Initializes an object clone.
  *
@@ -28962,7 +27311,7 @@ function initCloneObject(object) {
 
 module.exports = initCloneObject;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isArrayLike.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isArrayLike.js":[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength');
 
@@ -28979,12 +27328,12 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./getLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getLength.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIndex.js":[function(require,module,exports){
+},{"./getLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getLength.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIndex.js":[function(require,module,exports){
 /** Used to detect unsigned integer values. */
 var reIsUint = /^\d+$/;
 
 /**
- * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+ * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
  * of an array-like value.
  */
 var MAX_SAFE_INTEGER = 9007199254740991;
@@ -29005,7 +27354,7 @@ function isIndex(value, length) {
 
 module.exports = isIndex;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIterateeCall.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIterateeCall.js":[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex'),
     isObject = require('../lang/isObject');
@@ -29035,7 +27384,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js","./isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isArrayLike.js","./isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIndex.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isKey.js":[function(require,module,exports){
+},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js","./isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isArrayLike.js","./isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIndex.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isKey.js":[function(require,module,exports){
 var isArray = require('../lang/isArray'),
     toObject = require('./toObject');
 
@@ -29065,9 +27414,9 @@ function isKey(value, object) {
 
 module.exports = isKey;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","./toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js":[function(require,module,exports){
 /**
- * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+ * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
  * of an array-like value.
  */
 var MAX_SAFE_INTEGER = 9007199254740991;
@@ -29075,7 +27424,7 @@ var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Checks if `value` is a valid array-like length.
  *
- * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
+ * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
  *
  * @private
  * @param {*} value The value to check.
@@ -29087,7 +27436,7 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js":[function(require,module,exports){
 /**
  * Checks if `value` is object-like.
  *
@@ -29101,7 +27450,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isStrictComparable.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isStrictComparable.js":[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -29118,7 +27467,7 @@ function isStrictComparable(value) {
 
 module.exports = isStrictComparable;
 
-},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/shimKeys.js":[function(require,module,exports){
+},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/shimKeys.js":[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('./isIndex'),
@@ -29161,7 +27510,7 @@ function shimKeys(object) {
 
 module.exports = shimKeys;
 
-},{"../lang/isArguments":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArguments.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","../object/keysIn":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keysIn.js","./isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIndex.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js":[function(require,module,exports){
+},{"../lang/isArguments":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArguments.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","../object/keysIn":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keysIn.js","./isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIndex.js","./isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js":[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -29177,7 +27526,7 @@ function toObject(value) {
 
 module.exports = toObject;
 
-},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toPath.js":[function(require,module,exports){
+},{"../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toPath.js":[function(require,module,exports){
 var baseToString = require('./baseToString'),
     isArray = require('../lang/isArray');
 
@@ -29207,7 +27556,7 @@ function toPath(value) {
 
 module.exports = toPath;
 
-},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","./baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/clone.js":[function(require,module,exports){
+},{"../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","./baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/clone.js":[function(require,module,exports){
 var baseClone = require('../internal/baseClone'),
     bindCallback = require('../internal/bindCallback'),
     isIterateeCall = require('../internal/isIterateeCall');
@@ -29279,21 +27628,18 @@ function clone(value, isDeep, customizer, thisArg) {
 
 module.exports = clone;
 
-},{"../internal/baseClone":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseClone.js","../internal/bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/bindCallback.js","../internal/isIterateeCall":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIterateeCall.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArguments.js":[function(require,module,exports){
+},{"../internal/baseClone":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseClone.js","../internal/bindCallback":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/bindCallback.js","../internal/isIterateeCall":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIterateeCall.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArguments.js":[function(require,module,exports){
 var isArrayLike = require('../internal/isArrayLike'),
     isObjectLike = require('../internal/isObjectLike');
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
 
 /** Used for native method references. */
 var objectProto = Object.prototype;
 
-/**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
- * of values.
- */
-var objToString = objectProto.toString;
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Native method references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
 
 /**
  * Checks if `value` is classified as an `arguments` object.
@@ -29312,12 +27658,13 @@ var objToString = objectProto.toString;
  * // => false
  */
 function isArguments(value) {
-  return isObjectLike(value) && isArrayLike(value) && objToString.call(value) == argsTag;
+  return isObjectLike(value) && isArrayLike(value) &&
+    hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
 }
 
 module.exports = isArguments;
 
-},{"../internal/isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isArrayLike.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js":[function(require,module,exports){
+},{"../internal/isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isArrayLike.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js":[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
@@ -29329,7 +27676,7 @@ var arrayTag = '[object Array]';
 var objectProto = Object.prototype;
 
 /**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
  * of values.
  */
 var objToString = objectProto.toString;
@@ -29359,12 +27706,49 @@ var isArray = nativeIsArray || function(value) {
 
 module.exports = isArray;
 
-},{"../internal/getNative":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getNative.js","../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isNative.js":[function(require,module,exports){
-var escapeRegExp = require('../string/escapeRegExp'),
-    isObjectLike = require('../internal/isObjectLike');
+},{"../internal/getNative":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getNative.js","../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isFunction.js":[function(require,module,exports){
+var isObject = require('./isObject');
 
 /** `Object#toString` result references. */
 var funcTag = '[object Function]';
+
+/** Used for native method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objToString = objectProto.toString;
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in older versions of Chrome and Safari which return 'function' for regexes
+  // and Safari 8 equivalents which return 'object' for typed array constructors.
+  return isObject(value) && objToString.call(value) == funcTag;
+}
+
+module.exports = isFunction;
+
+},{"./isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isNative.js":[function(require,module,exports){
+var isFunction = require('./isFunction'),
+    isObjectLike = require('../internal/isObjectLike');
 
 /** Used to detect host constructors (Safari > 5). */
 var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -29378,15 +27762,9 @@ var fnToString = Function.prototype.toString;
 /** Used to check objects for own properties. */
 var hasOwnProperty = objectProto.hasOwnProperty;
 
-/**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
- * of values.
- */
-var objToString = objectProto.toString;
-
 /** Used to detect if a method is native. */
 var reIsNative = RegExp('^' +
-  escapeRegExp(fnToString.call(hasOwnProperty))
+  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
   .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
 );
 
@@ -29410,7 +27788,7 @@ function isNative(value) {
   if (value == null) {
     return false;
   }
-  if (objToString.call(value) == funcTag) {
+  if (isFunction(value)) {
     return reIsNative.test(fnToString.call(value));
   }
   return isObjectLike(value) && reIsHostCtor.test(value);
@@ -29418,7 +27796,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{"../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js","../string/escapeRegExp":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/string/escapeRegExp.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js":[function(require,module,exports){
+},{"../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js","./isFunction":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isFunction.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js":[function(require,module,exports){
 /**
  * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
  * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
@@ -29448,7 +27826,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isTypedArray.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isTypedArray.js":[function(require,module,exports){
 var isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -29497,7 +27875,7 @@ typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
 var objectProto = Object.prototype;
 
 /**
- * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+ * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
  * of values.
  */
 var objToString = objectProto.toString;
@@ -29524,7 +27902,7 @@ function isTypedArray(value) {
 
 module.exports = isTypedArray;
 
-},{"../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/assign.js":[function(require,module,exports){
+},{"../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js","../internal/isObjectLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isObjectLike.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/assign.js":[function(require,module,exports){
 var assignWith = require('../internal/assignWith'),
     baseAssign = require('../internal/baseAssign'),
     createAssigner = require('../internal/createAssigner');
@@ -29537,7 +27915,7 @@ var assignWith = require('../internal/assignWith'),
  * (objectValue, sourceValue, key, object, source).
  *
  * **Note:** This method mutates `object` and is based on
- * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
+ * [`Object.assign`](http://ecma-international.org/ecma-262/6.0/#sec-object.assign).
  *
  * @static
  * @memberOf _
@@ -29569,7 +27947,7 @@ var assign = createAssigner(function(object, source, customizer) {
 
 module.exports = assign;
 
-},{"../internal/assignWith":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/assignWith.js","../internal/baseAssign":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseAssign.js","../internal/createAssigner":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/createAssigner.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js":[function(require,module,exports){
+},{"../internal/assignWith":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/assignWith.js","../internal/baseAssign":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseAssign.js","../internal/createAssigner":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/createAssigner.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js":[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isArrayLike = require('../internal/isArrayLike'),
     isObject = require('../lang/isObject'),
@@ -29582,7 +27960,7 @@ var nativeKeys = getNative(Object, 'keys');
  * Creates an array of the own enumerable property names of `object`.
  *
  * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.keys)
+ * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
  * for more details.
  *
  * @static
@@ -29606,7 +27984,7 @@ var nativeKeys = getNative(Object, 'keys');
  * // => ['0', '1']
  */
 var keys = !nativeKeys ? shimKeys : function(object) {
-  var Ctor = object == null ? null : object.constructor;
+  var Ctor = object == null ? undefined : object.constructor;
   if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
       (typeof object != 'function' && isArrayLike(object))) {
     return shimKeys(object);
@@ -29616,7 +27994,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"../internal/getNative":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/getNative.js","../internal/isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isArrayLike.js","../internal/shimKeys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/shimKeys.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keysIn.js":[function(require,module,exports){
+},{"../internal/getNative":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/getNative.js","../internal/isArrayLike":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isArrayLike.js","../internal/shimKeys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/shimKeys.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keysIn.js":[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('../internal/isIndex'),
@@ -29682,7 +28060,7 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"../internal/isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isIndex.js","../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isLength.js","../lang/isArguments":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArguments.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isArray.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/pairs.js":[function(require,module,exports){
+},{"../internal/isIndex":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isIndex.js","../internal/isLength":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isLength.js","../lang/isArguments":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArguments.js","../lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","../lang/isObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isObject.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/pairs.js":[function(require,module,exports){
 var keys = require('./keys'),
     toObject = require('../internal/toObject');
 
@@ -29717,66 +28095,7 @@ function pairs(object) {
 
 module.exports = pairs;
 
-},{"../internal/toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/toObject.js","./keys":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/string/escapeRegExp.js":[function(require,module,exports){
-var baseToString = require('../internal/baseToString');
-
-/**
- * Used to match `RegExp` [special characters](http://www.regular-expressions.info/characters.html#special).
- * In addition to special characters the forward slash is escaped to allow for
- * easier `eval` use and `Function` compilation.
- */
-var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
-    reHasRegExpChars = RegExp(reRegExpChars.source);
-
-/**
- * Escapes the `RegExp` special characters "\", "/", "^", "$", ".", "|", "?",
- * "*", "+", "(", ")", "[", "]", "{" and "}" in `string`.
- *
- * @static
- * @memberOf _
- * @category String
- * @param {string} [string=''] The string to escape.
- * @returns {string} Returns the escaped string.
- * @example
- *
- * _.escapeRegExp('[lodash](https://lodash.com/)');
- * // => '\[lodash\]\(https:\/\/lodash\.com\/\)'
- */
-function escapeRegExp(string) {
-  string = baseToString(string);
-  return (string && reHasRegExpChars.test(string))
-    ? string.replace(reRegExpChars, '\\$&')
-    : string;
-}
-
-module.exports = escapeRegExp;
-
-},{"../internal/baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/constant.js":[function(require,module,exports){
-/**
- * Creates a function that returns `value`.
- *
- * @static
- * @memberOf _
- * @category Utility
- * @param {*} value The value to return from the new function.
- * @returns {Function} Returns the new function.
- * @example
- *
- * var object = { 'user': 'fred' };
- * var getter = _.constant(object);
- *
- * getter() === object;
- * // => true
- */
-function constant(value) {
-  return function() {
-    return value;
-  };
-}
-
-module.exports = constant;
-
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/identity.js":[function(require,module,exports){
+},{"../internal/toObject":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/toObject.js","./keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/identity.js":[function(require,module,exports){
 /**
  * This method returns the first argument provided to it.
  *
@@ -29798,7 +28117,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/property.js":[function(require,module,exports){
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/property.js":[function(require,module,exports){
 var baseProperty = require('../internal/baseProperty'),
     basePropertyDeep = require('../internal/basePropertyDeep'),
     isKey = require('../internal/isKey');
@@ -29831,7 +28150,7 @@ function property(path) {
 
 module.exports = property;
 
-},{"../internal/baseProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseProperty.js","../internal/basePropertyDeep":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/basePropertyDeep.js","../internal/isKey":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/isKey.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/utility/uniqueId.js":[function(require,module,exports){
+},{"../internal/baseProperty":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseProperty.js","../internal/basePropertyDeep":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/basePropertyDeep.js","../internal/isKey":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/isKey.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/uniqueId.js":[function(require,module,exports){
 var baseToString = require('../internal/baseToString');
 
 /** Used to generate unique IDs. */
@@ -29860,7 +28179,3889 @@ function uniqueId(prefix) {
 
 module.exports = uniqueId;
 
-},{"../internal/baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Select.js":[function(require,module,exports){
+},{"../internal/baseToString":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/internal/baseToString.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/index.js":[function(require,module,exports){
+module.exports = require('./lib/GeoJsonCluster');
+},{"./lib/GeoJsonCluster":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/lib/GeoJsonCluster.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/lib/GeoJsonCluster.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _reactLeaflet = require('react-leaflet');
+
+var _leafletGeojsonCluster = require('leaflet-geojson-cluster');
+
+var _leafletGeojsonCluster2 = _interopRequireDefault(_leafletGeojsonCluster);
+
+var GeoJsonCluster = (function (_PopupContainer) {
+  _inherits(GeoJsonCluster, _PopupContainer);
+
+  function GeoJsonCluster() {
+    _classCallCheck(this, GeoJsonCluster);
+
+    _get(Object.getPrototypeOf(GeoJsonCluster.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(GeoJsonCluster, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(GeoJsonCluster.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var data = _props.data;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['data', 'map']);
+
+      this.leafletElement = (0, _leafletGeojsonCluster2['default'])(data, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      var _props2 = this.props;
+      var data = _props2.data;
+      var map = _props2.map;
+
+      var props = _objectWithoutProperties(_props2, ['data', 'map']);
+
+      map.removeLayer(this.leafletElement);
+      this.leafletElement = (0, _leafletGeojsonCluster2['default'])(data, props);
+      map.addLayer(this.leafletElement);
+    }
+  }]);
+
+  return GeoJsonCluster;
+})(_reactLeaflet.PopupContainer);
+
+exports.GeoJsonCluster = GeoJsonCluster;
+
+GeoJsonCluster.propTypes = {
+  data: _react.PropTypes.object.isRequired
+};
+},{"leaflet-geojson-cluster":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/index.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js","react-leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/index.js":[function(require,module,exports){
+module.exports = require('./src/GeoJSONCluster');
+
+},{"./src/GeoJSONCluster":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/GeoJSONCluster.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/DistanceGrid.js":[function(require,module,exports){
+var DistanceGrid = function (cellSize) {
+  this._cellSize = cellSize;
+  this._sqCellSize = cellSize * cellSize;
+  this._grid = {};
+  this._objectPoint = { };
+};
+
+DistanceGrid.prototype = {
+
+  addObject: function (obj, point) {
+    var x = this._getCoord(point.x),
+        y = this._getCoord(point.y),
+        grid = this._grid,
+        row = grid[y] = grid[y] || {},
+        cell = row[x] = row[x] || [],
+        stamp = L.Util.stamp(obj);
+
+    this._objectPoint[stamp] = point;
+
+    cell.push(obj);
+  },
+
+  updateObject: function (obj, point) {
+    this.removeObject(obj);
+    this.addObject(obj, point);
+  },
+
+  //Returns true if the object was found
+  removeObject: function (obj, point) {
+    var x = this._getCoord(point.x),
+        y = this._getCoord(point.y),
+        grid = this._grid,
+        row = grid[y] = grid[y] || {},
+        cell = row[x] = row[x] || [],
+        i, len;
+
+    delete this._objectPoint[L.Util.stamp(obj)];
+
+    for (i = 0, len = cell.length; i < len; i++) {
+      if (cell[i] === obj) {
+
+        cell.splice(i, 1);
+
+        if (len === 1) {
+          delete row[x];
+        }
+
+        return true;
+      }
+    }
+
+  },
+
+  eachObject: function (fn, context) {
+    var i, j, k, len, row, cell, removed,
+        grid = this._grid;
+
+    for (i in grid) {
+      row = grid[i];
+
+      for (j in row) {
+        cell = row[j];
+
+        for (k = 0, len = cell.length; k < len; k++) {
+          removed = fn.call(context, cell[k]);
+          if (removed) {
+            k--;
+            len--;
+          }
+        }
+      }
+    }
+  },
+
+  getNearObject: function (point) {
+    var x = this._getCoord(point.x),
+        y = this._getCoord(point.y),
+        i, j, k, row, cell, len, obj, dist,
+        objectPoint = this._objectPoint,
+        closestDistSq = this._sqCellSize,
+        closest = null;
+
+    for (i = y - 1; i <= y + 1; i++) {
+      row = this._grid[i];
+      if (row) {
+
+        for (j = x - 1; j <= x + 1; j++) {
+          cell = row[j];
+          if (cell) {
+
+            for (k = 0, len = cell.length; k < len; k++) {
+              obj = cell[k];
+              dist = this._sqDist(objectPoint[L.Util.stamp(obj)], point);
+              if (dist < closestDistSq) {
+                closestDistSq = dist;
+                closest = obj;
+              }
+            }
+          }
+        }
+      }
+    }
+    return closest;
+  },
+
+  _getCoord: function (x) {
+    return Math.floor(x / this._cellSize);
+  },
+
+  _sqDist: function (p, p2) {
+    var dx = p2.x - p.x,
+        dy = p2.y - p.y;
+    return dx * dx + dy * dy;
+  }
+};
+
+module.exports = DistanceGrid;
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/GeoJSONCluster.js":[function(require,module,exports){
+/*
+ * L.GeoJSON turns any GeoJSON data into a Leaflet layer.
+ */
+
+var L = require('leaflet');
+var markerClusterGroup = require('./MarkerClusterGroup');
+
+var GeoJSON = markerClusterGroup.extend({
+
+  initialize: function (geojson, options) {
+    L.setOptions(this, options);
+
+    if (!this.options.iconCreateFunction) {
+      this.options.iconCreateFunction = this._defaultIconCreateFunction;
+    }
+
+    this._featureGroup = L.featureGroup();
+    this._featureGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+
+    this._nonPointGroup = L.featureGroup();
+    this._nonPointGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+
+    this._inZoomAnimation = 0;
+    this._needsClustering = [];
+    this._needsRemoving = []; //Markers removed while we aren't on the map need to be kept track of
+    //The bounds of the currently shown area (from _getExpandedVisibleBounds) Updated on zoom/move
+    this._currentShownBounds = null;
+
+    this._queue = [];
+
+
+    this._layers = {};
+
+    if (geojson) {
+      this.addData(geojson);
+    }
+  },
+
+  addData: function (geojson) {
+    var features = L.Util.isArray(geojson) ? geojson : geojson.features,
+        i, len, feature;
+
+    if (features) {
+      for (i = 0, len = features.length; i < len; i++) {
+        // only add this if geometry or geometries are set and not null
+        feature = features[i];
+        if (feature.geometries || feature.geometry || feature.features || feature.coordinates) {
+          this.addData(feature);
+        }
+      }
+      return this;
+    }
+
+    var options = this.options;
+
+    if (options.filter && !options.filter(geojson)) { return this; }
+
+    var layer = GeoJSON.geometryToLayer(geojson, options);
+    if (!layer) {
+      return this;
+    }
+    layer.feature = GeoJSON.asFeature(geojson);
+
+    layer.defaultOptions = layer.options;
+    this.resetStyle(layer);
+
+    if (options.onEachFeature) {
+      options.onEachFeature(geojson, layer);
+    }
+
+    return this.addLayer(layer);
+  },
+
+  resetStyle: function (layer) {
+    // reset any custom styles
+    layer.options = layer.defaultOptions;
+    this._setLayerStyle(layer, this.options.style);
+    return this;
+  },
+
+  setStyle: function (style) {
+    return this.eachLayer(function (layer) {
+      this._setLayerStyle(layer, style);
+    }, this);
+  },
+
+  _setLayerStyle: function (layer, style) {
+    if (typeof style === 'function') {
+      style = style(layer.feature);
+    }
+    if (layer.setStyle) {
+      layer.setStyle(style);
+    }
+  }
+});
+
+L.extend(GeoJSON, {
+  geometryToLayer: function (geojson, options) {
+
+    var geometry = geojson.type === 'Feature' ? geojson.geometry : geojson,
+        coords = geometry ? geometry.coordinates : null,
+        layers = [],
+        pointToLayer = options && options.pointToLayer,
+        coordsToLatLng = options && options.coordsToLatLng || this.coordsToLatLng,
+        latlng, latlngs, i, len;
+
+    if (!coords && !geometry) {
+      return null;
+    }
+
+    switch (geometry.type) {
+    case 'Point':
+      latlng = coordsToLatLng(coords);
+      return pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng);
+
+    case 'MultiPoint':
+      for (i = 0, len = coords.length; i < len; i++) {
+        latlng = coordsToLatLng(coords[i]);
+        layers.push(pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng));
+      }
+      return new L.FeatureGroup(layers);
+
+    case 'LineString':
+    case 'MultiLineString':
+      latlngs = this.coordsToLatLngs(coords, geometry.type === 'LineString' ? 0 : 1, coordsToLatLng);
+      return new L.Polyline(latlngs, options);
+
+    case 'Polygon':
+    case 'MultiPolygon':
+      latlngs = this.coordsToLatLngs(coords, geometry.type === 'Polygon' ? 1 : 2, coordsToLatLng);
+      return new L.Polygon(latlngs, options);
+
+    case 'GeometryCollection':
+      for (i = 0, len = geometry.geometries.length; i < len; i++) {
+        var layer = this.geometryToLayer({
+          geometry: geometry.geometries[i],
+          type: 'Feature',
+          properties: geojson.properties
+        }, options);
+
+        if (layer) {
+          layers.push(layer);
+        }
+      }
+      return new L.FeatureGroup(layers);
+
+    default:
+      throw new Error('Invalid GeoJSON object.');
+    }
+  },
+
+  coordsToLatLng: function (coords) {
+    return new L.LatLng(coords[1], coords[0], coords[2]);
+  },
+
+  coordsToLatLngs: function (coords, levelsDeep, coordsToLatLng) {
+    var latlngs = [];
+
+    for (var i = 0, len = coords.length, latlng; i < len; i++) {
+      latlng = levelsDeep ?
+              this.coordsToLatLngs(coords[i], levelsDeep - 1, coordsToLatLng) :
+              (coordsToLatLng || this.coordsToLatLng)(coords[i]);
+
+      latlngs.push(latlng);
+    }
+
+    return latlngs;
+  },
+
+  latLngToCoords: function (latlng) {
+    return latlng.alt !== undefined ?
+        [latlng.lng, latlng.lat, latlng.alt] :
+        [latlng.lng, latlng.lat];
+  },
+
+  latLngsToCoords: function (latlngs, levelsDeep, closed) {
+    var coords = [];
+
+    for (var i = 0, len = latlngs.length; i < len; i++) {
+      coords.push(levelsDeep ?
+        GeoJSON.latLngsToCoords(latlngs[i], levelsDeep - 1, closed) :
+        GeoJSON.latLngToCoords(latlngs[i]));
+    }
+
+    if (!levelsDeep && closed) {
+      coords.push(coords[0]);
+    }
+
+    return coords;
+  },
+
+  getFeature: function (layer, newGeometry) {
+    return layer.feature ?
+        L.extend({}, layer.feature, {geometry: newGeometry}) :
+        GeoJSON.asFeature(newGeometry);
+  },
+
+  asFeature: function (geoJSON) {
+    if (geoJSON.type === 'Feature') {
+      return geoJSON;
+    }
+
+    return {
+      type: 'Feature',
+      properties: {},
+      geometry: geoJSON
+    };
+  }
+});
+
+var PointToGeoJSON = {
+  toGeoJSON: function () {
+    return GeoJSON.getFeature(this, {
+      type: 'Point',
+      coordinates: GeoJSON.latLngToCoords(this.getLatLng())
+    });
+  }
+};
+
+L.Marker.include(PointToGeoJSON);
+L.Circle.include(PointToGeoJSON);
+L.CircleMarker.include(PointToGeoJSON);
+
+L.Polyline.prototype.toGeoJSON = function () {
+  var multi = !L.Polyline._flat(this._latlngs);
+
+  var coords = GeoJSON.latLngsToCoords(this._latlngs, multi ? 1 : 0);
+
+  return GeoJSON.getFeature(this, {
+    type: (multi ? 'Multi' : '') + 'LineString',
+    coordinates: coords
+  });
+};
+
+L.Polygon.prototype.toGeoJSON = function () {
+  var holes = !L.Polyline._flat(this._latlngs),
+      multi = holes && !L.Polyline._flat(this._latlngs[0]);
+
+  var coords = GeoJSON.latLngsToCoords(this._latlngs, multi ? 2 : holes ? 1 : 0, true);
+
+  if (!holes) {
+    coords = [coords];
+  }
+
+  return GeoJSON.getFeature(this, {
+    type: (multi ? 'Multi' : '') + 'Polygon',
+    coordinates: coords
+  });
+};
+
+
+L.LayerGroup.include({
+  toMultiPoint: function () {
+    var coords = [];
+
+    this.eachLayer(function (layer) {
+      coords.push(layer.toGeoJSON().geometry.coordinates);
+    });
+
+    return GeoJSON.getFeature(this, {
+      type: 'MultiPoint',
+      coordinates: coords
+    });
+  },
+
+  toGeoJSON: function () {
+
+    var type = this.feature && this.feature.geometry && this.feature.geometry.type;
+
+    if (type === 'MultiPoint') {
+      return this.toMultiPoint();
+    }
+
+    var isGeometryCollection = type === 'GeometryCollection',
+      jsons = [];
+
+    this.eachLayer(function (layer) {
+      if (layer.toGeoJSON) {
+        var json = layer.toGeoJSON();
+        jsons.push(isGeometryCollection ? json.geometry : GeoJSON.asFeature(json));
+      }
+    });
+
+    if (isGeometryCollection) {
+      return GeoJSON.getFeature(this, {
+        geometries: jsons,
+        type: 'GeometryCollection'
+      });
+    }
+
+    return {
+      type: 'FeatureCollection',
+      features: jsons
+    };
+  }
+});
+
+module.exports = function (geojson, options) {
+  return new GeoJSON(geojson, options);
+};
+},{"./MarkerClusterGroup":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/MarkerClusterGroup.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/MarkerCluster.js":[function(require,module,exports){
+var MarkerCluster = L.Marker.extend({
+  initialize: function (group, zoom, a, b) {
+
+    L.Marker.prototype.initialize.call(this, a ? (a._cLatLng || a.getLatLng()) : new L.LatLng(0, 0), { icon: this });
+
+
+    this._group = group;
+    this._zoom = zoom;
+
+    this._markers = [];
+    this._childClusters = [];
+    this._childCount = 0;
+    this._iconNeedsUpdate = true;
+
+    this._bounds = new L.LatLngBounds();
+
+    if (a) {
+      this._addChild(a);
+    }
+    if (b) {
+      this._addChild(b);
+    }
+  },
+
+  //Recursively retrieve all child markers of this cluster
+  getAllChildMarkers: function (storageArray) {
+    storageArray = storageArray || [];
+
+    for (var i = this._childClusters.length - 1; i >= 0; i--) {
+      this._childClusters[i].getAllChildMarkers(storageArray);
+    }
+
+    for (var j = this._markers.length - 1; j >= 0; j--) {
+      storageArray.push(this._markers[j]);
+    }
+
+    return storageArray;
+  },
+
+  //Returns the count of how many child markers we have
+  getChildCount: function () {
+    return this._childCount;
+  },
+
+  //Zoom to the minimum of showing all of the child markers, or the extents of this cluster
+  zoomToBounds: function () {
+    var childClusters = this._childClusters.slice(),
+      map = this._group._map,
+      boundsZoom = map.getBoundsZoom(this._bounds),
+      zoom = this._zoom + 1,
+      mapZoom = map.getZoom(),
+      i;
+
+    //calculate how far we need to zoom down to see all of the markers
+    while (childClusters.length > 0 && boundsZoom > zoom) {
+      zoom++;
+      var newClusters = [];
+      for (i = 0; i < childClusters.length; i++) {
+        newClusters = newClusters.concat(childClusters[i]._childClusters);
+      }
+      childClusters = newClusters;
+    }
+
+    if (boundsZoom > zoom) {
+      this._group._map.setView(this._latlng, zoom);
+    } else if (boundsZoom <= mapZoom) { //If fitBounds wouldn't zoom us down, zoom us down instead
+      this._group._map.setView(this._latlng, mapZoom + 1);
+    } else {
+      this._group._map.fitBounds(this._bounds);
+    }
+  },
+
+  getBounds: function () {
+    var bounds = new L.LatLngBounds();
+    bounds.extend(this._bounds);
+    return bounds;
+  },
+
+  _updateIcon: function () {
+    this._iconNeedsUpdate = true;
+    if (this._icon) {
+      this.setIcon(this);
+    }
+  },
+
+  //Cludge for Icon, we pretend to be an icon for performance
+  createIcon: function () {
+    if (this._iconNeedsUpdate) {
+      this._iconObj = this._group.options.iconCreateFunction(this);
+      this._iconNeedsUpdate = false;
+    }
+    return this._iconObj.createIcon();
+  },
+  createShadow: function () {
+    return this._iconObj.createShadow();
+  },
+
+
+  _addChild: function (new1, isNotificationFromChild) {
+
+    this._iconNeedsUpdate = true;
+    this._expandBounds(new1);
+
+    if (new1 instanceof MarkerCluster) {
+      if (!isNotificationFromChild) {
+        this._childClusters.push(new1);
+        new1.__parent = this;
+      }
+      this._childCount += new1._childCount;
+    } else {
+      if (!isNotificationFromChild) {
+        this._markers.push(new1);
+      }
+      this._childCount++;
+    }
+
+    if (this.__parent) {
+      this.__parent._addChild(new1, true);
+    }
+  },
+
+  //Expand our bounds and tell our parent to
+  _expandBounds: function (marker) {
+    var addedCount,
+        addedLatLng = marker._wLatLng || marker._latlng;
+
+    if (marker instanceof MarkerCluster) {
+      this._bounds.extend(marker._bounds);
+      addedCount = marker._childCount;
+    } else {
+      this._bounds.extend(addedLatLng);
+      addedCount = 1;
+    }
+
+    if (!this._cLatLng) {
+      // when clustering, take position of the first point as the cluster center
+      this._cLatLng = marker._cLatLng || addedLatLng;
+    }
+
+    // when showing clusters, take weighted average of all points as cluster center
+    var totalCount = this._childCount + addedCount;
+
+    //Calculate weighted latlng for display
+    if (!this._wLatLng) {
+      this._latlng = this._wLatLng = new L.LatLng(addedLatLng.lat, addedLatLng.lng);
+    } else {
+      this._wLatLng.lat = (addedLatLng.lat * addedCount + this._wLatLng.lat * this._childCount) / totalCount;
+      this._wLatLng.lng = (addedLatLng.lng * addedCount + this._wLatLng.lng * this._childCount) / totalCount;
+    }
+  },
+
+  //Set our markers position as given and add it to the map
+  _addToMap: function (startPos) {
+    if (startPos) {
+      this._backupLatlng = this._latlng;
+      this.setLatLng(startPos);
+    }
+    this._group._featureGroup.addLayer(this);
+  },
+
+  _recursivelyAnimateChildrenIn: function (bounds, center, maxZoom) {
+    this._recursively(bounds, 0, maxZoom - 1,
+      function (c) {
+        var markers = c._markers,
+          i, m;
+        for (i = markers.length - 1; i >= 0; i--) {
+          m = markers[i];
+
+          //Only do it if the icon is still on the map
+          if (m._icon) {
+            m._setPos(center);
+            m.setOpacity(0);
+          }
+        }
+      },
+      function (c) {
+        var childClusters = c._childClusters,
+          j, cm;
+        for (j = childClusters.length - 1; j >= 0; j--) {
+          cm = childClusters[j];
+          if (cm._icon) {
+            cm._setPos(center);
+            cm.setOpacity(0);
+          }
+        }
+      }
+    );
+  },
+
+  _recursivelyAnimateChildrenInAndAddSelfToMap: function (bounds, previousZoomLevel, newZoomLevel) {
+    this._recursively(bounds, newZoomLevel, 0,
+      function (c) {
+        c._recursivelyAnimateChildrenIn(bounds, c._group._map.latLngToLayerPoint(c.getLatLng()).round(), previousZoomLevel);
+
+        //TODO: depthToAnimateIn affects _isSingleParent, if there is a multizoom we may/may not be.
+        //As a hack we only do a animation free zoom on a single level zoom, if someone does multiple levels then we always animate
+        if (c._isSingleParent() && previousZoomLevel - 1 === newZoomLevel) {
+          c.setOpacity(1);
+          c._recursivelyRemoveChildrenFromMap(bounds, previousZoomLevel); //Immediately remove our children as we are replacing them. TODO previousBounds not bounds
+        } else {
+          c.setOpacity(0);
+        }
+
+        c._addToMap();
+      }
+    );
+  },
+
+  _recursivelyBecomeVisible: function (bounds, zoomLevel) {
+    this._recursively(bounds, 0, zoomLevel, null, function (c) {
+      c.setOpacity(1);
+    });
+  },
+
+  _recursivelyAddChildrenToMap: function (startPos, zoomLevel, bounds) {
+    this._recursively(bounds, -1, zoomLevel,
+      function (c) {
+        if (zoomLevel === c._zoom) {
+          return;
+        }
+
+        //Add our child markers at startPos (so they can be animated out)
+        for (var i = c._markers.length - 1; i >= 0; i--) {
+          var nm = c._markers[i];
+
+          if (!bounds.contains(nm._latlng)) {
+            continue;
+          }
+
+          if (startPos) {
+            nm._backupLatlng = nm.getLatLng();
+
+            nm.setLatLng(startPos);
+            if (nm.setOpacity) {
+              nm.setOpacity(0);
+            }
+          }
+
+          c._group._featureGroup.addLayer(nm);
+        }
+      },
+      function (c) {
+        c._addToMap(startPos);
+      }
+    );
+  },
+
+  _recursivelyRestoreChildPositions: function (zoomLevel) {
+    //Fix positions of child markers
+    for (var i = this._markers.length - 1; i >= 0; i--) {
+      var nm = this._markers[i];
+      if (nm._backupLatlng) {
+        nm.setLatLng(nm._backupLatlng);
+        delete nm._backupLatlng;
+      }
+    }
+
+    if (zoomLevel - 1 === this._zoom) {
+      //Reposition child clusters
+      for (var j = this._childClusters.length - 1; j >= 0; j--) {
+        this._childClusters[j]._restorePosition();
+      }
+    } else {
+      for (var k = this._childClusters.length - 1; k >= 0; k--) {
+        this._childClusters[k]._recursivelyRestoreChildPositions(zoomLevel);
+      }
+    }
+  },
+
+  _restorePosition: function () {
+    if (this._backupLatlng) {
+      this.setLatLng(this._backupLatlng);
+      delete this._backupLatlng;
+    }
+  },
+
+  //exceptBounds: If set, don't remove any markers/clusters in it
+  _recursivelyRemoveChildrenFromMap: function (previousBounds, zoomLevel, exceptBounds) {
+    var m, i;
+    this._recursively(previousBounds, -1, zoomLevel - 1,
+      function (c) {
+        //Remove markers at every level
+        for (i = c._markers.length - 1; i >= 0; i--) {
+          m = c._markers[i];
+          if (!exceptBounds || !exceptBounds.contains(m._latlng)) {
+            c._group._featureGroup.removeLayer(m);
+            if (m.setOpacity) {
+              m.setOpacity(1);
+            }
+          }
+        }
+      },
+      function (c) {
+        //Remove child clusters at just the bottom level
+        for (i = c._childClusters.length - 1; i >= 0; i--) {
+          m = c._childClusters[i];
+          if (!exceptBounds || !exceptBounds.contains(m._latlng)) {
+            c._group._featureGroup.removeLayer(m);
+            if (m.setOpacity) {
+              m.setOpacity(1);
+            }
+          }
+        }
+      }
+    );
+  },
+
+  //Run the given functions recursively to this and child clusters
+  // boundsToApplyTo: a L.LatLngBounds representing the bounds of what clusters to recurse in to
+  // zoomLevelToStart: zoom level to start running functions (inclusive)
+  // zoomLevelToStop: zoom level to stop running functions (inclusive)
+  // runAtEveryLevel: function that takes an L.MarkerCluster as an argument that should be applied on every level
+  // runAtBottomLevel: function that takes an L.MarkerCluster as an argument that should be applied at only the bottom level
+  _recursively: function (boundsToApplyTo, zoomLevelToStart, zoomLevelToStop, runAtEveryLevel, runAtBottomLevel) {
+    var childClusters = this._childClusters,
+        zoom = this._zoom,
+      i, c;
+
+    if (zoomLevelToStart > zoom) { //Still going down to required depth, just recurse to child clusters
+      for (i = childClusters.length - 1; i >= 0; i--) {
+        c = childClusters[i];
+        if (boundsToApplyTo.intersects(c._bounds)) {
+          c._recursively(boundsToApplyTo, zoomLevelToStart, zoomLevelToStop, runAtEveryLevel, runAtBottomLevel);
+        }
+      }
+    } else { //In required depth
+
+      if (runAtEveryLevel) {
+        runAtEveryLevel(this);
+      }
+      if (runAtBottomLevel && this._zoom === zoomLevelToStop) {
+        runAtBottomLevel(this);
+      }
+
+      //TODO: This loop is almost the same as above
+      if (zoomLevelToStop > zoom) {
+        for (i = childClusters.length - 1; i >= 0; i--) {
+          c = childClusters[i];
+          if (boundsToApplyTo.intersects(c._bounds)) {
+            c._recursively(boundsToApplyTo, zoomLevelToStart, zoomLevelToStop, runAtEveryLevel, runAtBottomLevel);
+          }
+        }
+      }
+    }
+  },
+
+  _recalculateBounds: function () {
+    var markers = this._markers,
+      childClusters = this._childClusters,
+      i;
+
+    this._bounds = new L.LatLngBounds();
+    delete this._wLatLng;
+
+    for (i = markers.length - 1; i >= 0; i--) {
+      this._expandBounds(markers[i]);
+    }
+    for (i = childClusters.length - 1; i >= 0; i--) {
+      this._expandBounds(childClusters[i]);
+    }
+  },
+
+
+  //Returns true if we are the parent of only one cluster and that cluster is the same as us
+  _isSingleParent: function () {
+    //Don't need to check this._markers as the rest won't work if there are any
+    return this._childClusters.length > 0 && this._childClusters[0]._childCount === this._childCount;
+  }
+});
+
+/*
+*
+*/
+L.QuickHull = {
+
+    /*
+     * @param {Object} cpt a point to be measured from the baseline
+     * @param {Array} bl the baseline, as represented by a two-element
+     *   array of latlng objects.
+     * @returns {Number} an approximate distance measure
+     */
+    getDistant: function (cpt, bl) {
+      var vY = bl[1].lat - bl[0].lat,
+        vX = bl[0].lng - bl[1].lng;
+      return (vX * (cpt.lat - bl[0].lat) + vY * (cpt.lng - bl[0].lng));
+    },
+
+    /*
+     * @param {Array} baseLine a two-element array of latlng objects
+     *   representing the baseline to project from
+     * @param {Array} latLngs an array of latlng objects
+     * @returns {Object} the maximum point and all new points to stay
+     *   in consideration for the hull.
+     */
+    findMostDistantPointFromBaseLine: function (baseLine, latLngs) {
+      var maxD = 0,
+        maxPt = null,
+        newPoints = [],
+        i, pt, d;
+
+      for (i = latLngs.length - 1; i >= 0; i--) {
+        pt = latLngs[i];
+        d = this.getDistant(pt, baseLine);
+
+        if (d > 0) {
+          newPoints.push(pt);
+        } else {
+          continue;
+        }
+
+        if (d > maxD) {
+          maxD = d;
+          maxPt = pt;
+        }
+      }
+
+      return { maxPoint: maxPt, newPoints: newPoints };
+    },
+
+
+    /*
+     * Given a baseline, compute the convex hull of latLngs as an array
+     * of latLngs.
+     *
+     * @param {Array} latLngs
+     * @returns {Array}
+     */
+    buildConvexHull: function (baseLine, latLngs) {
+      var convexHullBaseLines = [],
+        t = this.findMostDistantPointFromBaseLine(baseLine, latLngs);
+
+      if (t.maxPoint) { // if there is still a point "outside" the base line
+        convexHullBaseLines =
+          convexHullBaseLines.concat(
+            this.buildConvexHull([baseLine[0], t.maxPoint], t.newPoints)
+          );
+        convexHullBaseLines =
+          convexHullBaseLines.concat(
+            this.buildConvexHull([t.maxPoint, baseLine[1]], t.newPoints)
+          );
+        return convexHullBaseLines;
+      } else {  // if there is no more point "outside" the base line, the current base line is part of the convex hull
+        return [baseLine[0]];
+      }
+    },
+
+    /*
+     * Given an array of latlngs, compute a convex hull as an array
+     * of latlngs
+     *
+     * @param {Array} latLngs
+     * @returns {Array}
+     */
+    getConvexHull: function (latLngs) {
+      // find first baseline
+      var maxLat = false, minLat = false,
+        maxPt = null, minPt = null,
+        i;
+
+      for (i = latLngs.length - 1; i >= 0; i--) {
+        var pt = latLngs[i];
+        if (maxLat === false || pt.lat > maxLat) {
+          maxPt = pt;
+          maxLat = pt.lat;
+        }
+        if (minLat === false || pt.lat < minLat) {
+          minPt = pt;
+          minLat = pt.lat;
+        }
+      }
+      var ch = [].concat(this.buildConvexHull([minPt, maxPt], latLngs),
+                this.buildConvexHull([maxPt, minPt], latLngs));
+      return ch;
+    }
+  };
+
+MarkerCluster.include({
+  getConvexHull: function () {
+    var childMarkers = this.getAllChildMarkers(),
+      points = [],
+      p, i;
+
+    for (i = childMarkers.length - 1; i >= 0; i--) {
+      p = childMarkers[i].getLatLng();
+      points.push(p);
+    }
+
+    return L.QuickHull.getConvexHull(points);
+  }
+});
+
+module.exports = MarkerCluster;
+
+},{}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/MarkerClusterGroup.js":[function(require,module,exports){
+var L = require('leaflet');
+var DistanceGrid = require('./DistanceGrid');
+var MarkerCluster = require('./MarkerCluster');
+
+/*
+ * L.MarkerClusterGroup extends L.FeatureGroup by clustering the markers contained within
+ */
+
+var MarkerClusterGroup = L.FeatureGroup.extend({
+
+  options: {
+    maxClusterRadius: 80, //A cluster will cover at most this many pixels from its center
+    iconCreateFunction: null,
+
+    spiderfyOnMaxZoom: true,
+    showCoverageOnHover: true,
+    zoomToBoundsOnClick: true,
+    singleMarkerMode: false,
+
+    disableClusteringAtZoom: null,
+
+    // Setting this to false prevents the removal of any clusters outside of the viewpoint, which
+    // is the default behaviour for performance reasons.
+    removeOutsideVisibleBounds: true,
+
+    //Whether to animate adding markers after adding the MarkerClusterGroup to the map
+    // If you are adding individual markers set to true, if adding bulk markers leave false for massive performance gains.
+    animateAddingMarkers: false,
+
+    //Increase to increase the distance away that spiderfied markers appear from the center
+    spiderfyDistanceMultiplier: 1,
+
+    // Make it possible to specify a polyline options on a spider leg
+    spiderLegPolylineOptions: { weight: 1.5, color: '#222' },
+
+    // When bulk adding layers, adds markers in chunks. Means addLayers may not add all the layers in the call, others will be loaded during setTimeouts
+    chunkedLoading: false,
+    chunkInterval: 200, // process markers for a maximum of ~ n milliseconds (then trigger the chunkProgress callback)
+    chunkDelay: 50, // at the end of each interval, give n milliseconds back to system/browser
+    chunkProgress: null, // progress callback: function(processed, total, elapsed) (e.g. for a progress indicator)
+
+    //Options to pass to the L.Polygon constructor
+    polygonOptions: {}
+  },
+
+  initialize: function (options) {
+    L.Util.setOptions(this, options);
+    if (!this.options.iconCreateFunction) {
+      this.options.iconCreateFunction = this._defaultIconCreateFunction;
+    }
+
+    this._featureGroup = L.featureGroup();
+    this._featureGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+
+    this._nonPointGroup = L.featureGroup();
+    this._nonPointGroup.on(L.FeatureGroup.EVENTS, this._propagateEvent, this);
+
+    this._inZoomAnimation = 0;
+    this._needsClustering = [];
+    this._needsRemoving = []; //Markers removed while we aren't on the map need to be kept track of
+    //The bounds of the currently shown area (from _getExpandedVisibleBounds) Updated on zoom/move
+    this._currentShownBounds = null;
+
+    this._queue = [];
+  },
+
+  addLayer: function (layer) {
+
+    if (layer instanceof L.LayerGroup) {
+      var array = [];
+      for (var i in layer._layers) {
+        array.push(layer._layers[i]);
+      }
+      return this.addLayers(array);
+    }
+
+    //Don't cluster non point data
+    if (!layer.getLatLng) {
+      this._nonPointGroup.addLayer(layer);
+      return this;
+    }
+
+    if (!this._map) {
+      this._needsClustering.push(layer);
+      return this;
+    }
+
+    if (this.hasLayer(layer)) {
+      return this;
+    }
+
+
+    //If we have already clustered we'll need to add this one to a cluster
+
+    if (this._unspiderfy) {
+      this._unspiderfy();
+    }
+
+    this._addLayer(layer, this._maxZoom);
+
+    //Work out what is visible
+    var visibleLayer = layer,
+      currentZoom = this._map.getZoom();
+    if (layer.__parent) {
+      while (visibleLayer.__parent._zoom >= currentZoom) {
+        visibleLayer = visibleLayer.__parent;
+      }
+    }
+
+    if (this._currentShownBounds.contains(visibleLayer.getLatLng())) {
+      if (this.options.animateAddingMarkers) {
+        this._animationAddLayer(layer, visibleLayer);
+      } else {
+        this._animationAddLayerNonAnimated(layer, visibleLayer);
+      }
+    }
+    return this;
+  },
+
+  removeLayer: function (layer) {
+
+    if (layer instanceof L.LayerGroup)
+    {
+      var array = [];
+      for (var i in layer._layers) {
+        array.push(layer._layers[i]);
+      }
+      return this.removeLayers(array);
+    }
+
+    //Non point layers
+    if (!layer.getLatLng) {
+      this._nonPointGroup.removeLayer(layer);
+      return this;
+    }
+
+    if (!this._map) {
+      if (!this._arraySplice(this._needsClustering, layer) && this.hasLayer(layer)) {
+        this._needsRemoving.push(layer);
+      }
+      return this;
+    }
+
+    if (!layer.__parent) {
+      return this;
+    }
+
+    if (this._unspiderfy) {
+      this._unspiderfy();
+      this._unspiderfyLayer(layer);
+    }
+
+    //Remove the marker from clusters
+    this._removeLayer(layer, true);
+
+    if (this._featureGroup.hasLayer(layer)) {
+      this._featureGroup.removeLayer(layer);
+      if (layer.clusterShow) {
+        layer.clusterShow();
+      }
+    }
+
+    return this;
+  },
+
+  //Takes an array of markers and adds them in bulk
+  addLayers: function (layersArray) {
+    var fg = this._featureGroup,
+      npg = this._nonPointGroup,
+      chunked = this.options.chunkedLoading,
+      chunkInterval = this.options.chunkInterval,
+      chunkProgress = this.options.chunkProgress,
+      newMarkers, i, l, m;
+
+    if (this._map) {
+      var offset = 0,
+        started = (new Date()).getTime();
+      var process = L.bind(function () {
+        var start = (new Date()).getTime();
+        for (; offset < layersArray.length; offset++) {
+          if (chunked && offset % 200 === 0) {
+            // every couple hundred markers, instrument the time elapsed since processing started:
+            var elapsed = (new Date()).getTime() - start;
+            if (elapsed > chunkInterval) {
+              break; // been working too hard, time to take a break :-)
+            }
+          }
+
+          m = layersArray[offset];
+
+          //Not point data, can't be clustered
+          if (!m.getLatLng) {
+            npg.addLayer(m);
+            continue;
+          }
+
+          if (this.hasLayer(m)) {
+            continue;
+          }
+
+          this._addLayer(m, this._maxZoom);
+
+          //If we just made a cluster of size 2 then we need to remove the other marker from the map (if it is) or we never will
+          if (m.__parent) {
+            if (m.__parent.getChildCount() === 2) {
+              var markers = m.__parent.getAllChildMarkers(),
+                otherMarker = markers[0] === m ? markers[1] : markers[0];
+              fg.removeLayer(otherMarker);
+            }
+          }
+        }
+
+        if (chunkProgress) {
+          // report progress and time elapsed:
+          chunkProgress(offset, layersArray.length, (new Date()).getTime() - started);
+        }
+
+        if (offset === layersArray.length) {
+          //Update the icons of all those visible clusters that were affected
+          this._featureGroup.eachLayer(function (c) {
+            if (c instanceof MarkerCluster && c._iconNeedsUpdate) {
+              c._updateIcon();
+            }
+          });
+
+          this._topClusterLevel._recursivelyAddChildrenToMap(null, this._zoom, this._currentShownBounds);
+        } else {
+          setTimeout(process, this.options.chunkDelay);
+        }
+      }, this);
+
+      process();
+    } else {
+      newMarkers = [];
+      for (i = 0, l = layersArray.length; i < l; i++) {
+        m = layersArray[i];
+
+        //Not point data, can't be clustered
+        if (!m.getLatLng) {
+          npg.addLayer(m);
+          continue;
+        }
+
+        if (this.hasLayer(m)) {
+          continue;
+        }
+
+        newMarkers.push(m);
+      }
+      this._needsClustering = this._needsClustering.concat(newMarkers);
+    }
+    return this;
+  },
+
+  //Takes an array of markers and removes them in bulk
+  removeLayers: function (layersArray) {
+    var i, l, m,
+      fg = this._featureGroup,
+      npg = this._nonPointGroup;
+
+    if (this._unspiderfy) {
+      this._unspiderfy();
+    }
+
+    if (!this._map) {
+      for (i = 0, l = layersArray.length; i < l; i++) {
+        m = layersArray[i];
+        this._arraySplice(this._needsClustering, m);
+        npg.removeLayer(m);
+      }
+      return this;
+    }
+
+    for (i = 0, l = layersArray.length; i < l; i++) {
+      m = layersArray[i];
+
+      if (!m.__parent) {
+        npg.removeLayer(m);
+        continue;
+      }
+
+      this._removeLayer(m, true, true);
+
+      if (fg.hasLayer(m)) {
+        fg.removeLayer(m);
+        if (m.clusterShow) {
+          m.clusterShow();
+        }
+      }
+    }
+
+    //Fix up the clusters and markers on the map
+    this._topClusterLevel._recursivelyAddChildrenToMap(null, this._zoom, this._currentShownBounds);
+
+    fg.eachLayer(function (c) {
+      if (c instanceof MarkerCluster) {
+        c._updateIcon();
+      }
+    });
+
+    return this;
+  },
+
+  //Removes all layers from the MarkerClusterGroup
+  clearLayers: function () {
+    //Need our own special implementation as the LayerGroup one doesn't work for us
+
+    //If we aren't on the map (yet), blow away the markers we know of
+    if (!this._map) {
+      this._needsClustering = [];
+      delete this._gridClusters;
+      delete this._gridUnclustered;
+    }
+
+    if (this._noanimationUnspiderfy) {
+      this._noanimationUnspiderfy();
+    }
+
+    //Remove all the visible layers
+    this._featureGroup.clearLayers();
+    this._nonPointGroup.clearLayers();
+
+    this.eachLayer(function (marker) {
+      delete marker.__parent;
+    });
+
+    if (this._map) {
+      //Reset _topClusterLevel and the DistanceGrids
+      this._generateInitialClusters();
+    }
+
+    return this;
+  },
+
+  //Override FeatureGroup.getBounds as it doesn't work
+  getBounds: function () {
+    var bounds = new L.LatLngBounds();
+
+    if (this._topClusterLevel) {
+      bounds.extend(this._topClusterLevel._bounds);
+    }
+
+    for (var i = this._needsClustering.length - 1; i >= 0; i--) {
+      bounds.extend(this._needsClustering[i].getLatLng());
+    }
+
+    bounds.extend(this._nonPointGroup.getBounds());
+
+    return bounds;
+  },
+
+  //Overrides LayerGroup.eachLayer
+  eachLayer: function (method, context) {
+    var markers = this._needsClustering.slice(),
+      i;
+
+    if (this._topClusterLevel) {
+      this._topClusterLevel.getAllChildMarkers(markers);
+    }
+
+    for (i = markers.length - 1; i >= 0; i--) {
+      method.call(context, markers[i]);
+    }
+
+    this._nonPointGroup.eachLayer(method, context);
+  },
+
+  //Overrides LayerGroup.getLayers
+  getLayers: function () {
+    var layers = [];
+    this.eachLayer(function (l) {
+      layers.push(l);
+    });
+    return layers;
+  },
+
+  //Overrides LayerGroup.getLayer, WARNING: Really bad performance
+  getLayer: function (id) {
+    var result = null;
+
+    this.eachLayer(function (l) {
+      if (L.stamp(l) === id) {
+        result = l;
+      }
+    });
+
+    return result;
+  },
+
+  //Returns true if the given layer is in this MarkerClusterGroup
+  hasLayer: function (layer) {
+    if (!layer) {
+      return false;
+    }
+
+    var i, anArray = this._needsClustering;
+
+    for (i = anArray.length - 1; i >= 0; i--) {
+      if (anArray[i] === layer) {
+        return true;
+      }
+    }
+
+    anArray = this._needsRemoving;
+    for (i = anArray.length - 1; i >= 0; i--) {
+      if (anArray[i] === layer) {
+        return false;
+      }
+    }
+
+    return !!(layer.__parent && layer.__parent._group === this) || this._nonPointGroup.hasLayer(layer);
+  },
+
+  //Zoom down to show the given layer (spiderfying if necessary) then calls the callback
+  zoomToShowLayer: function (layer, callback) {
+
+    var showMarker = function () {
+      if ((layer._icon || layer.__parent._icon) && !this._inZoomAnimation) {
+        this._map.off('moveend', showMarker, this);
+        this.off('animationend', showMarker, this);
+
+        if (layer._icon) {
+          callback();
+        } else if (layer.__parent._icon) {
+          var afterSpiderfy = function () {
+            this.off('spiderfied', afterSpiderfy, this);
+            callback();
+          };
+
+          this.on('spiderfied', afterSpiderfy, this);
+          layer.__parent.spiderfy();
+        }
+      }
+    };
+
+    if (layer._icon && this._map.getBounds().contains(layer.getLatLng())) {
+      //Layer is visible ond on screen, immediate return
+      callback();
+    } else if (layer.__parent._zoom < this._map.getZoom()) {
+      //Layer should be visible at this zoom level. It must not be on screen so just pan over to it
+      this._map.on('moveend', showMarker, this);
+      this._map.panTo(layer.getLatLng());
+    } else {
+      var moveStart = function () {
+        this._map.off('movestart', moveStart, this);
+        moveStart = null;
+      };
+
+      this._map.on('movestart', moveStart, this);
+      this._map.on('moveend', showMarker, this);
+      this.on('animationend', showMarker, this);
+      layer.__parent.zoomToBounds();
+
+      if (moveStart) {
+        //Never started moving, must already be there, probably need clustering however
+        showMarker.call(this);
+      }
+    }
+  },
+
+  //Overrides FeatureGroup.onAdd
+  onAdd: function (map) {
+    this._map = map;
+    var i, l, layer;
+
+    if (!isFinite(this._map.getMaxZoom())) {
+      throw "Map has no maxZoom specified";
+    }
+
+    this._featureGroup.onAdd(map);
+    this._nonPointGroup.onAdd(map);
+
+    if (!this._gridClusters) {
+      this._generateInitialClusters();
+    }
+
+    for (i = 0, l = this._needsRemoving.length; i < l; i++) {
+      layer = this._needsRemoving[i];
+      this._removeLayer(layer, true);
+    }
+    this._needsRemoving = [];
+
+    //Remember the current zoom level and bounds
+    this._zoom = this._map.getZoom();
+    this._currentShownBounds = this._getExpandedVisibleBounds();
+
+    this._map.on('zoomend', this._zoomEnd, this);
+    this._map.on('moveend', this._moveEnd, this);
+
+    if (this._spiderfierOnAdd) { //TODO FIXME: Not sure how to have spiderfier add something on here nicely
+      this._spiderfierOnAdd();
+    }
+
+    this._bindEvents();
+
+    //Actually add our markers to the map:
+    l = this._needsClustering;
+    this._needsClustering = [];
+    this.addLayers(l);
+  },
+
+  //Overrides FeatureGroup.onRemove
+  onRemove: function (map) {
+    map.off('zoomend', this._zoomEnd, this);
+    map.off('moveend', this._moveEnd, this);
+
+    this._unbindEvents();
+
+    //In case we are in a cluster animation
+    this._map._mapPane.className = this._map._mapPane.className.replace(' leaflet-cluster-anim', '');
+
+    if (this._spiderfierOnRemove) { //TODO FIXME: Not sure how to have spiderfier add something on here nicely
+      this._spiderfierOnRemove();
+    }
+
+
+
+    //Clean up all the layers we added to the map
+    this._hideCoverage();
+    this._featureGroup.onRemove(map);
+    this._nonPointGroup.onRemove(map);
+
+    this._featureGroup.clearLayers();
+
+    this._map = null;
+  },
+
+  getVisibleParent: function (marker) {
+    var vMarker = marker;
+    while (vMarker && !vMarker._icon) {
+      vMarker = vMarker.__parent;
+    }
+    return vMarker || null;
+  },
+
+  //Remove the given object from the given array
+  _arraySplice: function (anArray, obj) {
+    for (var i = anArray.length - 1; i >= 0; i--) {
+      if (anArray[i] === obj) {
+        anArray.splice(i, 1);
+        return true;
+      }
+    }
+  },
+
+  //Internal function for removing a marker from everything.
+  //dontUpdateMap: set to true if you will handle updating the map manually (for bulk functions)
+  _removeLayer: function (marker, removeFromDistanceGrid, dontUpdateMap) {
+    var gridClusters = this._gridClusters,
+      gridUnclustered = this._gridUnclustered,
+      fg = this._featureGroup,
+      map = this._map;
+
+    //Remove the marker from distance clusters it might be in
+    if (removeFromDistanceGrid) {
+      for (var z = this._maxZoom; z >= 0; z--) {
+        if (!gridUnclustered[z].removeObject(marker, map.project(marker.getLatLng(), z))) {
+          break;
+        }
+      }
+    }
+
+    //Work our way up the clusters removing them as we go if required
+    var cluster = marker.__parent,
+      markers = cluster._markers,
+      otherMarker;
+
+    //Remove the marker from the immediate parents marker list
+    this._arraySplice(markers, marker);
+
+    while (cluster) {
+      cluster._childCount--;
+
+      if (cluster._zoom < 0) {
+        //Top level, do nothing
+        break;
+      } else if (removeFromDistanceGrid && cluster._childCount <= 1) { //Cluster no longer required
+        //We need to push the other marker up to the parent
+        otherMarker = cluster._markers[0] === marker ? cluster._markers[1] : cluster._markers[0];
+
+        //Update distance grid
+        gridClusters[cluster._zoom].removeObject(cluster, map.project(cluster._cLatLng, cluster._zoom));
+        gridUnclustered[cluster._zoom].addObject(otherMarker, map.project(otherMarker.getLatLng(), cluster._zoom));
+
+        //Move otherMarker up to parent
+        this._arraySplice(cluster.__parent._childClusters, cluster);
+        cluster.__parent._markers.push(otherMarker);
+        otherMarker.__parent = cluster.__parent;
+
+        if (cluster._icon) {
+          //Cluster is currently on the map, need to put the marker on the map instead
+          fg.removeLayer(cluster);
+          if (!dontUpdateMap) {
+            fg.addLayer(otherMarker);
+          }
+        }
+      } else {
+        cluster._recalculateBounds();
+        if (!dontUpdateMap || !cluster._icon) {
+          cluster._updateIcon();
+        }
+      }
+
+      cluster = cluster.__parent;
+    }
+
+    delete marker.__parent;
+  },
+
+  _isOrIsParent: function (el, oel) {
+    while (oel) {
+      if (el === oel) {
+        return true;
+      }
+      oel = oel.parentNode;
+    }
+    return false;
+  },
+
+  _propagateEvent: function (e) {
+    if (e.layer instanceof MarkerCluster) {
+      //Prevent multiple clustermouseover/off events if the icon is made up of stacked divs (Doesn't work in ie <= 8, no relatedTarget)
+      if (e.originalEvent && this._isOrIsParent(e.layer._icon, e.originalEvent.relatedTarget)) {
+        return;
+      }
+      e.type = 'cluster' + e.type;
+    }
+
+    this.fire(e.type, e);
+  },
+
+  //Default functionality
+  _defaultIconCreateFunction: function (cluster) {
+    var childCount = cluster.getChildCount();
+
+    var c = ' marker-cluster-';
+    if (childCount < 10) {
+      c += 'small';
+    } else if (childCount < 100) {
+      c += 'medium';
+    } else {
+      c += 'large';
+    }
+
+    return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+  },
+
+  _bindEvents: function () {
+    var map = this._map,
+        spiderfyOnMaxZoom = this.options.spiderfyOnMaxZoom,
+        showCoverageOnHover = this.options.showCoverageOnHover,
+        zoomToBoundsOnClick = this.options.zoomToBoundsOnClick;
+
+    //Zoom on cluster click or spiderfy if we are at the lowest level
+    if (spiderfyOnMaxZoom || zoomToBoundsOnClick) {
+      this.on('clusterclick', this._zoomOrSpiderfy, this);
+    }
+
+    //Show convex hull (boundary) polygon on mouse over
+    if (showCoverageOnHover) {
+      this.on('clustermouseover', this._showCoverage, this);
+      this.on('clustermouseout', this._hideCoverage, this);
+      map.on('zoomend', this._hideCoverage, this);
+    }
+  },
+
+  _zoomOrSpiderfy: function (e) {
+    var map = this._map;
+    if (e.layer._bounds._northEast.equals(e.layer._bounds._southWest)) {
+      if (this.options.spiderfyOnMaxZoom) {
+        e.layer.spiderfy();
+      }
+    } else if (map.getMaxZoom() === map.getZoom()) {
+      if (this.options.spiderfyOnMaxZoom) {
+        e.layer.spiderfy();
+      }
+    } else if (this.options.zoomToBoundsOnClick) {
+      e.layer.zoomToBounds();
+    }
+
+    // Focus the map again for keyboard users.
+    if (e.originalEvent && e.originalEvent.keyCode === 13) {
+      map._container.focus();
+    }
+  },
+
+  _showCoverage: function (e) {
+    var map = this._map;
+    if (this._inZoomAnimation) {
+      return;
+    }
+    if (this._shownPolygon) {
+      map.removeLayer(this._shownPolygon);
+    }
+    if (e.layer.getChildCount() > 2 && e.layer !== this._spiderfied) {
+      this._shownPolygon = new L.Polygon(e.layer.getConvexHull(), this.options.polygonOptions);
+      map.addLayer(this._shownPolygon);
+    }
+  },
+
+  _hideCoverage: function () {
+    if (this._shownPolygon) {
+      this._map.removeLayer(this._shownPolygon);
+      this._shownPolygon = null;
+    }
+  },
+
+  _unbindEvents: function () {
+    var spiderfyOnMaxZoom = this.options.spiderfyOnMaxZoom,
+      showCoverageOnHover = this.options.showCoverageOnHover,
+      zoomToBoundsOnClick = this.options.zoomToBoundsOnClick,
+      map = this._map;
+
+    if (spiderfyOnMaxZoom || zoomToBoundsOnClick) {
+      this.off('clusterclick', this._zoomOrSpiderfy, this);
+    }
+    if (showCoverageOnHover) {
+      this.off('clustermouseover', this._showCoverage, this);
+      this.off('clustermouseout', this._hideCoverage, this);
+      map.off('zoomend', this._hideCoverage, this);
+    }
+  },
+
+  _zoomEnd: function () {
+    if (!this._map) { //May have been removed from the map by a zoomEnd handler
+      return;
+    }
+    this._mergeSplitClusters();
+
+    this._zoom = this._map._zoom;
+    this._currentShownBounds = this._getExpandedVisibleBounds();
+  },
+
+  _moveEnd: function () {
+    if (this._inZoomAnimation) {
+      return;
+    }
+
+    var newBounds = this._getExpandedVisibleBounds();
+
+    this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, this._zoom, newBounds);
+    this._topClusterLevel._recursivelyAddChildrenToMap(null, this._map._zoom, newBounds);
+
+    this._currentShownBounds = newBounds;
+    return;
+  },
+
+  _generateInitialClusters: function () {
+    var maxZoom = this._map.getMaxZoom(),
+      radius = this.options.maxClusterRadius,
+      radiusFn = radius;
+
+    //If we just set maxClusterRadius to a single number, we need to create
+    //a simple function to return that number. Otherwise, we just have to
+    //use the function we've passed in.
+    if (typeof radius !== "function") {
+      radiusFn = function () { return radius; };
+    }
+
+    if (this.options.disableClusteringAtZoom) {
+      maxZoom = this.options.disableClusteringAtZoom - 1;
+    }
+    this._maxZoom = maxZoom;
+    this._gridClusters = {};
+    this._gridUnclustered = {};
+
+    //Set up DistanceGrids for each zoom
+    for (var zoom = maxZoom; zoom >= 0; zoom--) {
+      this._gridClusters[zoom] = new DistanceGrid(radiusFn(zoom));
+      this._gridUnclustered[zoom] = new DistanceGrid(radiusFn(zoom));
+    }
+
+    this._topClusterLevel = new MarkerCluster(this, -1);
+  },
+
+  //Zoom: Zoom to start adding at (Pass this._maxZoom to start at the bottom)
+  _addLayer: function (layer, zoom) {
+    var gridClusters = this._gridClusters,
+        gridUnclustered = this._gridUnclustered,
+        markerPoint, z;
+
+    if (this.options.singleMarkerMode) {
+      layer.options.icon = this.options.iconCreateFunction({
+        getChildCount: function () {
+          return 1;
+        },
+        getAllChildMarkers: function () {
+          return [layer];
+        }
+      });
+    }
+
+    //Find the lowest zoom level to slot this one in
+    for (; zoom >= 0; zoom--) {
+      markerPoint = this._map.project(layer.getLatLng(), zoom); // calculate pixel position
+
+      //Try find a cluster close by
+      var closest = gridClusters[zoom].getNearObject(markerPoint);
+      if (closest) {
+        closest._addChild(layer);
+        layer.__parent = closest;
+        return;
+      }
+
+      //Try find a marker close by to form a new cluster with
+      closest = gridUnclustered[zoom].getNearObject(markerPoint);
+      if (closest) {
+        var parent = closest.__parent;
+        if (parent) {
+          this._removeLayer(closest, false);
+        }
+
+        //Create new cluster with these 2 in it
+
+        var newCluster = new MarkerCluster(this, zoom, closest, layer);
+        gridClusters[zoom].addObject(newCluster, this._map.project(newCluster._cLatLng, zoom));
+        closest.__parent = newCluster;
+        layer.__parent = newCluster;
+
+        //First create any new intermediate parent clusters that don't exist
+        var lastParent = newCluster;
+        for (z = zoom - 1; z > parent._zoom; z--) {
+          lastParent = new MarkerCluster(this, z, lastParent);
+          gridClusters[z].addObject(lastParent, this._map.project(closest.getLatLng(), z));
+        }
+        parent._addChild(lastParent);
+
+        //Remove closest from this zoom level and any above that it is in, replace with newCluster
+        for (z = zoom; z >= 0; z--) {
+          if (!gridUnclustered[z].removeObject(closest, this._map.project(closest.getLatLng(), z))) {
+            break;
+          }
+        }
+
+        return;
+      }
+
+      //Didn't manage to cluster in at this zoom, record us as a marker here and continue upwards
+      gridUnclustered[zoom].addObject(layer, markerPoint);
+    }
+
+    //Didn't get in anything, add us to the top
+    this._topClusterLevel._addChild(layer);
+    layer.__parent = this._topClusterLevel;
+    return;
+  },
+
+  //Enqueue code to fire after the marker expand/contract has happened
+  _enqueue: function (fn) {
+    this._queue.push(fn);
+    if (!this._queueTimeout) {
+      this._queueTimeout = setTimeout(L.bind(this._processQueue, this), 300);
+    }
+  },
+  _processQueue: function () {
+    for (var i = 0; i < this._queue.length; i++) {
+      this._queue[i].call(this);
+    }
+    this._queue.length = 0;
+    clearTimeout(this._queueTimeout);
+    this._queueTimeout = null;
+  },
+
+  //Merge and split any existing clusters that are too big or small
+  _mergeSplitClusters: function () {
+
+    //Incase we are starting to split before the animation finished
+    this._processQueue();
+
+    if (this._zoom < this._map._zoom && this._currentShownBounds.intersects(this._getExpandedVisibleBounds())) { //Zoom in, split
+      this._animationStart();
+      //Remove clusters now off screen
+      this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, this._zoom, this._getExpandedVisibleBounds());
+
+      this._animationZoomIn(this._zoom, this._map._zoom);
+
+    } else if (this._zoom > this._map._zoom) { //Zoom out, merge
+      this._animationStart();
+
+      this._animationZoomOut(this._zoom, this._map._zoom);
+    } else {
+      this._moveEnd();
+    }
+  },
+
+  //Gets the maps visible bounds expanded in each direction by the size of the screen (so the user cannot see an area we do not cover in one pan)
+  _getExpandedVisibleBounds: function () {
+    if (!this.options.removeOutsideVisibleBounds) {
+      return this._map.getBounds();
+    }
+
+    var map = this._map,
+      bounds = map.getBounds(),
+      sw = bounds._southWest,
+      ne = bounds._northEast,
+      latDiff = L.Browser.mobile ? 0 : Math.abs(sw.lat - ne.lat),
+      lngDiff = L.Browser.mobile ? 0 : Math.abs(sw.lng - ne.lng);
+
+    return new L.LatLngBounds(
+      new L.LatLng(sw.lat - latDiff, sw.lng - lngDiff, true),
+      new L.LatLng(ne.lat + latDiff, ne.lng + lngDiff, true));
+  },
+
+  //Shared animation code
+  _animationAddLayerNonAnimated: function (layer, newCluster) {
+    if (newCluster === layer) {
+      this._featureGroup.addLayer(layer);
+    } else if (newCluster._childCount === 2) {
+      newCluster._addToMap();
+
+      var markers = newCluster.getAllChildMarkers();
+      this._featureGroup.removeLayer(markers[0]);
+      this._featureGroup.removeLayer(markers[1]);
+    } else {
+      newCluster._updateIcon();
+    }
+  }
+});
+
+MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
+
+  //Non Animated versions of everything
+  _animationStart: function () {
+    //Do nothing...
+  },
+  _animationZoomIn: function (previousZoomLevel, newZoomLevel) {
+    this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, previousZoomLevel);
+    this._topClusterLevel._recursivelyAddChildrenToMap(null, newZoomLevel, this._getExpandedVisibleBounds());
+
+    //We didn't actually animate, but we use this event to mean "clustering animations have finished"
+    this.fire('animationend');
+  },
+  _animationZoomOut: function (previousZoomLevel, newZoomLevel) {
+    this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, previousZoomLevel);
+    this._topClusterLevel._recursivelyAddChildrenToMap(null, newZoomLevel, this._getExpandedVisibleBounds());
+
+    //We didn't actually animate, but we use this event to mean "clustering animations have finished"
+    this.fire('animationend');
+  },
+  _animationAddLayer: function (layer, newCluster) {
+    this._animationAddLayerNonAnimated(layer, newCluster);
+  }
+} : {
+
+  //Animated versions here
+  _animationStart: function () {
+    this._map._mapPane.className += ' leaflet-cluster-anim';
+    this._inZoomAnimation++;
+  },
+  _animationEnd: function () {
+    if (this._map) {
+      this._map._mapPane.className = this._map._mapPane.className.replace(' leaflet-cluster-anim', '');
+    }
+    this._inZoomAnimation--;
+    this.fire('animationend');
+  },
+  _animationZoomIn: function (previousZoomLevel, newZoomLevel) {
+    var bounds = this._getExpandedVisibleBounds(),
+        fg = this._featureGroup,
+        i;
+
+    //Add all children of current clusters to map and remove those clusters from map
+    this._topClusterLevel._recursively(bounds, previousZoomLevel, 0, function (c) {
+      var startPos = c._latlng,
+        markers = c._markers,
+        m;
+
+      if (!bounds.contains(startPos)) {
+        startPos = null;
+      }
+
+      if (c._isSingleParent() && previousZoomLevel + 1 === newZoomLevel) { //Immediately add the new child and remove us
+        fg.removeLayer(c);
+        c._recursivelyAddChildrenToMap(null, newZoomLevel, bounds);
+      } else {
+        //Fade out old cluster
+        c.setOpacity(0);
+        c._recursivelyAddChildrenToMap(startPos, newZoomLevel, bounds);
+      }
+
+      //Remove all markers that aren't visible any more
+      //TODO: Do we actually need to do this on the higher levels too?
+      for (i = markers.length - 1; i >= 0; i--) {
+        m = markers[i];
+        if (!bounds.contains(m._latlng)) {
+          fg.removeLayer(m);
+        }
+      }
+
+    });
+
+    this._forceLayout();
+
+    //Update opacities
+    this._topClusterLevel._recursivelyBecomeVisible(bounds, newZoomLevel);
+    //TODO Maybe? Update markers in _recursivelyBecomeVisible
+    fg.eachLayer(function (n) {
+      if (!(n instanceof MarkerCluster) && n._icon) {
+        n.setOpacity(1);
+      }
+    });
+
+    //update the positions of the just added clusters/markers
+    this._topClusterLevel._recursively(bounds, previousZoomLevel, newZoomLevel, function (c) {
+      c._recursivelyRestoreChildPositions(newZoomLevel);
+    });
+
+    //Remove the old clusters and close the zoom animation
+    this._enqueue(function () {
+      //update the positions of the just added clusters/markers
+      this._topClusterLevel._recursively(bounds, previousZoomLevel, 0, function (c) {
+        fg.removeLayer(c);
+        c.setOpacity(1);
+      });
+
+      this._animationEnd();
+    });
+  },
+
+  _animationZoomOut: function (previousZoomLevel, newZoomLevel) {
+    this._animationZoomOutSingle(this._topClusterLevel, previousZoomLevel - 1, newZoomLevel);
+
+    //Need to add markers for those that weren't on the map before but are now
+    this._topClusterLevel._recursivelyAddChildrenToMap(null, newZoomLevel, this._getExpandedVisibleBounds());
+    //Remove markers that were on the map before but won't be now
+    this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, previousZoomLevel, this._getExpandedVisibleBounds());
+  },
+  _animationZoomOutSingle: function (cluster, previousZoomLevel, newZoomLevel) {
+    var bounds = this._getExpandedVisibleBounds();
+
+    //Animate all of the markers in the clusters to move to their cluster center point
+    cluster._recursivelyAnimateChildrenInAndAddSelfToMap(bounds, previousZoomLevel + 1, newZoomLevel);
+
+    var me = this;
+
+    //Update the opacity (If we immediately set it they won't animate)
+    this._forceLayout();
+    cluster._recursivelyBecomeVisible(bounds, newZoomLevel);
+
+    //TODO: Maybe use the transition timing stuff to make this more reliable
+    //When the animations are done, tidy up
+    this._enqueue(function () {
+
+      //This cluster stopped being a cluster before the timeout fired
+      if (cluster._childCount === 1) {
+        var m = cluster._markers[0];
+        //If we were in a cluster animation at the time then the opacity and position of our child could be wrong now, so fix it
+        m.setLatLng(m.getLatLng());
+        if (m.setOpacity) {
+          m.setOpacity(1);
+        }
+      } else {
+        cluster._recursively(bounds, newZoomLevel, 0, function (c) {
+          c._recursivelyRemoveChildrenFromMap(bounds, previousZoomLevel + 1);
+        });
+      }
+      me._animationEnd();
+    });
+  },
+  _animationAddLayer: function (layer, newCluster) {
+    var me = this,
+      fg = this._featureGroup;
+
+    fg.addLayer(layer);
+    if (newCluster !== layer) {
+      if (newCluster._childCount > 2) { //Was already a cluster
+
+        newCluster._updateIcon();
+        this._forceLayout();
+        this._animationStart();
+
+        layer._setPos(this._map.latLngToLayerPoint(newCluster.getLatLng()));
+        layer.setOpacity(0);
+
+        this._enqueue(function () {
+          fg.removeLayer(layer);
+          layer.setOpacity(1);
+
+          me._animationEnd();
+        });
+
+      } else { //Just became a cluster
+        this._forceLayout();
+
+        me._animationStart();
+        me._animationZoomOutSingle(newCluster, this._map.getMaxZoom(), this._map.getZoom());
+      }
+    }
+  },
+
+  //Force a browser layout of stuff in the map
+  // Should apply the current opacity and location to all elements so we can update them again for an animation
+  _forceLayout: function () {
+    //In my testing this works, infact offsetWidth of any element seems to work.
+    //Could loop all this._layers and do this for each _icon if it stops working
+
+    L.Util.falseFn(document.body.offsetWidth);
+  }
+});
+
+module.exports = MarkerClusterGroup;
+
+},{"./DistanceGrid":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/DistanceGrid.js","./MarkerCluster":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet-geojson-cluster/node_modules/leaflet-geojson-cluster/src/MarkerCluster.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _MapLayer2 = require('./MapLayer');
+
+var _MapLayer3 = _interopRequireDefault(_MapLayer2);
+
+var BaseTileLayer = (function (_MapLayer) {
+  function BaseTileLayer() {
+    _classCallCheck(this, BaseTileLayer);
+
+    if (_MapLayer != null) {
+      _MapLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(BaseTileLayer, _MapLayer);
+
+  _createClass(BaseTileLayer, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      var _props = this.props;
+      var opacity = _props.opacity;
+      var zIndex = _props.zIndex;
+
+      if (opacity && opacity !== prevProps.opacity) {
+        this.leafletElement.setOpacity(opacity);
+      }
+      if (zIndex && zIndex !== prevProps.zIndex) {
+        this.leafletElement.setZIndex(zIndex);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      opacity: _react.PropTypes.number,
+      zIndex: _react.PropTypes.number
+    },
+    enumerable: true
+  }]);
+
+  return BaseTileLayer;
+})(_MapLayer3['default']);
+
+exports['default'] = BaseTileLayer;
+module.exports = exports['default'];
+},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CanvasTileLayer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _leaflet = require('leaflet');
+
+var _BaseTileLayer2 = require('./BaseTileLayer');
+
+var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
+
+var CanvasTileLayer = (function (_BaseTileLayer) {
+  function CanvasTileLayer() {
+    _classCallCheck(this, CanvasTileLayer);
+
+    if (_BaseTileLayer != null) {
+      _BaseTileLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(CanvasTileLayer, _BaseTileLayer);
+
+  _createClass(CanvasTileLayer, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(CanvasTileLayer.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['map']);
+
+      this.leafletElement = _leaflet.tileLayer.canvas(props);
+    }
+  }]);
+
+  return CanvasTileLayer;
+})(_BaseTileLayer3['default']);
+
+exports['default'] = CanvasTileLayer;
+module.exports = exports['default'];
+},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Circle.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesLatlng = require('./types/latlng');
+
+var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var Circle = (function (_PopupContainer) {
+  function Circle() {
+    _classCallCheck(this, Circle);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(Circle, _PopupContainer);
+
+  _createClass(Circle, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Circle.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var center = _props.center;
+      var map = _props.map;
+      var radius = _props.radius;
+
+      var props = _objectWithoutProperties(_props, ['center', 'map', 'radius']);
+
+      this.leafletElement = (0, _leaflet.circle)(center, radius, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.center !== prevProps.center) {
+        this.leafletElement.setLatLng(this.props.center);
+      }
+      if (this.props.radius !== prevProps.radius) {
+        this.leafletElement.setRadius(this.props.radius);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      center: _typesLatlng2['default'].isRequired,
+      radius: _react.PropTypes.number.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return Circle;
+})(_PopupContainer3['default']);
+
+exports['default'] = Circle;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CircleMarker.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesLatlng = require('./types/latlng');
+
+var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var CircleMarker = (function (_PopupContainer) {
+  function CircleMarker() {
+    _classCallCheck(this, CircleMarker);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(CircleMarker, _PopupContainer);
+
+  _createClass(CircleMarker, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(CircleMarker.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var center = _props.center;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['center', 'map']);
+
+      this.leafletElement = (0, _leaflet.circleMarker)(center, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.center !== prevProps.center) {
+        this.leafletElement.setLatLng(this.props.center);
+      }
+      if (this.props.radius !== prevProps.radius) {
+        this.leafletElement.setRadius(this.props.radius);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      center: _typesLatlng2['default'].isRequired,
+      radius: _react.PropTypes.number
+    },
+    enumerable: true
+  }]);
+
+  return CircleMarker;
+})(_PopupContainer3['default']);
+
+exports['default'] = CircleMarker;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/FeatureGroup.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var FeatureGroup = (function (_PopupContainer) {
+  function FeatureGroup() {
+    _classCallCheck(this, FeatureGroup);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(FeatureGroup, _PopupContainer);
+
+  _createClass(FeatureGroup, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _props = this.props;
+      var layers = _props.layers;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['layers', 'map']);
+
+      this.leafletElement = (0, _leaflet.featureGroup)(layers);
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      layers: _react.PropTypes.array.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return FeatureGroup;
+})(_PopupContainer3['default']);
+
+exports['default'] = FeatureGroup;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/GeoJson.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var GeoJson = (function (_PopupContainer) {
+  function GeoJson() {
+    _classCallCheck(this, GeoJson);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(GeoJson, _PopupContainer);
+
+  _createClass(GeoJson, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(GeoJson.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var data = _props.data;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['data', 'map']);
+
+      this.leafletElement = (0, _leaflet.geoJson)(data, props);
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      data: _react.PropTypes.object.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return GeoJson;
+})(_PopupContainer3['default']);
+
+exports['default'] = GeoJson;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/ImageOverlay.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesBounds = require('./types/bounds');
+
+var _typesBounds2 = _interopRequireDefault(_typesBounds);
+
+var _MapLayer2 = require('./MapLayer');
+
+var _MapLayer3 = _interopRequireDefault(_MapLayer2);
+
+var ImageOverlay = (function (_MapLayer) {
+  function ImageOverlay() {
+    _classCallCheck(this, ImageOverlay);
+
+    if (_MapLayer != null) {
+      _MapLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(ImageOverlay, _MapLayer);
+
+  _createClass(ImageOverlay, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(ImageOverlay.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var bounds = _props.bounds;
+      var map = _props.map;
+      var url = _props.url;
+
+      var props = _objectWithoutProperties(_props, ['bounds', 'map', 'url']);
+
+      this.leafletElement = (0, _leaflet.imageOverlay)(url, bounds, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.url !== prevProps.url) {
+        this.leafletElement.setUrl(this.props.url);
+      }
+      if (this.props.opacity !== prevProps.opacity) {
+        this.leafletElement.setOpacity(this.props.opacity);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      attribution: _react.PropTypes.string,
+      bounds: _typesBounds2['default'].isRequired,
+      opacity: _react.PropTypes.number,
+      url: _react.PropTypes.string.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return ImageOverlay;
+})(_MapLayer3['default']);
+
+exports['default'] = ImageOverlay;
+module.exports = exports['default'];
+},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Map.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodashLangIsArray = require('lodash/lang/isArray');
+
+var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
+
+var _lodashUtilityUniqueId = require('lodash/utility/uniqueId');
+
+var _lodashUtilityUniqueId2 = _interopRequireDefault(_lodashUtilityUniqueId);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _leaflet = require('leaflet');
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
+var _typesBounds = require('./types/bounds');
+
+var _typesBounds2 = _interopRequireDefault(_typesBounds);
+
+var _typesLatlng = require('./types/latlng');
+
+var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
+
+var _MapComponent2 = require('./MapComponent');
+
+var _MapComponent3 = _interopRequireDefault(_MapComponent2);
+
+var normalizeCenter = function normalizeCenter(pos) {
+  return (0, _lodashLangIsArray2['default'])(pos) ? pos : [pos.lat, pos.lng || pos.lon];
+};
+
+var Map = (function (_MapComponent) {
+  function Map(props) {
+    _classCallCheck(this, Map);
+
+    _get(Object.getPrototypeOf(Map.prototype), 'constructor', this).call(this, props);
+    this.state = {
+      id: props.id || (0, _lodashUtilityUniqueId2['default'])('map')
+    };
+  }
+
+  _inherits(Map, _MapComponent);
+
+  _createClass(Map, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.leafletElement = _leaflet2['default'].map(this.state.id, this.props);
+      _get(Object.getPrototypeOf(Map.prototype), 'componentDidMount', this).call(this);
+      this.setState({ map: this.leafletElement });
+    }
+  }, {
+    key: 'shouldUpdateCenter',
+    value: function shouldUpdateCenter(next, prev) {
+      if (!prev) return true;
+      next = normalizeCenter(next);
+      prev = normalizeCenter(prev);
+      return next[0] !== prev[0] || next[1] !== prev[1];
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      var _props = this.props;
+      var center = _props.center;
+      var zoom = _props.zoom;
+
+      if (center && this.shouldUpdateCenter(center, prevProps.center)) {
+        this.leafletElement.setView(center, zoom, { animate: false });
+      } else if (zoom && zoom !== prevProps.zoom) {
+        this.leafletElement.setZoom(zoom);
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _get(Object.getPrototypeOf(Map.prototype), 'componentWillUnmount', this).call(this);
+      this.leafletElement.remove();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var map = this.leafletElement;
+      var children = map ? _react2['default'].Children.map(this.props.children, function (child) {
+        return child ? _react2['default'].cloneElement(child, { map: map }) : null;
+      }) : null;
+
+      return _react2['default'].createElement(
+        'div',
+        { className: this.props.className, id: this.state.id, style: this.props.style },
+        children
+      );
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      center: _typesLatlng2['default'],
+      className: _react.PropTypes.string,
+      id: _react.PropTypes.string,
+      maxBounds: _typesBounds2['default'],
+      maxZoom: _react.PropTypes.number,
+      minZoom: _react.PropTypes.number,
+      style: _react.PropTypes.object,
+      zoom: _react.PropTypes.number
+    },
+    enumerable: true
+  }]);
+
+  return Map;
+})(_MapComponent3['default']);
+
+exports['default'] = Map;
+module.exports = exports['default'];
+},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","lodash/lang/isArray":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/isArray.js","lodash/utility/uniqueId":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/utility/uniqueId.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodashLangClone = require('lodash/lang/clone');
+
+var _lodashLangClone2 = _interopRequireDefault(_lodashLangClone);
+
+var _lodashCollectionForEach = require('lodash/collection/forEach');
+
+var _lodashCollectionForEach2 = _interopRequireDefault(_lodashCollectionForEach);
+
+var _lodashCollectionReduce = require('lodash/collection/reduce');
+
+var _lodashCollectionReduce2 = _interopRequireDefault(_lodashCollectionReduce);
+
+var _lodashObjectKeys = require('lodash/object/keys');
+
+var _lodashObjectKeys2 = _interopRequireDefault(_lodashObjectKeys);
+
+var _react = require('react');
+
+var EVENTS_RE = /on(?:Leaflet)?(.+)/i;
+
+var MapComponent = (function (_Component) {
+  function MapComponent() {
+    _classCallCheck(this, MapComponent);
+
+    if (_Component != null) {
+      _Component.apply(this, arguments);
+    }
+  }
+
+  _inherits(MapComponent, _Component);
+
+  _createClass(MapComponent, [{
+    key: 'getLeafletElement',
+    value: function getLeafletElement() {
+      return this.leafletElement;
+    }
+  }, {
+    key: 'extractLeafletEvents',
+    value: function extractLeafletEvents(props) {
+      return (0, _lodashCollectionReduce2['default'])((0, _lodashObjectKeys2['default'])(props), function (res, ev) {
+        if (EVENTS_RE.test(ev)) {
+          var key = ev.replace(EVENTS_RE, function (match, p) {
+            return p.toLowerCase();
+          });
+          res[key] = props[ev];
+        }
+        return res;
+      }, {});
+    }
+  }, {
+    key: 'bindLeafletEvents',
+    value: function bindLeafletEvents() {
+      var next = arguments[0] === undefined ? {} : arguments[0];
+      var prev = arguments[1] === undefined ? {} : arguments[1];
+
+      var el = this.leafletElement;
+      if (!el) return;
+
+      var diff = (0, _lodashLangClone2['default'])(prev);
+      (0, _lodashCollectionForEach2['default'])(prev, function (cb, ev) {
+        if (!next[ev] || cb !== next[ev]) {
+          delete diff[ev];
+          el.off(ev, cb);
+        }
+      });
+
+      (0, _lodashCollectionForEach2['default'])(next, function (cb, ev) {
+        if (!prev[ev] || cb !== prev[ev]) {
+          diff[ev] = cb;
+          el.on(ev, cb);
+        }
+      });
+
+      return diff;
+    }
+  }, {
+    key: 'fireLeafletEvent',
+    value: function fireLeafletEvent(type, data) {
+      var el = this.leafletElement;
+      if (el) el.fire(type, data);
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this._leafletEvents = this.extractLeafletEvents(this.props);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.bindLeafletEvents(this._leafletEvents);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var next = this.extractLeafletEvents(nextProps);
+      this._leafletEvents = this.bindLeafletEvents(next, this._leafletEvents);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      var el = this.leafletElement;
+      if (!el) return;
+
+      (0, _lodashCollectionForEach2['default'])(this._leafletEvents, function (cb, ev) {
+        el.off(ev, cb);
+      });
+    }
+  }]);
+
+  return MapComponent;
+})(_react.Component);
+
+exports['default'] = MapComponent;
+module.exports = exports['default'];
+},{"lodash/collection/forEach":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/collection/forEach.js","lodash/collection/reduce":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/collection/reduce.js","lodash/lang/clone":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/lang/clone.js","lodash/object/keys":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/keys.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _lodashObjectAssign = require('lodash/object/assign');
+
+var _lodashObjectAssign2 = _interopRequireDefault(_lodashObjectAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _MapComponent2 = require('./MapComponent');
+
+var _MapComponent3 = _interopRequireDefault(_MapComponent2);
+
+var MapLayer = (function (_MapComponent) {
+  function MapLayer() {
+    _classCallCheck(this, MapLayer);
+
+    if (_MapComponent != null) {
+      _MapComponent.apply(this, arguments);
+    }
+  }
+
+  _inherits(MapLayer, _MapComponent);
+
+  _createClass(MapLayer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _get(Object.getPrototypeOf(MapLayer.prototype), 'componentDidMount', this).call(this);
+      this.props.map.addLayer(this.leafletElement);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _get(Object.getPrototypeOf(MapLayer.prototype), 'componentWillUnmount', this).call(this);
+      this.props.map.removeLayer(this.leafletElement);
+    }
+  }, {
+    key: 'getClonedChildrenWithMap',
+    value: function getClonedChildrenWithMap(extra) {
+      var _props = this.props;
+      var children = _props.children;
+      var map = _props.map;
+
+      var props = (0, _lodashObjectAssign2['default'])({ map: map }, extra);
+
+      return _react2['default'].Children.map(children, function (child) {
+        return child ? _react2['default'].cloneElement(child, props) : null;
+      });
+    }
+  }]);
+
+  return MapLayer;
+})(_MapComponent3['default']);
+
+exports['default'] = MapLayer;
+module.exports = exports['default'];
+},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","lodash/object/assign":"/Users/luqmaan/dev/austingreenmap/node_modules/lodash/object/assign.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Marker.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesLatlng = require('./types/latlng');
+
+var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var Marker = (function (_PopupContainer) {
+  function Marker() {
+    _classCallCheck(this, Marker);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(Marker, _PopupContainer);
+
+  _createClass(Marker, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Marker.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var position = _props.position;
+
+      var props = _objectWithoutProperties(_props, ['map', 'position']);
+
+      this.leafletElement = (0, _leaflet.marker)(position, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.position !== prevProps.position) {
+        this.leafletElement.setLatLng(this.props.position);
+      }
+      if (this.props.icon !== prevProps.icon) {
+        this.leafletElement.setIcon(this.props.icon);
+      }
+      if (this.props.zIndexOffset !== prevProps.zIndexOffset) {
+        this.leafletElement.setZIndexOffset(this.props.zIndexOffset);
+      }
+      if (this.props.opacity !== prevProps.opacity) {
+        this.leafletElement.setOpacity(this.props.opacity);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      position: _typesLatlng2['default'].isRequired,
+      icon: _react.PropTypes.instanceOf(_leaflet.Icon),
+      zIndexOffset: _react.PropTypes.number,
+      opacity: _react.PropTypes.number
+    },
+    enumerable: true
+  }]);
+
+  return Marker;
+})(_PopupContainer3['default']);
+
+exports['default'] = Marker;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolygon.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesLatlngList = require('./types/latlngList');
+
+var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var MultiPolygon = (function (_PopupContainer) {
+  function MultiPolygon() {
+    _classCallCheck(this, MultiPolygon);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(MultiPolygon, _PopupContainer);
+
+  _createClass(MultiPolygon, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(MultiPolygon.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var polygons = _props.polygons;
+
+      var props = _objectWithoutProperties(_props, ['map', 'polygons']);
+
+      this.leafletElement = (0, _leaflet.multiPolygon)(polygons, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.polygons !== prevProps.polygons) {
+        this.leafletElement.setLatLngs(this.props.polygons);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      polygons: _react.PropTypes.arrayOf(_typesLatlngList2['default']).isRequired
+    },
+    enumerable: true
+  }]);
+
+  return MultiPolygon;
+})(_PopupContainer3['default']);
+
+exports['default'] = MultiPolygon;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolyline.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _typesLatlngList = require('./types/latlngList');
+
+var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var MultiPolyline = (function (_PopupContainer) {
+  function MultiPolyline() {
+    _classCallCheck(this, MultiPolyline);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(MultiPolyline, _PopupContainer);
+
+  _createClass(MultiPolyline, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(MultiPolyline.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var polylines = _props.polylines;
+
+      var props = _objectWithoutProperties(_props, ['map', 'polylines']);
+
+      this.leafletElement = (0, _leaflet.multiPolyline)(polylines, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.polylines !== prevProps.polylines) {
+        this.leafletElement.setLatLngs(this.props.polylines);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      polylines: _react.PropTypes.arrayOf(_typesLatlngList2['default']).isRequired
+    },
+    enumerable: true
+  }]);
+
+  return MultiPolyline;
+})(_PopupContainer3['default']);
+
+exports['default'] = MultiPolyline;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polygon.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _leaflet = require('leaflet');
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
+var _typesLatlngList = require('./types/latlngList');
+
+var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var Polygon = (function (_PopupContainer) {
+  function Polygon() {
+    _classCallCheck(this, Polygon);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(Polygon, _PopupContainer);
+
+  _createClass(Polygon, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Polygon.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var positions = _props.positions;
+
+      var props = _objectWithoutProperties(_props, ['map', 'positions']);
+
+      this.leafletElement = _leaflet2['default'].polygon(positions, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.positions !== prevProps.positions) {
+        this.leafletElement.setLatLngs(this.props.positions);
+      }
+    }
+  }]);
+
+  return Polygon;
+})(_PopupContainer3['default']);
+
+exports['default'] = Polygon;
+
+Polygon.propTypes = {
+  positions: _typesLatlngList2['default'].isRequired
+};
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polyline.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _leaflet = require('leaflet');
+
+var _typesLatlngList = require('./types/latlngList');
+
+var _typesLatlngList2 = _interopRequireDefault(_typesLatlngList);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var Polyline = (function (_PopupContainer) {
+  function Polyline() {
+    _classCallCheck(this, Polyline);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(Polyline, _PopupContainer);
+
+  _createClass(Polyline, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Polyline.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var positions = _props.positions;
+
+      var props = _objectWithoutProperties(_props, ['map', 'positions']);
+
+      this.leafletElement = (0, _leaflet.polyline)(positions, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.positions !== prevProps.positions) {
+        this.leafletElement.setLatLngs(this.props.positions);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      positions: _typesLatlngList2['default'].isRequired
+    },
+    enumerable: true
+  }]);
+
+  return Polyline;
+})(_PopupContainer3['default']);
+
+exports['default'] = Polyline;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Popup.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _leaflet = require('leaflet');
+
+var _typesLatlng = require('./types/latlng');
+
+var _typesLatlng2 = _interopRequireDefault(_typesLatlng);
+
+var _MapComponent2 = require('./MapComponent');
+
+var _MapComponent3 = _interopRequireDefault(_MapComponent2);
+
+var Popup = (function (_MapComponent) {
+  function Popup() {
+    _classCallCheck(this, Popup);
+
+    if (_MapComponent != null) {
+      _MapComponent.apply(this, arguments);
+    }
+  }
+
+  _inherits(Popup, _MapComponent);
+
+  _createClass(Popup, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Popup.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var children = _props.children;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['children', 'map']);
+
+      this.leafletElement = (0, _leaflet.popup)(props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      var _props2 = this.props;
+      var children = _props2.children;
+      var map = _props2.map;
+      var popupContainer = _props2.popupContainer;
+      var position = _props2.position;
+
+      var props = _objectWithoutProperties(_props2, ['children', 'map', 'popupContainer', 'position']);
+
+      if (children !== prevProps.children) {
+        var content = _react2['default'].renderToStaticMarkup(children);
+        if (popupContainer) {
+          popupContainer.bindPopup(content, props);
+        } else {
+          var el = this.leafletElement;
+          el.setContent(content);
+          if (position !== prevProps.position) el.setLatLng(position);
+        }
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _get(Object.getPrototypeOf(Popup.prototype), 'componentWillUnmount', this).call(this);
+      this.props.map.removeLayer(this.leafletElement);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props3 = this.props;
+      var children = _props3.children;
+      var map = _props3.map;
+      var popupContainer = _props3.popupContainer;
+      var position = _props3.position;
+
+      var props = _objectWithoutProperties(_props3, ['children', 'map', 'popupContainer', 'position']);
+
+      if (children) {
+        var content = _react2['default'].renderToStaticMarkup(children);
+        // Attach to container component
+        if (popupContainer) {
+          popupContainer.bindPopup(content, props);
+          return null;
+        }
+        // Attach to a Map
+        var el = this.leafletElement;
+        el.setContent(content);
+        if (position) el.setLatLng(position);
+        el.openOn(map);
+      }
+      return null;
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      position: _typesLatlng2['default']
+    },
+    enumerable: true
+  }]);
+
+  return Popup;
+})(_MapComponent3['default']);
+
+exports['default'] = Popup;
+module.exports = exports['default'];
+},{"./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./types/latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _MapLayer2 = require('./MapLayer');
+
+var _MapLayer3 = _interopRequireDefault(_MapLayer2);
+
+var PopupContainer = (function (_MapLayer) {
+  function PopupContainer() {
+    _classCallCheck(this, PopupContainer);
+
+    if (_MapLayer != null) {
+      _MapLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(PopupContainer, _MapLayer);
+
+  _createClass(PopupContainer, [{
+    key: 'render',
+    value: function render() {
+      var children = this.getClonedChildrenWithMap({
+        popupContainer: this.leafletElement
+      });
+      return _react2['default'].createElement(
+        'div',
+        { style: { display: 'none' } },
+        children
+      );
+    }
+  }]);
+
+  return PopupContainer;
+})(_MapLayer3['default']);
+
+exports['default'] = PopupContainer;
+module.exports = exports['default'];
+},{"./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Rectangle.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _leaflet = require('leaflet');
+
+var _typesBounds = require('./types/bounds');
+
+var _typesBounds2 = _interopRequireDefault(_typesBounds);
+
+var _PopupContainer2 = require('./PopupContainer');
+
+var _PopupContainer3 = _interopRequireDefault(_PopupContainer2);
+
+var Rectangle = (function (_PopupContainer) {
+  function Rectangle() {
+    _classCallCheck(this, Rectangle);
+
+    if (_PopupContainer != null) {
+      _PopupContainer.apply(this, arguments);
+    }
+  }
+
+  _inherits(Rectangle, _PopupContainer);
+
+  _createClass(Rectangle, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(Rectangle.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var bounds = _props.bounds;
+      var map = _props.map;
+
+      var props = _objectWithoutProperties(_props, ['bounds', 'map']);
+
+      this.leafletElement = (0, _leaflet.rectangle)(bounds, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.bounds !== prevProps.bounds) {
+        this.leafletElement.setBounds(this.props.bounds);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      bounds: _typesBounds2['default'].isRequired
+    },
+    enumerable: true
+  }]);
+
+  return Rectangle;
+})(_PopupContainer3['default']);
+
+exports['default'] = Rectangle;
+module.exports = exports['default'];
+},{"./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./types/bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/TileLayer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _BaseTileLayer2 = require('./BaseTileLayer');
+
+var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
+
+var TileLayer = (function (_BaseTileLayer) {
+  function TileLayer() {
+    _classCallCheck(this, TileLayer);
+
+    if (_BaseTileLayer != null) {
+      _BaseTileLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(TileLayer, _BaseTileLayer);
+
+  _createClass(TileLayer, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(TileLayer.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var url = _props.url;
+
+      var props = _objectWithoutProperties(_props, ['map', 'url']);
+
+      this.leafletElement = (0, _leaflet.tileLayer)(url, props);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      var url = this.props.url;
+
+      if (url && url !== prevProps.url) {
+        this.leafletElement.setUrl(url);
+      }
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      url: _react.PropTypes.string.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return TileLayer;
+})(_BaseTileLayer3['default']);
+
+exports['default'] = TileLayer;
+module.exports = exports['default'];
+},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/WMSTileLayer.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _leaflet = require('leaflet');
+
+var _BaseTileLayer2 = require('./BaseTileLayer');
+
+var _BaseTileLayer3 = _interopRequireDefault(_BaseTileLayer2);
+
+var WMSTileLayer = (function (_BaseTileLayer) {
+  function WMSTileLayer() {
+    _classCallCheck(this, WMSTileLayer);
+
+    if (_BaseTileLayer != null) {
+      _BaseTileLayer.apply(this, arguments);
+    }
+  }
+
+  _inherits(WMSTileLayer, _BaseTileLayer);
+
+  _createClass(WMSTileLayer, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _get(Object.getPrototypeOf(WMSTileLayer.prototype), 'componentWillMount', this).call(this);
+      var _props = this.props;
+      var map = _props.map;
+      var url = _props.url;
+
+      var props = _objectWithoutProperties(_props, ['map', 'url']);
+
+      this.leafletElement = _leaflet.tileLayer.wms(url, props);
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      url: _react.PropTypes.string.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return WMSTileLayer;
+})(_BaseTileLayer3['default']);
+
+exports['default'] = WMSTileLayer;
+module.exports = exports['default'];
+},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/index.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _leaflet = require('leaflet');
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
+var _types = require('./types');
+
+var _types2 = _interopRequireDefault(_types);
+
+var _BaseTileLayer = require('./BaseTileLayer');
+
+var _BaseTileLayer2 = _interopRequireDefault(_BaseTileLayer);
+
+var _CanvasTileLayer = require('./CanvasTileLayer');
+
+var _CanvasTileLayer2 = _interopRequireDefault(_CanvasTileLayer);
+
+var _Circle = require('./Circle');
+
+var _Circle2 = _interopRequireDefault(_Circle);
+
+var _CircleMarker = require('./CircleMarker');
+
+var _CircleMarker2 = _interopRequireDefault(_CircleMarker);
+
+var _FeatureGroup = require('./FeatureGroup');
+
+var _FeatureGroup2 = _interopRequireDefault(_FeatureGroup);
+
+var _GeoJson = require('./GeoJson');
+
+var _GeoJson2 = _interopRequireDefault(_GeoJson);
+
+var _ImageOverlay = require('./ImageOverlay');
+
+var _ImageOverlay2 = _interopRequireDefault(_ImageOverlay);
+
+var _Map = require('./Map');
+
+var _Map2 = _interopRequireDefault(_Map);
+
+var _MapComponent = require('./MapComponent');
+
+var _MapComponent2 = _interopRequireDefault(_MapComponent);
+
+var _MapLayer = require('./MapLayer');
+
+var _MapLayer2 = _interopRequireDefault(_MapLayer);
+
+var _Marker = require('./Marker');
+
+var _Marker2 = _interopRequireDefault(_Marker);
+
+var _MultiPolygon = require('./MultiPolygon');
+
+var _MultiPolygon2 = _interopRequireDefault(_MultiPolygon);
+
+var _MultiPolyline = require('./MultiPolyline');
+
+var _MultiPolyline2 = _interopRequireDefault(_MultiPolyline);
+
+var _Polygon = require('./Polygon');
+
+var _Polygon2 = _interopRequireDefault(_Polygon);
+
+var _Polyline = require('./Polyline');
+
+var _Polyline2 = _interopRequireDefault(_Polyline);
+
+var _Popup = require('./Popup');
+
+var _Popup2 = _interopRequireDefault(_Popup);
+
+var _PopupContainer = require('./PopupContainer');
+
+var _PopupContainer2 = _interopRequireDefault(_PopupContainer);
+
+var _Rectangle = require('./Rectangle');
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+var _TileLayer = require('./TileLayer');
+
+var _TileLayer2 = _interopRequireDefault(_TileLayer);
+
+var _WMSTileLayer = require('./WMSTileLayer');
+
+var _WMSTileLayer2 = _interopRequireDefault(_WMSTileLayer);
+
+var setIconDefaultImagePath = function setIconDefaultImagePath(path) {
+  _leaflet2['default'].Icon.Default.imagePath = path;
+};
+
+setIconDefaultImagePath('//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/images');
+
+exports['default'] = {
+  setIconDefaultImagePath: setIconDefaultImagePath,
+  PropTypes: _types2['default'],
+  BaseTileLayer: _BaseTileLayer2['default'],
+  CanvasTileLayer: _CanvasTileLayer2['default'],
+  Circle: _Circle2['default'],
+  CircleMarker: _CircleMarker2['default'],
+  FeatureGroup: _FeatureGroup2['default'],
+  GeoJson: _GeoJson2['default'],
+  ImageOverlay: _ImageOverlay2['default'],
+  Map: _Map2['default'],
+  MapComponent: _MapComponent2['default'],
+  MapLayer: _MapLayer2['default'],
+  Marker: _Marker2['default'],
+  MultiPolygon: _MultiPolygon2['default'],
+  MultiPolyline: _MultiPolyline2['default'],
+  Polygon: _Polygon2['default'],
+  Polyline: _Polyline2['default'],
+  Popup: _Popup2['default'],
+  PopupContainer: _PopupContainer2['default'],
+  Rectangle: _Rectangle2['default'],
+  TileLayer: _TileLayer2['default'],
+  WMSTileLayer: _WMSTileLayer2['default']
+};
+module.exports = exports['default'];
+},{"./BaseTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/BaseTileLayer.js","./CanvasTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CanvasTileLayer.js","./Circle":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Circle.js","./CircleMarker":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/CircleMarker.js","./FeatureGroup":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/FeatureGroup.js","./GeoJson":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/GeoJson.js","./ImageOverlay":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/ImageOverlay.js","./Map":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Map.js","./MapComponent":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapComponent.js","./MapLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MapLayer.js","./Marker":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Marker.js","./MultiPolygon":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolygon.js","./MultiPolyline":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/MultiPolyline.js","./Polygon":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polygon.js","./Polyline":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Polyline.js","./Popup":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Popup.js","./PopupContainer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/PopupContainer.js","./Rectangle":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/Rectangle.js","./TileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/TileLayer.js","./WMSTileLayer":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/WMSTileLayer.js","./types":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/index.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _leaflet = require('leaflet');
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
+var _latlngList = require('./latlngList');
+
+var _latlngList2 = _interopRequireDefault(_latlngList);
+
+exports['default'] = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.instanceOf(_leaflet2['default'].LatLngBounds), _latlngList2['default']]);
+module.exports = exports['default'];
+},{"./latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js","leaflet":"/Users/luqmaan/dev/austingreenmap/node_modules/leaflet/dist/leaflet-src.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/index.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _bounds = require('./bounds');
+
+var _bounds2 = _interopRequireDefault(_bounds);
+
+var _latlng = require('./latlng');
+
+var _latlng2 = _interopRequireDefault(_latlng);
+
+var _latlngList = require('./latlngList');
+
+var _latlngList2 = _interopRequireDefault(_latlngList);
+
+exports['default'] = { bounds: _bounds2['default'], latlng: _latlng2['default'], latlngList: _latlngList2['default'] };
+module.exports = exports['default'];
+},{"./bounds":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/bounds.js","./latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","./latlngList":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _react = require('react');
+
+exports['default'] = _react.PropTypes.oneOfType([
+// [Number, Number]
+_react.PropTypes.arrayOf(_react.PropTypes.number),
+// {lat: Number, lng: Number}
+_react.PropTypes.shape({
+  lat: _react.PropTypes.number,
+  lng: _react.PropTypes.number
+}),
+// {lat: Number, lon: Number}
+_react.PropTypes.shape({
+  lat: _react.PropTypes.number,
+  lon: _react.PropTypes.number
+})]);
+module.exports = exports['default'];
+},{"react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlngList.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _latlng = require('./latlng');
+
+var _latlng2 = _interopRequireDefault(_latlng);
+
+exports['default'] = _react.PropTypes.arrayOf(_latlng2['default']);
+module.exports = exports['default'];
+},{"./latlng":"/Users/luqmaan/dev/austingreenmap/node_modules/react-leaflet/lib/types/latlng.js","react":"/Users/luqmaan/dev/austingreenmap/node_modules/react/react.js"}],"/Users/luqmaan/dev/austingreenmap/node_modules/react-select/lib/Select.js":[function(require,module,exports){
 /* disable some rules until we refactor more completely; fixing them now would
    cause conflicts with some open PRs unnecessarily. */
 /* eslint react/jsx-sort-prop-types: 0, react/sort-comp: 0, react/prop-types: 0 */
@@ -29968,8 +32169,8 @@ var Select = React.createClass({
 			if (!self.state.isOpen) {
 				return;
 			}
-			var menuElem = self.refs.selectMenuContainer.getDOMNode();
-			var controlElem = self.refs.control.getDOMNode();
+			var menuElem = React.findDOMNode(self.refs.selectMenuContainer);
+			var controlElem = React.findDOMNode(self.refs.control);
 
 			var eventOccuredOutsideMenu = self.clickedOutsideElement(menuElem, event);
 			var eventOccuredOutsideControl = self.clickedOutsideElement(controlElem, event);
@@ -30023,8 +32224,8 @@ var Select = React.createClass({
 				filteredOptions: this.filterOptions(newProps.options)
 			});
 		}
-		if (newProps.value !== this.state.value) {
-			this.setState(this.getStateFromValue(newProps.value, newProps.options));
+		if (newProps.value !== this.state.value || newProps.placeholder !== this.state.placeholder) {
+			this.setState(this.getStateFromValue(newProps.value, newProps.options, newProps.placeholder));
 		}
 	},
 
@@ -30033,7 +32234,6 @@ var Select = React.createClass({
 
 		if (!this.props.disabled && this._focusAfterUpdate) {
 			clearTimeout(this._blurTimeout);
-
 			this._focusTimeout = setTimeout(function () {
 				self.getInputNode().focus();
 				self._focusAfterUpdate = false;
@@ -30042,8 +32242,8 @@ var Select = React.createClass({
 
 		if (this._focusedOptionReveal) {
 			if (this.refs.focused && this.refs.menu) {
-				var focusedDOM = this.refs.focused.getDOMNode();
-				var menuDOM = this.refs.menu.getDOMNode();
+				var focusedDOM = React.findDOMNode(this.refs.focused);
+				var menuDOM = React.findDOMNode(this.refs.menu);
 				var focusedRect = focusedDOM.getBoundingClientRect();
 				var menuRect = menuDOM.getBoundingClientRect();
 
@@ -30051,7 +32251,6 @@ var Select = React.createClass({
 					menuDOM.scrollTop = focusedDOM.offsetTop + focusedDOM.clientHeight - menuDOM.offsetHeight;
 				}
 			}
-
 			this._focusedOptionReveal = false;
 		}
 	},
@@ -30069,9 +32268,12 @@ var Select = React.createClass({
 		return true;
 	},
 
-	getStateFromValue: function getStateFromValue(value, options) {
+	getStateFromValue: function getStateFromValue(value, options, placeholder) {
 		if (!options) {
 			options = this.state.options;
+		}
+		if (!placeholder) {
+			placeholder = this.props.placeholder;
 		}
 
 		// reset internal filter string
@@ -30087,7 +32289,7 @@ var Select = React.createClass({
 			values: values,
 			inputValue: '',
 			filteredOptions: filteredOptions,
-			placeholder: !this.props.multi && values.length ? values[0].label : this.props.placeholder,
+			placeholder: !this.props.multi && values.length ? values[0].label : placeholder,
 			focusedOption: !this.props.multi && values.length ? values[0] : filteredOptions[0]
 		};
 	},
@@ -30165,7 +32367,7 @@ var Select = React.createClass({
 
 	getInputNode: function getInputNode() {
 		var input = this.refs.input;
-		return this.props.searchable ? input : input.getDOMNode();
+		return this.props.searchable ? input : React.findDOMNode(input);
 	},
 
 	fireChangeEvent: function fireChangeEvent(newState) {
@@ -30278,7 +32480,7 @@ var Select = React.createClass({
 				if (this.state.isOpen) {
 					this.resetValue();
 				} else {
-					this.clearValue();
+					this.clearValue(event);
 				}
 				break;
 
@@ -30294,7 +32496,7 @@ var Select = React.createClass({
 
 			case 188:
 				// ,
-				if (this.props.allowCreate) {
+				if (this.props.allowCreate && this.props.multi) {
 					event.preventDefault();
 					event.stopPropagation();
 					this.selectFocusedOption();
@@ -30518,17 +32720,19 @@ var Select = React.createClass({
 			focusedValue = focusedValue == null ? this.state.filteredOptions[0] : focusedValue;
 		}
 		// Add the current value to the filtered options in last resort
+		var options = this.state.filteredOptions;
 		if (this.props.allowCreate && this.state.inputValue.trim()) {
 			var inputValue = this.state.inputValue;
-			this.state.filteredOptions.unshift({
+			options = options.slice();
+			options.unshift({
 				value: inputValue,
 				label: inputValue,
 				create: true
 			});
 		}
 
-		var ops = Object.keys(this.state.filteredOptions).map(function (key) {
-			var op = this.state.filteredOptions[key];
+		var ops = Object.keys(options).map(function (key) {
+			var op = options[key];
 			var isSelected = this.state.value === op.value;
 			var isFocused = focusedValue === op.value;
 
@@ -30843,25 +33047,25 @@ var AutosizeInput = React.createClass({
 		if (!this.isMounted() || !window.getComputedStyle) {
 			return;
 		}
-		var inputStyle = window.getComputedStyle(this.refs.input.getDOMNode());
-		var widthNode = this.refs.sizer.getDOMNode();
+		var inputStyle = window.getComputedStyle(React.findDOMNode(this.refs.input));
+		var widthNode = React.findDOMNode(this.refs.sizer);
 		widthNode.style.fontSize = inputStyle.fontSize;
 		widthNode.style.fontFamily = inputStyle.fontFamily;
 		if (this.props.placeholder) {
-			var placeholderNode = this.refs.placeholderSizer.getDOMNode();
+			var placeholderNode = React.findDOMNode(this.refs.placeholderSizer);
 			placeholderNode.style.fontSize = inputStyle.fontSize;
 			placeholderNode.style.fontFamily = inputStyle.fontFamily;
 		}
 	},
 	updateInputWidth: function updateInputWidth() {
-		if (!this.isMounted() || typeof this.refs.sizer.getDOMNode().scrollWidth === 'undefined') {
+		if (!this.isMounted() || typeof React.findDOMNode(this.refs.sizer).scrollWidth === 'undefined') {
 			return;
 		}
 		var newInputWidth;
 		if (this.props.placeholder) {
-			newInputWidth = Math.max(this.refs.sizer.getDOMNode().scrollWidth, this.refs.placeholderSizer.getDOMNode().scrollWidth) + 2;
+			newInputWidth = Math.max(React.findDOMNode(this.refs.sizer).scrollWidth, React.findDOMNode(this.refs.placeholderSizer).scrollWidth) + 2;
 		} else {
-			newInputWidth = this.refs.sizer.getDOMNode().scrollWidth + 2;
+			newInputWidth = React.findDOMNode(this.refs.sizer).scrollWidth + 2;
 		}
 		if (newInputWidth < this.props.minWidth) {
 			newInputWidth = this.props.minWidth;
@@ -30876,10 +33080,10 @@ var AutosizeInput = React.createClass({
 		return this.refs.input;
 	},
 	focus: function focus() {
-		this.refs.input.getDOMNode().focus();
+		React.findDOMNode(this.refs.input).focus();
 	},
 	select: function select() {
-		this.refs.input.getDOMNode().select();
+		React.findDOMNode(this.refs.input).select();
 	},
 	render: function render() {
 		var escapedValue = (this.props.value || '').replace(/\&/g, '&amp;').replace(/ /g, '&nbsp;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
