@@ -6,6 +6,7 @@ import { Map, TileLayer, CircleMarker } from 'react-leaflet';
 import utils from '../utils';
 import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
+import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 
 
 export default class AllParksMap extends React.Component {
@@ -43,7 +44,7 @@ export default class AllParksMap extends React.Component {
             opacity: 1,
             weight: 1,
             fillColor: 'rgb(86,221,84)',
-            fillOpacity: 0.8,
+            fillOpacity: 0.4,
         });
 
         layer.on('click', () => {
@@ -82,10 +83,7 @@ export default class AllParksMap extends React.Component {
 
         return (
             <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
-                <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
+                <ParkBaseTileLayer />
                 <GeoJsonUpdatable data={this.getParksGeo()} onEachFeature={this.onEachParkFeature.bind(this)} />
                 <GeoJsonUpdatable data={this.getTrailsGeo()} onEachFeature={this.onEachTrailFeature.bind(this)} />
                 {userLocationMarker}
