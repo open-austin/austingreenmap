@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
-import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { GeoJson, Map, Marker, Popup } from 'react-leaflet';
 
 import utils from '../utils';
 import ParkFeatureList from './ParkFeatureList.jsx';
+import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 import icons from '../utils/icons.json';
 
 
@@ -96,18 +97,11 @@ export default class ParkMap extends React.Component {
     render() {
         return (
             <Map id='map' ref='map' center={this.props.center} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
-                <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
+                <ParkBaseTileLayer />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
                 {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
                 {this.props.facilityGeo ? <GeoJson data={this.props.facilityGeo} onEachFeature={onEachFacility} pointToLayer={pointToLayer} /> : null}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
-                <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
             </Map>
         );
     }
