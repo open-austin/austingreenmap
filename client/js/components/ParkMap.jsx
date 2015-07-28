@@ -109,7 +109,8 @@ export default class ParkMap extends React.Component {
                     data={ { "type": "FeatureCollection", "features": group[f] }}
                     disableClusteringAtZoom={18}
                     onEachFeature={onEachAmenity}
-                    pointToLayer={pointToLayer} i
+                    pointToLayer={pointToLayer}
+                    showCoverageOnHover={false}
                     iconCreateFunction={clusterIcon} />
             );
         });
