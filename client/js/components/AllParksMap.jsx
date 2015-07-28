@@ -135,7 +135,7 @@ export default class AllParksMap extends React.Component {
         };
 
         return (
-            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10}>
+            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <ParkBaseTileLayer />
                 <GeoJsonUpdatable data={this.getVisibleParks()} style={parkLayerStyle} onEachFeature={(feature, layer) => this.onEachParkFeature(feature, layer)} />
                 <GeoJsonUpdatable ref='trails' data={this.getTrailsGeoJson()} style={parkTrailStyle} />

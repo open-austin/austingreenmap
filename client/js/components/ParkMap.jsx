@@ -96,7 +96,7 @@ export default class ParkMap extends React.Component {
 
     render() {
         return (
-            <Map id='map' ref='map' center={this.props.center} minZoom={10}>
+            <Map id='map' ref='map' center={this.props.center} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <ParkBaseTileLayer />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
                 {this.props.amenityGeo ? <GeoJson data={this.props.amenityGeo} onEachFeature={onEachAmenity} pointToLayer={pointToLayer} /> : null}
