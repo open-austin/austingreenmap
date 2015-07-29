@@ -8,6 +8,7 @@ import Container from './Container.jsx';
 import Navigation from './Navigation.jsx';
 import ParkMap from './ParkMap.jsx';
 import ParkSummary from './ParkSummary.jsx';
+import ParkPhotos from './ParkPhotos.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 
 
@@ -81,6 +82,7 @@ export default class ParkPage extends React.Component {
                 <Navigation />
                 <Container title={this.props.name}>
                     <ParkSummary parkGeo={this.state.parkGeo} />
+                    <ParkPhotos parkId={this.props.parkId} />
                     <ParkFeatureList
                         amenityGeo={this.state.amenityGeo}
                         facilityGeo={this.state.facilityGeo}
