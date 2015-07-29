@@ -1,7 +1,6 @@
 import React from 'react';
 import when from 'when';
 import api from '../utils/api';
-import Slider from 'react-slick';
 
 export default class ParkPage extends React.Component {
     constructor(props) {
@@ -15,7 +14,7 @@ export default class ParkPage extends React.Component {
     }
 
     load() {
-      var photosPromise = api.getParkPhotos(this.props.parkId)
+      const photosPromise = api.getParkPhotos(this.props.parkId)
           .tap((data) => this.setState({photos: data}));
 
       when.settle([photosPromise])
@@ -34,7 +33,7 @@ export default class ParkPage extends React.Component {
     }
 
     prev() {
-        let idx = this.state.idx - 1 < 0 ? this.state.photos.length-1 : --this.state.idx;
+        const idx = this.state.idx - 1 < 0 ? this.state.photos.length-1 : --this.state.idx;
         this.setState({idx: idx});
     }
 
