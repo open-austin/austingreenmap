@@ -365,3 +365,16 @@ a {
     text-shadow: 0px 0px 4px #fff;
 
 }
+
+.park-photo {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    margin: 1em 0;
+}
+
+.park-photo-pager {
+    color: $green;
+    text-decoration: none;
+    &:hover { cursor: pointer; }
+}
