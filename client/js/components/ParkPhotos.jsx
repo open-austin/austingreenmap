@@ -42,12 +42,12 @@ export default class ParkPage extends React.Component {
 
         return (
             <div>
-              <img className="park-photo" src={this.state.photos[this.state.idx]} />
-              <div>
-                <span className="park-photo-pager" onClick={(e) => this.prev(e)}>&lt;</span>
-                <span> {this.state.idx + 1} / {this.state.photos.length} </span>
-                <span className="park-photo-pager" onClick={(e) => this.next(e)}>&gt;</span>
-              </div>
+                <img className="park-photo" src={this.state.photos[this.state.idx]} />
+                <div>
+                    <span className="park-photo-pager" onClick={(e) => this.prev(e)}>&lt;</span>
+                    <span> {this.state.idx + 1} / {this.state.photos.length} </span>
+                    <span className="park-photo-pager" onClick={(e) => this.next(e)}>&gt;</span>
+                </div>
             </div>
         );
     }
