@@ -2,7 +2,7 @@ import React from 'react';
 import when from 'when';
 import api from '../utils/api';
 
-export default class ParkPage extends React.Component {
+export default class ParkPhotos extends React.Component {
     constructor(props) {
         super(props);
 
@@ -38,7 +38,7 @@ export default class ParkPage extends React.Component {
     }
 
     render() {
-        if (!this.state.photos.length) return (<div></div>);
+        if (!this.state.photos.length) { return (<div></div>); }
 
         return (
             <div>
