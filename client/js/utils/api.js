@@ -17,7 +17,8 @@ const api = {
     getFeatureGeoJson: (parkID, featureType) => generateApiFn(`data/${featureType}/park_${parkID}.geojson`)(),
     getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup.json`)(),
     getAllParksTopo: generateApiFn('data/city_of_austin_parks.topo.json'),
-    getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json')
+    getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json'),
+    getParkPhotos: (parkID) => generateApiFn(`http://open-austin.github.io/austin-parks-photos/images/${parkID}.json`)()
 };
 
 export default api;
