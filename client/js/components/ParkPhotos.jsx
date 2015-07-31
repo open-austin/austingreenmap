@@ -42,7 +42,7 @@ export default class ParkPhotos extends React.Component {
     render() {
         if (!this.state.photos.length) { return (<div></div>); }
 
-        var settings = {
+        const settings = {
             dots: true,
             infinite: true,
             speed: 500,
