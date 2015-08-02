@@ -15,6 +15,8 @@
     "babelify": "^6.1.2",
     "browserify": "^9.0.3",
     "envify": "~1.2.1",
+    "eslint": "^1.0.0",
+    "eslint-plugin-react": "^3.1.0",
     "gulp": "~3.9.0",
     "gulp-clean": "~0.3.0",
     "gulp-concat": "~2.1.7",
