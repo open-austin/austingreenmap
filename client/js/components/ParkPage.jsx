@@ -95,8 +95,4 @@ ParkPage.propTypes = {
     parkId: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired,
     center: React.PropTypes.array.isRequired,
-    parkGeo: React.PropTypes.object,
-    amenityGeo: React.PropTypes.object,
-    facilityGeo: React.PropTypes.object,
-    trailGeo: React.PropTypes.object,
 };

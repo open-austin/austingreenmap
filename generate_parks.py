@@ -107,33 +107,6 @@ def _center_for_geometry(cursor, geometry, crs):
     return center
 
 
-def generate_parks_list(cursor):
-    with open('./raw/city_of_austin_parks.json', 'r') as fh:
-        data = fh.read()
-    data = json.loads(data)
-
-    crs = data['crs']
-
-    parks = []
-
-    for feature in data['features']:
-        geometry = feature['geometry']
-        center = _center_for_geometry(cursor, geometry, crs)
-
-        properties = feature['properties']
-        park = {
-            'park_id': properties['PARK_ID'],
-            'address': properties['ADDRESS'],
-            'name': properties['PARK_NAME'],
-            'acres': properties['PARK_ACRES'],
-            'center': center,
-        }
-        parks.append(park)
-
-    with open('data/parks.json', 'w+') as fh:
-        fh.write(json.dumps(parks))
-
-
 def unshit_parks_topo(cursor):
     with open('./raw/city_of_austin_parks.json', 'r') as fh:
         data = fh.read()
@@ -211,7 +184,6 @@ if __name__ == '__main__':
     generate_amenity(cursor)
     generate_facility(cursor)
     generate_trails(cursor)
-    generate_parks_list(cursor)
 
     unshit_parks_topo(cursor)
     unshit_trails_topo(cursor)

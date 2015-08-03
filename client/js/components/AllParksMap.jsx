@@ -16,6 +16,10 @@ import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 // :O
 
 export default class AllParksMap extends React.Component {
+    constructor(props) {
+        super(props);
+        this._parkLabelsGroup = Leaflet.layerGroup();
+    }
 
     componentDidMount() {
         var map = window.allParksMap = this.refs.map.getLeafletElement();
@@ -30,9 +34,6 @@ export default class AllParksMap extends React.Component {
 
         map.on('zoomend', () => this.onZoomEnd());
 
-        this._parkLabelsGroup = Leaflet.layerGroup();
-        // this._parkTrailsGroup = Leaflet.layerGroup();
-
         setTimeout(() => this.onZoomEnd(), 1000);
     }
 
@@ -45,9 +46,9 @@ export default class AllParksMap extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         var map = this.refs.map.getLeafletElement();
 
-        if (prevProps.userLocation !== this.props.userLocation) {
-            map.setZoomAround(this.props.userLocation, 14);
-            map.panTo(this.props.userLocation);
+        if (prevProps.userLatLng !== this.props.userLatLng) {
+            map.setZoomAround(this.props.userLatLng, 15);
+            map.panTo(this.props.userLatLng);
         }
         else {
             var bounds = utils.boundsForFeature(this.getVisibleParks());
@@ -77,26 +78,19 @@ export default class AllParksMap extends React.Component {
     }
 
     onEachParkFeature(feature, layer) {
-        var parkLabel = Leaflet.marker(feature.properties.center, {
-            icon: Leaflet.divIcon({
-                className: 'park-label',
-                html: feature.properties.PARK_NAME
-            }),
-            draggable: false,
-            zIndexOffset: 0
-        });
-
-        this._parkLabelsGroup.addLayer(parkLabel);
-
-        layer.on('click', () => {
-            window.location.hash = `park/${feature.id}`;
-        });
+        layer.on('click', () => window.location.hash = `park/${feature.id}`);
     }
 
     onZoomEnd() {
         var map = this.refs.map.getLeafletElement();
 
-        if (map.getZoom() >= 16) {
+        if (!this._parkLabelsGroup.getLayers().length) {
+            console.debug('Park labels are not ready yet');
+            return;
+        }
+        console.debug('Park labels are ready', this._parkLabelsGroup.getLayers());
+
+        if (map.getZoom() >= 15) {
             map.addLayer(this._parkLabelsGroup);
             map.addLayer(this.refs.trails.leafletElement);
         }
@@ -107,9 +101,10 @@ export default class AllParksMap extends React.Component {
     }
 
     render() {
-        var userLocationMarker = !this.props.userLocation ? null : (
+        console.log('render AllParksMap');
+        var userLocationMarker = !this.props.userLatLng ? null : (
             <CircleMarker
-                center={this.props.userLocation}
+                center={this.props.userLatLng}
                 radius={8}
                 weight={3}
                 fillOpacity={1}
@@ -121,7 +116,7 @@ export default class AllParksMap extends React.Component {
         var parkLayerStyle = {
             color: 'rgb(56,158,70)',
             opacity: 1,
-            weight: 1,
+            weight: 2,
             fillColor: 'rgb(86,221,84)',
             fillOpacity: 0.4,
         };
@@ -134,10 +129,25 @@ export default class AllParksMap extends React.Component {
             fillOpacity: 1,
         };
 
+        // this.getVisibleParks().features.forEach((feature) => {
+        //     console.log(feature, feature.properties)
+        //
+        //     var parkLabel = Leaflet.marker(feature.properties.center, {
+        //         icon: Leaflet.divIcon({
+        //             className: 'park-label',
+        //             html: feature.properties.PARK_NAME
+        //         }),
+        //         draggable: false,
+        //         zIndexOffset: 0
+        //     });
+        //
+        //     this._parkLabelsGroup.addLayer(parkLabel);
+        // });
+
         return (
-            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
+            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={15} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <ParkBaseTileLayer />
-                <GeoJsonUpdatable data={this.getVisibleParks()} style={parkLayerStyle} onEachFeature={(feature, layer) => this.onEachParkFeature(feature, layer)} />
+                <GeoJsonUpdatable data={this.getVisibleParks()} style={parkLayerStyle} />
                 <GeoJsonUpdatable ref='trails' data={this.getTrailsGeoJson()} style={parkTrailStyle} />
                 {userLocationMarker}
             </Map>
@@ -149,5 +159,5 @@ AllParksMap.propTypes = {
     visibleParkIds: React.PropTypes.array.isRequired,
     parksTopo: React.PropTypes.object.isRequired,
     trailsTopo: React.PropTypes.object.isRequired,
-    userLocation: React.PropTypes.array,
+    userLatLng: React.PropTypes.array,
 };

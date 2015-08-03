@@ -5,45 +5,78 @@ import Select from 'react-select';
 import api from '../utils/api';
 
 
+// FIXME: memoize
+function searchLookup(query, lookup) {
+    var keys = Object.keys(lookup);
+
+    var query = new RegExp(query);
+
+    var matchingKeys = keys.filter((k) => query.test(k));
+
+    var matchingValues = [];
+
+    matchingKeys.forEach((k) => {
+        matchingValues += lookup[k];
+    });
+
+    return matchingValues;
+}
+
+// FIXME: memoize
+function search(query, lookups) {
+    var matches = lookups.map((lookup) => searchLookup(query, lookup));
+
+    var uniqueMatches = _.uniq(matches);
+
+    return uniqueMatches;
+}
+
+
+
 export default class ParkFilters extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            selectedFilter: '',
+            amenityLookup: {},
+            facilityLookup: {},
+            filter: null,
         };
     }
 
-    onSelect(filter, filters) {
-        filters = filters.map(f => f.value);
-        this.updateFilters(filters);
+    load() {
+        api.getLookup('amenity')
+            .then((data) => this.setState({amenityLookup: data}));
+
+        api.getLookup('facility')
+            .then((data) => this.setState({facilityLookup: data}));
     }
 
-    updateFilters(filters) {
-        this.setState({selectedFilters: filters});
-        this.props.applyFilters(filters);
+    onChange(e) {
+        var filter = e.target.value;
+        this.setState({filter: filter});
+
+        var visibleParkIds = this.filterParks(filter);
+        this.setState({visibleParkIds: visibleParkIds});
+    }
+
+    // FIXME: make this fast
+    // FIXME: filter by park name
+    filterParks(filter) {
+        if (!filter) {
+            return this.parks();
+        }
+
+        var visibleParkIds = search(filter, [this.state.amenityLookup, this.stateFacilityLookup])
+
+        return visibleParkIds;
     }
 
     render() {
-        var options = Object.keys(this.props.amenityLookup)
-            .concat(Object.keys(this.props.facilityLookup))
-            .sort()
-            .map((k) => ({ value: k, label: k }) );
-
+        var options;
         return (
             <div className='park-filters'>
-                <Select
-                    name='park-filter-select'
-                    id='park-filter-select'
-                    multi={true}
-                    value={this.state.selectedFilters}
-                    options={options}
-                    onChange={this.onSelect.bind(this)}
-                    placeholder="Find parks with" />
-                <div className='filter-icons'>
-                    <button className={this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Restroom'])}><img alt="Restroom" src="images/icons/toilets-24@2x.png" /></button>
-                    <button className={this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Mutt Mitt'])}><img alt="Mutt Mitt" src="images/icons/dog-park-24@2x.png" /></button>
-                    <button className={this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Parking Lot'])}><img alt="Parking Lot" src="images/icons/parking-24@2x.png" /></button>
-                </div>
+                <input type='text' onChange={(e) => this.onChange(e)} value={this.state.filter}></input>
             </div>
         );
     }

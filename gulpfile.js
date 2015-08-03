@@ -16,7 +16,8 @@ function transformES6(file) {
     return babelify(file, {
         optional: [
             'es7.objectRestSpread',
-            'es7.classProperties'
+            'es7.classProperties',
+            'es7.decorators',
         ]
     });
 }

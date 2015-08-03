@@ -1,5 +1,6 @@
 import turf from 'turf';  // FIXME: replace with turf-extent
 import when from 'when';
+import memoize from 'lodash.memoize';
 
 
 var utils = {
@@ -29,15 +30,23 @@ var utils = {
     },
 
     setupiOSTouchState() {
-        console.log('meow')
         if(/iP(hone|ad)/.test(window.navigator.userAgent)) {
-            console.log('meow')
             var elements = document.querySelectorAll('button');
             var emptyFunction = function() {};
             for(var i = 0; i < elements.length; i++) {
                 elements[i].addEventListener('touchstart', emptyFunction, false);
             }
         }
+    },
+
+    // FIXME: memoize
+    distanceBetweenCoords(fromlatLng, toLatLng) {
+        var fromPoint = turf.point([fromlatLng[1], fromlatLng[0]]);
+        var toPoint = turf.point([toLatLng[1], toLatLng[0]]);
+
+        var distance = turf.distance(toPoint, fromPoint, 'miles');
+
+        return distance;
     }
 
 };
