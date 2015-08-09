@@ -149,7 +149,11 @@ def generate_facility_lookup():
     for feature in data['features']:
         key = feature['properties']['FACILITY_TYPE']
         if key.strip():
-            lookup[key].append(feature['properties']['PARK_ID'])
+            park_id = feature['properties']['PARK_ID']
+            if not park_id:
+                continue
+            park_id = int(park_id)
+            lookup[key].append(park_id)
 
     with open('data/facility_lookup.json', 'w+') as fh:
         fh.write(json.dumps(lookup))
@@ -165,7 +169,11 @@ def generate_amenity_lookup():
     for feature in data['features']:
         key = feature['properties']['AMENITY_TYPE']
         if key.strip():
-            lookup[key].append(feature['properties']['PARK_ID'])
+            park_id = feature['properties']['PARK_ID']
+            if not park_id:
+                continue
+            park_id = int(park_id)
+            lookup[key].append(park_id)
 
     with open('data/amenity_lookup.json', 'w+') as fh:
         fh.write(json.dumps(lookup))
@@ -180,13 +188,13 @@ if __name__ == '__main__':
     # FIXME: Convert PARK_ID to number
     # FIXME: Convert "<Null>" to None
 
-    generate_park(cursor)
-    generate_amenity(cursor)
-    generate_facility(cursor)
-    generate_trails(cursor)
-
-    unshit_parks_topo(cursor)
-    unshit_trails_topo(cursor)
+    # generate_park(cursor)
+    # generate_amenity(cursor)
+    # generate_facility(cursor)
+    # generate_trails(cursor)
+    #
+    # unshit_parks_topo(cursor)
+    # unshit_trails_topo(cursor)
 
     generate_facility_lookup()
     generate_amenity_lookup()

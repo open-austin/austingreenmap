@@ -1,5 +1,6 @@
 import React from 'react';
 
+import api from '../utils/api';
 import Container from './Container.jsx';
 import Navigation from './Navigation.jsx';
 import AllParksList from './AllParksList.jsx';
@@ -41,31 +42,11 @@ export default class HomePage extends React.Component {
     }
 
     render() {
-        var homePageLoaded = this.state.parksTopoJson && this.state.trailsTopoJson && this.state.amenityLookup && this.state.facilityLookup;
-        if (!homePageLoaded) {
-            content = <div className='loading'>Loading</div>;
-        }
-
-        var nearbyParkCount = 3;
-        var containerTitle = `${this.props.parks.length} parks`;
-        containerTitle = !nearbyParkCount ? containerTitle : `${containerTitle}, ${nearbyParkCount} within 1 mi`;
-
-
-        var visibelParks
-
         return (
             <div>
-                <AllParksMap
-                    userLatLng={this.props.userLatLng}
-                    parkTopoJson={this.props.parksTopoJson}
-                    trailsTopoJson={this.props.trailsTopoJson} />
                 <Navigation>
                     <ParkFilters setVisibleParkIds={(visibleParkIds) => this.setState({visibleParkIds: visibleParkIds})} />
                 </Navigation>
-
-                <Container title={containerTitle}>
-                    <AllParksList parks={this.props.parks} />
-                </Container>
             </div>
         );
     }

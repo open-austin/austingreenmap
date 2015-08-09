@@ -9,14 +9,14 @@ import api from '../utils/api';
 function searchLookup(query, lookup) {
     var keys = Object.keys(lookup);
 
-    var query = new RegExp(query);
+    var query = new RegExp(query, 'i');
 
     var matchingKeys = keys.filter((k) => query.test(k));
 
     var matchingValues = [];
 
     matchingKeys.forEach((k) => {
-        matchingValues += lookup[k];
+        matchingValues = matchingValues.concat(lookup[k]);
     });
 
     return matchingValues;
@@ -24,7 +24,12 @@ function searchLookup(query, lookup) {
 
 // FIXME: memoize
 function search(query, lookups) {
-    var matches = lookups.map((lookup) => searchLookup(query, lookup));
+    var matches = [];
+
+    lookups.forEach((lookup) => {
+        var results = searchLookup(query, lookup);
+        matches = matches.concat(results)
+    });
 
     var uniqueMatches = _.uniq(matches);
 
@@ -37,11 +42,15 @@ export default class ParkFilters extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             amenityLookup: {},
             facilityLookup: {},
             filter: null,
+            visibleParkIds: [],
         };
+
+        this.load();
     }
 
     load() {
@@ -58,16 +67,16 @@ export default class ParkFilters extends React.Component {
 
         var visibleParkIds = this.filterParks(filter);
         this.setState({visibleParkIds: visibleParkIds});
+
+        this.props.setVisibleParkIds(visibleParkIds);
     }
 
     // FIXME: make this fast
     // FIXME: filter by park name
     filterParks(filter) {
-        if (!filter) {
-            return this.parks();
-        }
+        console.debug('filter', filter)
 
-        var visibleParkIds = search(filter, [this.state.amenityLookup, this.stateFacilityLookup])
+        var visibleParkIds = search(filter, [this.state.amenityLookup, this.state.facilityLookup])
 
         return visibleParkIds;
     }
@@ -77,13 +86,12 @@ export default class ParkFilters extends React.Component {
         return (
             <div className='park-filters'>
                 <input type='text' onChange={(e) => this.onChange(e)} value={this.state.filter}></input>
+                <span><b>{this.state.visibleParkIds.length}</b> matching parks</span>
             </div>
         );
     }
 }
 
 ParkFilters.propTypes = {
-    amenityLookup: React.PropTypes.object.isRequired,
-    facilityLookup: React.PropTypes.object.isRequired,
-    applyFilters: React.PropTypes.func.isRequired,
+    setVisibleParkIds: React.PropTypes.func.isRequired,
 };
