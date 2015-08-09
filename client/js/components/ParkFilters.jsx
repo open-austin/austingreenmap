@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import Select from 'react-select';
+import when from 'when';
 
 import api from '../utils/api';
 
@@ -50,19 +50,21 @@ export default class ParkFilters extends React.Component {
             visibleParkIds: [],
         };
 
-        this.load();
+        this.load()
+            .then(() => this.onChange());
     }
 
     load() {
-        api.getLookup('amenity')
+        var amenityPromise = api.getLookup('amenity')
             .then((data) => this.setState({amenityLookup: data}));
 
-        api.getLookup('facility')
+        var facilityPromise = api.getLookup('facility')
             .then((data) => this.setState({facilityLookup: data}));
+
+        return when.settle([amenityPromise, facilityPromise]);
     }
 
-    onChange(e) {
-        var filter = e.target.value;
+    onChange(filter) {
         this.setState({filter: filter});
 
         var visibleParkIds = this.filterParks(filter);
@@ -85,7 +87,7 @@ export default class ParkFilters extends React.Component {
         var options;
         return (
             <div className='park-filters'>
-                <input type='text' onChange={(e) => this.onChange(e)} value={this.state.filter}></input>
+                <input type='text' onChange={(e) => this.onChange(e.target.value)} value={this.state.filter}></input>
                 <span><b>{this.state.visibleParkIds.length}</b> matching parks</span>
             </div>
         );

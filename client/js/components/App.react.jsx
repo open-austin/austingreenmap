@@ -3,7 +3,7 @@ import React from 'react';
 import turf from 'turf';
 
 import api from '../utils/api';
-import utils from '../utils';
+import {getUserLocation} from '../utils';
 import ParkMap from './ParkMap.jsx';
 import HomePage from './HomePage.jsx';
 import ParkPage from './ParkPage.jsx';
@@ -17,8 +17,8 @@ export default class App extends React.Component {
             userLatLng: null,
         };
 
-        utils.getUserLocation()
-            .tap((latLng) => this.setState({userLocation: latLng}))
+        getUserLocation()
+            .tap((latLng) => this.setState({userLatLng: latLng}))
             .catch((err) => console.error(err));
     }
 

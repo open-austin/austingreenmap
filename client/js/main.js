@@ -1,12 +1,12 @@
 import React from 'react';
-import utils from './utils';
+import {setupiOSTouchState} from './utils';
 import AppRouter from'./components/AppRouter.jsx';
 
 window.React = React;
 window.AppRouter = AppRouter;
 
 function init() {
-    utils.setupiOSTouchState();
+    setupiOSTouchState();
     window.austingreenmap = React.render(<AppRouter />, document.getElementById('app'));
 }
 
