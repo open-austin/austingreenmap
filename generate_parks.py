@@ -24,7 +24,7 @@ def generate_park(cursor):
         feature['geometry'] = geometry
 
         with open('data/park/park_{}.geojson'.format(park_id), 'w+') as fh:
-            fh.write(json.dumps(feature))
+            fh.write(json.dumps(feature, sort_keys=True))
 
 
 def generate_amenity(cursor):
@@ -48,7 +48,7 @@ def generate_amenity(cursor):
             'features': features
         }
         with open('data/amenity/park_{}.geojson'.format(park_id), 'w+') as fh:
-            fh.write(json.dumps(feature_collection))
+            fh.write(json.dumps(feature_collection, sort_keys=True))
 
 
 def generate_facility(cursor):
@@ -72,7 +72,7 @@ def generate_facility(cursor):
             'features': features
         }
         with open('data/facility/park_{}.geojson'.format(park_id), 'w+') as fh:
-            fh.write(json.dumps(feature_collection))
+            fh.write(json.dumps(feature_collection, sort_keys=True))
 
 
 def generate_trails(cursor):
@@ -96,7 +96,7 @@ def generate_trails(cursor):
             'features': features
         }
         with open('data/trail/park_{}.geojson'.format(park_id), 'w+') as fh:
-            fh.write(json.dumps(feature_collection))
+            fh.write(json.dumps(feature_collection, sort_keys=True))
 
 
 def _center_for_geometry(cursor, geometry, crs):
@@ -121,7 +121,7 @@ def unshit_parks_topo(cursor):
         feature['geometry'] = geometry
 
     with open('data/city_of_austin_parks.geojson', 'w+') as fh:
-        fh.write(json.dumps(data))
+        fh.write(json.dumps(data, sort_keys=True))
 
 
 def unshit_trails_topo(cursor):
@@ -136,7 +136,7 @@ def unshit_trails_topo(cursor):
         feature['geometry'] = geometry
 
     with open('data/pard_trails_nrpa.geojson', 'w+') as fh:
-        fh.write(json.dumps(data))
+        fh.write(json.dumps(data, sort_keys=True))
 
 
 def generate_facility_lookup():
@@ -144,7 +144,7 @@ def generate_facility_lookup():
         data = fh.read()
     data = json.loads(data)
 
-    lookup = defaultdict(list)
+    lookup = defaultdict(set)
 
     for feature in data['features']:
         key = feature['properties']['FACILITY_TYPE']
@@ -153,10 +153,13 @@ def generate_facility_lookup():
             if not park_id:
                 continue
             park_id = int(park_id)
-            lookup[key].append(park_id)
+            lookup[key].add(park_id)
 
-    with open('data/facility_lookup.json', 'w+') as fh:
-        fh.write(json.dumps(lookup))
+    for k, v in lookup.items():
+        lookup[k] = list(v)
+
+    with open('data/facility_lookup_v2.json', 'w+') as fh:
+        fh.write(json.dumps(lookup, sort_keys=True))
 
 
 def generate_amenity_lookup():
@@ -164,7 +167,7 @@ def generate_amenity_lookup():
         data = fh.read()
     data = json.loads(data)
 
-    lookup = defaultdict(list)
+    lookup = defaultdict(set)
 
     for feature in data['features']:
         key = feature['properties']['AMENITY_TYPE']
@@ -173,10 +176,13 @@ def generate_amenity_lookup():
             if not park_id:
                 continue
             park_id = int(park_id)
-            lookup[key].append(park_id)
+            lookup[key].add(park_id)
 
-    with open('data/amenity_lookup.json', 'w+') as fh:
-        fh.write(json.dumps(lookup))
+    for k, v in lookup.items():
+        lookup[k] = list(v)
+
+    with open('data/amenity_lookup_v2.json', 'w+') as fh:
+        fh.write(json.dumps(lookup, sort_keys=True))
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ const generateApiFn = (url) => () => {
 const api = {
     getAllParks: generateApiFn('data/parks.json'),
     getFeatureGeoJson: (parkID, featureType) => generateApiFn(`data/${featureType}/park_${parkID}.geojson`)(),
-    getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup.json`)(),
+    getLookup: (lookupType) => generateApiFn(`data/${lookupType}_lookup_v2.json`)(),
     getAllParksTopo: generateApiFn('data/city_of_austin_parks.topo.json'),
     getAllTrailsTopo: generateApiFn('data/pard_trails_nrpa.topo.json')
 };

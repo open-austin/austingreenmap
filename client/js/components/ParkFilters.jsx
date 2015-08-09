@@ -5,7 +5,6 @@ import when from 'when';
 import api from '../utils/api';
 
 
-// FIXME: memoize
 function searchLookup(query, lookup) {
     var keys = Object.keys(lookup);
 
@@ -22,8 +21,7 @@ function searchLookup(query, lookup) {
     return matchingValues;
 }
 
-// FIXME: memoize
-function search(query, lookups) {
+var search = _.memoize(function (query, lookups) {
     var matches = [];
 
     lookups.forEach((lookup) => {
@@ -34,8 +32,7 @@ function search(query, lookups) {
     var uniqueMatches = _.uniq(matches);
 
     return uniqueMatches;
-}
-
+});
 
 
 export default class ParkFilters extends React.Component {

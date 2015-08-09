@@ -37,12 +37,33 @@ export function setupiOSTouchState() {
     }
 }
 
-// FIXME: memoize
+var _distanceBetweenCoordsCache = {};
 export function distanceBetweenCoords(fromlatLng, toLatLng) {
+    if (!fromlatLng || !toLatLng) { return 0; }
+
+    var cacheKey = fromlatLng + ':' + toLatLng;
+    if (_distanceBetweenCoordsCache[cacheKey]) {
+        return _distanceBetweenCoordsCache[cacheKey];
+    }
+
     var fromPoint = turf.point([fromlatLng[1], fromlatLng[0]]);
     var toPoint = turf.point([toLatLng[1], toLatLng[0]]);
-
     var distance = turf.distance(toPoint, fromPoint, 'miles');
 
+    _distanceBetweenCoordsCache[cacheKey] = distance;
     return distance;
+}
+
+var _formatDistanceBetweenCoordsCache = {};
+export function formatDistanceBetweenCoords(fromlatLng, toLatLng) {
+    var cacheKey = fromlatLng + ':' + toLatLng;
+    if (_formatDistanceBetweenCoordsCache[cacheKey]) {
+        return _formatDistanceBetweenCoordsCache[cacheKey];
+    }
+
+    var distance = distanceBetweenCoords(fromlatLng, toLatLng);
+    var result = (Math.round(distance * 100) / 100) + ' mi';
+
+    _formatDistanceBetweenCoordsCache[cacheKey] = result;
+    return result;
 }

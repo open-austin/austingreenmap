@@ -46,7 +46,7 @@ export default class HomePage extends React.Component {
         console.log('Setting visibleParkIds to', visibleParkIds);
         this.setState({visibleParkIds: visibleParkIds});
 
-        console.log(this)
+        console.log(this.parks.map((p) => p.id))
         var visibleParks = this.parks.filter((park) => visibleParkIds.indexOf(park.id) !== -1);
 
         console.log('Setting visibleParks to', visibleParks);
