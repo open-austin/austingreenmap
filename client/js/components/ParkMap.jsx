@@ -4,7 +4,7 @@ import React from 'react';
 import {GeoJson, Map} from 'react-leaflet';
 import GeoJsonCluster from 'react-leaflet-geojson-cluster';
 
-import utils from '../utils';
+import {boundsForFeature} from '../utils';
 import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 import icons from '../utils/icons.json';
@@ -93,7 +93,7 @@ export default class ParkMap extends React.Component {
 
     fitBounds() {
         if (this.props.parkGeo) {
-            var bounds = utils.boundsForFeature(this.props.parkGeo);
+            var bounds = boundsForFeature(this.props.parkGeo);
             this.refs.map.getLeafletElement().fitBounds(bounds);
         }
     }

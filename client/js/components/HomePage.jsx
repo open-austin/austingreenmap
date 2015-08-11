@@ -43,6 +43,7 @@ export default class HomePage extends React.Component {
     }
 
     setVisibleParks(visibleParkIds) {
+        console.log('HomePage.setVisibleParks: Visible parks', visibleParkIds.length)
         this.setState({visibleParkIds: visibleParkIds});
 
         var visibleParks = this.parks.filter((park) => visibleParkIds.indexOf(park.id) !== -1);
@@ -51,12 +52,17 @@ export default class HomePage extends React.Component {
     }
 
     render() {
+        var title = (<span><b>{this.state.visibleParkIds.length}</b> matching parks</span>);
+        
         return (
             <div>
+                <AllParksMap
+                    userLatLng={this.props.userLatLng}
+                    visibleParkIds={this.state.visibleParkIds} />
                 <Navigation>
                     <ParkFilters setVisibleParkIds={(visibleParkIds) => this.setVisibleParks(visibleParkIds)} />
                 </Navigation>
-                <Container title={'Fuck u'}>
+                <Container title={title}>
                     <AllParksList
                         parks={this.state.visibleParks}
                         userLatLng={this.props.userLatLng} />

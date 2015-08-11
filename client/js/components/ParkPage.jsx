@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React from 'react';
 import when from 'when';
 
-import utils from '../utils';
 import api from '../utils/api';
 import Container from './Container.jsx';
 import Navigation from './Navigation.jsx';
@@ -17,18 +16,20 @@ export default class ParkPage extends React.Component {
         super(props);
 
         this.state = {
-            loading: false,
+            loading: true,
             selectedFeatureId: null,
             parkGeo: null,
             amenityGeo: null,
             facilityGeo: null,
             trailGeo: null,
         };
+
+        this.load();
     }
 
     load() {
         this.setState({loading: true});
-        console.log('Loading')
+        console.log('ParkPage: Loading')
 
         var parkPromise = api.getFeatureGeoJson(this.props.parkId, 'park')
             .tap((data) => this.setState({parkGeo: data}));
@@ -43,8 +44,16 @@ export default class ParkPage extends React.Component {
             .tap((data) => this.setState({trailGeo: data}));
 
         when.settle([parkPromise, amenityPromise, facilityPromise, trailPromise])
-            .then(() => {
-                console.log('Done loading')
+            .then((descriptors) => {
+                descriptors.forEach((d) => {
+                    if (d.state === 'rejected') {
+                        console.error(d.reason);
+                    }
+                    else {
+                        console.log('success')
+                    }
+                });
+                console.log('ParkPage: Done loading')
                 this.setState({loading: false});
             });
     }
@@ -69,17 +78,19 @@ export default class ParkPage extends React.Component {
             return <div className='loading'>Loading</div>;
         }
 
+        console.log('this.st', this.state.parkGeo);
+
         return (
             <div>
                 <ParkMap
                     selectedFeatureId={this.state.selectedFeatureId}
-                    center={this.props.center}
+                    center={null}
                     parkGeo={this.state.parkGeo}
                     amenityGeo={this.state.amenityGeo}
                     facilityGeo={this.state.facilityGeo}
                     trailGeo={this.state.trailGeo} />
                 <Navigation />
-                <Container title={this.props.name}>
+                <Container title={this.state.parkGeo.properties.PARK_NAME}>
                     <ParkSummary parkGeo={this.state.parkGeo} />
                     <ParkFeatureList
                         amenityGeo={this.state.amenityGeo}
@@ -93,6 +104,4 @@ export default class ParkPage extends React.Component {
 
 ParkPage.propTypes = {
     parkId: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired,
-    center: React.PropTypes.array.isRequired,
 };

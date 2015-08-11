@@ -8,7 +8,7 @@ export default class Container extends React.Component {
         super(props);
 
         this.state = {
-            up: false,
+            up: true,
         };
     }
 

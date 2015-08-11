@@ -45,6 +45,7 @@ export default class ParkFilters extends React.Component {
             facilityLookup: {},
             filter: null,
             visibleParkIds: [],
+            allParkIds: [],
         };
 
         this.load()
@@ -53,32 +54,54 @@ export default class ParkFilters extends React.Component {
 
     load() {
         var amenityPromise = api.getLookup('amenity')
-            .then((data) => this.setState({amenityLookup: data}));
+            .tap((data) => this.setState({amenityLookup: data}))
+            .tap((data) => this.updateAllParkIds(data))
+            .then(() => this.onChange(this.state.filter))
+            .catch((err) => console.error(err));
 
         var facilityPromise = api.getLookup('facility')
-            .then((data) => this.setState({facilityLookup: data}));
+            .tap((data) => this.setState({facilityLookup: data}))
+            .tap((data) => this.updateAllParkIds(data))
+            .then(() => this.onChange(this.state.filter))
+            .catch((err) => console.error(err));
 
-        return when.settle([amenityPromise, facilityPromise]);
+        return when.settle([amenityPromise, facilityPromise])
     }
 
     onChange(filter) {
+        console.log(`ParkFilter: '${filter}'`);
+
         this.setState({filter: filter});
 
-        var visibleParkIds = this.filterParks(filter);
-        this.setState({visibleParkIds: visibleParkIds});
+        var visibleParkIds;
 
+        if (!filter) {
+            console.log('ParkFilter: Showing all parks')
+            visibleParkIds = this.state.allParkIds;
+        }
+        else {
+            visibleParkIds = this.filterParks(filter);
+        }
+
+        this.setState({visibleParkIds: visibleParkIds});
         this.props.setVisibleParkIds(visibleParkIds);
     }
 
     // FIXME: make this fast
     // FIXME: filter by park name
     filterParks(filter) {
-        console.debug('filter', filter)
-
-        var visibleParkIds = search(filter, [this.state.amenityLookup, this.state.facilityLookup])
-
-        return visibleParkIds;
+        return search(filter, [this.state.amenityLookup, this.state.facilityLookup])
     }
+
+    updateAllParkIds(lookup) {
+        var ids = [];
+        Object.keys(lookup).forEach(key => {
+            ids = ids.concat(lookup[key])
+        });
+        var allIds = this.state.allParkIds.concat(ids);
+        this.setState({allParkIds: _.uniq(allIds)});
+    }
+
 
     render() {
         var options;
