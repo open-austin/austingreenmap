@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
-import { GeoJson, Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import { GeoJsonCluster } from 'react-leaflet-geojson-cluster';
+import {GeoJson, Map} from 'react-leaflet';
+import GeoJsonCluster from 'react-leaflet-geojson-cluster';
 
-import utils from '../utils';
+import {boundsForFeature} from '../utils';
+import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 import icons from '../utils/icons.json';
 
@@ -92,7 +93,7 @@ export default class ParkMap extends React.Component {
 
     fitBounds() {
         if (this.props.parkGeo) {
-            var bounds = utils.boundsForFeature(this.props.parkGeo);
+            var bounds = boundsForFeature(this.props.parkGeo);
             this.refs.map.getLeafletElement().fitBounds(bounds);
         }
     }
@@ -135,18 +136,11 @@ export default class ParkMap extends React.Component {
     render() {
         return (
             <Map id='map' ref='map' center={this.props.center} minZoom={10}>
-                <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
+                <ParkBaseTileLayer />
                 {this.props.parkGeo ? <GeoJson data={this.props.parkGeo} onEachFeature={onEachPark} /> : null}
                 {this.showMarkerCluster(this.props.amenityGeo)}
                 {this.showMarkerCluster(this.props.facilityGeo)}
                 {this.props.trailGeo ? <GeoJson data={this.props.trailGeo} onEachFeature={onEachTrail} /> : null}
-                <TileLayer
-                    url='https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-                    attribution='<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>'
-                    id='drmaples.ipbindf8' />
             </Map>
         );
     }

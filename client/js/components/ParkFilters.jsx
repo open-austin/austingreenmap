@@ -1,56 +1,119 @@
 import _ from 'lodash';
 import React from 'react';
-import Select from 'react-select';
+import when from 'when';
 
 import api from '../utils/api';
 
 
+function searchLookup(query, lookup) {
+    var keys = Object.keys(lookup);
+
+    var query = new RegExp(query, 'i');
+
+    var matchingKeys = keys.filter((k) => query.test(k));
+
+    var matchingValues = [];
+
+    matchingKeys.forEach((k) => {
+        matchingValues = matchingValues.concat(lookup[k]);
+    });
+
+    return matchingValues;
+}
+
+var search = _.memoize(function (query, lookups) {
+    var matches = [];
+
+    lookups.forEach((lookup) => {
+        var results = searchLookup(query, lookup);
+        matches = matches.concat(results)
+    });
+
+    var uniqueMatches = _.uniq(matches);
+
+    return uniqueMatches;
+});
+
+
 export default class ParkFilters extends React.Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
-            selectedFilter: '',
+            amenityLookup: {},
+            facilityLookup: {},
+            filter: null,
+            visibleParkIds: [],
+            allParkIds: [],
         };
+
+        this.load()
+            .then(() => this.onChange());
     }
 
-    onSelect(filter, filters) {
-        filters = filters.map(f => f.value);
-        this.updateFilters(filters);
+    load() {
+        var amenityPromise = api.getLookup('amenity')
+            .tap((data) => this.setState({amenityLookup: data}))
+            .tap((data) => this.updateAllParkIds(data))
+            .then(() => this.onChange(this.state.filter))
+            .catch((err) => console.error(err));
+
+        var facilityPromise = api.getLookup('facility')
+            .tap((data) => this.setState({facilityLookup: data}))
+            .tap((data) => this.updateAllParkIds(data))
+            .then(() => this.onChange(this.state.filter))
+            .catch((err) => console.error(err));
+
+        return when.settle([amenityPromise, facilityPromise])
     }
 
-    updateFilters(filters) {
-        this.setState({selectedFilters: filters});
-        this.props.applyFilters(filters);
+    onChange(filter) {
+        console.log(`ParkFilter: '${filter}'`);
+
+        this.setState({filter: filter});
+
+        var visibleParkIds;
+
+        if (!filter) {
+            console.log('ParkFilter: Showing all parks')
+            visibleParkIds = this.state.allParkIds;
+        }
+        else {
+            visibleParkIds = this.filterParks(filter);
+        }
+
+        this.setState({visibleParkIds: visibleParkIds});
+        this.props.setVisibleParkIds(visibleParkIds);
     }
+
+    // FIXME: make this fast
+    // FIXME: filter by park name
+    filterParks(filter) {
+        return search(filter, [this.state.amenityLookup, this.state.facilityLookup])
+    }
+
+    updateAllParkIds(lookup) {
+        var ids = [];
+        Object.keys(lookup).forEach(key => {
+            ids = ids.concat(lookup[key])
+        });
+        var allIds = this.state.allParkIds.concat(ids);
+        this.setState({allParkIds: _.uniq(allIds)});
+    }
+
 
     render() {
-        var options = Object.keys(this.props.amenityLookup)
-            .concat(Object.keys(this.props.facilityLookup))
-            .sort()
-            .map((k) => ({ value: k, label: k }) );
-
+        var options;
         return (
             <div className='park-filters'>
-                <Select
-                    name='park-filter-select'
-                    id='park-filter-select'
-                    multi={true}
-                    value={this.state.selectedFilters}
-                    options={options}
-                    onChange={this.onSelect.bind(this)}
-                    placeholder="Find parks with" />
-                <div className='filter-icons'>
-                    <button className={this.state.selectedFilter === 'Restroom' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Restroom'])}><img alt="Restroom" src="images/icons/toilets-24@2x.png" /></button>
-                    <button className={this.state.selectedFilter === 'Mutt Mitt' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Mutt Mitt'])}><img alt="Mutt Mitt" src="images/icons/dog-park-24@2x.png" /></button>
-                    <button className={this.state.selectedFilter === 'Parking Lot' ? 'active icon' : 'icon'} onClick={() => this.updateFilters(['Parking Lot'])}><img alt="Parking Lot" src="images/icons/parking-24@2x.png" /></button>
-                </div>
+                <input type='text' onChange={(e) => this.onChange(e.target.value)} value={this.state.filter}></input>
+                <span><b>{this.state.visibleParkIds.length}</b> matching parks</span>
             </div>
         );
     }
 }
 
 ParkFilters.propTypes = {
-    amenityLookup: React.PropTypes.object.isRequired,
-    facilityLookup: React.PropTypes.object.isRequired,
-    applyFilters: React.PropTypes.func.isRequired,
+    setVisibleParkIds: React.PropTypes.func.isRequired,
 };

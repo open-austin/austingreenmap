@@ -5,7 +5,8 @@ import topojson from 'topojson';
 import turf from 'turf';  // FIXME: replace with turf-extent
 import {Map, TileLayer, CircleMarker} from 'react-leaflet';
 
-import utils from '../utils';
+import {boundsForFeature} from '../utils';
+import api from '../utils/api';
 import GeoJsonUpdatable from './GeoJsonUpdatable.jsx';
 import ParkFeatureList from './ParkFeatureList.jsx';
 import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
@@ -16,6 +17,30 @@ import ParkBaseTileLayer from './ParkBaseTileLayer.jsx';
 // :O
 
 export default class AllParksMap extends React.Component {
+    constructor(props) {
+        super(props);
+        this._parkLabelsGroup = Leaflet.layerGroup();
+
+        this.state = {
+            parksGeo: null,
+            trailsGeo: null,
+        }
+        this.load();
+    }
+
+    load() {
+        api.getAllParksTopo()
+            .then((topo) => {
+                var geo = topojson.feature(topo, topo.objects.city_of_austin_parks)
+                this.setState({parksGeo: geo});
+            });
+
+        api.getAllTrailsTopo()
+            .then((topo) => {
+                var geo = topojson.feature(topo, topo.objects.pard_trails_nrpa);
+                this.setState({trailsGeo: geo});
+            });
+    }
 
     componentDidMount() {
         var map = window.allParksMap = this.refs.map.getLeafletElement();
@@ -30,9 +55,6 @@ export default class AllParksMap extends React.Component {
 
         map.on('zoomend', () => this.onZoomEnd());
 
-        this._parkLabelsGroup = Leaflet.layerGroup();
-        // this._parkTrailsGroup = Leaflet.layerGroup();
-
         setTimeout(() => this.onZoomEnd(), 1000);
     }
 
@@ -43,61 +65,33 @@ export default class AllParksMap extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        var map = this.refs.map.getLeafletElement();
+        if (prevProps.userLatLng !== this.props.userLatLng) {
+            let map = this.refs.map.getLeafletElement();
 
-        if (prevProps.userLocation !== this.props.userLocation) {
-            map.setZoomAround(this.props.userLocation, 14);
-            map.panTo(this.props.userLocation);
+            map.setZoomAround(this.props.userLatLng, 15);
+            map.panTo(this.props.userLatLng);
         }
-        else {
-            var bounds = utils.boundsForFeature(this.getVisibleParks());
-            map.fitBounds(bounds);
-        }
-    }
-
-    getVisibleParks() {
-        // FIXME: instead of doing the filtering here to show the park layers, maybe we can use the filter option
-        // filter: function(feature, layer) {
-        //     return feature.properties.show_on_map;
-        // }
-        var parksGeo = topojson.feature(this.props.parksTopo, this.props.parksTopo.objects.city_of_austin_parks);
-
-        var visibleParksGeo = {
-            type: parksGeo.type,
-            features: parksGeo.features.filter((feature) => {
-                return this.props.visibleParkIds.indexOf(feature.id) !== -1;
-            })
-        };
-
-        return visibleParksGeo;
-    }
-
-    getTrailsGeoJson() {
-        return topojson.feature(this.props.trailsTopo, this.props.trailsTopo.objects.pard_trails_nrpa);
     }
 
     onEachParkFeature(feature, layer) {
-        var parkLabel = Leaflet.marker(feature.properties.center, {
-            icon: Leaflet.divIcon({
-                className: 'park-label',
-                html: feature.properties.PARK_NAME
-            }),
-            draggable: false,
-            zIndexOffset: 0
-        });
-
-        this._parkLabelsGroup.addLayer(parkLabel);
-
         layer.on('click', () => {
-            window.location.hash = `park/${feature.id}`;
+            // so we need to check if the layer is visible before routing
+            if (this.props.visibleParkIds.indexOf(feature.id) !== -1) {
+                console.log('Clicked on', feature.id);
+                window.location.hash = `park/${feature.id}`
+            }
+            else {
+                console.log('onEachParkFeature: Not firing click event for hidden park');
+            }
         });
     }
 
     onZoomEnd() {
         var map = this.refs.map.getLeafletElement();
 
-        if (map.getZoom() >= 16) {
+        if (map.getZoom() >= 15) {
             map.addLayer(this._parkLabelsGroup);
+            // FIXME: maybe we should hide/show through the opacity property, that way the opacity can be 0 initially
             map.addLayer(this.refs.trails.leafletElement);
         }
         else {
@@ -107,9 +101,9 @@ export default class AllParksMap extends React.Component {
     }
 
     render() {
-        var userLocationMarker = !this.props.userLocation ? null : (
+        var userLocationMarker = !this.props.userLatLng ? null : (
             <CircleMarker
-                center={this.props.userLocation}
+                center={this.props.userLatLng}
                 radius={8}
                 weight={3}
                 fillOpacity={1}
@@ -118,27 +112,49 @@ export default class AllParksMap extends React.Component {
                 strokeColor='rgb(255,255,255)' />
         );
 
-        var parkLayerStyle = {
-            color: 'rgb(56,158,70)',
-            opacity: 1,
-            weight: 1,
-            fillColor: 'rgb(86,221,84)',
-            fillOpacity: 0.4,
-        };
+        var parkLayer;
+        if (this.state.parksGeo) {
+            let style = {
+                color: 'rgb(56,158,70)',
+                opacity: 1,
+                weight: 2,
+                fillColor: 'rgb(86,221,84)',
+                fillOpacity: 0.4,
+            };
 
-        var parkTrailStyle = {
-            color: 'rgb(165,105,9)',
-            opacity: 0.8,
-            weight: 2,
-            fillColor: 'rgb(218,193,145)',
-            fillOpacity: 1,
-        };
+            parkLayer = (
+                <GeoJsonUpdatable
+                    data={this.state.parksGeo}
+                    visibleIds={this.props.visibleParkIds}
+                    onEachFeature={(feature, layer) => this.onEachParkFeature(feature, layer)}
+                    style={style} />
+            );
+        }
+
+        var trailLayer;
+        if (this.state.trailsGeo) {
+            let style = {
+                color: 'rgb(165,105,9)',
+                opacity: 0.8,
+                weight: 2,
+                fillColor: 'rgb(218,193,145)',
+                fillOpacity: 1,
+            };
+
+            trailLayer = (
+                <GeoJsonUpdatable
+                    ref='trails'
+                    data={this.state.trailsGeo}
+                    style={style} />
+            );
+        }
+
 
         return (
-            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={12} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
+            <Map id='map' ref='map' center={[30.267153, -97.743061]} zoom={15} minZoom={10} maxBounds={[[30.05, -98.3], [30.6, -97.2]]}>
                 <ParkBaseTileLayer />
-                <GeoJsonUpdatable data={this.getVisibleParks()} style={parkLayerStyle} onEachFeature={(feature, layer) => this.onEachParkFeature(feature, layer)} />
-                <GeoJsonUpdatable ref='trails' data={this.getTrailsGeoJson()} style={parkTrailStyle} />
+                {parkLayer}
+                {trailLayer}
                 {userLocationMarker}
             </Map>
         );
@@ -147,7 +163,5 @@ export default class AllParksMap extends React.Component {
 
 AllParksMap.propTypes = {
     visibleParkIds: React.PropTypes.array.isRequired,
-    parksTopo: React.PropTypes.object.isRequired,
-    trailsTopo: React.PropTypes.object.isRequired,
-    userLocation: React.PropTypes.array,
+    userLatLng: React.PropTypes.array,
 };

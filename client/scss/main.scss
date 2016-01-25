@@ -234,7 +234,7 @@ h4 {
 .navigation {
     width: 960px;
     max-width: 100%;
-    box-shadow: 0 0px 1px rgba(108,112,108, 0.5);
+    box-shadow: 0 1px 4px rgba(80, 112, 80, 0.4);
     left: 50%;
     transform: translate(-50%, 0);
     height: 49px;
@@ -246,7 +246,6 @@ h4 {
     background: #fff;
     text-align: left;
     padding: 5px;
-    border: 1px solid $gray-border;
     border-top: none;
     flex: 1;
 

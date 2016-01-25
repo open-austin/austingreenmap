@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+    },
+    "globals": {
+        "React": true
+    },
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true,
+        "classes": true,
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "templateStrings": true,
+        "objectLiteralShorthandMethods": true,
+    },
+    "plugins": [
+        "react"
+    ]
+}

@@ -1,10 +1,12 @@
 import React from 'react';
 
+import api from '../utils/api';
 import Container from './Container.jsx';
 import Navigation from './Navigation.jsx';
 import AllParksList from './AllParksList.jsx';
 import AllParksMap from './AllParksMap.jsx';
 import ParkFilters from './ParkFilters.jsx';
+
 
 
 export default class HomePage extends React.Component {
@@ -14,29 +16,56 @@ export default class HomePage extends React.Component {
 
         this.state = {
             up: false,
+            parksTopoJson: null,
+            trailsTopoJson: null,
+            visibleParkIds: [],
+            visibleParks: [],
         };
+
+        this.load();
+    }
+
+    get parks() {
+        if (!this.state.parksTopoJson) { return; }
+        return this.state.parksTopoJson.objects.city_of_austin_parks.geometries;
+    }
+
+    load() {
+        api.getAllParksTopo()
+            .then((data) => this.setState({parksTopoJson: data }));
+
+        api.getAllTrailsTopo()
+            .then((data) => this.setState({trailsTopoJson: data}));
+    }
+
+    get nearbyParkCount() {
+        return this.parks().filter((park) => park.distance && park.distance < 1).length
+    }
+
+    setVisibleParks(visibleParkIds) {
+        console.log('HomePage.setVisibleParks: Visible parks', visibleParkIds.length)
+        this.setState({visibleParkIds: visibleParkIds});
+
+        var visibleParks = this.parks.filter((park) => visibleParkIds.indexOf(park.id) !== -1);
+
+        this.setState({visibleParks: visibleParks});
     }
 
     render() {
-        var nearbyParkCount = this.props.visibleParks.filter((park) => park.distance && park.distance < 1).length;
-        var containerTitle = `${this.props.visibleParks.length} parks`;
-        containerTitle = !nearbyParkCount ? containerTitle : `${containerTitle}, ${nearbyParkCount} within 1 mi`;
-
+        var title = (<span><b>{this.state.visibleParkIds.length}</b> matching parks</span>);
+        
         return (
             <div>
                 <AllParksMap
-                    userLocation={this.props.userLocation}
-                    visibleParkIds={this.props.visibleParkIds}
-                    parksTopo={this.props.allParksTopo}
-                    trailsTopo={this.props.allTrailsTopo} />
+                    userLatLng={this.props.userLatLng}
+                    visibleParkIds={this.state.visibleParkIds} />
                 <Navigation>
-                    <ParkFilters
-                        amenityLookup={this.props.amenityLookup}
-                        facilityLookup={this.props.facilityLookup}
-                        applyFilters={this.props.applyFilters} />
+                    <ParkFilters setVisibleParkIds={(visibleParkIds) => this.setVisibleParks(visibleParkIds)} />
                 </Navigation>
-                <Container title={containerTitle}>
-                    <AllParksList parks={this.props.visibleParks} />
+                <Container title={title}>
+                    <AllParksList
+                        parks={this.state.visibleParks}
+                        userLatLng={this.props.userLatLng} />
                 </Container>
             </div>
         );
@@ -45,12 +74,5 @@ export default class HomePage extends React.Component {
 
 
 HomePage.PropTypes = {
-    userLocation: React.PropTypes.array,
-    allParksTopo: React.PropTypes.object.isRequired,
-    allTrailsTopo: React.PropTypes.object.isRequired,
-    amenityLookup: React.PropTypes.object.isRequired,
-    facilityLookup: React.PropTypes.object.isRequired,
-    visibleParkIds: React.PropTypes.array.isRequired,
-    visibleParks: React.PropTypes.array.isRequired,
-    applyFilters: React.PropTypes.func.isRequired,
+    userLatLng: React.PropTypes.array,
 };
