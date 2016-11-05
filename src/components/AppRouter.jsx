@@ -15,7 +15,7 @@ export default class AppRouter extends React.Component {
         window.addEventListener('hashchange', this.onHashChange.bind(this));
     }
 
-    componentDidUnmount() {
+    componentWillUnmount() {
         window.removeEventListener('hashchange', this.onHashChange.bind(this));
     }
 

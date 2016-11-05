@@ -1,6 +1,6 @@
 import React from 'react';
 
-import chevronSVG from '../../images/chevron-up.svg';
+import chevronSVG from '../images/chevron-up.svg';
 
 
 export default class Chevron extends React.Component {

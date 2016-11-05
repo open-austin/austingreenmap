@@ -7,7 +7,7 @@ import api from '../utils/api';
 
 export default class AllParksList extends React.Component {
     render() {
-        var sortedParks = _.sortByAll(this.props.parks, (park) => distanceBetweenCoords(this.props.userLatLng, park.properties.center), 'name');
+        var sortedParks = _.sortBy(this.props.parks, (park) => distanceBetweenCoords(this.props.userLatLng, park.properties.center), 'name');
 
         var parkList = sortedParks.map((park) => {
             return (

@@ -49,8 +49,8 @@ export default class AllParksMap extends React.Component {
         // https://github.com/PaulLeCam/react-leaflet/blob/1877b58eaa3ee24f588680cbcea5079c0333329b/src/MapLayer.js#L8
         // We can avoid this flash of unstyled content by subclassing the GeoJson class
         // and in componentDidMount just don't call this.props.map.addLayer(this.leafletElement);
-        if (this.refs.trails) {
-            map.removeLayer(this.refs.trails.leafletElement);
+        if (this.refTrails) {
+            map.removeLayer(this.refTrails.leafletElement);
         }
 
         map.on('zoomend', () => this.onZoomEnd());
@@ -92,11 +92,11 @@ export default class AllParksMap extends React.Component {
         if (map.getZoom() >= 15) {
             map.addLayer(this._parkLabelsGroup);
             // FIXME: maybe we should hide/show through the opacity property, that way the opacity can be 0 initially
-            map.addLayer(this.refs.trails.leafletElement);
+            this.refTrails && map.addLayer(this.refTrails.leafletElement);
         }
         else {
             map.removeLayer(this._parkLabelsGroup);
-            map.removeLayer(this.refs.trails.leafletElement);
+            this.refTrails && map.removeLayer(this.refTrails.leafletElement);
         }
     }
 
@@ -143,7 +143,7 @@ export default class AllParksMap extends React.Component {
 
             trailLayer = (
                 <GeoJsonUpdatable
-                    ref='trails'
+                    ref={(node) => this.refTrails = node}
                     data={this.state.trailsGeo}
                     style={style} />
             );

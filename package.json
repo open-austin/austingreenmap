@@ -6,8 +6,21 @@
     "react-scripts": "0.7.0"
   },
   "dependencies": {
+    "flux": "^2.0.1",
+    "leaflet": "^0.7.3",
+    "leaflet.label": "git+https://github.com/Leaflet/Leaflet.label.git",
+    "lodash": "^4.16.6",
+    "moment": "^2.9.0",
+    "protobufjs": "^3.8.2",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-leaflet": "^0.12.1",
+    "react-leaflet-geojson-cluster": "0.1.8",
+    "react-select": "^0.5.4",
+    "simple-ajax": "^2.6.0",
+    "topojson": "^1.6.19",
+    "turf": "^2.0.2",
+    "when": "^3.7.3"
   },
   "scripts": {
     "start": "react-scripts start",

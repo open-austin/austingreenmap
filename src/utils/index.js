@@ -1,6 +1,6 @@
 import turf from 'turf';  // FIXME: replace with turf-extent
 import when from 'when';
-import memoize from 'lodash.memoize';
+import memoize from 'lodash/memoize';
 
 
 export function getUserLocation() {
