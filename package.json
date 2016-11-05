@@ -1,56 +1,18 @@
 {
   "name": "austingreenmap",
-  "version": "0.0.1",
-  "description": "Mapping Austin parks",
-  "main": "index.js",
-  "homepage": "http://open-austin.github.io/austingreenmap/",
-  "repository": "https://github.com/open-austin/austingreenmap",
-  "author": "Open Austin",
-  "scripts": {
-    "start": "gulp clean && gulp"
-  },
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "autoprefixer-core": "^5.1.7",
-    "babelify": "^6.1.2",
-    "browserify": "^9.0.3",
-    "envify": "~1.2.1",
-    "eslint": "^1.0.0",
-    "eslint-plugin-react": "^3.1.0",
-    "gulp": "~3.9.0",
-    "gulp-clean": "~0.3.0",
-    "gulp-concat": "~2.1.7",
-    "gulp-connect": "~2.0.5",
-    "gulp-gh-pages": "^0.5.2",
-    "gulp-html-replace": "^1.5.1",
-    "gulp-postcss": "^4.0.3",
-    "gulp-print": "^1.1.0",
-    "gulp-sass": "*",
-    "gulp-sourcemaps": "^1.5.0",
-    "gulp-symlink": "^2.1.0",
-    "gulp-util": "^3.0.4",
-    "gulp-wait": "0.0.2",
-    "gulp-watch": "~0.6.5",
-    "reactify": "^1.0.0",
-    "stringify": "^3.1.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^2.4.0"
+    "react-scripts": "0.7.0"
   },
   "dependencies": {
-    "component-ajax": "0.0.2",
-    "flux": "^2.0.1",
-    "leaflet": "^0.7.3",
-    "leaflet.label": "git+ssh://git@github.com:Leaflet/Leaflet.label.git",
-    "lodash": "^3.9.3",
-    "lodash.memoize": "^3.0.4",
-    "moment": "^2.9.0",
-    "protobufjs": "^3.8.2",
-    "react": "~0.13.0",
-    "react-leaflet": "^0.6.1",
-    "react-leaflet-geojson-cluster": "0.0.6",
-    "react-select": "^0.5.4",
-    "topojson": "^1.6.19",
-    "turf": "^2.0.2",
-    "when": "^3.7.3"
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
